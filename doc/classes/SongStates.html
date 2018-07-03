@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SongStates - Cantabile JavaScript API</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cantabile JavaScript API" src="..\logo.png" style="max-height: 65%;" title="Cantabile JavaScript API">
+            Cantabile JavaScript API
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/SongStates", "classes/State", "classes/States", "classes/Variables"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/BindingPointInfo.html">BindingPointInfo</a></li>
+                <li><a href="../classes/Bindings.html">Bindings</a></li>
+                <li><a href="../classes/BindingWatcher.html">BindingWatcher</a></li>
+                <li><a href="../classes/Cantabile.html">Cantabile</a></li>
+                <li><a href="../classes/EndPoint.html">EndPoint</a></li>
+                <li><a href="../classes/KeyRange.html">KeyRange</a></li>
+                <li><a href="../classes/KeyRanges.html">KeyRanges</a></li>
+                <li><a href="../classes/MidiControllerEvent.html">MidiControllerEvent</a></li>
+                <li><a href="../classes/PatternWatcher.html">PatternWatcher</a></li>
+                <li><a href="../classes/SetList.html">SetList</a></li>
+                <li><a href="../classes/SetListItem.html">SetListItem</a></li>
+                <li><a href="../classes/ShowNote.html">ShowNote</a></li>
+                <li><a href="../classes/ShowNotes.html">ShowNotes</a></li>
+                <li><a href="../classes/SongStates.html">SongStates</a></li>
+                <li><a href="../classes/State.html">State</a></li>
+                <li><a href="../classes/States.html">States</a></li>
+                <li><a href="../classes/Variables.html">Variables</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>SongStates</h1>
+</div>
+
+
+	<div class="well well-small">
+        <div class="extends">
+            Extends <a href="../classes/States.html" class="crosslink">States</a>
+        </div>
+    </div>
+
+
+
+
+<div class="yuidoc-class-description">
+<p>Interface to the states of the current song</p>
+<p>Access this object via the <a href="../classes/Cantabile.html#property_songStates" class="crosslink">songStates</a> property.</p>
+
+</div>
+
+<!-- table of contents -->
+
+<div id="class-toc" class="page-section">
+	<h2>Table of Contents</h2>
+    <ul>
+		<li>
+			<strong>Methods</strong>
+			<ul>
+				<li><a href="#method-close"><span class="im">close</span>()</a></li>
+				<li><a href="#method-loadFirstState"><span class="im">loadFirstState</span>(<span class="ia">delayed</span>)</a></li>
+				<li><a href="#method-loadLastState"><span class="im">loadLastState</span>(<span class="ia">delayed</span>)</a></li>
+				<li><a href="#method-loadNextState"><span class="im">loadNextState</span>(<span class="ia">direction</span><span class="ia">delayed</span><span class="ia">wrap</span>)</a></li>
+				<li><a href="#method-loadStateByIndex"><span class="im">loadStateByIndex</span>(<span class="ia">index</span><span class="ia">delayed</span>)</a></li>
+				<li><a href="#method-loadStateByProgram"><span class="im">loadStateByProgram</span>(<span class="ia">index</span><span class="ia">delayed</span>)</a></li>
+				<li><a href="#method-open"><span class="im">open</span>()</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<strong>Properties</strong>
+			<ul>
+				<li><a href="#prop-currentState"><span class="ip">currentState</span></a></li>
+				<li><a href="#prop-currentStateIndex"><span class="ip">currentStateIndex</span></a></li>
+				<li><a href="#prop-items"><span class="ip">items</span></a></li>
+				<li><a href="#prop-name"><span class="ip">name</span></a></li>
+			</ul>
+		</li>
+
+
+        <li>
+            <strong>Events</strong>
+            <ul>
+                <li><a href="#event-changed"><span class="im">changed</span></a></li>
+                <li><a href="#event-currentStateChanged"><span class="im">currentStateChanged</span></a></li>
+                <li><a href="#event-itemAdded"><span class="im">itemAdded</span></a></li>
+                <li><a href="#event-itemChanged"><span class="im">itemChanged</span></a></li>
+                <li><a href="#event-itemMoved"><span class="im">itemMoved</span></a></li>
+                <li><a href="#event-itemRemoved"><span class="im">itemRemoved</span></a></li>
+                <li><a href="#event-nameChanged"><span class="im">nameChanged</span></a></li>
+                <li><a href="#event-reload"><span class="im">reload</span></a></li>
+            </ul>
+        </li>
+
+
+	</ul>
+</div>
+
+<!-- details -->
+
+
+    <div id="methods" class="page-section">
+        <h2 class="off-left">Methods</h2>
+        <div class="item-list">
+<div id="method-close" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>close</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_close">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l50"><code>EndPoint.js:50</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Closes the end point and stops listening for events</p>
+</div>
+
+
+
+</div>
+<div id="method-loadFirstState" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>loadFirstState</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code class="optional">delayed=false</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/States.html#method_loadFirstState">States</a>:
+		<a href="../files/States.js.html#l83"><code>States.js:83</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description">Load the first state</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name optional">[delayed=false]</code>
+						<span class="type">Boolean</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description">Whether to perform a delayed or immediate load</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-loadLastState" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>loadLastState</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code class="optional">delayed=false</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/States.html#method_loadLastState">States</a>:
+		<a href="../files/States.js.html#l95"><code>States.js:95</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description">Load the last state</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name optional">[delayed=false]</code>
+						<span class="type">Boolean</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description">Whether to perform a delayed or immediate load</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-loadNextState" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>loadNextState</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>direction</code>
+				</li>
+				<li class="arg">
+						<code class="optional">delayed=false</code>
+				</li>
+				<li class="arg">
+						<code class="optional">wrap=false</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/States.html#method_loadNextState">States</a>:
+		<a href="../files/States.js.html#l107"><code>States.js:107</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description">Load the next or previous state</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">direction</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description">Direction to move (1 = next, -1 = previous)</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[delayed=false]</code>
+						<span class="type">Boolean</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description">Whether to perform a delayed or immediate load</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[wrap=false]</code>
+						<span class="type">Boolean</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description">Whether to wrap around at the start/end</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-loadStateByIndex" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>loadStateByIndex</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>index</code>
+				</li>
+				<li class="arg">
+						<code class="optional">delayed=false</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/States.html#method_loadStateByIndex">States</a>:
+		<a href="../files/States.js.html#l55"><code>States.js:55</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description">Load the State at a given index position</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">index</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description">The zero based index of the State to load</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[delayed=false]</code>
+						<span class="type">Boolean</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description">Whether to perform a delayed or immediate load</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-loadStateByProgram" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>loadStateByProgram</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>index</code>
+				</li>
+				<li class="arg">
+						<code class="optional">delayed=false</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/States.html#method_loadStateByProgram">States</a>:
+		<a href="../files/States.js.html#l69"><code>States.js:69</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description">Load the State with a given program number</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">index</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description">The zero based program number of the State to load</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[delayed=false]</code>
+						<span class="type">Boolean</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description">Whether to perform a delayed or immediate load</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-open" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>open</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_open">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l36"><code>EndPoint.js:36</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Opens this end point and starts listening for events</p>
+</div>
+
+
+
+</div>
+        </div>
+    </div>
+
+    <div id="properties" class="page-section">
+        <h2 class="off-left">Properties</h2>
+
+        <div class="item-list">
+<div id="prop-currentState" class="property item inherited">
+    <h3 class="name"><code>currentState</code></h3>
+    <span class="type"><a href="../classes/State.html" class="crosslink">State</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/States.html#property_currentState">States</a>:
+        <a href="../files/States.js.html#l48"><code>States.js:48</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        The currently loaded item (or null if no active state)
+    </div>
+
+
+
+</div>
+<div id="prop-currentStateIndex" class="property item inherited">
+    <h3 class="name"><code>currentStateIndex</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/States.html#property_currentStateIndex">States</a>:
+        <a href="../files/States.js.html#l41"><code>States.js:41</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        The index of the currently loaded State (or -1 if no active state)
+    </div>
+
+
+
+</div>
+<div id="prop-items" class="property item inherited">
+    <h3 class="name"><code>items</code></h3>
+    <span class="type"><a href="../classes/State.html" class="crosslink">State[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/States.html#property_items">States</a>:
+        <a href="../files/States.js.html#l27"><code>States.js:27</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        An array of states
+    </div>
+
+
+
+</div>
+<div id="prop-name" class="property item inherited">
+    <h3 class="name"><code>name</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/States.html#property_name">States</a>:
+        <a href="../files/States.js.html#l34"><code>States.js:34</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        The display name of the containing song or rack
+    </div>
+
+
+
+</div>
+        </div>
+    </div>
+
+
+    <div id="events" class="page-section">
+        <h2 class="off-left">Events</h2>
+
+        <div class="item-list">
+<div id="event-changed" class="events item inherited">
+    <h3 class="name"><code>changed</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/States.html#event_changed">States</a>:
+        <a href="../files/States.js.html#l158"><code>States.js:158</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        Fired when anything about the contents of state list changes
+    </div>
+
+
+
+</div>
+<div id="event-currentStateChanged" class="events item inherited">
+    <h3 class="name"><code>currentStateChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/States.html#event_currentStateChanged">States</a>:
+        <a href="../files/States.js.html#l235"><code>States.js:235</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        Fired when the current state changes
+    </div>
+
+
+
+</div>
+<div id="event-itemAdded" class="events item inherited">
+    <h3 class="name"><code>itemAdded</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/States.html#event_itemAdded">States</a>:
+        <a href="../files/States.js.html#l151"><code>States.js:151</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        Fired after a new state has been added
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">index</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        The zero based index of the newly added item
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+</div>
+<div id="event-itemChanged" class="events item inherited">
+    <h3 class="name"><code>itemChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/States.html#event_itemChanged">States</a>:
+        <a href="../files/States.js.html#l206"><code>States.js:206</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        Fired when something about an state has changed
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">index</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        The zero based index of the item that changed
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+</div>
+<div id="event-itemMoved" class="events item inherited">
+    <h3 class="name"><code>itemMoved</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/States.html#event_itemMoved">States</a>:
+        <a href="../files/States.js.html#l187"><code>States.js:187</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        Fired when an item has been moved
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">from</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        The zero based index of the item before being moved
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">to</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        The zero based index of the item's new position
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+</div>
+<div id="event-itemRemoved" class="events item inherited">
+    <h3 class="name"><code>itemRemoved</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/States.html#event_itemRemoved">States</a>:
+        <a href="../files/States.js.html#l171"><code>States.js:171</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        Fired after a state has been removed
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">index</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        The zero based index of the removed item
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+</div>
+<div id="event-nameChanged" class="events item inherited">
+    <h3 class="name"><code>nameChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/States.html#event_nameChanged">States</a>:
+        <a href="../files/States.js.html#l249"><code>States.js:249</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        Fired when the name of the containing song or rack changes
+    </div>
+
+
+
+</div>
+<div id="event-reload" class="events item inherited">
+    <h3 class="name"><code>reload</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/States.html#event_reload">States</a>:
+        <a href="../files/States.js.html#l222"><code>States.js:222</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        Fired when the entire set of states has changed (eg: after a sort operation, or loading a new song/rack)
+    </div>
+
+
+
+</div>
+        </div>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

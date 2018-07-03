@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>States.js - Cantabile JavaScript API</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cantabile JavaScript API" src="..\logo.png" style="max-height: 65%;" title="Cantabile JavaScript API">
+            Cantabile JavaScript API
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/SongStates", "classes/State", "classes/States", "classes/Variables"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/BindingPointInfo.html">BindingPointInfo</a></li>
+                <li><a href="../classes/Bindings.html">Bindings</a></li>
+                <li><a href="../classes/BindingWatcher.html">BindingWatcher</a></li>
+                <li><a href="../classes/Cantabile.html">Cantabile</a></li>
+                <li><a href="../classes/EndPoint.html">EndPoint</a></li>
+                <li><a href="../classes/KeyRange.html">KeyRange</a></li>
+                <li><a href="../classes/KeyRanges.html">KeyRanges</a></li>
+                <li><a href="../classes/MidiControllerEvent.html">MidiControllerEvent</a></li>
+                <li><a href="../classes/PatternWatcher.html">PatternWatcher</a></li>
+                <li><a href="../classes/SetList.html">SetList</a></li>
+                <li><a href="../classes/SetListItem.html">SetListItem</a></li>
+                <li><a href="../classes/ShowNote.html">ShowNote</a></li>
+                <li><a href="../classes/ShowNotes.html">ShowNotes</a></li>
+                <li><a href="../classes/SongStates.html">SongStates</a></li>
+                <li><a href="../classes/State.html">State</a></li>
+                <li><a href="../classes/States.html">States</a></li>
+                <li><a href="../classes/Variables.html">Variables</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>States.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+&#x27;use strict&#x27;;
+
+const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
+const EndPoint = require(&#x27;./EndPoint&#x27;);
+
+/**
+ * Base states functionality for State and racks
+ * 
+ * @class States
+ * @extends EndPoint
+ */
+class States extends EndPoint
+{
+	constructor(owner, endPoint)
+	{
+		super(owner, endPoint);
+		this._currentState = null;
+	}
+
+	_onOpen()
+	{
+		this._resolveCurrentState();
+		this.emit(&#x27;reload&#x27;);
+		this.emit(&#x27;changed&#x27;);
+	}
+
+	/**
+	 * An array of states
+	 * @property items
+	 * @type {State[]}
+	 */
+	get items() { return this._data ? this._data.items : null; }
+
+	/**
+	 * The display name of the containing song or rack
+	 * @property name
+	 * @type {String} 
+	 */
+	get name() { return this._data ? this._data.name : null; }
+
+	/**
+	 * The index of the currently loaded State (or -1 if no active state)
+	 * @property currentStateIndex
+	 * @type {Number}
+	 */
+	get currentStateIndex() { return this._data.items.indexOf(this._currentState); }
+
+	/**
+	 * The currently loaded item (or null if no active state)
+	 * @property currentState
+	 * @type {State}
+	 */
+	get currentState() { return this._currentState; }
+
+	/**
+	 * Load the State at a given index position
+	 * @method loadStateByIndex
+	 * @param {Number} index The zero based index of the State to load
+	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
+	 */
+	loadStateByIndex(index, delayed)
+	{
+		this.post(&quot;/loadStateByIndex&quot;, {
+			index: index,
+			delayed: delayed,
+		})
+	}
+
+	/**
+	 * Load the State with a given program number
+	 * @method loadStateByProgram
+	 * @param {Number} index The zero based program number of the State to load
+	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
+	 */
+	loadStateByProgram(pr, delayed)
+	{
+		this.post(&quot;/loadStateByProgram&quot;, {
+			pr: pr,
+			delayed: delayed,
+		})
+	}
+
+	/**
+	 * Load the first state
+	 * @method loadFirstState
+	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
+	 */
+	loadFirstState(delayed)
+	{
+		this.post(&quot;/loadFirstState&quot;, {
+			delayed: delayed,
+		})
+	}
+
+	/**
+	 * Load the last state
+	 * @method loadLastState
+	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
+	 */
+	loadLastState(delayed)
+	{
+		this.post(&quot;/loadLastState&quot;, {
+			delayed: delayed,
+		})
+	}
+
+	/**
+	 * Load the next or previous state
+	 * @method loadNextState
+	 * @param {Number} direction Direction to move (1 = next, -1 = previous)
+	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
+	 * @param {Boolean} [wrap=false] Whether to wrap around at the start/end
+	 */
+	loadNextState(direction, delayed, wrap)
+	{
+		this.post(&quot;/loadNextState&quot;, {
+			direction: direction,
+			delayed: delayed,
+			wrap: wrap,
+		})
+	}
+
+
+	_resolveCurrentState()
+	{
+		// Check have data and current index is in range and record the current State
+		if (this._data &amp;&amp; this._data.current&gt;=0 &amp;&amp; this._data.current &lt; this._data.items.length)
+		{
+			this._currentState = this._data.items[this._data.current];
+		}
+		else
+		{
+			this._currentState = null;
+		}
+	}
+
+	_onEvent_songChanged(data)
+	{
+		this._data = data;
+		this._resolveCurrentState();
+		this.emit(&#x27;reload&#x27;);
+		this.emit(&#x27;changed&#x27;);
+	}
+
+	_onEvent_itemAdded(data)
+	{
+		this._data.items.splice(data.index, 0, data.item);
+		this.emit(&#x27;itemAdded&#x27;, data.index);
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired after a new state has been added
+		 *
+		 * @event itemAdded
+		 * @param {Number} index The zero based index of the newly added item 
+		 */
+
+		/**
+		 * Fired when anything about the contents of state list changes
+		 *
+		 * @event changed
+		 */
+
+	}
+	_onEvent_itemRemoved(data)
+	{
+		this._data.items.splice(data.index, 1);		
+		this.emit(&#x27;itemRemoved&#x27;, data.index);
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired after a state has been removed
+		 *
+		 * @event itemRemoved
+		 * @param {Number} index The zero based index of the removed item 
+		 */
+
+	}
+	_onEvent_itemMoved(data)
+	{
+		var item = this._data.items[data.from];
+		this._data.items.splice(data.from, 1);		
+		this._data.items.splice(data.to, 0, item);
+		this.emit(&#x27;itemMoved&#x27;, data.from, data.to);
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired when an item has been moved
+		 *
+		 * @event itemMoved
+		 * @param {Number} from The zero based index of the item before being moved
+		 * @param {Number} to The zero based index of the item&#x27;s new position
+		 */
+	}
+
+	_onEvent_itemChanged(data)
+	{
+		if (this.currentStateIndex == data.index)
+			this._currentState = data.item;
+
+		this._data.items.splice(data.index, 1, data.item);		// Don&#x27;t use [] so Vue can handle it
+
+		this.emit(&#x27;itemChanged&#x27;, data.index);
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired when something about an state has changed
+		 *
+		 * @event itemChanged
+		 * @param {Number} index The zero based index of the item that changed
+		 */
+
+	}
+	_onEvent_itemsReload(data)
+	{
+		this._data.items = data.items;
+		this._data.current = data.current;
+		this._resolveCurrentState();
+		this.emit(&#x27;reload&#x27;);
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired when the entire set of states has changed (eg: after a sort operation, or loading a new song/rack)
+		 * 
+		 * @event reload
+		 */
+	}
+
+	_onEvent_currentStateChanged(data)
+	{
+		this._data.current = data.current;
+		this._resolveCurrentState();
+		this.emit(&#x27;currentStateChanged&#x27;);
+
+		/**
+		 * Fired when the current state changes
+		 * 
+		 * @event currentStateChanged
+		 */
+	}
+
+	_onEvent_nameChanged(data)
+	{
+		if (this._data)
+			this._data.name = data ? data.name : null;
+		this.emit(&#x27;nameChanged&#x27;);
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired when the name of the containing song or rack changes
+		 * 
+		 * @event nameChanged
+		 */
+	}
+}
+
+
+
+module.exports = States;
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

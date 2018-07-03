@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SetList.js - Cantabile JavaScript API</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cantabile JavaScript API" src="..\logo.png" style="max-height: 65%;" title="Cantabile JavaScript API">
+            Cantabile JavaScript API
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/SongStates", "classes/State", "classes/States", "classes/Variables"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/BindingPointInfo.html">BindingPointInfo</a></li>
+                <li><a href="../classes/Bindings.html">Bindings</a></li>
+                <li><a href="../classes/BindingWatcher.html">BindingWatcher</a></li>
+                <li><a href="../classes/Cantabile.html">Cantabile</a></li>
+                <li><a href="../classes/EndPoint.html">EndPoint</a></li>
+                <li><a href="../classes/KeyRange.html">KeyRange</a></li>
+                <li><a href="../classes/KeyRanges.html">KeyRanges</a></li>
+                <li><a href="../classes/MidiControllerEvent.html">MidiControllerEvent</a></li>
+                <li><a href="../classes/PatternWatcher.html">PatternWatcher</a></li>
+                <li><a href="../classes/SetList.html">SetList</a></li>
+                <li><a href="../classes/SetListItem.html">SetListItem</a></li>
+                <li><a href="../classes/ShowNote.html">ShowNote</a></li>
+                <li><a href="../classes/ShowNotes.html">ShowNotes</a></li>
+                <li><a href="../classes/SongStates.html">SongStates</a></li>
+                <li><a href="../classes/State.html">State</a></li>
+                <li><a href="../classes/States.html">States</a></li>
+                <li><a href="../classes/Variables.html">Variables</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>SetList.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+&#x27;use strict&#x27;;
+
+const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
+const EndPoint = require(&#x27;./EndPoint&#x27;);
+
+/**
+ * Used to access and control Cantabile&#x27;s set list functionality.
+ * 
+ * Access this object via the {{#crossLink &quot;Cantabile/setList:property&quot;}}{{/crossLink}} property.
+ *
+ * @class SetList
+ * @extends EndPoint
+ */
+class SetList extends EndPoint
+{
+	constructor(owner)
+	{
+		super(owner, &quot;/api/setlist&quot;);
+		this._currentSong = null;
+	}
+
+	_onOpen()
+	{
+		this._resolveCurrentSong();
+		this.emit(&#x27;reload&#x27;);
+		this.emit(&#x27;changed&#x27;);
+		this.emit(&#x27;preLoadedChanged&#x27;);
+	}
+
+	/**
+	 * An array of items in the set list
+	 * @property items
+	 * @type {SetListItem[]}
+	 */
+	get items() { return this._data ? this._data.items : null; }
+
+	/**
+	 * The display name of the current set list (ie: its file name with path and extension removed)
+	 * @property name
+	 * @type {String} 
+	 */
+	get name() { return this._data ? this._data.name : null; }
+
+	/**
+	 * Indicates if the set list is currently pre-loaded
+	 * @property preLoaded
+	 * @type {Boolean}
+	 */
+	get preLoaded() { return this._data ? this._data.preLoaded : false; }
+
+	/**
+	 * The index of the currently loaded song (or -1 if the current song isn&#x27;t in the set list)
+	 * @property currentSongIndex
+	 * @type {Number}
+	 */
+	get currentSongIndex() { return this._data.items.indexOf(this._currentSong); }
+
+	/**
+	 * The currently loaded item (or null if the current song isn&#x27;t in the set list)
+	 * @property currentSong
+	 * @type {SetListItem}
+	 */
+	get currentSong() { return this._currentSong; }
+
+	/**
+	 * Load the song at a given index position
+	 * @method loadSongByIndex
+	 * @param {Number} index The zero based index of the song to load
+	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
+	 */
+	loadSongByIndex(index, delayed)
+	{
+		this.post(&quot;/loadSongByIndex&quot;, {
+			index: index,
+			delayed: delayed,
+		})
+	}
+
+	/**
+	 * Load the song with a given program number
+	 * @method loadSongByProgram
+	 * @param {Number} index The zero based program number of the song to load
+	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
+	 */
+	loadSongByProgram(pr, delayed)
+	{
+		this.post(&quot;/loadSongByProgram&quot;, {
+			pr: pr,
+			delayed: delayed,
+		})
+	}
+
+	/**
+	 * Load the first song in the set list
+	 * @method loadFirstSong
+	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
+	 */
+	loadFirstSong(delayed)
+	{
+		this.post(&quot;/loadFirstSong&quot;, {
+			delayed: delayed,
+		})
+	}
+
+	/**
+	 * Load the last song in the set list
+	 * @method loadLastSong
+	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
+	 */
+	loadLastSong(delayed)
+	{
+		this.post(&quot;/loadLastSong&quot;, {
+			delayed: delayed,
+		})
+	}
+
+	/**
+	 * Load the next or previous song in the set list
+	 * @method loadNextSong
+	 * @param {Number} direction Direction to move (1 = next, -1 = previous)
+	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
+	 * @param {Boolean} [wrap=false] Whether to wrap around at the start/end of the list
+	 */
+	loadNextSong(direction, delayed, wrap)
+	{
+		this.post(&quot;/loadNextSong&quot;, {
+			direction: direction,
+			delayed: delayed,
+			wrap: wrap,
+		})
+	}
+
+
+	_resolveCurrentSong()
+	{
+		// Check have data and current index is in range and record the current song
+		if (this._data &amp;&amp; this._data.current&gt;=0 &amp;&amp; this._data.current &lt; this._data.items.length)
+		{
+			this._currentSong = this._data.items[this._data.current];
+		}
+		else
+		{
+			this._currentSong = null;
+		}
+	}
+
+	_onEvent_setListChanged(data)
+	{
+		this._data = data;
+		this._resolveCurrentSong();
+		this.emit(&#x27;reload&#x27;);
+		this.emit(&#x27;changed&#x27;);
+		this.emit(&#x27;preLoadedChanged&#x27;);
+	}
+
+	_onEvent_itemAdded(data)
+	{
+		this._data.items.splice(data.index, 0, data.item);
+		this.emit(&#x27;itemAdded&#x27;, data.index);
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired after a new item has been added to the set list
+		 *
+		 * @event itemAdded
+		 * @param {Number} index The zero based index of the newly added item 
+		 */
+
+		/**
+		 * Fired when anything about the contents of the set list changes
+		 *
+		 * @event changed
+		 */
+
+	}
+	_onEvent_itemRemoved(data)
+	{
+		this._data.items.splice(data.index, 1);		
+		this.emit(&#x27;itemRemoved&#x27;, data.index);
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired after an item has been removed from the set list
+		 *
+		 * @event itemRemoved
+		 * @param {Number} index The zero based index of the removed item 
+		 */
+
+	}
+	_onEvent_itemMoved(data)
+	{
+		var item = this._data.items[data.from];
+		this._data.items.splice(data.from, 1);		
+		this._data.items.splice(data.to, 0, item);
+		this.emit(&#x27;itemMoved&#x27;, data.from, data.to);
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired when an item in the set list has been moved
+		 *
+		 * @event itemMoved
+		 * @param {Number} from The zero based index of the item before being moved
+		 * @param {Number} to The zero based index of the item&#x27;s new position
+		 */
+	}
+
+	_onEvent_itemChanged(data)
+	{
+		if (this.currentSongIndex == data.index)
+			this._currentSong = data.item;
+
+		this._data.items.splice(data.index, 1, data.item);		// Don&#x27;t use [] so Vue can handle it
+
+		this.emit(&#x27;itemChanged&#x27;, data.index);
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired when something about an item has changed
+		 *
+		 * @event itemChanged
+		 * @param {Number} index The zero based index of the item that changed
+		 */
+
+	}
+	_onEvent_itemsReload(data)
+	{
+		this._data.items = data.items;
+		this._data.current = data.current;
+		this._resolveCurrentSong();
+		this.emit(&#x27;reload&#x27;);
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired when the entire set list has changed (eg: after a sort operation, or loading a new set list)
+		 * 
+		 * @event reload
+		 */
+	}
+
+	_onEvent_preLoadedChanged(data)
+	{
+		this._data.preLoaded = data.preLoaded;
+		this.emit(&#x27;preLoadedChanged&#x27;);
+
+		/**
+		 * Fired when the pre-loaded state of the list has changed
+		 * 
+		 * @event preLoadedChanged
+		 */
+	}
+
+	_onEvent_currentSongChanged(data)
+	{
+		this._data.current = data.current;
+		this._resolveCurrentSong();
+		this.emit(&#x27;currentSongChanged&#x27;);
+
+		/**
+		 * Fired when the currently loaded song changes
+		 * 
+		 * @event currentSongChanged
+		 */
+	}
+
+	_onEvent_nameChanged(data)
+	{
+		if (this._data)
+			this._data.name = data ? data.name : null;
+		this.emit(&#x27;nameChanged&#x27;);
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired when the name of the currently loaded set list changes
+		 * 
+		 * @event nameChanged
+		 */
+	}
+}
+
+
+
+module.exports = SetList;
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

@@ -251,8 +251,10 @@ class Bindings extends EndPoint
      * 
      *     console.log("Current Output Gain:", await C.bindings.query("global.masterLevels.outputGain"));
      * 
+	 * @method query
      * @param {String} name The name of the binding point to query
      * @param {Number[]} [indicies] The integer indicies of the binding point
+	 * @returns {Object} The current value of the binding source
      */
     async query(name, indicies)
     {

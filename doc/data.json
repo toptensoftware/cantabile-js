@@ -1,0 +1,1845 @@
+{
+    "project": {
+        "name": "Cantabile JavaScript API",
+        "description": "JavaScript API for interfacing with Cantabile Network API",
+        "version": "0.1.0",
+        "logo": "logo.png"
+    },
+    "files": {
+        "yuidoc-lucid-theme\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js": {
+            "name": "yuidoc-lucid-theme\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "yuidoc-lucid-theme\\helpers\\helpers.js": {
+            "name": "yuidoc-lucid-theme\\helpers\\helpers.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "BindingPointInfo.js": {
+            "name": "BindingPointInfo.js",
+            "modules": {},
+            "classes": {
+                "BindingPointInfo": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Bindings.js": {
+            "name": "Bindings.js",
+            "modules": {},
+            "classes": {
+                "BindingWatcher": 1,
+                "Bindings": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "CantabileApi.js": {
+            "name": "CantabileApi.js",
+            "modules": {},
+            "classes": {
+                "Cantabile": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "EndPoint.js": {
+            "name": "EndPoint.js",
+            "modules": {},
+            "classes": {
+                "EndPoint": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "KeyRange.js": {
+            "name": "KeyRange.js",
+            "modules": {},
+            "classes": {
+                "KeyRange": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "KeyRanges.js": {
+            "name": "KeyRanges.js",
+            "modules": {},
+            "classes": {
+                "KeyRanges": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "MidiControllerEvent.js": {
+            "name": "MidiControllerEvent.js",
+            "modules": {},
+            "classes": {
+                "MidiControllerEvent": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "SetList.js": {
+            "name": "SetList.js",
+            "modules": {},
+            "classes": {
+                "SetList": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "SetListItem.js": {
+            "name": "SetListItem.js",
+            "modules": {},
+            "classes": {
+                "SetListItem": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "ShowNote.js": {
+            "name": "ShowNote.js",
+            "modules": {},
+            "classes": {
+                "ShowNote": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "ShowNotes.js": {
+            "name": "ShowNotes.js",
+            "modules": {},
+            "classes": {
+                "ShowNotes": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "SongStates.js": {
+            "name": "SongStates.js",
+            "modules": {},
+            "classes": {
+                "SongStates": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "State.js": {
+            "name": "State.js",
+            "modules": {},
+            "classes": {
+                "State": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "States.js": {
+            "name": "States.js",
+            "modules": {},
+            "classes": {
+                "States": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Variables.js": {
+            "name": "Variables.js",
+            "modules": {},
+            "classes": {
+                "PatternWatcher": 1,
+                "Variables": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "BindingPointInfo": {
+            "name": "BindingPointInfo",
+            "shortname": "BindingPointInfo",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "BindingPointInfo.js",
+            "line": 1,
+            "description": "An anonymous type that describes a binding point"
+        },
+        "BindingWatcher": {
+            "name": "BindingWatcher",
+            "shortname": "BindingWatcher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Bindings.js",
+            "line": 7,
+            "description": "Represents an active connection watching a source binding point for changes/invocations\n\nReturned from the {{#crossLink \"Bindings/watch:method\"}}{{/crossLink}} method.",
+            "extends": "EventEmitter"
+        },
+        "Bindings": {
+            "name": "Bindings",
+            "shortname": "Bindings",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Bindings.js",
+            "line": 126,
+            "description": "Provides access to Cantabile's binding points.\n\nAccess this object via the {{#crossLink \"Cantabile/bindings:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
+        "Cantabile": {
+            "name": "Cantabile",
+            "shortname": "Cantabile",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "CantabileApi.js",
+            "line": 7,
+            "description": "Represents a connection to Cantabile.",
+            "extends": "EventEmitter",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "socketUrl",
+                    "description": "The websocket URL of the Cantabile instance to connect to.\nWhen running in a browser, the defaults to `ws://${window.location.host}/api/socket`.  In other\nenvironments it defaults to `ws://localhost:35007/api/socket`.",
+                    "type": "String",
+                    "optional": true
+                }
+            ]
+        },
+        "EndPoint": {
+            "name": "EndPoint",
+            "shortname": "EndPoint",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "EndPoint.js",
+            "line": 17,
+            "description": "Common functionality for all end point handlers",
+            "extends": "EventEmitter"
+        },
+        "KeyRange": {
+            "name": "KeyRange",
+            "shortname": "KeyRange",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "KeyRange.js",
+            "line": 1,
+            "description": "An anonymous type representing an active key range"
+        },
+        "KeyRanges": {
+            "name": "KeyRanges",
+            "shortname": "KeyRanges",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "KeyRanges.js",
+            "line": 6,
+            "description": "Provides access to information about the currently active set of key ranges\n\nAccess this object via the {{#crossLink \"Cantabile/keyRanges:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
+        "MidiControllerEvent": {
+            "name": "MidiControllerEvent",
+            "shortname": "MidiControllerEvent",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "MidiControllerEvent.js",
+            "line": 1,
+            "description": "An anonymous type representing a complex MIDI controller event.  \n\nMidiController events can be passed to anywhere that expects MIDI Data (eg: a target MIDI binding point), or can be \nused as a condition on a MIDI source binding point."
+        },
+        "SetList": {
+            "name": "SetList",
+            "shortname": "SetList",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "SetList.js",
+            "line": 6,
+            "description": "Used to access and control Cantabile's set list functionality.\n\nAccess this object via the {{#crossLink \"Cantabile/setList:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
+        "SetListItem": {
+            "name": "SetListItem",
+            "shortname": "SetListItem",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "SetListItem.js",
+            "line": 1,
+            "description": "An anonymous type representing a item (either a song or break) in a set list"
+        },
+        "ShowNote": {
+            "name": "ShowNote",
+            "shortname": "ShowNote",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "ShowNote.js",
+            "line": 1,
+            "description": "An anonymous type representing a show note"
+        },
+        "ShowNotes": {
+            "name": "ShowNotes",
+            "shortname": "ShowNotes",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "ShowNotes.js",
+            "line": 6,
+            "description": "Used to access the current set of show notes\n\nAccess this object via the {{#crossLink \"Cantabile/showNotes:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
+        "SongStates": {
+            "name": "SongStates",
+            "shortname": "SongStates",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "SongStates.js",
+            "line": 5,
+            "description": "Interface to the states of the current song\n\nAccess this object via the {{#crossLink \"Cantabile/songStates:property\"}}{{/crossLink}} property.",
+            "extends": "States"
+        },
+        "State": {
+            "name": "State",
+            "shortname": "State",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "State.js",
+            "line": 1,
+            "description": "An anonymous type representing a state"
+        },
+        "States": {
+            "name": "States",
+            "shortname": "States",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "States.js",
+            "line": 6,
+            "description": "Base states functionality for State and racks",
+            "extends": "EndPoint"
+        },
+        "PatternWatcher": {
+            "name": "PatternWatcher",
+            "shortname": "PatternWatcher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Variables.js",
+            "line": 7,
+            "description": "Represents a monitored pattern string.\n\nReturned from the {{#crossLink \"Variables/watch:method\"}}{{/crossLink}} method.",
+            "extends": "EventEmitter"
+        },
+        "Variables": {
+            "name": "Variables",
+            "shortname": "Variables",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Variables.js",
+            "line": 106,
+            "description": "Provides access to Cantabile's internal variables by allowing a pattern string to be\nexpanded into a final display string.\n\nAccess this object via the {{#crossLink \"Cantabile/variables:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "yuidoc-lucid-theme\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
+            "line": 1,
+            "description": "Bootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
+            "class": "BindingPointInfo"
+        },
+        {
+            "file": "yuidoc-lucid-theme\\helpers\\helpers.js",
+            "line": 16,
+            "description": "Hack for:\nhttps://github.com/yui/yuidoc/issues/198\n\nUsage:\n  {{#crossLinkWrapper type}}{{#crossLink type}}{{/crossLink}}{{/crossLinkWrapper}}",
+            "class": "BindingPointInfo"
+        },
+        {
+            "file": "BindingPointInfo.js",
+            "line": 7,
+            "description": "The name of the binding point",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "BindingPointInfo"
+        },
+        {
+            "file": "BindingPointInfo.js",
+            "line": 13,
+            "description": "The display name of the binding point",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "BindingPointInfo"
+        },
+        {
+            "file": "BindingPointInfo.js",
+            "line": 19,
+            "description": "Indicates if this is a source or target binding point",
+            "itemtype": "property",
+            "name": "isSource",
+            "type": "{Boolean}",
+            "class": "BindingPointInfo"
+        },
+        {
+            "file": "BindingPointInfo.js",
+            "line": 25,
+            "description": "The names of the indicies used to reference this binding point",
+            "example": [
+                "\n\nThis binding point requires two indicies... the rack index and the plug index\n\n     \"indicies\": [ \"Rack Index\", \"Plugin Index\"],"
+            ],
+            "itemtype": "property",
+            "name": "indicies",
+            "type": "{String[]}",
+            "class": "BindingPointInfo"
+        },
+        {
+            "file": "BindingPointInfo.js",
+            "line": 38,
+            "description": "The binding point kind - the type of data send/expected by this binding piont\n\n* \"midi\"\n* \"command\"\n* \"switch\"\n* \"float\"\n* \"gainLevel\"\n* \"integer\"\n* \"index\"\n* \"pitchBend\"\n* \"programNumber\"\n* \"bankedProgramNumber\"\n* \"variant\"\n* \"object\"",
+            "itemtype": "property",
+            "name": "kind",
+            "type": "{String}",
+            "class": "BindingPointInfo"
+        },
+        {
+            "file": "BindingPointInfo.js",
+            "line": 59,
+            "description": "The binding point parameter kind - the kind of parameter expected by this binding point\n\n* \"none\"\n* \"triggerNumber\"\n* \"popup\"\n* \"keystoke\"\n* \"script\"",
+            "itemtype": "property",
+            "name": "parameterKind",
+            "type": "{String}",
+            "class": "BindingPointInfo"
+        },
+        {
+            "file": "Bindings.js",
+            "line": 28,
+            "description": "Returns the name of the binding point being listened to",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "BindingWatcher"
+        },
+        {
+            "file": "Bindings.js",
+            "line": 36,
+            "description": "Returns the indicies of the binding point being listened to",
+            "itemtype": "property",
+            "name": "indicies",
+            "type": "{Number[]}",
+            "class": "BindingWatcher"
+        },
+        {
+            "file": "Bindings.js",
+            "line": 44,
+            "description": "Returns the condition of the binding point being listened to",
+            "itemtype": "property",
+            "name": "condition",
+            "type": "{Object}",
+            "class": "BindingWatcher"
+        },
+        {
+            "file": "Bindings.js",
+            "line": 52,
+            "description": "Returns the last received value for the source binding point",
+            "itemtype": "property",
+            "name": "value",
+            "type": "{Object}",
+            "class": "BindingWatcher"
+        },
+        {
+            "file": "Bindings.js",
+            "line": 92,
+            "description": "Stops monitoring this binding source",
+            "itemtype": "method",
+            "name": "unwatch",
+            "class": "BindingWatcher"
+        },
+        {
+            "file": "Bindings.js",
+            "line": 115,
+            "description": "Fired when the source binding point is triggered",
+            "itemtype": "event",
+            "name": "invoked",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "The value supplied from the source binding",
+                    "type": "Object"
+                },
+                {
+                    "name": "source",
+                    "description": "This object",
+                    "type": "BindingWatcher"
+                }
+            ],
+            "class": "BindingWatcher"
+        },
+        {
+            "file": "Bindings.js",
+            "line": 160,
+            "description": "Retrieves a list of available binding points",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n    C.connect();\n    console.log(await C.bindings.availableBindingPoints());"
+            ],
+            "itemtype": "method",
+            "name": "availableBindingPoints",
+            "return": {
+                "description": "A promise to return an array of BindingPointInfo",
+                "type": "Promise|BindingPointInfo[]"
+            },
+            "class": "Bindings"
+        },
+        {
+            "file": "Bindings.js",
+            "line": 178,
+            "description": "Invokes a target binding point",
+            "example": [
+                "\n\nSet the master output level gain\n\n    C.bindings.invoke(\"global.masterLevels.outputGain\", 0.5);",
+                "\n\nSuspend the 2nd plugin in the song\n\n    C.bindings.invoke(\"global.indexedPlugin.suspend\", true, [\n\t        0,     // Rack index (zero = song)\n         1      // Plugin index (zero based, 1 = the second plugin)\n\t\t]);",
+                "\n\nSending a MIDI Controller Event\n\n    C.bindings.invoke(\"midiInputPort.Main Keyboard\", new {\n        kind: \"FineController\",\n        controller: 10,\n        value: 1000,\n\t   });",
+                "\n\nSending MIDI Data directly\n\n    C.bindings.invoke(\"midiInputPort.Main Keyboard\", [ 0xb0, 23, 99 ]);",
+                "\n\nSending MIDI Sysex Data directly\n\n    C.bindings.invoke(\"midiInputPort.Main Keyboard\", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);",
+                "\n\nSome binding points expect a \"parameter\" value.  Parameter values are similar to the `value` parameter\nin that they specify a value to invoke on the target of the binding.  The difference is related to the\nway they're managed internally for user created bindings.  The `value` comes from the source of the binding \nwhereas a `parameter` value is stored with the binding itself.\n\neg: Load the song with program number 12\n\n    C.bindings.invoke(\"global.setList.loadSpecificSongByProgramInstant\", null, null, 12);"
+            ],
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the binding point to invoke",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "The value to pass to the binding point",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "indicies",
+                    "description": "The integer indicies of the target binding point",
+                    "type": "Number[]",
+                    "optional": true
+                },
+                {
+                    "name": "parameter",
+                    "description": "The parameter value to invoke the target with",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "invoke",
+            "return": {
+                "description": "A promise that resolves once the target binding point has been invoked",
+                "type": "Promise"
+            },
+            "class": "Bindings"
+        },
+        {
+            "file": "Bindings.js",
+            "line": 247,
+            "description": "Queries a source binding point for it's current value.",
+            "example": [
+                "\n\n    console.log(\"Current Output Gain:\", await C.bindings.query(\"global.masterLevels.outputGain\"));"
+            ],
+            "itemtype": "method",
+            "name": "query",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the binding point to query",
+                    "type": "String"
+                },
+                {
+                    "name": "indicies",
+                    "description": "The integer indicies of the binding point",
+                    "type": "Number[]",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "The current value of the binding source",
+                "type": "Object"
+            },
+            "class": "Bindings"
+        },
+        {
+            "file": "Bindings.js",
+            "line": 267,
+            "description": "Starts watching a source binding point for changes (or invocations)",
+            "example": [
+                "\n\nUsing a callback function:\n\n    let C = new CantabileApi();\n    \n    // Watch a source binding point using a callback function\n    C.bindings.watch(\"global.masterLevels.outputGain\", null, null, function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    })\n    \n\t   // The \"bindings\" end point must be opened before callbacks will happen\n    C.bindings.open();",
+                "\n\nUsing the BindingWatcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.bindings.watch(\"global.masterLevels.outputGain\");\n    watcher.on('invoked', function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    });\n    \n\t   // The \"variables\" end point must be opened before callbacks will happen\n    C.variables.open();\n    \n    /// later, stop listening\n    watcher.unwatch();",
+                "\n\nWatching for a MIDI event:\n\n    C.bindings.watch(\"midiInputPort.Onscreen Keyboard\", null, {\n        channel: 0,\n        kind: \"ProgramChange\",\n        controller: -1,\n    }, function(value) {\n        console.log(\"Program Change: \", value);\n    })",
+                "\n\nWatching for a keystroke:\n\n    C.bindings.watch(\"global.pckeyboard.keyPress\", null, \"Ctrl+Alt+M\", function() {\n        console.log(\"Key press!\");\n    })"
+            ],
+            "itemtype": "method",
+            "name": "watch",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the binding point to query",
+                    "type": "String"
+                },
+                {
+                    "name": "indicies",
+                    "description": "The integer indicies of the binding point",
+                    "type": "Number[]",
+                    "optional": true
+                },
+                {
+                    "name": "condition",
+                    "description": "The condition for triggering the binding",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "callback",
+                    "description": "Optional callback function to be called when the source binding triggers\n\nThe callback function has the form function(resolved, source) where resolved is the resolved display string and source\nis the BindingWatcher instance.",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "BindingWatcher"
+            },
+            "class": "Bindings"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 31,
+            "description": "Gets the setList object",
+            "itemtype": "property",
+            "name": "setList",
+            "type": "{SetList}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 39,
+            "description": "Gets the states of the current song",
+            "itemtype": "property",
+            "name": "songStates",
+            "type": "{SongStates}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 47,
+            "description": "Gets the currently active key ranges",
+            "itemtype": "property",
+            "name": "keyRanges",
+            "type": "{KeyRanges}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 55,
+            "description": "Gets the current set of show notes",
+            "itemtype": "property",
+            "name": "showNotes",
+            "type": "{ShowNotes}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 63,
+            "description": "Provides access to variable expansion facilities",
+            "itemtype": "property",
+            "name": "variables",
+            "type": "{Variables}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 71,
+            "description": "Provides access to global binding points",
+            "itemtype": "property",
+            "name": "bindings",
+            "type": "{Bindings}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 80,
+            "description": "The current connection state, either \"connecting\", \"connected\" or \"disconnected\"",
+            "itemtype": "property",
+            "name": "state",
+            "type": "{String}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 91,
+            "description": "Initiate connection and retry if fails",
+            "itemtype": "method",
+            "name": "connect",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 101,
+            "description": "Disconnect and stop retries",
+            "itemtype": "method",
+            "name": "disconnect",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 111,
+            "description": "Stringify an object as a JSON message and send it to the server",
+            "itemtype": "method",
+            "name": "send",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "The object to send",
+                    "type": "Object"
+                }
+            ],
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 123,
+            "description": "Stringify an object as a JSON message, send it to the server and returns \na promise which will resolve to the result.",
+            "itemtype": "method",
+            "name": "request",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "The object to send",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise|object"
+            },
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 150,
+            "description": "Returns a promise that will be resolved when connected",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n    await C.untilConnected();"
+            ],
+            "itemtype": "method",
+            "name": "untilConnected",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 351,
+            "description": "Fired when the {{#crossLink \"Cantabile/state:property\"}}{{/crossLink}} property value changes",
+            "itemtype": "event",
+            "name": "stateChanged",
+            "params": [
+                {
+                    "name": "state",
+                    "description": "The new connection state (\"connecting\", \"connected\" or \"disconnected\")",
+                    "type": "String"
+                }
+            ],
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 359,
+            "description": "Fired when entering the connected state",
+            "itemtype": "event",
+            "name": "connected",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 366,
+            "description": "Fired when entering the connecting state",
+            "itemtype": "event",
+            "name": "connecting",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 373,
+            "description": "Fired when entering the disconnected state",
+            "itemtype": "event",
+            "name": "disconnected",
+            "class": "Cantabile"
+        },
+        {
+            "file": "EndPoint.js",
+            "line": 36,
+            "description": "Opens this end point and starts listening for events",
+            "itemtype": "method",
+            "name": "open",
+            "class": "EndPoint"
+        },
+        {
+            "file": "EndPoint.js",
+            "line": 50,
+            "description": "Closes the end point and stops listening for events",
+            "itemtype": "method",
+            "name": "close",
+            "class": "EndPoint"
+        },
+        {
+            "file": "KeyRange.js",
+            "line": 7,
+            "description": "The MIDI note number of the lowest note in the key range",
+            "itemtype": "property",
+            "name": "min",
+            "type": "{Number}",
+            "class": "KeyRange"
+        },
+        {
+            "file": "KeyRange.js",
+            "line": 13,
+            "description": "The MIDI note number of the highest note in the key range",
+            "itemtype": "property",
+            "name": "max",
+            "type": "{Number}",
+            "class": "KeyRange"
+        },
+        {
+            "file": "KeyRange.js",
+            "line": 19,
+            "description": "The transpose setting associated with the key range (in semi-tones)",
+            "itemtype": "property",
+            "name": "transpose",
+            "type": "{Number}",
+            "class": "KeyRange"
+        },
+        {
+            "file": "KeyRange.js",
+            "line": 25,
+            "description": "The color associated with the key range (0 - 15)",
+            "itemtype": "property",
+            "name": "color",
+            "type": "{Number}",
+            "class": "KeyRange"
+        },
+        {
+            "file": "KeyRange.js",
+            "line": 32,
+            "description": "The title of the key range (ie: name of the target)",
+            "itemtype": "property",
+            "name": "title",
+            "type": "{String}",
+            "class": "KeyRange"
+        },
+        {
+            "file": "KeyRanges.js",
+            "line": 23,
+            "description": "Fired when the active set of key ranges has changed",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "KeyRanges"
+        },
+        {
+            "file": "KeyRanges.js",
+            "line": 31,
+            "description": "An array of key ranges",
+            "itemtype": "property",
+            "name": "items",
+            "type": "{KeyRange[]}",
+            "class": "KeyRanges"
+        },
+        {
+            "file": "MidiControllerEvent.js",
+            "line": 10,
+            "description": "The zero based MIDI channel number of the event (0-15)",
+            "itemtype": "property",
+            "name": "channel",
+            "type": "{Number}",
+            "class": "MidiControllerEvent"
+        },
+        {
+            "file": "MidiControllerEvent.js",
+            "line": 16,
+            "description": "The kind of MIDI event\n\n* Controller\t\t\n* FineController\n* ControllerButton\n* ControllerNonEdgeButton\n* ControllerSwitch\n* ProgramChange\t\n* BankedProgramChange\n* PitchBend\t\t\n* ChannelPressure\n* Note\n* NoteOff\n* NoteSwitch\n* RpnCoarse\n* RpnFine\n* NRpnCoarse\n* NRpnFine\n* MasterVolume\n* MasterBalance\n* MmcStop\n* MmcPlay\n* MmcDeferredPlay\n* MmcFastForward\n* MmcRewind\n* MmcRecordPunchIn\n* MmcRecordPunchOut\n* MmcRecordReady\n* MmcPause\n* MmcEject\n* MmcChase\n* MmcReset\n* SongSelect\n* ClockStart\n* ClockContinue\n* ClockStop",
+            "itemtype": "property",
+            "name": "kind",
+            "type": "{String}",
+            "class": "MidiControllerEvent"
+        },
+        {
+            "file": "MidiControllerEvent.js",
+            "line": 58,
+            "description": "The associated controller number for any of the controller event kinds, or the program\nnumber for program change event kinds.  \n\nWhen used as a source binding condition, this property can be set to -1 for program change\nevents to be triggered on any program change.",
+            "itemtype": "property",
+            "name": "controller",
+            "type": "{Number}",
+            "class": "MidiControllerEvent"
+        },
+        {
+            "file": "MidiControllerEvent.js",
+            "line": 69,
+            "description": "Value \n\nThe value property is only used when sending MIDI data and is ignored if specified when\nsetting a source binding condition.",
+            "itemtype": "property",
+            "name": "value",
+            "type": "{Number}",
+            "class": "MidiControllerEvent"
+        },
+        {
+            "file": "SetList.js",
+            "line": 30,
+            "description": "An array of items in the set list",
+            "itemtype": "property",
+            "name": "items",
+            "type": "{SetListItem[]}",
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 37,
+            "description": "The display name of the current set list (ie: its file name with path and extension removed)",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 44,
+            "description": "Indicates if the set list is currently pre-loaded",
+            "itemtype": "property",
+            "name": "preLoaded",
+            "type": "{Boolean}",
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 51,
+            "description": "The index of the currently loaded song (or -1 if the current song isn't in the set list)",
+            "itemtype": "property",
+            "name": "currentSongIndex",
+            "type": "{Number}",
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 58,
+            "description": "The currently loaded item (or null if the current song isn't in the set list)",
+            "itemtype": "property",
+            "name": "currentSong",
+            "type": "{SetListItem}",
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 65,
+            "description": "Load the song at a given index position",
+            "itemtype": "method",
+            "name": "loadSongByIndex",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the song to load",
+                    "type": "Number"
+                },
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 79,
+            "description": "Load the song with a given program number",
+            "itemtype": "method",
+            "name": "loadSongByProgram",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based program number of the song to load",
+                    "type": "Number"
+                },
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 93,
+            "description": "Load the first song in the set list",
+            "itemtype": "method",
+            "name": "loadFirstSong",
+            "params": [
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 105,
+            "description": "Load the last song in the set list",
+            "itemtype": "method",
+            "name": "loadLastSong",
+            "params": [
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 117,
+            "description": "Load the next or previous song in the set list",
+            "itemtype": "method",
+            "name": "loadNextSong",
+            "params": [
+                {
+                    "name": "direction",
+                    "description": "Direction to move (1 = next, -1 = previous)",
+                    "type": "Number"
+                },
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                },
+                {
+                    "name": "wrap",
+                    "description": "Whether to wrap around at the start/end of the list",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 162,
+            "description": "Fired after a new item has been added to the set list",
+            "itemtype": "event",
+            "name": "itemAdded",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the newly added item",
+                    "type": "Number"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 169,
+            "description": "Fired when anything about the contents of the set list changes",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 182,
+            "description": "Fired after an item has been removed from the set list",
+            "itemtype": "event",
+            "name": "itemRemoved",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the removed item",
+                    "type": "Number"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 198,
+            "description": "Fired when an item in the set list has been moved",
+            "itemtype": "event",
+            "name": "itemMoved",
+            "params": [
+                {
+                    "name": "from",
+                    "description": "The zero based index of the item before being moved",
+                    "type": "Number"
+                },
+                {
+                    "name": "to",
+                    "description": "The zero based index of the item's new position",
+                    "type": "Number"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 217,
+            "description": "Fired when something about an item has changed",
+            "itemtype": "event",
+            "name": "itemChanged",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the item that changed",
+                    "type": "Number"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 233,
+            "description": "Fired when the entire set list has changed (eg: after a sort operation, or loading a new set list)",
+            "itemtype": "event",
+            "name": "reload",
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 245,
+            "description": "Fired when the pre-loaded state of the list has changed",
+            "itemtype": "event",
+            "name": "preLoadedChanged",
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 258,
+            "description": "Fired when the currently loaded song changes",
+            "itemtype": "event",
+            "name": "currentSongChanged",
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 272,
+            "description": "Fired when the name of the currently loaded set list changes",
+            "itemtype": "event",
+            "name": "nameChanged",
+            "class": "SetList"
+        },
+        {
+            "file": "SetListItem.js",
+            "line": 7,
+            "description": "The item kind - either \"song\" or \"break\"",
+            "itemtype": "property",
+            "name": "kind",
+            "type": "{String}",
+            "class": "SetListItem"
+        },
+        {
+            "file": "SetListItem.js",
+            "line": 13,
+            "description": "The name of the song or break",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "SetListItem"
+        },
+        {
+            "file": "SetListItem.js",
+            "line": 19,
+            "description": "The zero based program number of a song",
+            "itemtype": "property",
+            "name": "pr",
+            "type": "{Number}",
+            "class": "SetListItem"
+        },
+        {
+            "file": "SetListItem.js",
+            "line": 25,
+            "description": "The color of the item (0 to 15)",
+            "itemtype": "property",
+            "name": "color",
+            "type": "{Number}",
+            "class": "SetListItem"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 7,
+            "description": "The item kind - either \"song\" or \"break\"",
+            "itemtype": "property",
+            "name": "kind",
+            "type": "{String}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 13,
+            "description": "The name of the song or break",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 19,
+            "description": "The zero based program number of a song",
+            "itemtype": "property",
+            "name": "pr",
+            "type": "{Number}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 25,
+            "description": "The color of the item (0 to 15)",
+            "itemtype": "property",
+            "name": "color",
+            "type": "{Number}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 32,
+            "description": "Background color (0 - 15)",
+            "itemtype": "property",
+            "name": "backgroundColor",
+            "type": "{Number}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 38,
+            "description": "Bold font",
+            "itemtype": "property",
+            "name": "bold",
+            "type": "{Boolean}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 44,
+            "description": "Fixed pitch font",
+            "itemtype": "property",
+            "name": "fixedPitch",
+            "type": "{Boolean}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 50,
+            "description": "Font size",
+            "itemtype": "property",
+            "name": "fontSize",
+            "type": "{Number}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 56,
+            "description": "True if the show note is currently hidden",
+            "itemtype": "property",
+            "name": "hidden",
+            "type": "{Boolean}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 62,
+            "description": "URL to retrieve the note's background image (or null)",
+            "itemtype": "property",
+            "name": "imageUrl",
+            "type": "{String}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 68,
+            "description": "How much to scale the image by (0.0 - 1.0)",
+            "itemtype": "property",
+            "name": "imageScale",
+            "type": "{Number}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 74,
+            "description": "The show note's text",
+            "itemtype": "property",
+            "name": "text",
+            "type": "{String}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 80,
+            "description": "Text alignment (\"left\", \"center\" or \"right\")",
+            "itemtype": "property",
+            "name": "textAlignment",
+            "type": "{String}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 86,
+            "description": "Text color (0 - 15)",
+            "itemtype": "property",
+            "name": "textColor",
+            "type": "{Number}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNotes.js",
+            "line": 27,
+            "description": "An array of show note items",
+            "itemtype": "property",
+            "name": "items",
+            "type": "{ShowNote[]}",
+            "class": "ShowNotes"
+        },
+        {
+            "file": "ShowNotes.js",
+            "line": 40,
+            "description": "Fired after a new show note has been added",
+            "itemtype": "event",
+            "name": "itemAdded",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the newly added item",
+                    "type": "Number"
+                }
+            ],
+            "class": "ShowNotes"
+        },
+        {
+            "file": "ShowNotes.js",
+            "line": 47,
+            "description": "Fired when anything about the current set of show notes changes",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "ShowNotes"
+        },
+        {
+            "file": "ShowNotes.js",
+            "line": 60,
+            "description": "Fired after a show note has been removed",
+            "itemtype": "event",
+            "name": "itemRemoved",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the removed item",
+                    "type": "Number"
+                }
+            ],
+            "class": "ShowNotes"
+        },
+        {
+            "file": "ShowNotes.js",
+            "line": 76,
+            "description": "Fired when an show note has been moved",
+            "itemtype": "event",
+            "name": "itemMoved",
+            "params": [
+                {
+                    "name": "from",
+                    "description": "The zero based index of the item before being moved",
+                    "type": "Number"
+                },
+                {
+                    "name": "to",
+                    "description": "The zero based index of the item's new position",
+                    "type": "Number"
+                }
+            ],
+            "class": "ShowNotes"
+        },
+        {
+            "file": "ShowNotes.js",
+            "line": 92,
+            "description": "Fired when something about an show note has changed",
+            "itemtype": "event",
+            "name": "itemChanged",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the item that changed",
+                    "type": "Number"
+                }
+            ],
+            "class": "ShowNotes"
+        },
+        {
+            "file": "ShowNotes.js",
+            "line": 106,
+            "description": "Fired when the entire set of show notes has changed (eg: after  loading a new song)",
+            "itemtype": "event",
+            "name": "reload",
+            "class": "ShowNotes"
+        },
+        {
+            "file": "State.js",
+            "line": 7,
+            "description": "The name of the state",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "State"
+        },
+        {
+            "file": "State.js",
+            "line": 13,
+            "description": "The zero based program number of the state",
+            "itemtype": "property",
+            "name": "pr",
+            "type": "{Number}",
+            "class": "State"
+        },
+        {
+            "file": "State.js",
+            "line": 19,
+            "description": "The color of the state (0 to 15)",
+            "itemtype": "property",
+            "name": "color",
+            "type": "{Number}",
+            "class": "State"
+        },
+        {
+            "file": "States.js",
+            "line": 27,
+            "description": "An array of states",
+            "itemtype": "property",
+            "name": "items",
+            "type": "{State[]}",
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 34,
+            "description": "The display name of the containing song or rack",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 41,
+            "description": "The index of the currently loaded State (or -1 if no active state)",
+            "itemtype": "property",
+            "name": "currentStateIndex",
+            "type": "{Number}",
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 48,
+            "description": "The currently loaded item (or null if no active state)",
+            "itemtype": "property",
+            "name": "currentState",
+            "type": "{State}",
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 55,
+            "description": "Load the State at a given index position",
+            "itemtype": "method",
+            "name": "loadStateByIndex",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the State to load",
+                    "type": "Number"
+                },
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 69,
+            "description": "Load the State with a given program number",
+            "itemtype": "method",
+            "name": "loadStateByProgram",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based program number of the State to load",
+                    "type": "Number"
+                },
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 83,
+            "description": "Load the first state",
+            "itemtype": "method",
+            "name": "loadFirstState",
+            "params": [
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 95,
+            "description": "Load the last state",
+            "itemtype": "method",
+            "name": "loadLastState",
+            "params": [
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 107,
+            "description": "Load the next or previous state",
+            "itemtype": "method",
+            "name": "loadNextState",
+            "params": [
+                {
+                    "name": "direction",
+                    "description": "Direction to move (1 = next, -1 = previous)",
+                    "type": "Number"
+                },
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                },
+                {
+                    "name": "wrap",
+                    "description": "Whether to wrap around at the start/end",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 151,
+            "description": "Fired after a new state has been added",
+            "itemtype": "event",
+            "name": "itemAdded",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the newly added item",
+                    "type": "Number"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 158,
+            "description": "Fired when anything about the contents of state list changes",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 171,
+            "description": "Fired after a state has been removed",
+            "itemtype": "event",
+            "name": "itemRemoved",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the removed item",
+                    "type": "Number"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 187,
+            "description": "Fired when an item has been moved",
+            "itemtype": "event",
+            "name": "itemMoved",
+            "params": [
+                {
+                    "name": "from",
+                    "description": "The zero based index of the item before being moved",
+                    "type": "Number"
+                },
+                {
+                    "name": "to",
+                    "description": "The zero based index of the item's new position",
+                    "type": "Number"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 206,
+            "description": "Fired when something about an state has changed",
+            "itemtype": "event",
+            "name": "itemChanged",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the item that changed",
+                    "type": "Number"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 222,
+            "description": "Fired when the entire set of states has changed (eg: after a sort operation, or loading a new song/rack)",
+            "itemtype": "event",
+            "name": "reload",
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 235,
+            "description": "Fired when the current state changes",
+            "itemtype": "event",
+            "name": "currentStateChanged",
+            "class": "States"
+        },
+        {
+            "file": "States.js",
+            "line": 249,
+            "description": "Fired when the name of the containing song or rack changes",
+            "itemtype": "event",
+            "name": "nameChanged",
+            "class": "States"
+        },
+        {
+            "file": "Variables.js",
+            "line": 27,
+            "description": "Returns the pattern string being watched",
+            "itemtype": "property",
+            "name": "pattern",
+            "type": "{String}",
+            "class": "PatternWatcher"
+        },
+        {
+            "file": "Variables.js",
+            "line": 35,
+            "description": "Returns the current resolved display string",
+            "itemtype": "property",
+            "name": "resolved",
+            "type": "{String}",
+            "class": "PatternWatcher"
+        },
+        {
+            "file": "Variables.js",
+            "line": 70,
+            "description": "Stops monitoring this pattern string for changes",
+            "itemtype": "method",
+            "name": "unwatch",
+            "class": "PatternWatcher"
+        },
+        {
+            "file": "Variables.js",
+            "line": 93,
+            "description": "Fired after a new show note has been added",
+            "itemtype": "event",
+            "name": "changed",
+            "params": [
+                {
+                    "name": "resolved",
+                    "description": "The new display string",
+                    "type": "String"
+                },
+                {
+                    "name": "source",
+                    "description": "This object",
+                    "type": "PatternWatcher"
+                }
+            ],
+            "class": "PatternWatcher"
+        },
+        {
+            "file": "Variables.js",
+            "line": 125,
+            "description": "Resolves a variable pattern string into a final display string",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n    console.log(await C.variables.resolve(\"Song: $(SongTitle)\"));",
+                "\n\n    let C = new CantabileApi();\n    C.variables.resolve(\"Song: $(SongTitle)\").then(r => console.log(r)));"
+            ],
+            "itemtype": "method",
+            "name": "resolve",
+            "return": {
+                "description": "A promise to provide the resolved string",
+                "type": "Promise|String"
+            },
+            "class": "Variables"
+        },
+        {
+            "file": "Variables.js",
+            "line": 166,
+            "description": "Starts watching a pattern string for changes",
+            "example": [
+                "\n\nUsing a callback function:\n\n    let C = new CantabileApi();\n    \n    // Watch a string pattern using a callback function\n    C.variables.watch(\"Song: $(SongTitle)\", function(resolved) {\n        console.log(resolved);\n    })\n    \n\t   // The \"variables\" end point must be opened before callbacks will happen\n    C.variables.open();",
+                "\n\nUsing the PatternWatcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.variables.watch(\"Song: $(SongTitle)\");\n    watcher.on('changed', function(resolved) {\n        console.log(resolved);\n    });\n    \n\t   // The \"variables\" end point must be opened before callbacks will happen\n    C.variables.open();\n    \n    /// later, stop listening\n    watcher.unwatch();"
+            ],
+            "itemtype": "method",
+            "name": "watch",
+            "params": [
+                {
+                    "name": "pattern",
+                    "description": "The string pattern to watch",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "Optional callback function to be called when the resolved display string changes.\n\nThe callback function has the form function(resolved, source) where resolved is the resolved display string and source\nis the PatternWatcher instance.",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "PatternWatcher"
+            },
+            "class": "Variables"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Bindings.js:160"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Bindings.js:178"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Bindings.js:247"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Bindings.js:267"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " CantabileApi.js:123"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " CantabileApi.js:150"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Variables.js:125"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Variables.js:166"
+        },
+        {
+            "message": "Missing item type\nBootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
+            "line": " yuidoc-lucid-theme\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js:1"
+        },
+        {
+            "message": "Missing item type\nHack for:\nhttps://github.com/yui/yuidoc/issues/198\n\nUsage:\n  {{#crossLinkWrapper type}}{{#crossLink type}}{{/crossLink}}{{/crossLinkWrapper}}",
+            "line": " yuidoc-lucid-theme\\helpers\\helpers.js:16"
+        }
+    ]
+}

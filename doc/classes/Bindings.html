@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Bindings - Cantabile JavaScript API</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cantabile JavaScript API" src="..\logo.png" style="max-height: 65%;" title="Cantabile JavaScript API">
+            Cantabile JavaScript API
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/SongStates", "classes/State", "classes/States", "classes/Variables"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/BindingPointInfo.html">BindingPointInfo</a></li>
+                <li><a href="../classes/Bindings.html">Bindings</a></li>
+                <li><a href="../classes/BindingWatcher.html">BindingWatcher</a></li>
+                <li><a href="../classes/Cantabile.html">Cantabile</a></li>
+                <li><a href="../classes/EndPoint.html">EndPoint</a></li>
+                <li><a href="../classes/KeyRange.html">KeyRange</a></li>
+                <li><a href="../classes/KeyRanges.html">KeyRanges</a></li>
+                <li><a href="../classes/MidiControllerEvent.html">MidiControllerEvent</a></li>
+                <li><a href="../classes/PatternWatcher.html">PatternWatcher</a></li>
+                <li><a href="../classes/SetList.html">SetList</a></li>
+                <li><a href="../classes/SetListItem.html">SetListItem</a></li>
+                <li><a href="../classes/ShowNote.html">ShowNote</a></li>
+                <li><a href="../classes/ShowNotes.html">ShowNotes</a></li>
+                <li><a href="../classes/SongStates.html">SongStates</a></li>
+                <li><a href="../classes/State.html">State</a></li>
+                <li><a href="../classes/States.html">States</a></li>
+                <li><a href="../classes/Variables.html">Variables</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>Bindings</h1>
+</div>
+
+
+	<div class="well well-small">
+        <div class="extends">
+            Extends <a href="../classes/EndPoint.html" class="crosslink">EndPoint</a>
+        </div>
+    </div>
+
+
+
+
+<div class="yuidoc-class-description">
+<p>Provides access to Cantabile's binding points.</p>
+<p>Access this object via the <a href="../classes/Cantabile.html#property_bindings" class="crosslink">bindings</a> property.</p>
+
+</div>
+
+<!-- table of contents -->
+
+<div id="class-toc" class="page-section">
+	<h2>Table of Contents</h2>
+    <ul>
+		<li>
+			<strong>Methods</strong>
+			<ul>
+				<li><a href="#method-availableBindingPoints"><span class="im">availableBindingPoints</span>()</a></li>
+				<li><a href="#method-close"><span class="im">close</span>()</a></li>
+				<li><a href="#method-invoke"><span class="im">invoke</span>(<span class="ia">name</span><span class="ia">value</span><span class="ia">indicies</span><span class="ia">parameter</span>)</a></li>
+				<li><a href="#method-open"><span class="im">open</span>()</a></li>
+				<li><a href="#method-query"><span class="im">query</span>(<span class="ia">name</span><span class="ia">indicies</span>)</a></li>
+				<li><a href="#method-watch"><span class="im">watch</span>(<span class="ia">name</span><span class="ia">indicies</span><span class="ia">condition</span><span class="ia">callback</span>)</a></li>
+			</ul>
+		</li>
+
+
+
+
+
+	</ul>
+</div>
+
+<!-- details -->
+
+
+    <div id="methods" class="page-section">
+        <h2 class="off-left">Methods</h2>
+        <div class="item-list">
+<div id="method-availableBindingPoints" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>availableBindingPoints</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise  |  <a href="../classes/BindingPointInfo.html" class="crosslink">BindingPointInfo[][]</a></span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Bindings.js.html#l160"><code>Bindings.js:160</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Retrieves a list of available binding points</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise  |  <a href="../classes/BindingPointInfo.html" class="crosslink">BindingPointInfo[][]</a></span>:
+					<p>A promise to return an array of BindingPointInfo</p>
+
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>let C = new CantabileApi();
+C.connect();
+console.log(await C.bindings.availableBindingPoints());</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-close" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>close</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_close">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l50"><code>EndPoint.js:50</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description">Closes the end point and stops listening for events</div>
+
+
+
+</div>
+<div id="method-invoke" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>invoke</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>name</code>
+				</li>
+				<li class="arg">
+						<code class="optional">value</code>
+				</li>
+				<li class="arg">
+						<code class="optional">indicies</code>
+				</li>
+				<li class="arg">
+						<code class="optional">parameter</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Promise</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Bindings.js.html#l178"><code>Bindings.js:178</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Invokes a target binding point</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">name</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><p>The name of the binding point to invoke</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[value]</code>
+						<span class="type">Object</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>The value to pass to the binding point</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[indicies]</code>
+						<span class="type">Number[]</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>The integer indicies of the target binding point</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[parameter]</code>
+						<span class="type">Object</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>The parameter value to invoke the target with</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise</span>:
+					<p>A promise that resolves once the target binding point has been invoked</p>
+
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<p>Set the master output level gain</p>
+<pre class="code prettyprint"><code>C.bindings.invoke("global.masterLevels.outputGain", 0.5);</code></pre>
+<p>Suspend the 2nd plugin in the song</p>
+<pre class="code prettyprint"><code>C.bindings.invoke("global.indexedPlugin.suspend", true, [
+        0,     // Rack index (zero = song)
+     1      // Plugin index (zero based, 1 = the second plugin)
+    ]);</code></pre>
+<p>Sending a MIDI Controller Event</p>
+<pre class="code prettyprint"><code>C.bindings.invoke("midiInputPort.Main Keyboard", new {
+    kind: "FineController",
+    controller: 10,
+    value: 1000,
+   });</code></pre>
+<p>Sending MIDI Data directly</p>
+<pre class="code prettyprint"><code>C.bindings.invoke("midiInputPort.Main Keyboard", [ 0xb0, 23, 99 ]);</code></pre>
+<p>Sending MIDI Sysex Data directly</p>
+<pre class="code prettyprint"><code>C.bindings.invoke("midiInputPort.Main Keyboard", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);</code></pre>
+<p>Some binding points expect a "parameter" value.  Parameter values are similar to the <code>value</code> parameter
+in that they specify a value to invoke on the target of the binding.  The difference is related to the
+way they're managed internally for user created bindings.  The <code>value</code> comes from the source of the binding
+whereas a <code>parameter</code> value is stored with the binding itself.</p>
+<p>eg: Load the song with program number 12</p>
+<pre class="code prettyprint"><code>C.bindings.invoke("global.setList.loadSpecificSongByProgramInstant", null, null, 12);</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-open" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>open</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_open">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l36"><code>EndPoint.js:36</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description">Opens this end point and starts listening for events</div>
+
+
+
+</div>
+<div id="method-query" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>query</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>name</code>
+				</li>
+				<li class="arg">
+						<code class="optional">indicies</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Bindings.js.html#l247"><code>Bindings.js:247</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Queries a source binding point for it's current value.</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">name</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><p>The name of the binding point to query</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[indicies]</code>
+						<span class="type">Number[]</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>The integer indicies of the binding point</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>:
+					<p>The current value of the binding source</p>
+
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>console.log("Current Output Gain:", await C.bindings.query("global.masterLevels.outputGain"));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-watch" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>watch</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>name</code>
+				</li>
+				<li class="arg">
+						<code class="optional">indicies</code>
+				</li>
+				<li class="arg">
+						<code class="optional">condition</code>
+				</li>
+				<li class="arg">
+						<code class="optional">callback</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="../classes/BindingWatcher.html" class="crosslink">BindingWatcher</a></span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Bindings.js.html#l267"><code>Bindings.js:267</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Starts watching a source binding point for changes (or invocations)</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">name</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><p>The name of the binding point to query</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[indicies]</code>
+						<span class="type">Number[]</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>The integer indicies of the binding point</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[condition]</code>
+						<span class="type">Object</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>The condition for triggering the binding</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[callback]</code>
+						<span class="type">Function</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>Optional callback function to be called when the source binding triggers</p>
+<p>The callback function has the form function(resolved, source) where resolved is the resolved display string and source
+is the BindingWatcher instance.</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="../classes/BindingWatcher.html" class="crosslink">BindingWatcher</a></span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<p>Using a callback function:</p>
+<pre class="code prettyprint"><code>let C = new CantabileApi();
+
+// Watch a source binding point using a callback function
+C.bindings.watch("global.masterLevels.outputGain", null, null, function(value) {
+    console.log("Master output gain changed to:", value);
+})
+
+   // The "bindings" end point must be opened before callbacks will happen
+C.bindings.open();</code></pre>
+<p>Using the BindingWatcher class and events:</p>
+<pre class="code prettyprint"><code>let C = new CantabileApi();
+let watcher = C.bindings.watch("global.masterLevels.outputGain");
+watcher.on('invoked', function(value) {
+    console.log("Master output gain changed to:", value);
+});
+
+   // The "variables" end point must be opened before callbacks will happen
+C.variables.open();
+
+/// later, stop listening
+watcher.unwatch();</code></pre>
+<p>Watching for a MIDI event:</p>
+<pre class="code prettyprint"><code>C.bindings.watch("midiInputPort.Onscreen Keyboard", null, {
+    channel: 0,
+    kind: "ProgramChange",
+    controller: -1,
+}, function(value) {
+    console.log("Program Change: ", value);
+})</code></pre>
+<p>Watching for a keystroke:</p>
+<pre class="code prettyprint"><code>C.bindings.watch("global.pckeyboard.keyPress", null, "Ctrl+Alt+M", function() {
+    console.log("Key press!");
+})</code></pre>
+
+			</div>
+		</div>
+</div>
+        </div>
+    </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

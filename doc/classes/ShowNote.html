@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ShowNote - Cantabile JavaScript API</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cantabile JavaScript API" src="..\logo.png" style="max-height: 65%;" title="Cantabile JavaScript API">
+            Cantabile JavaScript API
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/SongStates", "classes/State", "classes/States", "classes/Variables"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/BindingPointInfo.html">BindingPointInfo</a></li>
+                <li><a href="../classes/Bindings.html">Bindings</a></li>
+                <li><a href="../classes/BindingWatcher.html">BindingWatcher</a></li>
+                <li><a href="../classes/Cantabile.html">Cantabile</a></li>
+                <li><a href="../classes/EndPoint.html">EndPoint</a></li>
+                <li><a href="../classes/KeyRange.html">KeyRange</a></li>
+                <li><a href="../classes/KeyRanges.html">KeyRanges</a></li>
+                <li><a href="../classes/MidiControllerEvent.html">MidiControllerEvent</a></li>
+                <li><a href="../classes/PatternWatcher.html">PatternWatcher</a></li>
+                <li><a href="../classes/SetList.html">SetList</a></li>
+                <li><a href="../classes/SetListItem.html">SetListItem</a></li>
+                <li><a href="../classes/ShowNote.html">ShowNote</a></li>
+                <li><a href="../classes/ShowNotes.html">ShowNotes</a></li>
+                <li><a href="../classes/SongStates.html">SongStates</a></li>
+                <li><a href="../classes/State.html">State</a></li>
+                <li><a href="../classes/States.html">States</a></li>
+                <li><a href="../classes/Variables.html">Variables</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>ShowNote</h1>
+</div>
+
+
+
+
+
+
+<div class="yuidoc-class-description">
+<p>An anonymous type representing a show note</p>
+
+</div>
+
+<!-- table of contents -->
+
+<div id="class-toc" class="page-section">
+	<h2>Table of Contents</h2>
+    <ul>
+
+		<li>
+			<strong>Properties</strong>
+			<ul>
+				<li><a href="#prop-backgroundColor"><span class="ip">backgroundColor</span></a></li>
+				<li><a href="#prop-bold"><span class="ip">bold</span></a></li>
+				<li><a href="#prop-color"><span class="ip">color</span></a></li>
+				<li><a href="#prop-fixedPitch"><span class="ip">fixedPitch</span></a></li>
+				<li><a href="#prop-fontSize"><span class="ip">fontSize</span></a></li>
+				<li><a href="#prop-hidden"><span class="ip">hidden</span></a></li>
+				<li><a href="#prop-imageScale"><span class="ip">imageScale</span></a></li>
+				<li><a href="#prop-imageUrl"><span class="ip">imageUrl</span></a></li>
+				<li><a href="#prop-kind"><span class="ip">kind</span></a></li>
+				<li><a href="#prop-name"><span class="ip">name</span></a></li>
+				<li><a href="#prop-pr"><span class="ip">pr</span></a></li>
+				<li><a href="#prop-text"><span class="ip">text</span></a></li>
+				<li><a href="#prop-textAlignment"><span class="ip">textAlignment</span></a></li>
+				<li><a href="#prop-textColor"><span class="ip">textColor</span></a></li>
+			</ul>
+		</li>
+
+
+
+
+	</ul>
+</div>
+
+<!-- details -->
+
+
+
+    <div id="properties" class="page-section">
+        <h2 class="off-left">Properties</h2>
+
+        <div class="item-list">
+<div id="prop-backgroundColor" class="property item">
+    <h3 class="name"><code>backgroundColor</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l32"><code>ShowNote.js:32</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Background color (0 - 15)</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-bold" class="property item">
+    <h3 class="name"><code>bold</code></h3>
+    <span class="type">Boolean</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l38"><code>ShowNote.js:38</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Bold font</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-color" class="property item">
+    <h3 class="name"><code>color</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l25"><code>ShowNote.js:25</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The color of the item (0 to 15)</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-fixedPitch" class="property item">
+    <h3 class="name"><code>fixedPitch</code></h3>
+    <span class="type">Boolean</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l44"><code>ShowNote.js:44</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fixed pitch font</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-fontSize" class="property item">
+    <h3 class="name"><code>fontSize</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l50"><code>ShowNote.js:50</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Font size</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-hidden" class="property item">
+    <h3 class="name"><code>hidden</code></h3>
+    <span class="type">Boolean</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l56"><code>ShowNote.js:56</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>True if the show note is currently hidden</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-imageScale" class="property item">
+    <h3 class="name"><code>imageScale</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l68"><code>ShowNote.js:68</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>How much to scale the image by (0.0 - 1.0)</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-imageUrl" class="property item">
+    <h3 class="name"><code>imageUrl</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l62"><code>ShowNote.js:62</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>URL to retrieve the note's background image (or null)</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-kind" class="property item">
+    <h3 class="name"><code>kind</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l7"><code>ShowNote.js:7</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The item kind - either "song" or "break"</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-name" class="property item">
+    <h3 class="name"><code>name</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l13"><code>ShowNote.js:13</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The name of the song or break</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-pr" class="property item">
+    <h3 class="name"><code>pr</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l19"><code>ShowNote.js:19</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The zero based program number of a song</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-text" class="property item">
+    <h3 class="name"><code>text</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l74"><code>ShowNote.js:74</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The show note's text</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-textAlignment" class="property item">
+    <h3 class="name"><code>textAlignment</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l80"><code>ShowNote.js:80</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Text alignment ("left", "center" or "right")</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-textColor" class="property item">
+    <h3 class="name"><code>textColor</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/ShowNote.js.html#l86"><code>ShowNote.js:86</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Text color (0 - 15)</p>
+
+    </div>
+
+
+
+</div>
+        </div>
+    </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Cantabile - Cantabile JavaScript API</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cantabile JavaScript API" src="..\logo.png" style="max-height: 65%;" title="Cantabile JavaScript API">
+            Cantabile JavaScript API
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/SongStates", "classes/State", "classes/States", "classes/Variables"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/BindingPointInfo.html">BindingPointInfo</a></li>
+                <li><a href="../classes/Bindings.html">Bindings</a></li>
+                <li><a href="../classes/BindingWatcher.html">BindingWatcher</a></li>
+                <li><a href="../classes/Cantabile.html">Cantabile</a></li>
+                <li><a href="../classes/EndPoint.html">EndPoint</a></li>
+                <li><a href="../classes/KeyRange.html">KeyRange</a></li>
+                <li><a href="../classes/KeyRanges.html">KeyRanges</a></li>
+                <li><a href="../classes/MidiControllerEvent.html">MidiControllerEvent</a></li>
+                <li><a href="../classes/PatternWatcher.html">PatternWatcher</a></li>
+                <li><a href="../classes/SetList.html">SetList</a></li>
+                <li><a href="../classes/SetListItem.html">SetListItem</a></li>
+                <li><a href="../classes/ShowNote.html">ShowNote</a></li>
+                <li><a href="../classes/ShowNotes.html">ShowNotes</a></li>
+                <li><a href="../classes/SongStates.html">SongStates</a></li>
+                <li><a href="../classes/State.html">State</a></li>
+                <li><a href="../classes/States.html">States</a></li>
+                <li><a href="../classes/Variables.html">Variables</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>Cantabile</h1>
+</div>
+
+
+	<div class="well well-small">
+        <div class="extends">
+            Extends EventEmitter
+        </div>
+    </div>
+
+
+
+
+<div class="yuidoc-class-description">
+<p>Represents a connection to Cantabile.</p>
+
+</div>
+
+<!-- table of contents -->
+
+<div id="class-toc" class="page-section">
+	<h2>Table of Contents</h2>
+    <ul>
+		<li>
+			<strong>Methods</strong>
+			<ul>
+				<li><a href="#method-connect"><span class="im">connect</span>()</a></li>
+				<li><a href="#method-disconnect"><span class="im">disconnect</span>()</a></li>
+				<li><a href="#method-request"><span class="im">request</span>(<span class="ia">obj</span>)</a></li>
+				<li><a href="#method-send"><span class="im">send</span>(<span class="ia">obj</span>)</a></li>
+				<li><a href="#method-untilConnected"><span class="im">untilConnected</span>()</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<strong>Properties</strong>
+			<ul>
+				<li><a href="#prop-bindings"><span class="ip">bindings</span></a></li>
+				<li><a href="#prop-keyRanges"><span class="ip">keyRanges</span></a></li>
+				<li><a href="#prop-setList"><span class="ip">setList</span></a></li>
+				<li><a href="#prop-showNotes"><span class="ip">showNotes</span></a></li>
+				<li><a href="#prop-songStates"><span class="ip">songStates</span></a></li>
+				<li><a href="#prop-state"><span class="ip">state</span></a></li>
+				<li><a href="#prop-variables"><span class="ip">variables</span></a></li>
+			</ul>
+		</li>
+
+
+        <li>
+            <strong>Events</strong>
+            <ul>
+                <li><a href="#event-connected"><span class="im">connected</span></a></li>
+                <li><a href="#event-connecting"><span class="im">connecting</span></a></li>
+                <li><a href="#event-disconnected"><span class="im">disconnected</span></a></li>
+                <li><a href="#event-stateChanged"><span class="im">stateChanged</span></a></li>
+            </ul>
+        </li>
+
+
+	</ul>
+</div>
+
+<!-- details -->
+
+    <div class="constructor yuidoc-class-constructor page-section">
+        <h2>Constructor</h2>
+        <div class="item-list">
+<div id="method-Cantabile" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>Cantabile</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code class="optional">socketUrl</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/CantabileApi.js.html#l7"><code>CantabileApi.js:7</code></a>
+		</p>
+
+
+
+	</div>
+
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name optional">[socketUrl]</code>
+						<span class="type">String</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>The websocket URL of the Cantabile instance to connect to.
+When running in a browser, the defaults to <code>ws://${window.location.host}/api/socket</code>.  In other
+environments it defaults to <code>ws://localhost:35007/api/socket</code>.</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+        </div>
+    </div>
+
+    <div id="methods" class="page-section">
+        <h2 class="off-left">Methods</h2>
+        <div class="item-list">
+<div id="method-connect" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>connect</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/CantabileApi.js.html#l91"><code>CantabileApi.js:91</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Initiate connection and retry if fails</p>
+</div>
+
+
+
+</div>
+<div id="method-disconnect" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>disconnect</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/CantabileApi.js.html#l101"><code>CantabileApi.js:101</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Disconnect and stop retries</p>
+</div>
+
+
+
+</div>
+<div id="method-request" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>request</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>obj</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Promise  |  Object</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/CantabileApi.js.html#l123"><code>CantabileApi.js:123</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Stringify an object as a JSON message, send it to the server and returns
+a promise which will resolve to the result.</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">obj</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><p>The object to send</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise  |  Object</span>
+			</div>
+		</div>
+
+</div>
+<div id="method-send" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>send</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>obj</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/CantabileApi.js.html#l111"><code>CantabileApi.js:111</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Stringify an object as a JSON message and send it to the server</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">obj</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><p>The object to send</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-untilConnected" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>untilConnected</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/CantabileApi.js.html#l150"><code>CantabileApi.js:150</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Returns a promise that will be resolved when connected</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>let C = new CantabileApi();
+await C.untilConnected();</code></pre>
+
+			</div>
+		</div>
+</div>
+        </div>
+    </div>
+
+    <div id="properties" class="page-section">
+        <h2 class="off-left">Properties</h2>
+
+        <div class="item-list">
+<div id="prop-bindings" class="property item">
+    <h3 class="name"><code>bindings</code></h3>
+    <span class="type"><a href="../classes/Bindings.html" class="crosslink">Bindings</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileApi.js.html#l71"><code>CantabileApi.js:71</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides access to global binding points</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-keyRanges" class="property item">
+    <h3 class="name"><code>keyRanges</code></h3>
+    <span class="type"><a href="../classes/KeyRanges.html" class="crosslink">KeyRanges</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileApi.js.html#l47"><code>CantabileApi.js:47</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the currently active key ranges</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-setList" class="property item">
+    <h3 class="name"><code>setList</code></h3>
+    <span class="type"><a href="../classes/SetList.html" class="crosslink">SetList</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileApi.js.html#l31"><code>CantabileApi.js:31</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the setList object</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-showNotes" class="property item">
+    <h3 class="name"><code>showNotes</code></h3>
+    <span class="type"><a href="../classes/ShowNotes.html" class="crosslink">ShowNotes</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileApi.js.html#l55"><code>CantabileApi.js:55</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the current set of show notes</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-songStates" class="property item">
+    <h3 class="name"><code>songStates</code></h3>
+    <span class="type"><a href="../classes/SongStates.html" class="crosslink">SongStates</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileApi.js.html#l39"><code>CantabileApi.js:39</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the states of the current song</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-state" class="property item">
+    <h3 class="name"><code>state</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileApi.js.html#l80"><code>CantabileApi.js:80</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The current connection state, either "connecting", "connected" or "disconnected"</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-variables" class="property item">
+    <h3 class="name"><code>variables</code></h3>
+    <span class="type"><a href="../classes/Variables.html" class="crosslink">Variables</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileApi.js.html#l63"><code>CantabileApi.js:63</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides access to variable expansion facilities</p>
+
+    </div>
+
+
+
+</div>
+        </div>
+    </div>
+
+
+    <div id="events" class="page-section">
+        <h2 class="off-left">Events</h2>
+
+        <div class="item-list">
+<div id="event-connected" class="events item">
+    <h3 class="name"><code>connected</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileApi.js.html#l359"><code>CantabileApi.js:359</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when entering the connected state</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-connecting" class="events item">
+    <h3 class="name"><code>connecting</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileApi.js.html#l366"><code>CantabileApi.js:366</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when entering the connecting state</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-disconnected" class="events item">
+    <h3 class="name"><code>disconnected</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileApi.js.html#l373"><code>CantabileApi.js:373</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when entering the disconnected state</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-stateChanged" class="events item">
+    <h3 class="name"><code>stateChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileApi.js.html#l351"><code>CantabileApi.js:351</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the <a href="../classes/Cantabile.html#property_state" class="crosslink">state</a> property value changes</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">state</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <p>The new connection state ("connecting", "connected" or "disconnected")</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+</div>
+        </div>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

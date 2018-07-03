@@ -4,7 +4,7 @@
     "version": "0.1.0",
     "logo": "logo.png",
     "options": {
-        "outdir": "../../cantabilesoftware.com/content/jsapi",
+        "outdir": "./doc/",
 		"themedir" : "yuidoc-lucid-theme",
 		"helpers" : ["yuidoc-lucid-theme/helpers/helpers.js"]
     }

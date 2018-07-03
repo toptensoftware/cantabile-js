@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Bindings.js - Cantabile JavaScript API</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cantabile JavaScript API" src="..\logo.png" style="max-height: 65%;" title="Cantabile JavaScript API">
+            Cantabile JavaScript API
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/SongStates", "classes/State", "classes/States", "classes/Variables"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/BindingPointInfo.html">BindingPointInfo</a></li>
+                <li><a href="../classes/Bindings.html">Bindings</a></li>
+                <li><a href="../classes/BindingWatcher.html">BindingWatcher</a></li>
+                <li><a href="../classes/Cantabile.html">Cantabile</a></li>
+                <li><a href="../classes/EndPoint.html">EndPoint</a></li>
+                <li><a href="../classes/KeyRange.html">KeyRange</a></li>
+                <li><a href="../classes/KeyRanges.html">KeyRanges</a></li>
+                <li><a href="../classes/MidiControllerEvent.html">MidiControllerEvent</a></li>
+                <li><a href="../classes/PatternWatcher.html">PatternWatcher</a></li>
+                <li><a href="../classes/SetList.html">SetList</a></li>
+                <li><a href="../classes/SetListItem.html">SetListItem</a></li>
+                <li><a href="../classes/ShowNote.html">ShowNote</a></li>
+                <li><a href="../classes/ShowNotes.html">ShowNotes</a></li>
+                <li><a href="../classes/SongStates.html">SongStates</a></li>
+                <li><a href="../classes/State.html">State</a></li>
+                <li><a href="../classes/States.html">States</a></li>
+                <li><a href="../classes/Variables.html">Variables</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>Bindings.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+&#x27;use strict&#x27;;
+
+const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
+const EndPoint = require(&#x27;./EndPoint&#x27;);
+const EventEmitter = require(&#x27;events&#x27;);
+
+/**
+ * Represents an active connection watching a source binding point for changes/invocations
+
+ * Returned from the {{#crossLink &quot;Bindings/watch:method&quot;}}{{/crossLink}} method.
+ * 
+ * @class BindingWatcher
+ * @extends EventEmitter
+ */
+class BindingWatcher extends EventEmitter
+{
+	constructor(owner, name, indicies, condition, listener)
+	{
+		super();
+		this.owner = owner;
+		this._name = name;
+		this._indicies = indicies;
+		this._condition = condition;
+        this._listener = listener;
+        this._value = null;
+	}
+
+	/**
+	 * Returns the name of the binding point being listened to
+	 *
+	 * @property name
+	 * @type {String} 
+	 */
+	get name() { return this._name; }
+
+	/**
+	 * Returns the indicies of the binding point being listened to
+	 *
+	 * @property indicies
+	 * @type {Number[]} 
+	 */
+    get indicies() { return this._indicies; }
+    
+	/**
+	 * Returns the condition of the binding point being listened to
+	 *
+	 * @property condition
+	 * @type {Object} 
+	 */
+    get condition() { return this._condition; }
+
+	/**
+	 * Returns the last received value for the source binding point
+	 *
+	 * @property value
+	 * @type {Object} 
+	 */
+    get value() { return this._value; }
+    
+	_start()
+	{
+		this.owner.post(&quot;/watch&quot;, {
+            name: this._name,
+            indicies: this._indicies,
+            condition: this._condition
+		}).then(r =&gt; {
+            this.owner._registerWatchId(r.data.watchId, this);
+			this._watchId = r.data.watchId;
+			if (r.data.value !== null &amp;&amp; r.data.value !== undefined)
+			{
+				this._value = r.data.value;
+				this._fireInvoked();
+			}
+		});
+	}
+
+	_stop()
+	{
+		if (this.owner._epid &amp;&amp; this._watchId)
+		{
+			this.owner.send(&quot;/unwatch&quot;, { watchId: this._watchId})
+			this.owner._revokeWatchId(this._watchId);
+			this._watchId = 0;
+			if (this._value !== null &amp;&amp; this._value !== undefined)
+			{
+				this._value = null;
+				this._fireInvoked();
+			}
+		}
+	}
+
+	/**
+	 * Stops monitoring this binding source
+	 *
+	 * @method unwatch
+	 */
+	unwatch()
+	{
+		this._stop();
+		this.owner._revokeWatcher(this);
+	}
+
+	_update(data)
+	{
+		this._value = data.value;
+		this._fireInvoked();
+	}
+
+	_fireInvoked()
+	{
+		// Function listener?
+		if (this._listener)
+			this._listener(this._value, this);
+
+		/**
+		 * Fired when the source binding point is triggered
+		 *
+		 * @event invoked
+		 * @param {Object} value The value supplied from the source binding
+		 * @param {BindingWatcher} source This object
+		 */
+		this.emit(&#x27;invoked&#x27;, this.value, this);
+	}
+}
+
+/**
+ * Provides access to Cantabile&#x27;s binding points.
+ * 
+ * Access this object via the {{#crossLink &quot;Cantabile/bindings:property&quot;}}{{/crossLink}} property.
+ *
+ * @class Bindings
+ * @extends EndPoint
+ */
+class Bindings extends EndPoint
+{
+    constructor(owner)
+    {
+        super(owner, &quot;/api/bindings&quot;);
+		this._watchers = [];
+		this._watchIds = {};
+    }
+
+    _onOpen()
+    {
+		for (let i=0; i&lt;this._watchers.length; i++)
+		{
+			this._watchers[i]._start();
+		}
+    }
+
+    _onClose()
+    {
+		for (let i=0; i&lt;this._watchers.length; i++)
+		{
+			this._watchers[i]._stop();
+		}
+    }
+
+
+    /**
+     * Retrieves a list of available binding points
+     * 
+     * @example
+     * 
+     *     let C = new CantabileApi();
+     *     C.connect();
+     *     console.log(await C.bindings.availableBindingPoints());
+     * 
+     * @method availableBindingPoints
+     * @returns {Promise|BindingPointInfo[]} A promise to return an array of BindingPointInfo
+     */
+    async availableBindingPoints()
+    {
+        await this.owner.untilConnected();
+        return (await this.request(&quot;GET&quot;, &quot;/availableBindingPoints&quot;)).data;
+    }
+
+    /**
+     * Invokes a target binding point
+     * 
+     * @example
+     * 
+     * Set the master output level gain
+	 * 
+     *     C.bindings.invoke(&quot;global.masterLevels.outputGain&quot;, 0.5);
+     * 
+     * @example
+     * 
+     * Suspend the 2nd plugin in the song
+	 * 
+     *     C.bindings.invoke(&quot;global.indexedPlugin.suspend&quot;, true, [
+     * 	        0,     // Rack index (zero = song)
+     *          1      // Plugin index (zero based, 1 = the second plugin)
+     * 		]);
+     * 
+	 * 
+	 * @example
+	 * 
+	 * Sending a MIDI Controller Event
+	 * 
+	 *     C.bindings.invoke(&quot;midiInputPort.Main Keyboard&quot;, new {
+	 *         kind: &quot;FineController&quot;,
+	 *         controller: 10,
+	 *         value: 1000,
+	 * 	   });
+	 *
+	 * @example
+	 * 
+	 * Sending MIDI Data directly
+	 * 
+	 *     C.bindings.invoke(&quot;midiInputPort.Main Keyboard&quot;, [ 0xb0, 23, 99 ]);
+	 * 
+	 * @example
+	 * 
+	 * Sending MIDI Sysex Data directly
+	 * 
+	 *     C.bindings.invoke(&quot;midiInputPort.Main Keyboard&quot;, [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
+	 * 
+     * @example
+     * 
+     * Some binding points expect a &quot;parameter&quot; value.  Parameter values are similar to the &#x60;value&#x60; parameter
+     * in that they specify a value to invoke on the target of the binding.  The difference is related to the
+     * way they&#x27;re managed internally for user created bindings.  The &#x60;value&#x60; comes from the source of the binding 
+     * whereas a &#x60;parameter&#x60; value is stored with the binding itself.
+     * 
+     * eg: Load the song with program number 12
+	 * 
+     *     C.bindings.invoke(&quot;global.setList.loadSpecificSongByProgramInstant&quot;, null, null, 12);
+     * 
+     * @param {String} name The name of the binding point to invoke
+     * @param {Object} [value] The value to pass to the binding point
+     * @param {Number[]} [indicies] The integer indicies of the target binding point
+     * @param {Object} [parameter] The parameter value to invoke the target with
+     * @method invoke
+     * @returns {Promise} A promise that resolves once the target binding point has been invoked
+     */
+    async invoke(name, value, indicies, parameter)
+    {
+        return (await this.request(&quot;POST&quot;, &quot;/invoke&quot;, {
+            name: name,
+            value: value,
+            indicies: indicies,
+            parameter: parameter,
+        }));
+    }
+
+    /**
+     * Queries a source binding point for it&#x27;s current value.
+     * 
+     * @example
+     * 
+     *     console.log(&quot;Current Output Gain:&quot;, await C.bindings.query(&quot;global.masterLevels.outputGain&quot;));
+     * 
+	 * @method query
+     * @param {String} name The name of the binding point to query
+     * @param {Number[]} [indicies] The integer indicies of the binding point
+	 * @returns {Object} The current value of the binding source
+     */
+    async query(name, indicies)
+    {
+        return (await this.request(&quot;POST&quot;, &quot;/query&quot;, {
+            name: name,
+            indicies: indicies,
+        })).data.value;
+    }
+
+	/**
+	 * Starts watching a source binding point for changes (or invocations)
+	 * 
+	 * @example
+	 * 
+	 * Using a callback function:
+	 * 
+	 *     let C = new CantabileApi();
+	 *     
+	 *     // Watch a source binding point using a callback function
+	 *     C.bindings.watch(&quot;global.masterLevels.outputGain&quot;, null, null, function(value) {
+	 *         console.log(&quot;Master output gain changed to:&quot;, value);
+	 *     })
+	 *     
+	 * 	   // The &quot;bindings&quot; end point must be opened before callbacks will happen
+	 *     C.bindings.open();
+	 * 
+	 * @example
+	 * 
+	 * Using the BindingWatcher class and events:
+	 * 
+	 *     let C = new CantabileApi();
+	 *     let watcher = C.bindings.watch(&quot;global.masterLevels.outputGain&quot;);
+	 *     watcher.on(&#x27;invoked&#x27;, function(value) {
+	 *         console.log(&quot;Master output gain changed to:&quot;, value);
+	 *     });
+	 *     
+	 * 	   // The &quot;variables&quot; end point must be opened before callbacks will happen
+	 *     C.variables.open();
+	 *     
+	 *     /// later, stop listening
+	 *     watcher.unwatch();
+	 * 
+	 * @example
+	 * 
+	 * Watching for a MIDI event:
+	 * 
+     *     C.bindings.watch(&quot;midiInputPort.Onscreen Keyboard&quot;, null, {
+     *         channel: 0,
+     *         kind: &quot;ProgramChange&quot;,
+     *         controller: -1,
+     *     }, function(value) {
+     *         console.log(&quot;Program Change: &quot;, value);
+     *     })
+	 * 
+	 * @example
+
+	 * Watching for a keystroke:
+	 * 
+	 *     C.bindings.watch(&quot;global.pckeyboard.keyPress&quot;, null, &quot;Ctrl+Alt+M&quot;, function() {
+     *         console.log(&quot;Key press!&quot;);
+     *     })
+	 * 
+	 * 
+	 * 
+	 *
+	 * @method watch
+     * @param {String} name The name of the binding point to query
+     * @param {Number[]} [indicies] The integer indicies of the binding point
+     * @param {Object} [condition] The condition for triggering the binding
+	 * @param {Function} [callback] Optional callback function to be called when the source binding triggers
+	 * 
+	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
+	 * is the BindingWatcher instance.
+	 * 
+	 * @returns {BindingWatcher}
+	 */
+	watch(name, indicies, condition, listener)
+	{
+		let w = new BindingWatcher(this, name, indicies, condition, listener);
+		this._watchers.push(w);
+
+		if (this.isOpen)
+			w._start();
+	}
+
+	_registerWatchId(watchId, watcher)
+	{
+		this._watchIds[watchId] = watcher;
+	}
+
+	_revokeWatchId(watchId)
+	{
+		delete this._watchIds[watchId];
+	}
+
+	_revokeWatcher(w)
+	{
+		this._watchers = this._watchers.filter(x=&gt;x != w);
+	}
+
+	_onEvent_invoked(data)
+	{
+		// Get the watcher
+		let w = this._watchIds[data.watchId];
+		if (w)
+		{
+			w._update(data);
+		}
+	}
+}
+
+
+
+module.exports = Bindings;
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

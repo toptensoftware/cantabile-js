@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Variables.js - Cantabile JavaScript API</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cantabile JavaScript API" src="..\logo.png" style="max-height: 65%;" title="Cantabile JavaScript API">
+            Cantabile JavaScript API
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/SongStates", "classes/State", "classes/States", "classes/Variables"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/BindingPointInfo.html">BindingPointInfo</a></li>
+                <li><a href="../classes/Bindings.html">Bindings</a></li>
+                <li><a href="../classes/BindingWatcher.html">BindingWatcher</a></li>
+                <li><a href="../classes/Cantabile.html">Cantabile</a></li>
+                <li><a href="../classes/EndPoint.html">EndPoint</a></li>
+                <li><a href="../classes/KeyRange.html">KeyRange</a></li>
+                <li><a href="../classes/KeyRanges.html">KeyRanges</a></li>
+                <li><a href="../classes/MidiControllerEvent.html">MidiControllerEvent</a></li>
+                <li><a href="../classes/PatternWatcher.html">PatternWatcher</a></li>
+                <li><a href="../classes/SetList.html">SetList</a></li>
+                <li><a href="../classes/SetListItem.html">SetListItem</a></li>
+                <li><a href="../classes/ShowNote.html">ShowNote</a></li>
+                <li><a href="../classes/ShowNotes.html">ShowNotes</a></li>
+                <li><a href="../classes/SongStates.html">SongStates</a></li>
+                <li><a href="../classes/State.html">State</a></li>
+                <li><a href="../classes/States.html">States</a></li>
+                <li><a href="../classes/Variables.html">Variables</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>Variables.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+&#x27;use strict&#x27;;
+
+const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
+const EndPoint = require(&#x27;./EndPoint&#x27;);
+const EventEmitter = require(&#x27;events&#x27;);
+
+/**
+ * Represents a monitored pattern string.
+
+ * Returned from the {{#crossLink &quot;Variables/watch:method&quot;}}{{/crossLink}} method.
+ *
+ * @class PatternWatcher
+ * @extends EventEmitter
+ */
+class PatternWatcher extends EventEmitter
+{
+	constructor(owner, pattern, listener)
+	{
+		super();
+		this.owner = owner;
+		this._pattern = pattern;	
+		this._patternId = 0;
+		this._resolved = &quot;&quot;;
+		this._listener = listener;
+	}
+
+	/**
+	 * Returns the pattern string being watched
+	 *
+	 * @property pattern
+	 * @type {String} 
+	 */
+	get pattern() { return this._pattern; }
+
+	/**
+	 * Returns the current resolved display string
+	 *
+	 * @property resolved
+	 * @type {String} 
+	 */
+	get resolved() { return this._resolved; }
+
+	_start()
+	{
+		this.owner.post(&quot;/watch&quot;, {
+			pattern: this._pattern,
+		}).then(r =&gt; {
+			if (r.data.patternId)
+			{
+				this.owner._registerPatternId(r.data.patternId, this);
+				this._patternId = r.data.patternId;
+			}
+			this._resolved = r.data.resolved;
+			this._fireChanged();
+		});
+	}
+
+	_stop()
+	{
+		if (this.owner._epid &amp;&amp; this._patternId)
+		{
+			this.owner.send(&quot;/unwatch&quot;, { patternId: this._patternId})
+			this.owner._revokePatternId(this._patternId);
+			this._patternId = 0;
+			this.resolved = &quot;&quot;;
+			this._fireChanged();
+		}
+	}
+
+	/**
+	 * Stops monitoring this pattern string for changes
+	 *
+	 * @method unwatch
+	 */
+	unwatch()
+	{
+		this._stop();
+		this.owner._revokeWatcher(this);
+	}
+
+	_update(data)
+	{
+		this._resolved = data.resolved;
+		this._fireChanged();
+	}
+
+	_fireChanged()
+	{
+		// Function listener?
+		if (this._listener)
+			this._listener(this.resolved, this);
+
+		/**
+		 * Fired after a new show note has been added
+		 *
+		 * @event changed
+		 * @param {String} resolved The new display string
+		 * @param {PatternWatcher} source This object
+		 */
+		this.emit(&#x27;changed&#x27;, this.resolved, this);
+	}
+}
+
+
+
+/**
+ * Provides access to Cantabile&#x27;s internal variables by allowing a pattern string to be
+ * expanded into a final display string.
+ * 
+ * Access this object via the {{#crossLink &quot;Cantabile/variables:property&quot;}}{{/crossLink}} property.
+ *
+ * @class Variables
+ * @extends EndPoint
+ */
+class Variables extends EndPoint
+{
+	constructor(owner)
+	{
+		super(owner, &quot;/api/variables&quot;);
+		this.watchers = [];
+		this.patternIds = {};
+	}
+
+
+	/**
+	 * Resolves a variable pattern string into a final display string
+	 * 
+	 * @example
+	 * 
+	 *     let C = new CantabileApi();
+	 *     console.log(await C.variables.resolve(&quot;Song: $(SongTitle)&quot;));
+	 * 
+	 * @example
+	 * 
+	 *     let C = new CantabileApi();
+	 *     C.variables.resolve(&quot;Song: $(SongTitle)&quot;).then(r =&gt; console.log(r)));
+	 *
+	 * @method resolve
+	 * @returns {Promise|String} A promise to provide the resolved string
+	 */
+	async resolve(pattern)
+	{
+		await this.owner.untilConnected();
+
+		return (await this.post(&quot;/resolve&quot;, {
+			pattern: pattern
+		})).data.resolved;
+	}
+
+	_onOpen()
+	{
+		for (let i=0; i&lt;this.watchers.length; i++)
+		{
+			this.watchers[i]._start();
+		}
+	}
+
+	_onClose()
+	{
+		for (let i=0; i&lt;this.watchers.length; i++)
+		{
+			this.watchers[i]._stop();
+		}
+	}
+
+	/**
+	 * Starts watching a pattern string for changes
+	 * 
+	 * @example
+	 * 
+	 * Using a callback function:
+	 * 
+	 *     let C = new CantabileApi();
+	 *     
+	 *     // Watch a string pattern using a callback function
+	 *     C.variables.watch(&quot;Song: $(SongTitle)&quot;, function(resolved) {
+	 *         console.log(resolved);
+	 *     })
+	 *     
+	 * 	   // The &quot;variables&quot; end point must be opened before callbacks will happen
+	 *     C.variables.open();
+	 * 
+	 * @example
+	 * 
+	 * Using the PatternWatcher class and events:
+	 * 
+	 *     let C = new CantabileApi();
+	 *     let watcher = C.variables.watch(&quot;Song: $(SongTitle)&quot;);
+	 *     watcher.on(&#x27;changed&#x27;, function(resolved) {
+	 *         console.log(resolved);
+	 *     });
+	 *     
+	 * 	   // The &quot;variables&quot; end point must be opened before callbacks will happen
+	 *     C.variables.open();
+	 *     
+	 *     /// later, stop listening
+	 *     watcher.unwatch();
+	 *
+	 * @method watch
+	 * @param {String} pattern The string pattern to watch
+	 * @param {Function} [callback] Optional callback function to be called when the resolved display string changes.
+	 * 
+	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
+	 * is the PatternWatcher instance.
+	 * 
+	 * @returns {PatternWatcher}
+	 */
+	watch(pattern, listener)
+	{
+		let w = new PatternWatcher(this, pattern, listener);
+		this.watchers.push(w);
+
+		if (this.isOpen)
+			w._start();
+	}
+
+	_registerPatternId(patternId, watcher)
+	{
+		this.patternIds[patternId] = watcher;
+	}
+
+	_revokePatternId(patternId)
+	{
+		delete this.patternIds[patternId];
+	}
+
+	_revokeWatcher(w)
+	{
+		this.watchers = this.watchers.filter(x=&gt;x != w);
+	}
+
+	_onEvent_patternChanged(data)
+	{
+		// Get the watcher
+		let w = this.patternIds[data.patternId];
+		if (w)
+		{
+			w._update(data);
+		}
+	}
+}
+
+
+
+module.exports = Variables;
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>
