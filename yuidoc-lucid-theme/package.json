@@ -1,0 +1,56 @@
+{
+  "_from": "yuidoc-lucid-theme",
+  "_id": "yuidoc-lucid-theme@0.1.2",
+  "_inBundle": false,
+  "_integrity": "sha1-+Fpv3rEV/MPOwUnVZi7PdCOGGGY=",
+  "_location": "/yuidoc-lucid-theme",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "yuidoc-lucid-theme",
+    "name": "yuidoc-lucid-theme",
+    "escapedName": "yuidoc-lucid-theme",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/yuidoc-lucid-theme/-/yuidoc-lucid-theme-0.1.2.tgz",
+  "_shasum": "f85a6fdeb115fcc3cec149d5662ecf7423861866",
+  "_spec": "yuidoc-lucid-theme",
+  "_where": "C:\\Users\\Brad\\Projects\\Cantabile3\\NetworkApi",
+  "author": {
+    "name": "Brian Reavis"
+  },
+  "bugs": {
+    "url": "https://github.com/naturalatlas/yuidoc-lucid-theme/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Brian Reavis",
+      "email": "brian@thirdroute.com"
+    },
+    {
+      "name": "Anthony Barone",
+      "email": "tonybaroneee@gmail.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "A simple YUIDoc theme for single-module libraries.",
+  "homepage": "https://github.com/naturalatlas/yuidoc-lucid-theme",
+  "keywords": [
+    "yuidoc"
+  ],
+  "license": "MIT",
+  "name": "yuidoc-lucid-theme",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/naturalatlas/yuidoc-lucid-theme.git"
+  },
+  "version": "0.1.2"
+}

@@ -1,0 +1,11 @@
+{
+    "name": "Cantabile JavaScript API",
+    "description": "JavaScript API for interfacing with Cantabile Network API",
+    "version": "0.1.0",
+    "logo": "logo.png",
+    "options": {
+        "outdir": "../../cantabilesoftware.com/content/jsapi",
+		"themedir" : "yuidoc-lucid-theme",
+		"helpers" : ["yuidoc-lucid-theme/helpers/helpers.js"]
+    }
+}
