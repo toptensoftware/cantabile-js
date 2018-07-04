@@ -159,6 +159,9 @@ class Bindings extends EndPoint
 
     /**
      * Retrieves a list of available binding points
+	 * 
+	 * If Cantabile is running on your local machine you can view this list
+	 * directly at <http://localhost:35007/api/bindings/availableBindingPoints>
      * 
      * @example
      * 
@@ -177,6 +180,9 @@ class Bindings extends EndPoint
 
     /**
      * Invokes a target binding point
+     * 
+     * If Cantabile is running on your local machine a full list of available binding
+     * points is [available here](http://localhost:35007/api/bindings/availableBindingPoints)
      * 
      * @example
      * 
@@ -246,6 +252,9 @@ class Bindings extends EndPoint
 
     /**
      * Queries a source binding point for it's current value.
+     *
+     * If Cantabile is running on your local machine a full list of available binding
+     * points is [available here](http://localhost:35007/api/bindings/availableBindingPoints)
      * 
      * @example
      * 
@@ -267,6 +276,9 @@ class Bindings extends EndPoint
 	/**
 	 * Starts watching a source binding point for changes (or invocations)
 	 * 
+     * If Cantabile is running on your local machine a full list of available binding
+     * points is [available here](http://localhost:35007/api/bindings/availableBindingPoints)
+     *
 	 * @example
 	 * 
 	 * Using a callback function:

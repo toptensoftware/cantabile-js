@@ -42,6 +42,15 @@ Which makes the `CantabileAPI` class available as the global `Cantabile`:
 
 (Note the library assumes ES6 support and only works in modern compatible browsers).
 
+## Debug Logging
+
+To enable debug logging, set the `DEBUG` environment variable to Cantabile.
+
+```cmd
+set DEBUG=Cantabile
+node myProgram.js
+```
+
 ## API Reference
 
 Please [see here](http://www.cantabilesoftware.com/jsapi) for API documentation.
