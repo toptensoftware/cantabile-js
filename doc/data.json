@@ -6,6 +6,13 @@
         "logo": "logo.png"
     },
     "files": {
+        "doc\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js": {
+            "name": "doc\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "yuidoc-lucid-theme\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js": {
             "name": "yuidoc-lucid-theme\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
             "modules": {},
@@ -387,6 +394,12 @@
     },
     "elements": {},
     "classitems": [
+        {
+            "file": "doc\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
+            "line": 1,
+            "description": "Bootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
+            "class": "BindingPointInfo"
+        },
         {
             "file": "yuidoc-lucid-theme\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
             "line": 1,
@@ -1832,6 +1845,10 @@
         {
             "message": "replacing incorrect tag: returns with return",
             "line": " Variables.js:166"
+        },
+        {
+            "message": "Missing item type\nBootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
+            "line": " doc\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js:1"
         },
         {
             "message": "Missing item type\nBootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
