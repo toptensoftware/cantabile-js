@@ -536,7 +536,7 @@
         {
             "file": "Bindings.js",
             "line": 160,
-            "description": "Retrieves a list of available binding points",
+            "description": "Retrieves a list of available binding points\n\nIf Cantabile is running on your local machine you can view this list\ndirectly at <http://localhost:35007/api/bindings/availableBindingPoints>",
             "example": [
                 "\n\n    let C = new CantabileApi();\n    C.connect();\n    console.log(await C.bindings.availableBindingPoints());"
             ],
@@ -550,8 +550,8 @@
         },
         {
             "file": "Bindings.js",
-            "line": 178,
-            "description": "Invokes a target binding point",
+            "line": 181,
+            "description": "Invokes a target binding point\n\nIf Cantabile is running on your local machine a full list of available binding\npoints is [available here](http://localhost:35007/api/bindings/availableBindingPoints)",
             "example": [
                 "\n\nSet the master output level gain\n\n    C.bindings.invoke(\"global.masterLevels.outputGain\", 0.5);",
                 "\n\nSuspend the 2nd plugin in the song\n\n    C.bindings.invoke(\"global.indexedPlugin.suspend\", true, [\n\t        0,     // Rack index (zero = song)\n         1      // Plugin index (zero based, 1 = the second plugin)\n\t\t]);",
@@ -595,8 +595,8 @@
         },
         {
             "file": "Bindings.js",
-            "line": 247,
-            "description": "Queries a source binding point for it's current value.",
+            "line": 253,
+            "description": "Queries a source binding point for it's current value.\n\nIf Cantabile is running on your local machine a full list of available binding\npoints is [available here](http://localhost:35007/api/bindings/availableBindingPoints)",
             "example": [
                 "\n\n    console.log(\"Current Output Gain:\", await C.bindings.query(\"global.masterLevels.outputGain\"));"
             ],
@@ -623,8 +623,8 @@
         },
         {
             "file": "Bindings.js",
-            "line": 267,
-            "description": "Starts watching a source binding point for changes (or invocations)",
+            "line": 276,
+            "description": "Starts watching a source binding point for changes (or invocations)\n\nIf Cantabile is running on your local machine a full list of available binding\npoints is [available here](http://localhost:35007/api/bindings/availableBindingPoints)",
             "example": [
                 "\n\nUsing a callback function:\n\n    let C = new CantabileApi();\n    \n    // Watch a source binding point using a callback function\n    C.bindings.watch(\"global.masterLevels.outputGain\", null, null, function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    })\n    \n\t   // The \"bindings\" end point must be opened before callbacks will happen\n    C.bindings.open();",
                 "\n\nUsing the BindingWatcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.bindings.watch(\"global.masterLevels.outputGain\");\n    watcher.on('invoked', function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    });\n    \n\t   // The \"variables\" end point must be opened before callbacks will happen\n    C.variables.open();\n    \n    /// later, stop listening\n    watcher.unwatch();",
@@ -794,7 +794,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 351,
+            "line": 354,
             "description": "Fired when the {{#crossLink \"Cantabile/state:property\"}}{{/crossLink}} property value changes",
             "itemtype": "event",
             "name": "stateChanged",
@@ -809,7 +809,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 359,
+            "line": 362,
             "description": "Fired when entering the connected state",
             "itemtype": "event",
             "name": "connected",
@@ -817,7 +817,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 366,
+            "line": 369,
             "description": "Fired when entering the connecting state",
             "itemtype": "event",
             "name": "connecting",
@@ -825,7 +825,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 373,
+            "line": 376,
             "description": "Fired when entering the disconnected state",
             "itemtype": "event",
             "name": "disconnected",
@@ -1820,15 +1820,15 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " Bindings.js:178"
+            "line": " Bindings.js:181"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " Bindings.js:247"
+            "line": " Bindings.js:253"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " Bindings.js:267"
+            "line": " Bindings.js:276"
         },
         {
             "message": "replacing incorrect tag: returns with return",
