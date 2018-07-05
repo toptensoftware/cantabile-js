@@ -278,14 +278,17 @@ class Cantabile extends EventEmitter
 			delete this._ws;
 
 			// Reject any pending requests
+			/*
 			var pending = this._pendingResponseHandlers;
 			console.log(pending);
 			this._pendingResponseHandlers = {};
 			for (let key in pending) 
 			{
+				debugger;
 				console.log("===> disconnecting", key);
 			  	pending[key].reject(new Error("Disconnected"));
 			}
+			*/
 		}
 
 		// Try to reconnect...

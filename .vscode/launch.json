@@ -10,11 +10,5 @@
             "name": "Run Sandbox",
             "program": "${workspaceFolder}/sandbox.js"
         },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}\\index.js"
-        }
     ]
 }
