@@ -75,6 +75,14 @@ class Cantabile extends EventEmitter
 		 * @type {Bindings} 
 		 */
 		this.bindings = new (require('./Bindings'))(this);
+
+		/**
+		 * Provides access to information about the current song
+		 *
+		 * @property song
+		 * @type {Song} 
+		 */
+		this.song = new (require('./Song'))(this);
 	}
 
 	/**
