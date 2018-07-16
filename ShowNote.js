@@ -72,6 +72,18 @@
  */
 
 /**
+ * Width of the image in pixels
+ * @property imageWidth
+ * @type {Number}  
+ */
+
+/**
+ * Height of the image in pixels
+ * @property imageHeight
+ * @type {Number}  
+ */
+
+/**
  * The show note's text
  * @property text
  * @type {String}  
@@ -79,7 +91,7 @@
 
 /**
  * Text alignment ("left", "center" or "right")
- * @property textAlignment
+ * @property textAlign
  * @type {String} 
  */
 
