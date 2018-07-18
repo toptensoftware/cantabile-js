@@ -19,12 +19,40 @@ class SongStates extends EndPoint
 
 	_onOpen()
 	{
+		/**
+		 * Fired when anything about the current song changes
+		 *
+		 * @event changed
+		 */
 		this.emit('changed');
+
+		/**
+		 * Fired when the name of the current song changes
+		 *
+		 * @event changed
+		 */
 		this.emit('nameChanged');
+
+		/**
+		 * Fired when the name of the current state changes
+		 *
+		 * @event changed
+		 */
 		this.emit('currentStateChanged');
 	}
 
+	/**
+	 * The name of the current song
+	 * @property name
+	 * @type {String}
+	 */
 	get name() { return this._data ? this._data.name : null; }
+
+	/**
+	 * The name of the current song state
+	 * @property currentState
+	 * @type {String}
+	 */
 	get currentState() { return this._data ? this._data.currentState : null; }
 
 	_onEvent_songChanged(data)

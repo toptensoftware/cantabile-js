@@ -83,6 +83,14 @@ class Cantabile extends EventEmitter
 		 * @type {Song} 
 		 */
 		this.song = new (require('./Song'))(this);
+
+		/**
+		 * Provides access to master transport controls
+		 *
+		 * @property song
+		 * @type {Song} 
+		 */
+		this.transport = new (require('./Transport'))(this);
 	}
 
 	/**
