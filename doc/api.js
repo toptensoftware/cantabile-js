@@ -14,9 +14,11 @@ YUI.add("yuidoc-meta", function(Y) {
         "SetListItem",
         "ShowNote",
         "ShowNotes",
+        "Song",
         "SongStates",
         "State",
         "States",
+        "Transport",
         "Variables"
     ],
     "modules": [],

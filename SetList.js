@@ -27,6 +27,14 @@ class SetList extends EndPoint
 		this.emit('preLoadedChanged');
 	}
 
+	_onClose()
+	{
+		this._resolveCurrentSong();
+		this.emit('reload');
+		this.emit('changed');
+		this.emit('preLoadedChanged');
+	}
+
 	/**
 	 * An array of items in the set list
 	 * @property items

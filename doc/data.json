@@ -127,6 +127,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "Song.js": {
+            "name": "Song.js",
+            "modules": {},
+            "classes": {
+                "Song": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "SongStates.js": {
             "name": "SongStates.js",
             "modules": {},
@@ -150,6 +159,15 @@
             "modules": {},
             "classes": {
                 "States": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Transport.js": {
+            "name": "Transport.js",
+            "modules": {},
+            "classes": {
+                "Transport": 1
             },
             "fors": {},
             "namespaces": {}
@@ -327,6 +345,19 @@
             "description": "Used to access the current set of show notes\n\nAccess this object via the {{#crossLink \"Cantabile/showNotes:property\"}}{{/crossLink}} property.",
             "extends": "EndPoint"
         },
+        "Song": {
+            "name": "Song",
+            "shortname": "Song",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Song.js",
+            "line": 5,
+            "description": "Interface to the current song\n\nAccess this object via the {{#crossLink \"Cantabile/song:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
         "SongStates": {
             "name": "SongStates",
             "shortname": "SongStates",
@@ -363,6 +394,19 @@
             "file": "States.js",
             "line": 6,
             "description": "Base states functionality for State and racks",
+            "extends": "EndPoint"
+        },
+        "Transport": {
+            "name": "Transport",
+            "shortname": "Transport",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Transport.js",
+            "line": 5,
+            "description": "Interface to the master transport\n\nAccess this object via the {{#crossLink \"Cantabile/transport:property\"}}{{/crossLink}} property.",
             "extends": "EndPoint"
         },
         "PatternWatcher": {
@@ -720,7 +764,25 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 80,
+            "line": 79,
+            "description": "Provides access to information about the current song",
+            "itemtype": "property",
+            "name": "song",
+            "type": "{Song}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 87,
+            "description": "Provides access to master transport controls",
+            "itemtype": "property",
+            "name": "song",
+            "type": "{Song}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 96,
             "description": "The current connection state, either \"connecting\", \"connected\" or \"disconnected\"",
             "itemtype": "property",
             "name": "state",
@@ -729,7 +791,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 91,
+            "line": 107,
             "description": "Initiate connection and retry if fails",
             "itemtype": "method",
             "name": "connect",
@@ -737,7 +799,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 101,
+            "line": 117,
             "description": "Disconnect and stop retries",
             "itemtype": "method",
             "name": "disconnect",
@@ -745,7 +807,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 111,
+            "line": 127,
             "description": "Stringify an object as a JSON message and send it to the server",
             "itemtype": "method",
             "name": "send",
@@ -760,7 +822,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 123,
+            "line": 139,
             "description": "Stringify an object as a JSON message, send it to the server and returns \na promise which will resolve to the result.",
             "itemtype": "method",
             "name": "request",
@@ -779,7 +841,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 150,
+            "line": 166,
             "description": "Returns a promise that will be resolved when connected",
             "example": [
                 "\n\n    let C = new CantabileApi();\n    await C.untilConnected();"
@@ -794,7 +856,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 354,
+            "line": 367,
             "description": "Fired when the {{#crossLink \"Cantabile/state:property\"}}{{/crossLink}} property value changes",
             "itemtype": "event",
             "name": "stateChanged",
@@ -809,7 +871,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 362,
+            "line": 375,
             "description": "Fired when entering the connected state",
             "itemtype": "event",
             "name": "connected",
@@ -817,7 +879,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 369,
+            "line": 382,
             "description": "Fired when entering the connecting state",
             "itemtype": "event",
             "name": "connecting",
@@ -825,7 +887,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 376,
+            "line": 389,
             "description": "Fired when entering the disconnected state",
             "itemtype": "event",
             "name": "disconnected",
@@ -902,7 +964,7 @@
         },
         {
             "file": "KeyRanges.js",
-            "line": 31,
+            "line": 36,
             "description": "An array of key ranges",
             "itemtype": "property",
             "name": "items",
@@ -947,7 +1009,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 30,
+            "line": 38,
             "description": "An array of items in the set list",
             "itemtype": "property",
             "name": "items",
@@ -956,7 +1018,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 37,
+            "line": 45,
             "description": "The display name of the current set list (ie: its file name with path and extension removed)",
             "itemtype": "property",
             "name": "name",
@@ -965,7 +1027,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 44,
+            "line": 52,
             "description": "Indicates if the set list is currently pre-loaded",
             "itemtype": "property",
             "name": "preLoaded",
@@ -974,7 +1036,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 51,
+            "line": 59,
             "description": "The index of the currently loaded song (or -1 if the current song isn't in the set list)",
             "itemtype": "property",
             "name": "currentSongIndex",
@@ -983,7 +1045,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 58,
+            "line": 66,
             "description": "The currently loaded item (or null if the current song isn't in the set list)",
             "itemtype": "property",
             "name": "currentSong",
@@ -992,7 +1054,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 65,
+            "line": 73,
             "description": "Load the song at a given index position",
             "itemtype": "method",
             "name": "loadSongByIndex",
@@ -1014,7 +1076,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 79,
+            "line": 87,
             "description": "Load the song with a given program number",
             "itemtype": "method",
             "name": "loadSongByProgram",
@@ -1036,7 +1098,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 93,
+            "line": 101,
             "description": "Load the first song in the set list",
             "itemtype": "method",
             "name": "loadFirstSong",
@@ -1053,7 +1115,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 105,
+            "line": 113,
             "description": "Load the last song in the set list",
             "itemtype": "method",
             "name": "loadLastSong",
@@ -1070,7 +1132,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 117,
+            "line": 125,
             "description": "Load the next or previous song in the set list",
             "itemtype": "method",
             "name": "loadNextSong",
@@ -1099,7 +1161,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 162,
+            "line": 170,
             "description": "Fired after a new item has been added to the set list",
             "itemtype": "event",
             "name": "itemAdded",
@@ -1114,7 +1176,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 169,
+            "line": 177,
             "description": "Fired when anything about the contents of the set list changes",
             "itemtype": "event",
             "name": "changed",
@@ -1122,7 +1184,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 182,
+            "line": 190,
             "description": "Fired after an item has been removed from the set list",
             "itemtype": "event",
             "name": "itemRemoved",
@@ -1137,7 +1199,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 198,
+            "line": 206,
             "description": "Fired when an item in the set list has been moved",
             "itemtype": "event",
             "name": "itemMoved",
@@ -1157,7 +1219,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 217,
+            "line": 225,
             "description": "Fired when something about an item has changed",
             "itemtype": "event",
             "name": "itemChanged",
@@ -1172,7 +1234,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 233,
+            "line": 241,
             "description": "Fired when the entire set list has changed (eg: after a sort operation, or loading a new set list)",
             "itemtype": "event",
             "name": "reload",
@@ -1180,7 +1242,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 245,
+            "line": 253,
             "description": "Fired when the pre-loaded state of the list has changed",
             "itemtype": "event",
             "name": "preLoadedChanged",
@@ -1188,7 +1250,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 258,
+            "line": 266,
             "description": "Fired when the currently loaded song changes",
             "itemtype": "event",
             "name": "currentSongChanged",
@@ -1196,7 +1258,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 272,
+            "line": 280,
             "description": "Fired when the name of the currently loaded set list changes",
             "itemtype": "event",
             "name": "nameChanged",
@@ -1340,6 +1402,24 @@
         {
             "file": "ShowNote.js",
             "line": 74,
+            "description": "Width of the image in pixels",
+            "itemtype": "property",
+            "name": "imageWidth",
+            "type": "{Number}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 80,
+            "description": "Height of the image in pixels",
+            "itemtype": "property",
+            "name": "imageHeight",
+            "type": "{Number}",
+            "class": "ShowNote"
+        },
+        {
+            "file": "ShowNote.js",
+            "line": 86,
             "description": "The show note's text",
             "itemtype": "property",
             "name": "text",
@@ -1348,16 +1428,16 @@
         },
         {
             "file": "ShowNote.js",
-            "line": 80,
+            "line": 92,
             "description": "Text alignment (\"left\", \"center\" or \"right\")",
             "itemtype": "property",
-            "name": "textAlignment",
+            "name": "textAlign",
             "type": "{String}",
             "class": "ShowNote"
         },
         {
             "file": "ShowNote.js",
-            "line": 86,
+            "line": 98,
             "description": "Text color (0 - 15)",
             "itemtype": "property",
             "name": "textColor",
@@ -1366,7 +1446,7 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 27,
+            "line": 33,
             "description": "An array of show note items",
             "itemtype": "property",
             "name": "items",
@@ -1375,7 +1455,7 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 40,
+            "line": 46,
             "description": "Fired after a new show note has been added",
             "itemtype": "event",
             "name": "itemAdded",
@@ -1390,7 +1470,7 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 47,
+            "line": 53,
             "description": "Fired when anything about the current set of show notes changes",
             "itemtype": "event",
             "name": "changed",
@@ -1398,7 +1478,7 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 60,
+            "line": 66,
             "description": "Fired after a show note has been removed",
             "itemtype": "event",
             "name": "itemRemoved",
@@ -1413,7 +1493,7 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 76,
+            "line": 82,
             "description": "Fired when an show note has been moved",
             "itemtype": "event",
             "name": "itemMoved",
@@ -1433,7 +1513,7 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 92,
+            "line": 98,
             "description": "Fired when something about an show note has changed",
             "itemtype": "event",
             "name": "itemChanged",
@@ -1448,11 +1528,53 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 106,
+            "line": 112,
             "description": "Fired when the entire set of show notes has changed (eg: after  loading a new song)",
             "itemtype": "event",
             "name": "reload",
             "class": "ShowNotes"
+        },
+        {
+            "file": "Song.js",
+            "line": 22,
+            "description": "Fired when anything about the current song changes",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "Song"
+        },
+        {
+            "file": "Song.js",
+            "line": 29,
+            "description": "Fired when the name of the current song changes",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "Song"
+        },
+        {
+            "file": "Song.js",
+            "line": 36,
+            "description": "Fired when the name of the current state changes",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "Song"
+        },
+        {
+            "file": "Song.js",
+            "line": 51,
+            "description": "The name of the current song",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "Song"
+        },
+        {
+            "file": "Song.js",
+            "line": 58,
+            "description": "The name of the current song state",
+            "itemtype": "property",
+            "name": "currentState",
+            "type": "{String}",
+            "class": "Song"
         },
         {
             "file": "State.js",
@@ -1483,7 +1605,7 @@
         },
         {
             "file": "States.js",
-            "line": 27,
+            "line": 34,
             "description": "An array of states",
             "itemtype": "property",
             "name": "items",
@@ -1492,7 +1614,7 @@
         },
         {
             "file": "States.js",
-            "line": 34,
+            "line": 41,
             "description": "The display name of the containing song or rack",
             "itemtype": "property",
             "name": "name",
@@ -1501,7 +1623,7 @@
         },
         {
             "file": "States.js",
-            "line": 41,
+            "line": 48,
             "description": "The index of the currently loaded State (or -1 if no active state)",
             "itemtype": "property",
             "name": "currentStateIndex",
@@ -1510,7 +1632,7 @@
         },
         {
             "file": "States.js",
-            "line": 48,
+            "line": 55,
             "description": "The currently loaded item (or null if no active state)",
             "itemtype": "property",
             "name": "currentState",
@@ -1519,7 +1641,7 @@
         },
         {
             "file": "States.js",
-            "line": 55,
+            "line": 62,
             "description": "Load the State at a given index position",
             "itemtype": "method",
             "name": "loadStateByIndex",
@@ -1541,7 +1663,7 @@
         },
         {
             "file": "States.js",
-            "line": 69,
+            "line": 76,
             "description": "Load the State with a given program number",
             "itemtype": "method",
             "name": "loadStateByProgram",
@@ -1563,7 +1685,7 @@
         },
         {
             "file": "States.js",
-            "line": 83,
+            "line": 90,
             "description": "Load the first state",
             "itemtype": "method",
             "name": "loadFirstState",
@@ -1580,7 +1702,7 @@
         },
         {
             "file": "States.js",
-            "line": 95,
+            "line": 102,
             "description": "Load the last state",
             "itemtype": "method",
             "name": "loadLastState",
@@ -1597,7 +1719,7 @@
         },
         {
             "file": "States.js",
-            "line": 107,
+            "line": 114,
             "description": "Load the next or previous state",
             "itemtype": "method",
             "name": "loadNextState",
@@ -1626,7 +1748,7 @@
         },
         {
             "file": "States.js",
-            "line": 151,
+            "line": 158,
             "description": "Fired after a new state has been added",
             "itemtype": "event",
             "name": "itemAdded",
@@ -1641,7 +1763,7 @@
         },
         {
             "file": "States.js",
-            "line": 158,
+            "line": 165,
             "description": "Fired when anything about the contents of state list changes",
             "itemtype": "event",
             "name": "changed",
@@ -1649,7 +1771,7 @@
         },
         {
             "file": "States.js",
-            "line": 171,
+            "line": 178,
             "description": "Fired after a state has been removed",
             "itemtype": "event",
             "name": "itemRemoved",
@@ -1664,7 +1786,7 @@
         },
         {
             "file": "States.js",
-            "line": 187,
+            "line": 194,
             "description": "Fired when an item has been moved",
             "itemtype": "event",
             "name": "itemMoved",
@@ -1684,7 +1806,7 @@
         },
         {
             "file": "States.js",
-            "line": 206,
+            "line": 213,
             "description": "Fired when something about an state has changed",
             "itemtype": "event",
             "name": "itemChanged",
@@ -1699,7 +1821,7 @@
         },
         {
             "file": "States.js",
-            "line": 222,
+            "line": 229,
             "description": "Fired when the entire set of states has changed (eg: after a sort operation, or loading a new song/rack)",
             "itemtype": "event",
             "name": "reload",
@@ -1707,7 +1829,7 @@
         },
         {
             "file": "States.js",
-            "line": 235,
+            "line": 242,
             "description": "Fired when the current state changes",
             "itemtype": "event",
             "name": "currentStateChanged",
@@ -1715,11 +1837,136 @@
         },
         {
             "file": "States.js",
-            "line": 249,
+            "line": 256,
             "description": "Fired when the name of the containing song or rack changes",
             "itemtype": "event",
             "name": "nameChanged",
             "class": "States"
+        },
+        {
+            "file": "Transport.js",
+            "line": 34,
+            "description": "Gets or sets the current transport state.  Supported values include \"playing\", \"paused\" or \"stopped\"",
+            "itemtype": "property",
+            "name": "state",
+            "type": "{String}",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 52,
+            "description": "Gets the current time signture numerator",
+            "itemtype": "property",
+            "name": "timeSignatureNum",
+            "type": "{Number}",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 59,
+            "description": "Gets the current time signture denominator",
+            "itemtype": "property",
+            "name": "timeSignatureDen",
+            "type": "{Number}",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 66,
+            "description": "Gets the current time signture as a string (eg: \"3/4\")",
+            "itemtype": "property",
+            "name": "timeSignature",
+            "type": "{String}",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 73,
+            "description": "Gets the current tempo",
+            "itemtype": "property",
+            "name": "tempo",
+            "type": "{Number}",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 82,
+            "description": "Fired when the current transport state has changed",
+            "itemtype": "event",
+            "name": "stateChanged",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 94,
+            "description": "Fired when the current time signature has changed",
+            "itemtype": "event",
+            "name": "timeSignatureChanged",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 107,
+            "description": "Fired when the current tempo has changed",
+            "itemtype": "event",
+            "name": "tempoChanged",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 117,
+            "description": "Starts transport playback",
+            "itemtype": "method",
+            "name": "play",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 127,
+            "description": "Toggles between play and pause states",
+            "itemtype": "method",
+            "name": "togglePlayPause",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 139,
+            "description": "Toggles pause and play states (unless stopped)",
+            "itemtype": "method",
+            "name": "togglePlayPause",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 151,
+            "description": "Toggles play and stopped states",
+            "itemtype": "method",
+            "name": "togglePlay",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 163,
+            "description": "Toggles between play and stop states",
+            "itemtype": "method",
+            "name": "togglePlayStop",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 175,
+            "description": "Pauses the master transport",
+            "itemtype": "method",
+            "name": "pause",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 185,
+            "description": "Stops the master transport",
+            "itemtype": "method",
+            "name": "stop",
+            "class": "Transport"
         },
         {
             "file": "Variables.js",
@@ -1832,11 +2079,11 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " CantabileApi.js:123"
+            "line": " CantabileApi.js:139"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " CantabileApi.js:150"
+            "line": " CantabileApi.js:166"
         },
         {
             "message": "replacing incorrect tag: returns with return",

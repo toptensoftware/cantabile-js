@@ -28,6 +28,11 @@ class KeyRanges extends EndPoint
 		this.emit('changed');
 	}
 
+	_onClose()
+	{
+		this.emit('changed');
+	}
+
 	/**
 	 * An array of key ranges
 	 * @property items

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>BindingPointInfo - Cantabile JavaScript API</title>
+    <title>Transport.js - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -90,236 +90,211 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>BindingPointInfo</h1>
+    <h1>Transport.js <small>File</small></h1>
 </div>
 
+<div class="file">
+    <pre class="prettyprint linenums">
+&#x27;use strict&#x27;;
+
+const EndPoint = require(&#x27;./EndPoint&#x27;);
+
+/**
+ * Interface to the master transport
+ * 
+ * Access this object via the {{#crossLink &quot;Cantabile/transport:property&quot;}}{{/crossLink}} property.
+ *
+ * @class Transport
+ * @extends EndPoint
+ */
+class Transport extends EndPoint
+{
+	constructor(owner)
+	{
+		super(owner, &quot;/api/transport&quot;);
+	}
+
+	_onOpen()
+	{
+        this.emit(&#x27;stateChanged&#x27;);
+        this.emit(&#x27;timeSignatureChanged&#x27;);
+        this.emit(&#x27;tempoChanged&#x27;);
+    }
+
+	_onClose()
+	{
+        this.emit(&#x27;stateChanged&#x27;);
+        this.emit(&#x27;timeSignatureChanged&#x27;);
+        this.emit(&#x27;tempoChanged&#x27;);
+	}
+
+	/**
+	 * Gets or sets the current transport state.  Supported values include &quot;playing&quot;, &quot;paused&quot; or &quot;stopped&quot;
+	 * @property state
+	 * @type {String}
+	 */
+    get state() { return this._data ? this._data.state : &quot;stopped&quot;; }
+    set state(value)
+    {
+        if (this.state == value)
+            return;
+        switch (value)
+        {
+            case &quot;playing&quot;: this.play(); break;
+            case &quot;paused&quot;: this.pause(); break;
+            case &quot;stopped&quot;: this.stop(); break;
+        }
+    }
+
+	/**
+	 * Gets the current time signture numerator
+	 * @property timeSignatureNum
+	 * @type {Number}
+	 */
+    get timeSignatureNum() { return this._data ? this._data.timeSigNum : 0 }
+
+	/**
+	 * Gets the current time signture denominator
+	 * @property timeSignatureDen
+	 * @type {Number}
+	 */
+    get timeSignatureDen() { return this._data ? this._data.timeSigDen : 0 }
+
+	/**
+	 * Gets the current time signture as a string (eg: &quot;3/4&quot;)
+	 * @property timeSignature
+	 * @type {String}
+	 */
+    get timeSignature() { return this._data ? this._data.timeSigNum + &quot;/&quot; + this._data.timeSigDen : &quot;-&quot; }
+
+	/**
+	 * Gets the current tempo
+	 * @property tempo
+	 * @type {Number}
+	 */
+    get tempo() { return this._data ? this._data.tempo : 0 }
+
+	_onEvent_stateChanged(data)
+	{
+		/**
+		 * Fired when the current transport state has changed
+		 *
+		 * @event stateChanged
+		 */
+
+        this._data.state = data.state;
+		this.emit(&#x27;stateChanged&#x27;);
+    }
+
+    _onEvent_timeSigChanged(data)
+    {
+		/**
+		 * Fired when the current time signature has changed
+		 *
+		 * @event timeSignatureChanged
+		 */
+
+        this._data.timeSigNum = data.timeSigNum;
+        this._data.timeSigDen = data.timeSigDen;
+        this.emit(&#x27;timeSignatureChanged&#x27;);
+    }
+    
+    _onEvent_tempoChanged(data)
+    {
+        /**
+		 * Fired when the current tempo has changed
+		 *
+		 * @event tempoChanged
+		 */
+
+        this._data.tempo  = data.tempo;
+        this.emit(&#x27;tempoChanged&#x27;);
+    }
+    
+	/**
+	 * Starts transport playback
+	 * @method play
+	 */
+    play()
+    {
+        if (this.state != &quot;playing&quot;)
+            this.post(&quot;/play&quot;, {});
+    }
+
+	/**
+	 * Toggles between play and pause states
+	 * @method togglePlayPause
+	 */
+    togglePlayPause()
+    {
+        if (this.state == &quot;playing&quot;)
+            this.pause();
+        else
+            this.play();
+    }
+
+	/**
+	 * Toggles pause and play states (unless stopped)
+	 * @method togglePlayPause
+	 */
+    togglePause()
+    {
+        if (this.state == &quot;paused&quot;)
+            this.play();
+        else if (this.state == &quot;playing&quot;)
+            this.pause();
+    }
+
+    /**
+	 * Toggles play and stopped states
+	 * @method togglePlay
+	 */
+    togglePlay()
+    {
+        if (this.state == &quot;stopped&quot;)
+            this.play();
+        else
+            this.stop();
+    }
+
+	/**
+	 * Toggles between play and stop states
+	 * @method togglePlayStop
+	 */
+    togglePlayStop()
+    {
+        if (this.state != &quot;playing&quot;)
+            this.play();
+        else
+            this.stop();
+    }
+
+	/**
+	 * Pauses the master transport
+	 * @method pause
+	 */
+    pause()
+    {
+        if (this.state != &quot;paused&quot;)
+            this.post(&quot;/pause&quot;, {});
+    }
+
+	/**
+	 * Stops the master transport
+	 * @method stop
+	 */
+    stop()
+    {
+        if (this.state != &quot;stopped&quot;)
+            this.post(&quot;/stop&quot;, {});
+    }
+
+}
 
 
-
-
-
-<div class="yuidoc-class-description">
-<p>An anonymous type that describes a binding point</p>
-
+module.exports = Transport;
+    </pre>
 </div>
-
-<!-- table of contents -->
-
-<div id="class-toc" class="page-section">
-	<h2>Table of Contents</h2>
-    <ul>
-
-		<li>
-			<strong>Properties</strong>
-			<ul>
-				<li><a href="#prop-indicies"><span class="ip">indicies</span></a></li>
-				<li><a href="#prop-isSource"><span class="ip">isSource</span></a></li>
-				<li><a href="#prop-kind"><span class="ip">kind</span></a></li>
-				<li><a href="#prop-name"><span class="ip">name</span></a></li>
-				<li><a href="#prop-name"><span class="ip">name</span></a></li>
-				<li><a href="#prop-parameterKind"><span class="ip">parameterKind</span></a></li>
-			</ul>
-		</li>
-
-
-
-
-	</ul>
-</div>
-
-<!-- details -->
-
-
-
-    <div id="properties" class="page-section">
-        <h2 class="off-left">Properties</h2>
-
-        <div class="item-list">
-<div id="prop-indicies" class="property item">
-    <h3 class="name"><code>indicies</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l25"><code>BindingPointInfo.js:25</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The names of the indicies used to reference this binding point</p>
-
-    </div>
-
-
-        <div class="example">
-            <h4>Example:</h4>
-
-            <div class="example-content">
-                <p>This binding point requires two indicies... the rack index and the plug index</p>
-<pre class="code prettyprint"><code> "indicies": [ "Rack Index", "Plugin Index"],</code></pre>
-
-            </div>
-        </div>
-
-</div>
-<div id="prop-isSource" class="property item">
-    <h3 class="name"><code>isSource</code></h3>
-    <span class="type">Boolean</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l19"><code>BindingPointInfo.js:19</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Indicates if this is a source or target binding point</p>
-
-    </div>
-
-
-
-</div>
-<div id="prop-kind" class="property item">
-    <h3 class="name"><code>kind</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l38"><code>BindingPointInfo.js:38</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The binding point kind - the type of data send/expected by this binding piont</p>
-<ul>
-<li>"midi"</li>
-<li>"command"</li>
-<li>"switch"</li>
-<li>"float"</li>
-<li>"gainLevel"</li>
-<li>"integer"</li>
-<li>"index"</li>
-<li>"pitchBend"</li>
-<li>"programNumber"</li>
-<li>"bankedProgramNumber"</li>
-<li>"variant"</li>
-<li>"object"</li>
-</ul>
-
-    </div>
-
-
-
-</div>
-<div id="prop-name" class="property item">
-    <h3 class="name"><code>name</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l7"><code>BindingPointInfo.js:7</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The name of the binding point</p>
-
-    </div>
-
-
-
-</div>
-<div id="prop-name" class="property item">
-    <h3 class="name"><code>name</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l13"><code>BindingPointInfo.js:13</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The display name of the binding point</p>
-
-    </div>
-
-
-
-</div>
-<div id="prop-parameterKind" class="property item">
-    <h3 class="name"><code>parameterKind</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l59"><code>BindingPointInfo.js:59</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The binding point parameter kind - the kind of parameter expected by this binding point</p>
-<ul>
-<li>"none"</li>
-<li>"triggerNumber"</li>
-<li>"popup"</li>
-<li>"keystoke"</li>
-<li>"script"</li>
-</ul>
-
-    </div>
-
-
-
-</div>
-        </div>
-    </div>
-
-
-
                     </div>
                 </div>
             </div>

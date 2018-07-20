@@ -24,6 +24,13 @@ class States extends EndPoint
 		this.emit('changed');
 	}
 
+	_onClose()
+	{
+		this._resolveCurrentState();
+		this.emit('reload');
+		this.emit('changed');
+	}
+
 	/**
 	 * An array of states
 	 * @property items

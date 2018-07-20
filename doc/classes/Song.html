@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>BindingPointInfo - Cantabile JavaScript API</title>
+    <title>Song - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -90,16 +90,22 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>BindingPointInfo</h1>
+    <h1>Song</h1>
 </div>
 
 
+	<div class="well well-small">
+        <div class="extends">
+            Extends <a href="../classes/EndPoint.html" class="crosslink">EndPoint</a>
+        </div>
+    </div>
 
 
 
 
 <div class="yuidoc-class-description">
-<p>An anonymous type that describes a binding point</p>
+<p>Interface to the current song</p>
+<p>Access this object via the <a href="../classes/Cantabile.html#property_song" class="crosslink">song</a> property.</p>
 
 </div>
 
@@ -108,20 +114,31 @@
 <div id="class-toc" class="page-section">
 	<h2>Table of Contents</h2>
     <ul>
+		<li>
+			<strong>Methods</strong>
+			<ul>
+				<li><a href="#method-close"><span class="im">close</span>()</a></li>
+				<li><a href="#method-open"><span class="im">open</span>()</a></li>
+			</ul>
+		</li>
 
 		<li>
 			<strong>Properties</strong>
 			<ul>
-				<li><a href="#prop-indicies"><span class="ip">indicies</span></a></li>
-				<li><a href="#prop-isSource"><span class="ip">isSource</span></a></li>
-				<li><a href="#prop-kind"><span class="ip">kind</span></a></li>
+				<li><a href="#prop-currentState"><span class="ip">currentState</span></a></li>
 				<li><a href="#prop-name"><span class="ip">name</span></a></li>
-				<li><a href="#prop-name"><span class="ip">name</span></a></li>
-				<li><a href="#prop-parameterKind"><span class="ip">parameterKind</span></a></li>
 			</ul>
 		</li>
 
 
+        <li>
+            <strong>Events</strong>
+            <ul>
+                <li><a href="#event-changed"><span class="im">changed</span></a></li>
+                <li><a href="#event-changed"><span class="im">changed</span></a></li>
+                <li><a href="#event-changed"><span class="im">changed</span></a></li>
+            </ul>
+        </li>
 
 
 	</ul>
@@ -130,13 +147,74 @@
 <!-- details -->
 
 
+    <div id="methods" class="page-section">
+        <h2 class="off-left">Methods</h2>
+        <div class="item-list">
+<div id="method-close" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>close</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_close">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l50"><code>EndPoint.js:50</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Closes the end point and stops listening for events</p>
+</div>
+
+
+
+</div>
+<div id="method-open" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>open</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_open">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l36"><code>EndPoint.js:36</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Opens this end point and starts listening for events</p>
+</div>
+
+
+
+</div>
+        </div>
+    </div>
 
     <div id="properties" class="page-section">
         <h2 class="off-left">Properties</h2>
 
         <div class="item-list">
-<div id="prop-indicies" class="property item">
-    <h3 class="name"><code>indicies</code></h3>
+<div id="prop-currentState" class="property item">
+    <h3 class="name"><code>currentState</code></h3>
     <span class="type">String</span>
 
 
@@ -146,87 +224,14 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/BindingPointInfo.js.html#l25"><code>BindingPointInfo.js:25</code></a>
+        <a href="../files/Song.js.html#l58"><code>Song.js:58</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>The names of the indicies used to reference this binding point</p>
-
-    </div>
-
-
-        <div class="example">
-            <h4>Example:</h4>
-
-            <div class="example-content">
-                <p>This binding point requires two indicies... the rack index and the plug index</p>
-<pre class="code prettyprint"><code> "indicies": [ "Rack Index", "Plugin Index"],</code></pre>
-
-            </div>
-        </div>
-
-</div>
-<div id="prop-isSource" class="property item">
-    <h3 class="name"><code>isSource</code></h3>
-    <span class="type">Boolean</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l19"><code>BindingPointInfo.js:19</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Indicates if this is a source or target binding point</p>
-
-    </div>
-
-
-
-</div>
-<div id="prop-kind" class="property item">
-    <h3 class="name"><code>kind</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l38"><code>BindingPointInfo.js:38</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The binding point kind - the type of data send/expected by this binding piont</p>
-<ul>
-<li>"midi"</li>
-<li>"command"</li>
-<li>"switch"</li>
-<li>"float"</li>
-<li>"gainLevel"</li>
-<li>"integer"</li>
-<li>"index"</li>
-<li>"pitchBend"</li>
-<li>"programNumber"</li>
-<li>"bankedProgramNumber"</li>
-<li>"variant"</li>
-<li>"object"</li>
-</ul>
+        <p>The name of the current song state</p>
 
     </div>
 
@@ -244,71 +249,14 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/BindingPointInfo.js.html#l7"><code>BindingPointInfo.js:7</code></a>
+        <a href="../files/Song.js.html#l51"><code>Song.js:51</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>The name of the binding point</p>
-
-    </div>
-
-
-
-</div>
-<div id="prop-name" class="property item">
-    <h3 class="name"><code>name</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l13"><code>BindingPointInfo.js:13</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The display name of the binding point</p>
-
-    </div>
-
-
-
-</div>
-<div id="prop-parameterKind" class="property item">
-    <h3 class="name"><code>parameterKind</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l59"><code>BindingPointInfo.js:59</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The binding point parameter kind - the kind of parameter expected by this binding point</p>
-<ul>
-<li>"none"</li>
-<li>"triggerNumber"</li>
-<li>"popup"</li>
-<li>"keystoke"</li>
-<li>"script"</li>
-</ul>
+        <p>The name of the current song</p>
 
     </div>
 
@@ -319,6 +267,87 @@
     </div>
 
 
+    <div id="events" class="page-section">
+        <h2 class="off-left">Events</h2>
+
+        <div class="item-list">
+<div id="event-changed" class="events item">
+    <h3 class="name"><code>changed</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Song.js.html#l22"><code>Song.js:22</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when anything about the current song changes</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-changed" class="events item">
+    <h3 class="name"><code>changed</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Song.js.html#l29"><code>Song.js:29</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the name of the current song changes</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-changed" class="events item">
+    <h3 class="name"><code>changed</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Song.js.html#l36"><code>Song.js:36</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the name of the current state changes</p>
+
+    </div>
+
+
+
+</div>
+        </div>
+    </div>
 
                     </div>
                 </div>

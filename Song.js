@@ -41,6 +41,13 @@ class SongStates extends EndPoint
 		this.emit('currentStateChanged');
 	}
 
+	_onClose()
+	{
+		this.emit('changed');
+		this.emit('nameChanged');
+		this.emit('currentStateChanged');
+	}
+
 	/**
 	 * The name of the current song
 	 * @property name

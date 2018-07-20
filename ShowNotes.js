@@ -24,6 +24,12 @@ class ShowNotes extends EndPoint
 		this.emit('changed');
 	}
 
+	_onClose()
+	{
+		this.emit('reload');
+		this.emit('changed');
+	}
+
 	/**
 	 * An array of show note items
 	 * @property items

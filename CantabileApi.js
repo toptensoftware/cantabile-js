@@ -269,9 +269,6 @@ class Cantabile extends EventEmitter
 	// Socket onerror handler
 	_onSocketError(evt)
 	{
-		// Log it
-		debug("socket error: %j", evt.error.message);
-
 		// Disconnect
 		this._internalDisconnect();
 

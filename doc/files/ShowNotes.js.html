@@ -27,7 +27,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/SongStates", "classes/State", "classes/States", "classes/Variables"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/Song", "classes/SongStates", "classes/State", "classes/States", "classes/Transport", "classes/Variables"]'>
         </form>
     </div>
 </div>
@@ -51,9 +51,11 @@
                 <li><a href="../classes/SetListItem.html">SetListItem</a></li>
                 <li><a href="../classes/ShowNote.html">ShowNote</a></li>
                 <li><a href="../classes/ShowNotes.html">ShowNotes</a></li>
+                <li><a href="../classes/Song.html">Song</a></li>
                 <li><a href="../classes/SongStates.html">SongStates</a></li>
                 <li><a href="../classes/State.html">State</a></li>
                 <li><a href="../classes/States.html">States</a></li>
+                <li><a href="../classes/Transport.html">Transport</a></li>
                 <li><a href="../classes/Variables.html">Variables</a></li>
         </ul>
     </div>
@@ -114,6 +116,12 @@ class ShowNotes extends EndPoint
 	}
 
 	_onOpen()
+	{
+		this.emit(&#x27;reload&#x27;);
+		this.emit(&#x27;changed&#x27;);
+	}
+
+	_onClose()
 	{
 		this.emit(&#x27;reload&#x27;);
 		this.emit(&#x27;changed&#x27;);

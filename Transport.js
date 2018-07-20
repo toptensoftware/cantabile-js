@@ -19,12 +19,16 @@ class Transport extends EndPoint
 
 	_onOpen()
 	{
-		/**
-		 * Fired when the current transport state has changed
-		 *
-		 * @event stateChanged
-		 */
         this.emit('stateChanged');
+        this.emit('timeSignatureChanged');
+        this.emit('tempoChanged');
+    }
+
+	_onClose()
+	{
+        this.emit('stateChanged');
+        this.emit('timeSignatureChanged');
+        this.emit('tempoChanged');
 	}
 
 	/**
@@ -45,17 +49,69 @@ class Transport extends EndPoint
         }
     }
 
+	/**
+	 * Gets the current time signture numerator
+	 * @property timeSignatureNum
+	 * @type {Number}
+	 */
+    get timeSignatureNum() { return this._data ? this._data.timeSigNum : 0 }
+
+	/**
+	 * Gets the current time signture denominator
+	 * @property timeSignatureDen
+	 * @type {Number}
+	 */
+    get timeSignatureDen() { return this._data ? this._data.timeSigDen : 0 }
+
+	/**
+	 * Gets the current time signture as a string (eg: "3/4")
+	 * @property timeSignature
+	 * @type {String}
+	 */
+    get timeSignature() { return this._data ? this._data.timeSigNum + "/" + this._data.timeSigDen : "-" }
+
+	/**
+	 * Gets the current tempo
+	 * @property tempo
+	 * @type {Number}
+	 */
+    get tempo() { return this._data ? this._data.tempo : 0 }
 
 	_onEvent_stateChanged(data)
 	{
 		/**
-		 * Fired when the current transport state changes
+		 * Fired when the current transport state has changed
 		 *
 		 * @event stateChanged
 		 */
 
-         this._data.state = data.state;
+        this._data.state = data.state;
 		this.emit('stateChanged');
+    }
+
+    _onEvent_timeSigChanged(data)
+    {
+		/**
+		 * Fired when the current time signature has changed
+		 *
+		 * @event timeSignatureChanged
+		 */
+
+        this._data.timeSigNum = data.timeSigNum;
+        this._data.timeSigDen = data.timeSigDen;
+        this.emit('timeSignatureChanged');
+    }
+    
+    _onEvent_tempoChanged(data)
+    {
+        /**
+		 * Fired when the current tempo has changed
+		 *
+		 * @event tempoChanged
+		 */
+
+        this._data.tempo  = data.tempo;
+        this.emit('tempoChanged');
     }
     
 	/**
@@ -118,7 +174,7 @@ class Transport extends EndPoint
 
 	/**
 	 * Pauses the master transport
-	 * @method play
+	 * @method pause
 	 */
     pause()
     {
@@ -128,7 +184,7 @@ class Transport extends EndPoint
 
 	/**
 	 * Stops the master transport
-	 * @method play
+	 * @method stop
 	 */
     stop()
     {

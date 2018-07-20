@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>BindingPointInfo - Cantabile JavaScript API</title>
+    <title>Song.js - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -90,236 +90,103 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>BindingPointInfo</h1>
+    <h1>Song.js <small>File</small></h1>
 </div>
 
+<div class="file">
+    <pre class="prettyprint linenums">
+&#x27;use strict&#x27;;
+
+const EndPoint = require(&#x27;./EndPoint&#x27;);
+
+/**
+ * Interface to the current song
+ * 
+ * Access this object via the {{#crossLink &quot;Cantabile/song:property&quot;}}{{/crossLink}} property.
+ *
+ * @class Song
+ * @extends EndPoint
+ */
+class SongStates extends EndPoint
+{
+	constructor(owner)
+	{
+		super(owner, &quot;/api/song&quot;);
+	}
+
+	_onOpen()
+	{
+		/**
+		 * Fired when anything about the current song changes
+		 *
+		 * @event changed
+		 */
+		this.emit(&#x27;changed&#x27;);
+
+		/**
+		 * Fired when the name of the current song changes
+		 *
+		 * @event changed
+		 */
+		this.emit(&#x27;nameChanged&#x27;);
+
+		/**
+		 * Fired when the name of the current state changes
+		 *
+		 * @event changed
+		 */
+		this.emit(&#x27;currentStateChanged&#x27;);
+	}
+
+	_onClose()
+	{
+		this.emit(&#x27;changed&#x27;);
+		this.emit(&#x27;nameChanged&#x27;);
+		this.emit(&#x27;currentStateChanged&#x27;);
+	}
+
+	/**
+	 * The name of the current song
+	 * @property name
+	 * @type {String}
+	 */
+	get name() { return this._data ? this._data.name : null; }
+
+	/**
+	 * The name of the current song state
+	 * @property currentState
+	 * @type {String}
+	 */
+	get currentState() { return this._data ? this._data.currentState : null; }
+
+	_onEvent_songChanged(data)
+	{
+		this._data = data;
+		this.emit(&#x27;changed&#x27;);
+		this.emit(&#x27;nameChanged&#x27;);
+		this.emit(&#x27;currentStateChanged&#x27;);
+	}
+
+	_onEvent_nameChanged(data)
+	{
+		this._data.name = data.name;
+		this.emit(&#x27;changed&#x27;);
+		this.emit(&#x27;nameChanged&#x27;);
+	}
+
+	_onEvent_currentStateChanged(data)
+	{
+		this._data.currentState = data.currentState;
+		this.emit(&#x27;changed&#x27;);
+		this.emit(&#x27;currentStateChanged&#x27;);
+	}
+
+}
 
 
-
-
-
-<div class="yuidoc-class-description">
-<p>An anonymous type that describes a binding point</p>
-
+module.exports = SongStates;
+    </pre>
 </div>
-
-<!-- table of contents -->
-
-<div id="class-toc" class="page-section">
-	<h2>Table of Contents</h2>
-    <ul>
-
-		<li>
-			<strong>Properties</strong>
-			<ul>
-				<li><a href="#prop-indicies"><span class="ip">indicies</span></a></li>
-				<li><a href="#prop-isSource"><span class="ip">isSource</span></a></li>
-				<li><a href="#prop-kind"><span class="ip">kind</span></a></li>
-				<li><a href="#prop-name"><span class="ip">name</span></a></li>
-				<li><a href="#prop-name"><span class="ip">name</span></a></li>
-				<li><a href="#prop-parameterKind"><span class="ip">parameterKind</span></a></li>
-			</ul>
-		</li>
-
-
-
-
-	</ul>
-</div>
-
-<!-- details -->
-
-
-
-    <div id="properties" class="page-section">
-        <h2 class="off-left">Properties</h2>
-
-        <div class="item-list">
-<div id="prop-indicies" class="property item">
-    <h3 class="name"><code>indicies</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l25"><code>BindingPointInfo.js:25</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The names of the indicies used to reference this binding point</p>
-
-    </div>
-
-
-        <div class="example">
-            <h4>Example:</h4>
-
-            <div class="example-content">
-                <p>This binding point requires two indicies... the rack index and the plug index</p>
-<pre class="code prettyprint"><code> "indicies": [ "Rack Index", "Plugin Index"],</code></pre>
-
-            </div>
-        </div>
-
-</div>
-<div id="prop-isSource" class="property item">
-    <h3 class="name"><code>isSource</code></h3>
-    <span class="type">Boolean</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l19"><code>BindingPointInfo.js:19</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Indicates if this is a source or target binding point</p>
-
-    </div>
-
-
-
-</div>
-<div id="prop-kind" class="property item">
-    <h3 class="name"><code>kind</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l38"><code>BindingPointInfo.js:38</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The binding point kind - the type of data send/expected by this binding piont</p>
-<ul>
-<li>"midi"</li>
-<li>"command"</li>
-<li>"switch"</li>
-<li>"float"</li>
-<li>"gainLevel"</li>
-<li>"integer"</li>
-<li>"index"</li>
-<li>"pitchBend"</li>
-<li>"programNumber"</li>
-<li>"bankedProgramNumber"</li>
-<li>"variant"</li>
-<li>"object"</li>
-</ul>
-
-    </div>
-
-
-
-</div>
-<div id="prop-name" class="property item">
-    <h3 class="name"><code>name</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l7"><code>BindingPointInfo.js:7</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The name of the binding point</p>
-
-    </div>
-
-
-
-</div>
-<div id="prop-name" class="property item">
-    <h3 class="name"><code>name</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l13"><code>BindingPointInfo.js:13</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The display name of the binding point</p>
-
-    </div>
-
-
-
-</div>
-<div id="prop-parameterKind" class="property item">
-    <h3 class="name"><code>parameterKind</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/BindingPointInfo.js.html#l59"><code>BindingPointInfo.js:59</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The binding point parameter kind - the kind of parameter expected by this binding point</p>
-<ul>
-<li>"none"</li>
-<li>"triggerNumber"</li>
-<li>"popup"</li>
-<li>"keystoke"</li>
-<li>"script"</li>
-</ul>
-
-    </div>
-
-
-
-</div>
-        </div>
-    </div>
-
-
-
                     </div>
                 </div>
             </div>

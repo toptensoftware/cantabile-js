@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>ShowNotes - Cantabile JavaScript API</title>
+    <title>Transport - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -90,7 +90,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>ShowNotes</h1>
+    <h1>Transport</h1>
 </div>
 
 
@@ -104,8 +104,8 @@
 
 
 <div class="yuidoc-class-description">
-<p>Used to access the current set of show notes</p>
-<p>Access this object via the <a href="../classes/Cantabile.html#property_showNotes" class="crosslink">showNotes</a> property.</p>
+<p>Interface to the master transport</p>
+<p>Access this object via the Cantabile/transport:property property.</p>
 
 </div>
 
@@ -119,13 +119,24 @@
 			<ul>
 				<li><a href="#method-close"><span class="im">close</span>()</a></li>
 				<li><a href="#method-open"><span class="im">open</span>()</a></li>
+				<li><a href="#method-pause"><span class="im">pause</span>()</a></li>
+				<li><a href="#method-play"><span class="im">play</span>()</a></li>
+				<li><a href="#method-stop"><span class="im">stop</span>()</a></li>
+				<li><a href="#method-togglePlay"><span class="im">togglePlay</span>()</a></li>
+				<li><a href="#method-togglePlayPause"><span class="im">togglePlayPause</span>()</a></li>
+				<li><a href="#method-togglePlayPause"><span class="im">togglePlayPause</span>()</a></li>
+				<li><a href="#method-togglePlayStop"><span class="im">togglePlayStop</span>()</a></li>
 			</ul>
 		</li>
 
 		<li>
 			<strong>Properties</strong>
 			<ul>
-				<li><a href="#prop-items"><span class="ip">items</span></a></li>
+				<li><a href="#prop-state"><span class="ip">state</span></a></li>
+				<li><a href="#prop-tempo"><span class="ip">tempo</span></a></li>
+				<li><a href="#prop-timeSignature"><span class="ip">timeSignature</span></a></li>
+				<li><a href="#prop-timeSignatureDen"><span class="ip">timeSignatureDen</span></a></li>
+				<li><a href="#prop-timeSignatureNum"><span class="ip">timeSignatureNum</span></a></li>
 			</ul>
 		</li>
 
@@ -133,12 +144,9 @@
         <li>
             <strong>Events</strong>
             <ul>
-                <li><a href="#event-changed"><span class="im">changed</span></a></li>
-                <li><a href="#event-itemAdded"><span class="im">itemAdded</span></a></li>
-                <li><a href="#event-itemChanged"><span class="im">itemChanged</span></a></li>
-                <li><a href="#event-itemMoved"><span class="im">itemMoved</span></a></li>
-                <li><a href="#event-itemRemoved"><span class="im">itemRemoved</span></a></li>
-                <li><a href="#event-reload"><span class="im">reload</span></a></li>
+                <li><a href="#event-stateChanged"><span class="im">stateChanged</span></a></li>
+                <li><a href="#event-tempoChanged"><span class="im">tempoChanged</span></a></li>
+                <li><a href="#event-timeSignatureChanged"><span class="im">timeSignatureChanged</span></a></li>
             </ul>
         </li>
 
@@ -208,6 +216,202 @@
 
 
 </div>
+<div id="method-pause" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>pause</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Transport.js.html#l175"><code>Transport.js:175</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Pauses the master transport</p>
+</div>
+
+
+
+</div>
+<div id="method-play" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>play</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Transport.js.html#l117"><code>Transport.js:117</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Starts transport playback</p>
+</div>
+
+
+
+</div>
+<div id="method-stop" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>stop</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Transport.js.html#l185"><code>Transport.js:185</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Stops the master transport</p>
+</div>
+
+
+
+</div>
+<div id="method-togglePlay" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>togglePlay</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Transport.js.html#l151"><code>Transport.js:151</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Toggles play and stopped states</p>
+</div>
+
+
+
+</div>
+<div id="method-togglePlayPause" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>togglePlayPause</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Transport.js.html#l127"><code>Transport.js:127</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Toggles between play and pause states</p>
+</div>
+
+
+
+</div>
+<div id="method-togglePlayPause" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>togglePlayPause</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Transport.js.html#l139"><code>Transport.js:139</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Toggles pause and play states (unless stopped)</p>
+</div>
+
+
+
+</div>
+<div id="method-togglePlayStop" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>togglePlayStop</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Transport.js.html#l163"><code>Transport.js:163</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Toggles between play and stop states</p>
+</div>
+
+
+
+</div>
         </div>
     </div>
 
@@ -215,9 +419,9 @@
         <h2 class="off-left">Properties</h2>
 
         <div class="item-list">
-<div id="prop-items" class="property item">
-    <h3 class="name"><code>items</code></h3>
-    <span class="type"><a href="../classes/ShowNote.html" class="crosslink">ShowNote[]</a></span>
+<div id="prop-state" class="property item">
+    <h3 class="name"><code>state</code></h3>
+    <span class="type">String</span>
 
 
 
@@ -226,14 +430,114 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/ShowNotes.js.html#l33"><code>ShowNotes.js:33</code></a>
+        <a href="../files/Transport.js.html#l34"><code>Transport.js:34</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>An array of show note items</p>
+        <p>Gets or sets the current transport state.  Supported values include "playing", "paused" or "stopped"</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-tempo" class="property item">
+    <h3 class="name"><code>tempo</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Transport.js.html#l73"><code>Transport.js:73</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the current tempo</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-timeSignature" class="property item">
+    <h3 class="name"><code>timeSignature</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Transport.js.html#l66"><code>Transport.js:66</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the current time signture as a string (eg: "3/4")</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-timeSignatureDen" class="property item">
+    <h3 class="name"><code>timeSignatureDen</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Transport.js.html#l59"><code>Transport.js:59</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the current time signture denominator</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-timeSignatureNum" class="property item">
+    <h3 class="name"><code>timeSignatureNum</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Transport.js.html#l52"><code>Transport.js:52</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the current time signture numerator</p>
 
     </div>
 
@@ -248,8 +552,8 @@
         <h2 class="off-left">Events</h2>
 
         <div class="item-list">
-<div id="event-changed" class="events item">
-    <h3 class="name"><code>changed</code></h3>
+<div id="event-stateChanged" class="events item">
+    <h3 class="name"><code>stateChanged</code></h3>
     <span class="type"></span>
 
 
@@ -259,22 +563,22 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/ShowNotes.js.html#l53"><code>ShowNotes.js:53</code></a>
+        <a href="../files/Transport.js.html#l82"><code>Transport.js:82</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Fired when anything about the current set of show notes changes</p>
+        <p>Fired when the current transport state has changed</p>
 
     </div>
 
 
 
 </div>
-<div id="event-itemAdded" class="events item">
-    <h3 class="name"><code>itemAdded</code></h3>
+<div id="event-tempoChanged" class="events item">
+    <h3 class="name"><code>tempoChanged</code></h3>
     <span class="type"></span>
 
 
@@ -284,39 +588,22 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/ShowNotes.js.html#l46"><code>ShowNotes.js:46</code></a>
+        <a href="../files/Transport.js.html#l107"><code>Transport.js:107</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Fired after a new show note has been added</p>
+        <p>Fired when the current tempo has changed</p>
 
     </div>
 
-        <div class="params">
-            <h4>Event Payload:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">index</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>The zero based index of the newly added item</p>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
 
 
 </div>
-<div id="event-itemChanged" class="events item">
-    <h3 class="name"><code>itemChanged</code></h3>
+<div id="event-timeSignatureChanged" class="events item">
+    <h3 class="name"><code>timeSignatureChanged</code></h3>
     <span class="type"></span>
 
 
@@ -326,151 +613,14 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/ShowNotes.js.html#l98"><code>ShowNotes.js:98</code></a>
+        <a href="../files/Transport.js.html#l94"><code>Transport.js:94</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Fired when something about an show note has changed</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Event Payload:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">index</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>The zero based index of the item that changed</p>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-</div>
-<div id="event-itemMoved" class="events item">
-    <h3 class="name"><code>itemMoved</code></h3>
-    <span class="type"></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/ShowNotes.js.html#l82"><code>ShowNotes.js:82</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Fired when an show note has been moved</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Event Payload:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">from</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>The zero based index of the item before being moved</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">to</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>The zero based index of the item's new position</p>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-</div>
-<div id="event-itemRemoved" class="events item">
-    <h3 class="name"><code>itemRemoved</code></h3>
-    <span class="type"></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/ShowNotes.js.html#l66"><code>ShowNotes.js:66</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Fired after a show note has been removed</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Event Payload:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">index</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>The zero based index of the removed item</p>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-</div>
-<div id="event-reload" class="events item">
-    <h3 class="name"><code>reload</code></h3>
-    <span class="type"></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/ShowNotes.js.html#l112"><code>ShowNotes.js:112</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Fired when the entire set of show notes has changed (eg: after  loading a new song)</p>
+        <p>Fired when the current time signature has changed</p>
 
     </div>
 

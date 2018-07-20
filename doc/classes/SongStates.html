@@ -27,7 +27,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/SongStates", "classes/State", "classes/States", "classes/Variables"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/Song", "classes/SongStates", "classes/State", "classes/States", "classes/Transport", "classes/Variables"]'>
         </form>
     </div>
 </div>
@@ -51,9 +51,11 @@
                 <li><a href="../classes/SetListItem.html">SetListItem</a></li>
                 <li><a href="../classes/ShowNote.html">ShowNote</a></li>
                 <li><a href="../classes/ShowNotes.html">ShowNotes</a></li>
+                <li><a href="../classes/Song.html">Song</a></li>
                 <li><a href="../classes/SongStates.html">SongStates</a></li>
                 <li><a href="../classes/State.html">State</a></li>
                 <li><a href="../classes/States.html">States</a></li>
+                <li><a href="../classes/Transport.html">Transport</a></li>
                 <li><a href="../classes/Variables.html">Variables</a></li>
         </ul>
     </div>
@@ -209,7 +211,7 @@
 	<div class="meta">
 				<p>Inherited from
 				<a href="../classes/States.html#method_loadFirstState">States</a>:
-		<a href="../files/States.js.html#l83"><code>States.js:83</code></a>
+		<a href="../files/States.js.html#l90"><code>States.js:90</code></a>
 		</p>
 
 
@@ -257,7 +259,7 @@
 	<div class="meta">
 				<p>Inherited from
 				<a href="../classes/States.html#method_loadLastState">States</a>:
-		<a href="../files/States.js.html#l95"><code>States.js:95</code></a>
+		<a href="../files/States.js.html#l102"><code>States.js:102</code></a>
 		</p>
 
 
@@ -311,7 +313,7 @@
 	<div class="meta">
 				<p>Inherited from
 				<a href="../classes/States.html#method_loadNextState">States</a>:
-		<a href="../files/States.js.html#l107"><code>States.js:107</code></a>
+		<a href="../files/States.js.html#l114"><code>States.js:114</code></a>
 		</p>
 
 
@@ -379,7 +381,7 @@
 	<div class="meta">
 				<p>Inherited from
 				<a href="../classes/States.html#method_loadStateByIndex">States</a>:
-		<a href="../files/States.js.html#l55"><code>States.js:55</code></a>
+		<a href="../files/States.js.html#l62"><code>States.js:62</code></a>
 		</p>
 
 
@@ -438,7 +440,7 @@
 	<div class="meta">
 				<p>Inherited from
 				<a href="../classes/States.html#method_loadStateByProgram">States</a>:
-		<a href="../files/States.js.html#l69"><code>States.js:69</code></a>
+		<a href="../files/States.js.html#l76"><code>States.js:76</code></a>
 		</p>
 
 
@@ -519,7 +521,7 @@
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/States.html#property_currentState">States</a>:
-        <a href="../files/States.js.html#l48"><code>States.js:48</code></a>
+        <a href="../files/States.js.html#l55"><code>States.js:55</code></a>
         </p>
 
 
@@ -543,7 +545,7 @@
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/States.html#property_currentStateIndex">States</a>:
-        <a href="../files/States.js.html#l41"><code>States.js:41</code></a>
+        <a href="../files/States.js.html#l48"><code>States.js:48</code></a>
         </p>
 
 
@@ -567,7 +569,7 @@
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/States.html#property_items">States</a>:
-        <a href="../files/States.js.html#l27"><code>States.js:27</code></a>
+        <a href="../files/States.js.html#l34"><code>States.js:34</code></a>
         </p>
 
 
@@ -591,7 +593,7 @@
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/States.html#property_name">States</a>:
-        <a href="../files/States.js.html#l34"><code>States.js:34</code></a>
+        <a href="../files/States.js.html#l41"><code>States.js:41</code></a>
         </p>
 
 
@@ -623,7 +625,7 @@
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/States.html#event_changed">States</a>:
-        <a href="../files/States.js.html#l158"><code>States.js:158</code></a>
+        <a href="../files/States.js.html#l165"><code>States.js:165</code></a>
         </p>
 
 
@@ -647,7 +649,7 @@
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/States.html#event_currentStateChanged">States</a>:
-        <a href="../files/States.js.html#l235"><code>States.js:235</code></a>
+        <a href="../files/States.js.html#l242"><code>States.js:242</code></a>
         </p>
 
 
@@ -671,7 +673,7 @@
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/States.html#event_itemAdded">States</a>:
-        <a href="../files/States.js.html#l151"><code>States.js:151</code></a>
+        <a href="../files/States.js.html#l158"><code>States.js:158</code></a>
         </p>
 
 
@@ -711,7 +713,7 @@
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/States.html#event_itemChanged">States</a>:
-        <a href="../files/States.js.html#l206"><code>States.js:206</code></a>
+        <a href="../files/States.js.html#l213"><code>States.js:213</code></a>
         </p>
 
 
@@ -751,7 +753,7 @@
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/States.html#event_itemMoved">States</a>:
-        <a href="../files/States.js.html#l187"><code>States.js:187</code></a>
+        <a href="../files/States.js.html#l194"><code>States.js:194</code></a>
         </p>
 
 
@@ -801,7 +803,7 @@
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/States.html#event_itemRemoved">States</a>:
-        <a href="../files/States.js.html#l171"><code>States.js:171</code></a>
+        <a href="../files/States.js.html#l178"><code>States.js:178</code></a>
         </p>
 
 
@@ -841,7 +843,7 @@
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/States.html#event_nameChanged">States</a>:
-        <a href="../files/States.js.html#l249"><code>States.js:249</code></a>
+        <a href="../files/States.js.html#l256"><code>States.js:256</code></a>
         </p>
 
 
@@ -865,7 +867,7 @@
     <div class="meta">
                 <p>Inherited from
                 <a href="../classes/States.html#event_reload">States</a>:
-        <a href="../files/States.js.html#l222"><code>States.js:222</code></a>
+        <a href="../files/States.js.html#l229"><code>States.js:229</code></a>
         </p>
 
 
