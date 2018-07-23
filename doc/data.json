@@ -27,6 +27,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "Application.js": {
+            "name": "Application.js",
+            "modules": {},
+            "classes": {
+                "Application": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "BindingPointInfo.js": {
             "name": "BindingPointInfo.js",
             "modules": {},
@@ -185,6 +194,19 @@
     },
     "modules": {},
     "classes": {
+        "Application": {
+            "name": "Application",
+            "shortname": "Application",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Application.js",
+            "line": 5,
+            "description": "Interface to the application object\n\nAccess this object via the {{#crossLink \"Cantabile/application:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
         "BindingPointInfo": {
             "name": "BindingPointInfo",
             "shortname": "BindingPointInfo",
@@ -442,19 +464,82 @@
             "file": "doc\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
             "line": 1,
             "description": "Bootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
-            "class": "BindingPointInfo"
+            "class": "Application"
         },
         {
             "file": "yuidoc-lucid-theme\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
             "line": 1,
             "description": "Bootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
-            "class": "BindingPointInfo"
+            "class": "Application"
         },
         {
             "file": "yuidoc-lucid-theme\\helpers\\helpers.js",
             "line": 16,
             "description": "Hack for:\nhttps://github.com/yui/yuidoc/issues/198\n\nUsage:\n  {{#crossLinkWrapper type}}{{#crossLink type}}{{/crossLink}}{{/crossLinkWrapper}}",
-            "class": "BindingPointInfo"
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 32,
+            "description": "The application's company name",
+            "itemtype": "property",
+            "name": "companyName",
+            "type": "{String}",
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 39,
+            "description": "The application name",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 46,
+            "description": "The application version string",
+            "itemtype": "property",
+            "name": "version",
+            "type": "{String}",
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 53,
+            "description": "The application edition string",
+            "itemtype": "property",
+            "name": "edition",
+            "type": "{String}",
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 60,
+            "description": "The application's copyright message",
+            "itemtype": "property",
+            "name": "copyright",
+            "type": "{String}",
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 67,
+            "description": "The application's build number",
+            "itemtype": "property",
+            "name": "build",
+            "type": "{Number}",
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 74,
+            "description": "The application's busy status",
+            "itemtype": "property",
+            "name": "busy",
+            "type": "{Boolean}",
+            "class": "Application"
         },
         {
             "file": "BindingPointInfo.js",
@@ -782,7 +867,16 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 96,
+            "line": 95,
+            "description": "Provides access to the application object",
+            "itemtype": "property",
+            "name": "application",
+            "type": "{Application}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 104,
             "description": "The current connection state, either \"connecting\", \"connected\" or \"disconnected\"",
             "itemtype": "property",
             "name": "state",
@@ -791,7 +885,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 107,
+            "line": 115,
             "description": "Initiate connection and retry if fails",
             "itemtype": "method",
             "name": "connect",
@@ -799,7 +893,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 117,
+            "line": 125,
             "description": "Disconnect and stop retries",
             "itemtype": "method",
             "name": "disconnect",
@@ -807,7 +901,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 127,
+            "line": 135,
             "description": "Stringify an object as a JSON message and send it to the server",
             "itemtype": "method",
             "name": "send",
@@ -822,7 +916,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 139,
+            "line": 147,
             "description": "Stringify an object as a JSON message, send it to the server and returns \na promise which will resolve to the result.",
             "itemtype": "method",
             "name": "request",
@@ -841,7 +935,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 166,
+            "line": 174,
             "description": "Returns a promise that will be resolved when connected",
             "example": [
                 "\n\n    let C = new CantabileApi();\n    await C.untilConnected();"
@@ -856,7 +950,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 367,
+            "line": 375,
             "description": "Fired when the {{#crossLink \"Cantabile/state:property\"}}{{/crossLink}} property value changes",
             "itemtype": "event",
             "name": "stateChanged",
@@ -871,7 +965,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 375,
+            "line": 383,
             "description": "Fired when entering the connected state",
             "itemtype": "event",
             "name": "connected",
@@ -879,7 +973,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 382,
+            "line": 390,
             "description": "Fired when entering the connecting state",
             "itemtype": "event",
             "name": "connecting",
@@ -887,7 +981,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 389,
+            "line": 397,
             "description": "Fired when entering the disconnected state",
             "itemtype": "event",
             "name": "disconnected",
@@ -2079,11 +2173,11 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " CantabileApi.js:139"
+            "line": " CantabileApi.js:147"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " CantabileApi.js:166"
+            "line": " CantabileApi.js:174"
         },
         {
             "message": "replacing incorrect tag: returns with return",

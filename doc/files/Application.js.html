@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>PatternWatcher - Cantabile JavaScript API</title>
+    <title>Application.js - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -91,212 +91,104 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>PatternWatcher</h1>
+    <h1>Application.js <small>File</small></h1>
 </div>
 
+<div class="file">
+    <pre class="prettyprint linenums">
+&#x27;use strict&#x27;;
 
-	<div class="well well-small">
-        <div class="extends">
-            Extends EventEmitter
-        </div>
-    </div>
+const EndPoint = require(&#x27;./EndPoint&#x27;);
+
+/**
+ * Interface to the application object
+ * 
+ * Access this object via the {{#crossLink &quot;Cantabile/application:property&quot;}}{{/crossLink}} property.
+ *
+ * @class Application
+ * @extends EndPoint
+ */
+class Application extends EndPoint
+{
+	constructor(owner)
+	{
+		super(owner, &quot;/api/application&quot;);
+	}
+
+	_onOpen()
+	{
+		this.emit(&#x27;busyChanged&#x27;, this.busy);
+		this.emit(&#x27;changed&#x27;);
+	}
+
+	_onClose()
+	{
+		this.emit(&#x27;busyChanged&#x27;, this.busy);
+		this.emit(&#x27;changed&#x27;);
+	}
+
+	/**
+	 * The application&#x27;s company name
+	 * @property companyName
+	 * @type {String}
+	 */
+	get companyName() { return this._data ? this._data.companyName : null; }
+
+	/**
+	 * The application name
+	 * @property name
+	 * @type {String}
+	 */
+	get name() { return this._data ? this._data.name : null; }
+
+	/**
+	 * The application version string
+	 * @property version
+	 * @type {String}
+	 */
+	get version() { return this._data ? this._data.version : null; }
+
+	/**
+	 * The application edition string
+	 * @property edition
+	 * @type {String}
+	 */
+	get edition() { return this._data ? this._data.edition : null; }
+
+	/**
+	 * The application&#x27;s copyright message
+	 * @property copyright
+	 * @type {String}
+	 */
+	get copyright() { return this._data ? this._data.copyright : null; }
+
+	/**
+	 * The application&#x27;s build number
+	 * @property build
+	 * @type {Number}
+	 */
+	get build() { return this._data ? this._data.build : null; }
+
+	/**
+	 * The application&#x27;s busy status
+	 * @property busy
+	 * @type {Boolean}
+	 */
+	get busy() { return this._data ? this._data.busy : false; }
+
+	_onEvent_busyChanged(data)
+	{
+		this._data.busy = data.busy;
+		this.emit(&#x27;busyChanged&#x27;, this.busy);
+	}
 
 
+}
 
 
-<div class="yuidoc-class-description">
-<p>Represents a monitored pattern string.</p>
-<p>Returned from the <a href="../classes/Variables.html#method_watch" class="crosslink">watch</a> method.</p>
-
+module.exports = Application;
+    </pre>
 </div>
-
-<!-- table of contents -->
-
-<div id="class-toc" class="page-section">
-	<h2>Table of Contents</h2>
-    <ul>
-		<li>
-			<strong>Methods</strong>
-			<ul>
-				<li><a href="#method-unwatch"><span class="im">unwatch</span>()</a></li>
-			</ul>
-		</li>
-
-		<li>
-			<strong>Properties</strong>
-			<ul>
-				<li><a href="#prop-pattern"><span class="ip">pattern</span></a></li>
-				<li><a href="#prop-resolved"><span class="ip">resolved</span></a></li>
-			</ul>
-		</li>
-
-
-        <li>
-            <strong>Events</strong>
-            <ul>
-                <li><a href="#event-changed"><span class="im">changed</span></a></li>
-            </ul>
-        </li>
-
-
-	</ul>
-</div>
-
-<!-- details -->
-
-
-    <div id="methods" class="page-section">
-        <h2 class="off-left">Methods</h2>
-        <div class="item-list">
-<div id="method-unwatch" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>unwatch</code></span>
-
-		<span class="paren">()</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/Variables.js.html#l70"><code>Variables.js:70</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Stops monitoring this pattern string for changes</p>
-</div>
-
-
-
-</div>
-        </div>
-    </div>
-
-    <div id="properties" class="page-section">
-        <h2 class="off-left">Properties</h2>
-
-        <div class="item-list">
-<div id="prop-pattern" class="property item">
-    <h3 class="name"><code>pattern</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Variables.js.html#l27"><code>Variables.js:27</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns the pattern string being watched</p>
-
-    </div>
-
-
-
-</div>
-<div id="prop-resolved" class="property item">
-    <h3 class="name"><code>resolved</code></h3>
-    <span class="type">String</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Variables.js.html#l35"><code>Variables.js:35</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns the current resolved display string</p>
-
-    </div>
-
-
-
-</div>
-        </div>
-    </div>
-
-
-    <div id="events" class="page-section">
-        <h2 class="off-left">Events</h2>
-
-        <div class="item-list">
-<div id="event-changed" class="events item">
-    <h3 class="name"><code>changed</code></h3>
-    <span class="type"></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/Variables.js.html#l93"><code>Variables.js:93</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Fired after a new show note has been added</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Event Payload:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">resolved</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <p>The new display string</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">source</code>
-                        <span class="type"><a href="../classes/PatternWatcher.html" class="crosslink">PatternWatcher</a></span>
-
-
-                    <div class="param-description">
-                        <p>This object</p>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-</div>
-        </div>
-    </div>
-
                     </div>
                 </div>
             </div>

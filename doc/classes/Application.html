@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>PatternWatcher - Cantabile JavaScript API</title>
+    <title>Application - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -91,13 +91,13 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>PatternWatcher</h1>
+    <h1>Application</h1>
 </div>
 
 
 	<div class="well well-small">
         <div class="extends">
-            Extends EventEmitter
+            Extends <a href="../classes/EndPoint.html" class="crosslink">EndPoint</a>
         </div>
     </div>
 
@@ -105,8 +105,8 @@
 
 
 <div class="yuidoc-class-description">
-<p>Represents a monitored pattern string.</p>
-<p>Returned from the <a href="../classes/Variables.html#method_watch" class="crosslink">watch</a> method.</p>
+<p>Interface to the application object</p>
+<p>Access this object via the <a href="../classes/Cantabile.html#property_application" class="crosslink">application</a> property.</p>
 
 </div>
 
@@ -118,25 +118,25 @@
 		<li>
 			<strong>Methods</strong>
 			<ul>
-				<li><a href="#method-unwatch"><span class="im">unwatch</span>()</a></li>
+				<li><a href="#method-close"><span class="im">close</span>()</a></li>
+				<li><a href="#method-open"><span class="im">open</span>()</a></li>
 			</ul>
 		</li>
 
 		<li>
 			<strong>Properties</strong>
 			<ul>
-				<li><a href="#prop-pattern"><span class="ip">pattern</span></a></li>
-				<li><a href="#prop-resolved"><span class="ip">resolved</span></a></li>
+				<li><a href="#prop-build"><span class="ip">build</span></a></li>
+				<li><a href="#prop-busy"><span class="ip">busy</span></a></li>
+				<li><a href="#prop-companyName"><span class="ip">companyName</span></a></li>
+				<li><a href="#prop-copyright"><span class="ip">copyright</span></a></li>
+				<li><a href="#prop-edition"><span class="ip">edition</span></a></li>
+				<li><a href="#prop-name"><span class="ip">name</span></a></li>
+				<li><a href="#prop-version"><span class="ip">version</span></a></li>
 			</ul>
 		</li>
 
 
-        <li>
-            <strong>Events</strong>
-            <ul>
-                <li><a href="#event-changed"><span class="im">changed</span></a></li>
-            </ul>
-        </li>
 
 
 	</ul>
@@ -148,9 +148,9 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
-<div id="method-unwatch" class="method item">
+<div id="method-close" class="method item inherited">
 	<div class="method-signature">
-	<span class="name"><code>unwatch</code></span>
+	<span class="name"><code>close</code></span>
 
 		<span class="paren">()</span>
 	</div>
@@ -161,17 +161,43 @@
 
 
 	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/Variables.js.html#l70"><code>Variables.js:70</code></a>
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_close">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l50"><code>EndPoint.js:50</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Stops monitoring this pattern string for changes</p>
+	<div class="description">Closes the end point and stops listening for events</div>
+
+
+
 </div>
+<div id="method-open" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>open</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_open">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l36"><code>EndPoint.js:36</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description">Opens this end point and starts listening for events</div>
 
 
 
@@ -183,8 +209,58 @@
         <h2 class="off-left">Properties</h2>
 
         <div class="item-list">
-<div id="prop-pattern" class="property item">
-    <h3 class="name"><code>pattern</code></h3>
+<div id="prop-build" class="property item">
+    <h3 class="name"><code>build</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Application.js.html#l67"><code>Application.js:67</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The application's build number</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-busy" class="property item">
+    <h3 class="name"><code>busy</code></h3>
+    <span class="type">Boolean</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Application.js.html#l74"><code>Application.js:74</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The application's busy status</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-companyName" class="property item">
+    <h3 class="name"><code>companyName</code></h3>
     <span class="type">String</span>
 
 
@@ -194,22 +270,22 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Variables.js.html#l27"><code>Variables.js:27</code></a>
+        <a href="../files/Application.js.html#l32"><code>Application.js:32</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Returns the pattern string being watched</p>
+        <p>The application's company name</p>
 
     </div>
 
 
 
 </div>
-<div id="prop-resolved" class="property item">
-    <h3 class="name"><code>resolved</code></h3>
+<div id="prop-copyright" class="property item">
+    <h3 class="name"><code>copyright</code></h3>
     <span class="type">String</span>
 
 
@@ -219,31 +295,23 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Variables.js.html#l35"><code>Variables.js:35</code></a>
+        <a href="../files/Application.js.html#l60"><code>Application.js:60</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Returns the current resolved display string</p>
+        <p>The application's copyright message</p>
 
     </div>
 
 
 
 </div>
-        </div>
-    </div>
-
-
-    <div id="events" class="page-section">
-        <h2 class="off-left">Events</h2>
-
-        <div class="item-list">
-<div id="event-changed" class="events item">
-    <h3 class="name"><code>changed</code></h3>
-    <span class="type"></span>
+<div id="prop-edition" class="property item">
+    <h3 class="name"><code>edition</code></h3>
+    <span class="type">String</span>
 
 
 
@@ -252,50 +320,74 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Variables.js.html#l93"><code>Variables.js:93</code></a>
+        <a href="../files/Application.js.html#l53"><code>Application.js:53</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Fired after a new show note has been added</p>
+        <p>The application edition string</p>
 
     </div>
 
-        <div class="params">
-            <h4>Event Payload:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">resolved</code>
-                        <span class="type">String</span>
 
 
-                    <div class="param-description">
-                        <p>The new display string</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">source</code>
-                        <span class="type"><a href="../classes/PatternWatcher.html" class="crosslink">PatternWatcher</a></span>
+</div>
+<div id="prop-name" class="property item">
+    <h3 class="name"><code>name</code></h3>
+    <span class="type">String</span>
 
 
-                    <div class="param-description">
-                        <p>This object</p>
 
-                    </div>
 
-                </li>
-            </ul>
-        </div>
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Application.js.html#l39"><code>Application.js:39</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The application name</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-version" class="property item">
+    <h3 class="name"><code>version</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Application.js.html#l46"><code>Application.js:46</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The application version string</p>
+
+    </div>
+
 
 
 </div>
         </div>
     </div>
+
+
 
                     </div>
                 </div>

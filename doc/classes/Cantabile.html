@@ -27,7 +27,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/Song", "classes/SongStates", "classes/State", "classes/States", "classes/Transport", "classes/Variables"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Application", "classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/Song", "classes/SongStates", "classes/State", "classes/States", "classes/Transport", "classes/Variables"]'>
         </form>
     </div>
 </div>
@@ -38,6 +38,7 @@
     <div id="sidebar">
     <div id="classes">
         <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/Application.html">Application</a></li>
                 <li><a href="../classes/BindingPointInfo.html">BindingPointInfo</a></li>
                 <li><a href="../classes/Bindings.html">Bindings</a></li>
                 <li><a href="../classes/BindingWatcher.html">BindingWatcher</a></li>
@@ -127,6 +128,7 @@
 		<li>
 			<strong>Properties</strong>
 			<ul>
+				<li><a href="#prop-application"><span class="ip">application</span></a></li>
 				<li><a href="#prop-bindings"><span class="ip">bindings</span></a></li>
 				<li><a href="#prop-keyRanges"><span class="ip">keyRanges</span></a></li>
 				<li><a href="#prop-setList"><span class="ip">setList</span></a></li>
@@ -230,7 +232,7 @@ environments it defaults to <code>ws://localhost:35007/api/socket</code>.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/CantabileApi.js.html#l107"><code>CantabileApi.js:107</code></a>
+		<a href="../files/CantabileApi.js.html#l115"><code>CantabileApi.js:115</code></a>
 		</p>
 
 
@@ -258,7 +260,7 @@ environments it defaults to <code>ws://localhost:35007/api/socket</code>.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/CantabileApi.js.html#l117"><code>CantabileApi.js:117</code></a>
+		<a href="../files/CantabileApi.js.html#l125"><code>CantabileApi.js:125</code></a>
 		</p>
 
 
@@ -295,7 +297,7 @@ environments it defaults to <code>ws://localhost:35007/api/socket</code>.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/CantabileApi.js.html#l139"><code>CantabileApi.js:139</code></a>
+		<a href="../files/CantabileApi.js.html#l147"><code>CantabileApi.js:147</code></a>
 		</p>
 
 
@@ -352,7 +354,7 @@ a promise which will resolve to the result.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/CantabileApi.js.html#l127"><code>CantabileApi.js:127</code></a>
+		<a href="../files/CantabileApi.js.html#l135"><code>CantabileApi.js:135</code></a>
 		</p>
 
 
@@ -398,7 +400,7 @@ a promise which will resolve to the result.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/CantabileApi.js.html#l166"><code>CantabileApi.js:166</code></a>
+		<a href="../files/CantabileApi.js.html#l174"><code>CantabileApi.js:174</code></a>
 		</p>
 
 
@@ -434,6 +436,31 @@ await C.untilConnected();</code></pre>
         <h2 class="off-left">Properties</h2>
 
         <div class="item-list">
+<div id="prop-application" class="property item">
+    <h3 class="name"><code>application</code></h3>
+    <span class="type"><a href="../classes/Application.html" class="crosslink">Application</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileApi.js.html#l95"><code>CantabileApi.js:95</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides access to the application object</p>
+
+    </div>
+
+
+
+</div>
 <div id="prop-bindings" class="property item">
     <h3 class="name"><code>bindings</code></h3>
     <span class="type"><a href="../classes/Bindings.html" class="crosslink">Bindings</a></span>
@@ -620,7 +647,7 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l96"><code>CantabileApi.js:96</code></a>
+        <a href="../files/CantabileApi.js.html#l104"><code>CantabileApi.js:104</code></a>
         </p>
 
 
@@ -678,7 +705,7 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l375"><code>CantabileApi.js:375</code></a>
+        <a href="../files/CantabileApi.js.html#l383"><code>CantabileApi.js:383</code></a>
         </p>
 
 
@@ -703,7 +730,7 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l382"><code>CantabileApi.js:382</code></a>
+        <a href="../files/CantabileApi.js.html#l390"><code>CantabileApi.js:390</code></a>
         </p>
 
 
@@ -728,7 +755,7 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l389"><code>CantabileApi.js:389</code></a>
+        <a href="../files/CantabileApi.js.html#l397"><code>CantabileApi.js:397</code></a>
         </p>
 
 
@@ -753,7 +780,7 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l367"><code>CantabileApi.js:367</code></a>
+        <a href="../files/CantabileApi.js.html#l375"><code>CantabileApi.js:375</code></a>
         </p>
 
 
