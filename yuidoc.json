@@ -5,7 +5,8 @@
     "logo": "logo.png",
     "options": {
         "outdir": "./doc/",
-		"themedir" : "yuidoc-lucid-theme",
+        "themedir" : "yuidoc-lucid-theme",
+        "ignorePaths": ["node_modules", "www"],
 		"helpers" : ["yuidoc-lucid-theme/helpers/helpers.js"]
     }
 }
