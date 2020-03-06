@@ -126,6 +126,36 @@ class EndPoint extends EventEmitter
 
 	get isOpen() { return !!this._epid }
 
+	/**
+	 * Returns a promise that will be resolved when this end point is opened
+	 * 
+	 * @example
+	 * 
+	 *     let C = new CantabileApi();
+	 * 	   C.application.open();
+	 *     await C.application.untilOpen();
+	 *
+	 * @method untilOpen
+	 * @returns {Promise}
+	 */
+	untilOpen()
+	{
+		if (this.isOpen)
+		{
+			return Promise.resolve();		
+		}
+		else
+		{
+			return new Promise((resolve, reject) => {
+				if (!this._pendingOpenPromises)
+					 this._pendingOpenPromises = [resolve];
+				else
+					this._pendingOpenPromises.push(resolve);
+			});
+		}
+	}
+
+
 	async _onConnected()
 	{
 		try
@@ -144,6 +174,16 @@ class EndPoint extends EventEmitter
 			this.owner._registerEndPointEventHandler(this._epid, this);
 
 			this._onOpen();
+
+			// Resolve open promises
+			if (this._pendingOpenPromises)
+			{
+				for (let i=0; i<this._pendingOpenPromises.length; i++)
+				{
+					this._pendingOpenPromises[i]();
+				}
+				this._pendingOpenPromises = null;
+			}
 		}
 		catch (err)
 		{
