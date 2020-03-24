@@ -120,6 +120,7 @@
 			<ul>
 				<li><a href="#method-close"><span class="im">close</span>()</a></li>
 				<li><a href="#method-open"><span class="im">open</span>()</a></li>
+				<li><a href="#method-untilOpen"><span class="im">untilOpen</span>()</a></li>
 			</ul>
 		</li>
 
@@ -201,6 +202,53 @@
 
 
 
+</div>
+<div id="method-untilOpen" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>untilOpen</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_untilOpen">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l129"><code>EndPoint.js:129</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description">Returns a promise that will be resolved when this end point is opened</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>let C = new CantabileApi();
+   C.application.open();
+await C.application.untilOpen();</code></pre>
+
+			</div>
+		</div>
 </div>
         </div>
     </div>

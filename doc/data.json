@@ -1004,6 +1004,21 @@
             "class": "EndPoint"
         },
         {
+            "file": "EndPoint.js",
+            "line": 129,
+            "description": "Returns a promise that will be resolved when this end point is opened",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n\t   C.application.open();\n    await C.application.untilOpen();"
+            ],
+            "itemtype": "method",
+            "name": "untilOpen",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "EndPoint"
+        },
+        {
             "file": "KeyRange.js",
             "line": 7,
             "description": "The MIDI note number of the lowest note in the key range",
@@ -2178,6 +2193,10 @@
         {
             "message": "replacing incorrect tag: returns with return",
             "line": " CantabileApi.js:174"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " EndPoint.js:129"
         },
         {
             "message": "replacing incorrect tag: returns with return",
