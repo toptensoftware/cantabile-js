@@ -350,6 +350,8 @@ class Bindings extends EndPoint
 
 		if (this.isOpen)
 			w._start();
+
+		return w;
 	}
 
 	_registerWatchId(watchId, watcher)
