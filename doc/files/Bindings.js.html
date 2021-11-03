@@ -268,7 +268,7 @@ class Bindings extends EndPoint
      *     console.log(await C.bindings.availableBindingPoints());
      * 
      * @method availableBindingPoints
-     * @returns {Promise|BindingPointInfo[]} A promise to return an array of BindingPointInfo
+     * @return {Promise|BindingPointInfo[]} A promise to return an array of BindingPointInfo
      */
     async availableBindingPoints()
     {
@@ -336,7 +336,7 @@ class Bindings extends EndPoint
      * @param {Number[]} [indicies] The integer indicies of the target binding point
      * @param {Object} [parameter] The parameter value to invoke the target with
      * @method invoke
-     * @returns {Promise} A promise that resolves once the target binding point has been invoked
+     * @return {Promise} A promise that resolves once the target binding point has been invoked
      */
     async invoke(name, value, indicies, parameter)
     {
@@ -361,7 +361,7 @@ class Bindings extends EndPoint
 	 * @method query
      * @param {String} name The name of the binding point to query
      * @param {Number[]} [indicies] The integer indicies of the binding point
-	 * @returns {Object} The current value of the binding source
+	 * @return {Object} The current value of the binding source
      */
     async query(name, indicies)
     {
@@ -439,7 +439,7 @@ class Bindings extends EndPoint
 	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
 	 * is the BindingWatcher instance.
 	 * 
-	 * @returns {BindingWatcher}
+	 * @return {BindingWatcher}
 	 */
 	watch(name, indicies, condition, listener)
 	{

@@ -136,7 +136,7 @@ class EndPoint extends EventEmitter
 	 *     await C.application.untilOpen();
 	 *
 	 * @method untilOpen
-	 * @returns {Promise}
+	 * @return {Promise}
 	 */
 	untilOpen()
 	{

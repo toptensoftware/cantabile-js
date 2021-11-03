@@ -2171,42 +2171,6 @@
     ],
     "warnings": [
         {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " Bindings.js:160"
-        },
-        {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " Bindings.js:181"
-        },
-        {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " Bindings.js:253"
-        },
-        {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " Bindings.js:276"
-        },
-        {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " CantabileApi.js:147"
-        },
-        {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " CantabileApi.js:174"
-        },
-        {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " EndPoint.js:129"
-        },
-        {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " Variables.js:125"
-        },
-        {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " Variables.js:166"
-        },
-        {
             "message": "Missing item type\nBootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
             "line": " doc\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js:1"
         },

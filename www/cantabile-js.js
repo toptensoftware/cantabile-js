@@ -377,7 +377,7 @@ var Bindings = function (_EndPoint) {
    *     console.log(await C.bindings.availableBindingPoints());
    * 
    * @method availableBindingPoints
-   * @returns {Promise|BindingPointInfo[]} A promise to return an array of BindingPointInfo
+   * @return {Promise|BindingPointInfo[]} A promise to return an array of BindingPointInfo
    */
 
 	}, {
@@ -473,7 +473,7 @@ var Bindings = function (_EndPoint) {
    * @param {Number[]} [indicies] The integer indicies of the target binding point
    * @param {Object} [parameter] The parameter value to invoke the target with
    * @method invoke
-   * @returns {Promise} A promise that resolves once the target binding point has been invoked
+   * @return {Promise} A promise that resolves once the target binding point has been invoked
    */
 
 	}, {
@@ -523,7 +523,7 @@ var Bindings = function (_EndPoint) {
   * @method query
    * @param {String} name The name of the binding point to query
    * @param {Number[]} [indicies] The integer indicies of the binding point
-  * @returns {Object} The current value of the binding source
+  * @return {Object} The current value of the binding source
    */
 
 	}, {
@@ -625,7 +625,7 @@ var Bindings = function (_EndPoint) {
    * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
    * is the BindingWatcher instance.
    * 
-   * @returns {BindingWatcher}
+   * @return {BindingWatcher}
    */
 
 	}, {
@@ -850,7 +850,7 @@ var Cantabile = function (_EventEmitter) {
    *
    * @method request
    * @param {object} obj The object to send
-   * @returns {Promise|object}
+   * @return {Promise|object}
    */
 
 	}, {
@@ -882,7 +882,7 @@ var Cantabile = function (_EventEmitter) {
    *     await C.untilConnected();
    *
    * @method untilConnected
-   * @returns {Promise}
+   * @return {Promise}
    */
 
 	}, {
@@ -1274,7 +1274,7 @@ var EndPoint = function (_EventEmitter) {
    *     await C.application.untilOpen();
    *
    * @method untilOpen
-   * @returns {Promise}
+   * @return {Promise}
    */
 		value: function untilOpen() {
 			var _this2 = this;
@@ -2872,7 +2872,7 @@ var Variables = function (_EndPoint) {
   *     C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
   *
   * @method resolve
-  * @returns {Promise|String} A promise to provide the resolved string
+  * @return {Promise|String} A promise to provide the resolved string
   */
 
 
@@ -2965,7 +2965,7 @@ var Variables = function (_EndPoint) {
    * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
    * is the PatternWatcher instance.
    * 
-   * @returns {PatternWatcher}
+   * @return {PatternWatcher}
    */
 
 	}, {

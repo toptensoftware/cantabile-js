@@ -136,7 +136,7 @@ class Variables extends EndPoint
 	 *     C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
 	 *
 	 * @method resolve
-	 * @returns {Promise|String} A promise to provide the resolved string
+	 * @return {Promise|String} A promise to provide the resolved string
 	 */
 	async resolve(pattern)
 	{
@@ -203,7 +203,7 @@ class Variables extends EndPoint
 	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
 	 * is the PatternWatcher instance.
 	 * 
-	 * @returns {PatternWatcher}
+	 * @return {PatternWatcher}
 	 */
 	watch(pattern, listener)
 	{

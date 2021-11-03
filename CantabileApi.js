@@ -150,7 +150,7 @@ class Cantabile extends EventEmitter
 	 *
 	 * @method request
 	 * @param {object} obj The object to send
-	 * @returns {Promise|object}
+	 * @return {Promise|object}
 	 */
 	request(message)
 	{
@@ -180,7 +180,7 @@ class Cantabile extends EventEmitter
 	 *     await C.untilConnected();
 	 *
 	 * @method untilConnected
-	 * @returns {Promise}
+	 * @return {Promise}
 	 */
 	untilConnected()
 	{
