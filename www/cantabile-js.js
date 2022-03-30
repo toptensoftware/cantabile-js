@@ -1739,6 +1739,21 @@ var SetList = function (_EndPoint) {
     */
 		}
 	}, {
+		key: '_onEvent_currentSongPartChanged',
+		value: function _onEvent_currentSongPartChanged(data) {
+			this._data.current = data.current;
+			this._resolveCurrentSong();
+			this.emit('currentSongPartChanged', data.part, data.partCount);
+
+			/**
+    * Fired when the part of the currently loaded song changes
+    * 
+    * @event currentSongPartChanged
+    * @param {Number} part The zero-based current song part index (can be -1)
+    * @param {Number} partCount The number of parts in the current song
+    */
+		}
+	}, {
 		key: '_onEvent_nameChanged',
 		value: function _onEvent_nameChanged(data) {
 			if (this._data) this._data.name = data ? data.name : null;
@@ -2018,7 +2033,7 @@ var SongStates = function (_EndPoint) {
 			this.emit('nameChanged');
 
 			/**
-    * Fired when the name of the current state changes
+    * Fired when the current song state changes
     *
     * @event changed
     */
