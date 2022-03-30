@@ -34,7 +34,7 @@ class SongStates extends EndPoint
 		this.emit('nameChanged');
 
 		/**
-		 * Fired when the name of the current state changes
+		 * Fired when the current song state changes
 		 *
 		 * @event changed
 		 */
