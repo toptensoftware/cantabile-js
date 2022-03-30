@@ -2,7 +2,7 @@
     "project": {
         "name": "Cantabile JavaScript API",
         "description": "JavaScript API for interfacing with Cantabile Network API",
-        "version": "0.1.0",
+        "version": "4.0.0",
         "logo": "logo.png"
     },
     "files": {
@@ -1367,7 +1367,27 @@
         },
         {
             "file": "SetList.js",
-            "line": 280,
+            "line": 279,
+            "description": "Fired when the part of the currently loaded song changes",
+            "itemtype": "event",
+            "name": "currentSongPartChanged",
+            "params": [
+                {
+                    "name": "part",
+                    "description": "The zero-based current song part index (can be -1)",
+                    "type": "Number"
+                },
+                {
+                    "name": "partCount",
+                    "description": "The number of parts in the current song",
+                    "type": "Number"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 295,
             "description": "Fired when the name of the currently loaded set list changes",
             "itemtype": "event",
             "name": "nameChanged",
@@ -1662,7 +1682,7 @@
         {
             "file": "Song.js",
             "line": 36,
-            "description": "Fired when the name of the current state changes",
+            "description": "Fired when the current song state changes",
             "itemtype": "event",
             "name": "changed",
             "class": "Song"

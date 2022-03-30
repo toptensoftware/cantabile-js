@@ -22,7 +22,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.1.0</b>
+                    API Docs for Version: <b>4.0.0</b>
                 </p>
             </li>
         </div>
@@ -365,6 +365,21 @@ class SetList extends EndPoint
 		 * Fired when the currently loaded song changes
 		 * 
 		 * @event currentSongChanged
+		 */
+	}
+
+	_onEvent_currentSongPartChanged(data)
+	{
+		this._data.current = data.current;
+		this._resolveCurrentSong();
+		this.emit(&#x27;currentSongPartChanged&#x27;, data.part, data.partCount);
+
+		/**
+		 * Fired when the part of the currently loaded song changes
+		 * 
+		 * @event currentSongPartChanged
+		 * @param {Number} part The zero-based current song part index (can be -1)
+		 * @param {Number} partCount The number of parts in the current song
 		 */
 	}
 

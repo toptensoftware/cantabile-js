@@ -22,7 +22,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.1.0</b>
+                    API Docs for Version: <b>4.0.0</b>
                 </p>
             </li>
         </div>
@@ -146,6 +146,7 @@
             <ul>
                 <li><a href="#event-changed"><span class="im">changed</span></a></li>
                 <li><a href="#event-currentSongChanged"><span class="im">currentSongChanged</span></a></li>
+                <li><a href="#event-currentSongPartChanged"><span class="im">currentSongPartChanged</span></a></li>
                 <li><a href="#event-itemAdded"><span class="im">itemAdded</span></a></li>
                 <li><a href="#event-itemChanged"><span class="im">itemChanged</span></a></li>
                 <li><a href="#event-itemMoved"><span class="im">itemMoved</span></a></li>
@@ -759,6 +760,59 @@ await C.application.untilOpen();</code></pre>
 
 
 </div>
+<div id="event-currentSongPartChanged" class="events item">
+    <h3 class="name"><code>currentSongPartChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/SetList.js.html#l279"><code>SetList.js:279</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the part of the currently loaded song changes</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">part</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <p>The zero-based current song part index (can be -1)</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">partCount</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <p>The number of parts in the current song</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+</div>
 <div id="event-itemAdded" class="events item">
     <h3 class="name"><code>itemAdded</code></h3>
     <span class="type"></span>
@@ -949,7 +1003,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/SetList.js.html#l280"><code>SetList.js:280</code></a>
+        <a href="../files/SetList.js.html#l295"><code>SetList.js:295</code></a>
         </p>
 
 

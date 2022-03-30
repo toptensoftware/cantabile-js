@@ -1,7 +1,7 @@
 {
     "name": "Cantabile JavaScript API",
     "description": "JavaScript API for interfacing with Cantabile Network API",
-    "version": "0.1.0",
+    "version": "4.0.0",
     "logo": "logo.png",
     "options": {
         "outdir": "./doc/",
