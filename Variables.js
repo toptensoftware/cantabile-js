@@ -62,7 +62,7 @@ class PatternWatcher extends EventEmitter
 			this.owner.send("/unwatch", { patternId: this._patternId})
 			this.owner._revokePatternId(this._patternId);
 			this._patternId = 0;
-			this.resolved = "";
+			this._resolved = "";
 			this._fireChanged();
 		}
 	}
@@ -210,8 +210,12 @@ class Variables extends EndPoint
 		let w = new PatternWatcher(this, pattern, listener);
 		this.watchers.push(w);
 
+		this.open();
+
 		if (this.isOpen)
 			w._start();
+
+		return w;
 	}
 
 	_registerPatternId(patternId, watcher)
@@ -227,6 +231,7 @@ class Variables extends EndPoint
 	_revokeWatcher(w)
 	{
 		this.watchers = this.watchers.filter(x=>x != w);
+		this.close();
 	}
 
 	_onEvent_patternChanged(data)

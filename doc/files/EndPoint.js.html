@@ -129,10 +129,25 @@ class EndPoint extends EventEmitter
 		this.openCount = 0;
 		this.owner.on(&#x27;connected&#x27;, this._onConnected.bind(this));
 		this.owner.on(&#x27;disconnected&#x27;, this._onDisconnected.bind(this));
+
+		this.on(&#x27;newListener&#x27;, (event, listener) =&gt; {
+			if (event != &quot;newListener&quot; &amp;&amp; event != &quot;removeListener&quot;)
+				this.open()
+		});
+		this.on(&#x27;removeListener&#x27;, (event, listener) =&gt; {
+			if (event != &quot;newListener&quot; &amp;&amp; event != &quot;removeListener&quot;)
+				this.close()
+		});
 	}
 
 	/**
-	 * Opens this end point and starts listening for events
+	 * Opens this end point and starts listening for events. 
+	 * 
+	 * This method no longer needs to be explicitly called as end points are now
+	 * automatically opened when the first event listener is attached.
+	 * 
+	 * Use this method to keep the end point open even when no event listeners are attached.
+	 * 
 	 * @method open
 	 */
 	open()
@@ -146,7 +161,10 @@ class EndPoint extends EventEmitter
 	}
 
 	/**
-	 * Closes the end point and stops listening for events
+	 * Closes the end point and stops listening for events.
+	 * 
+	 * This method no longer needs to be explicitly called as end points are now
+	 * automatically closed when the last event listener is removed.
 	 * @method close
 	 */
 	close()

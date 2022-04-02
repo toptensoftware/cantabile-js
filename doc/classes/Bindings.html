@@ -208,14 +208,17 @@ console.log(await C.bindings.availableBindingPoints());</code></pre>
 	<div class="meta">
 				<p>Inherited from
 				<a href="../classes/EndPoint.html#method_close">EndPoint</a>:
-		<a href="../files/EndPoint.js.html#l50"><code>EndPoint.js:50</code></a>
+		<a href="../files/EndPoint.js.html#l65"><code>EndPoint.js:65</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description">Closes the end point and stops listening for events</div>
+	<div class="description">Closes the end point and stops listening for events.
+
+This method no longer needs to be explicitly called as end points are now
+automatically closed when the last event listener is removed.</div>
 
 
 
@@ -367,14 +370,19 @@ whereas a <code>parameter</code> value is stored with the binding itself.</p>
 	<div class="meta">
 				<p>Inherited from
 				<a href="../classes/EndPoint.html#method_open">EndPoint</a>:
-		<a href="../files/EndPoint.js.html#l36"><code>EndPoint.js:36</code></a>
+		<a href="../files/EndPoint.js.html#l45"><code>EndPoint.js:45</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description">Opens this end point and starts listening for events</div>
+	<div class="description">Opens this end point and starts listening for events. 
+
+This method no longer needs to be explicitly called as end points are now
+automatically opened when the first event listener is attached.
+
+Use this method to keep the end point open even when no event listeners are attached.</div>
 
 
 
@@ -481,7 +489,7 @@ points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">a
 	<div class="meta">
 				<p>Inherited from
 				<a href="../classes/EndPoint.html#method_untilOpen">EndPoint</a>:
-		<a href="../files/EndPoint.js.html#l129"><code>EndPoint.js:129</code></a>
+		<a href="../files/EndPoint.js.html#l147"><code>EndPoint.js:147</code></a>
 		</p>
 
 

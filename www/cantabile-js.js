@@ -634,6 +634,8 @@ var Bindings = function (_EndPoint) {
 			var w = new BindingWatcher(this, name, indicies, condition, listener);
 			this._watchers.push(w);
 
+			this.open();
+
 			if (this.isOpen) w._start();
 
 			return w;
@@ -654,6 +656,7 @@ var Bindings = function (_EndPoint) {
 			this._watchers = this._watchers.filter(function (x) {
 				return x != w;
 			});
+			this.close();
 		}
 	}, {
 		key: '_onEvent_invoked',
@@ -1170,11 +1173,24 @@ var EndPoint = function (_EventEmitter) {
 		_this.openCount = 0;
 		_this.owner.on('connected', _this._onConnected.bind(_this));
 		_this.owner.on('disconnected', _this._onDisconnected.bind(_this));
+
+		_this.on('newListener', function (event, listener) {
+			if (event != "newListener" && event != "removeListener") _this.open();
+		});
+		_this.on('removeListener', function (event, listener) {
+			if (event != "newListener" && event != "removeListener") _this.close();
+		});
 		return _this;
 	}
 
 	/**
-  * Opens this end point and starts listening for events
+  * Opens this end point and starts listening for events. 
+  * 
+  * This method no longer needs to be explicitly called as end points are now
+  * automatically opened when the first event listener is attached.
+  * 
+  * Use this method to keep the end point open even when no event listeners are attached.
+  * 
   * @method open
   */
 
@@ -1190,7 +1206,10 @@ var EndPoint = function (_EventEmitter) {
 		}
 
 		/**
-   * Closes the end point and stops listening for events
+   * Closes the end point and stops listening for events.
+   * 
+   * This method no longer needs to be explicitly called as end points are now
+   * automatically closed when the last event listener is removed.
    * @method close
    */
 
@@ -2028,14 +2047,14 @@ var SongStates = function (_EndPoint) {
 			/**
     * Fired when the name of the current song changes
     *
-    * @event changed
+    * @event nameChanged
     */
 			this.emit('nameChanged');
 
 			/**
     * Fired when the current song state changes
     *
-    * @event changed
+    * @event currentStateChanged
     */
 			this.emit('currentStateChanged');
 		}
@@ -2789,7 +2808,7 @@ var PatternWatcher = function (_EventEmitter) {
 				this.owner.send("/unwatch", { patternId: this._patternId });
 				this.owner._revokePatternId(this._patternId);
 				this._patternId = 0;
-				this.resolved = "";
+				this._resolved = "";
 				this._fireChanged();
 			}
 		}
@@ -2989,7 +3008,11 @@ var Variables = function (_EndPoint) {
 			var w = new PatternWatcher(this, pattern, listener);
 			this.watchers.push(w);
 
+			this.open();
+
 			if (this.isOpen) w._start();
+
+			return w;
 		}
 	}, {
 		key: '_registerPatternId',
@@ -3007,6 +3030,7 @@ var Variables = function (_EndPoint) {
 			this.watchers = this.watchers.filter(function (x) {
 				return x != w;
 			});
+			this.close();
 		}
 	}, {
 		key: '_onEvent_patternChanged',

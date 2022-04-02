@@ -989,23 +989,23 @@
         },
         {
             "file": "EndPoint.js",
-            "line": 36,
-            "description": "Opens this end point and starts listening for events",
+            "line": 45,
+            "description": "Opens this end point and starts listening for events. \n\nThis method no longer needs to be explicitly called as end points are now\nautomatically opened when the first event listener is attached.\n\nUse this method to keep the end point open even when no event listeners are attached.",
             "itemtype": "method",
             "name": "open",
             "class": "EndPoint"
         },
         {
             "file": "EndPoint.js",
-            "line": 50,
-            "description": "Closes the end point and stops listening for events",
+            "line": 65,
+            "description": "Closes the end point and stops listening for events.\n\nThis method no longer needs to be explicitly called as end points are now\nautomatically closed when the last event listener is removed.",
             "itemtype": "method",
             "name": "close",
             "class": "EndPoint"
         },
         {
             "file": "EndPoint.js",
-            "line": 129,
+            "line": 147,
             "description": "Returns a promise that will be resolved when this end point is opened",
             "example": [
                 "\n\n    let C = new CantabileApi();\n\t   C.application.open();\n    await C.application.untilOpen();"
@@ -1676,7 +1676,7 @@
             "line": 29,
             "description": "Fired when the name of the current song changes",
             "itemtype": "event",
-            "name": "changed",
+            "name": "nameChanged",
             "class": "Song"
         },
         {
@@ -1684,7 +1684,7 @@
             "line": 36,
             "description": "Fired when the current song state changes",
             "itemtype": "event",
-            "name": "changed",
+            "name": "currentStateChanged",
             "class": "Song"
         },
         {
