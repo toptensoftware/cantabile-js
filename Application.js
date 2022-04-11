@@ -19,6 +19,13 @@ class Application extends EndPoint
 
 	_onOpen()
 	{
+		/**
+		 * Fired when any of the application properties change
+		 * 
+		 * @event changed
+		 */
+
+
 		this.emit('busyChanged', this.busy);
 		this.emit('changed');
 	}
@@ -69,9 +76,16 @@ class Application extends EndPoint
 	 * @property build
 	 * @type {Number}
 	 */
-	get build() { return this._data ? this._data.build : null; }
+	 get build() { return this._data ? this._data.build : null; }
 
 	/**
+	 * An array of color entries for the color index table
+	 * @property build
+	 * @type {ColorEntry[]}
+	 */
+	 get colors() { return this._data ? this._data.colors : null; }
+
+	 /**
 	 * The application's busy status
 	 * @property busy
 	 * @type {Boolean}
@@ -80,6 +94,13 @@ class Application extends EndPoint
 
 	_onEvent_busyChanged(data)
 	{
+		/**
+		 * Fired when the application busy state changes
+		 * 
+		 * @event busyChanged
+		 * @param {Boolean} busy True if the app is currently busy
+		 */
+
 		this._data.busy = data.busy;
 		this.emit('busyChanged', this.busy);
 	}
