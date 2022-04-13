@@ -64,6 +64,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "ColorEntry.js": {
+            "name": "ColorEntry.js",
+            "modules": {},
+            "classes": {
+                "ColorEntry": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "EndPoint.js": {
             "name": "EndPoint.js",
             "modules": {},
@@ -266,6 +275,18 @@
                     "optional": true
                 }
             ]
+        },
+        "ColorEntry": {
+            "name": "ColorEntry",
+            "shortname": "ColorEntry",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "ColorEntry.js",
+            "line": 1,
+            "description": "An anonymous type representing a color table entry"
         },
         "EndPoint": {
             "name": "EndPoint",
@@ -480,7 +501,15 @@
         },
         {
             "file": "Application.js",
-            "line": 32,
+            "line": 22,
+            "description": "Fired when any of the application properties change",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 39,
             "description": "The application's company name",
             "itemtype": "property",
             "name": "companyName",
@@ -489,7 +518,7 @@
         },
         {
             "file": "Application.js",
-            "line": 39,
+            "line": 46,
             "description": "The application name",
             "itemtype": "property",
             "name": "name",
@@ -498,7 +527,7 @@
         },
         {
             "file": "Application.js",
-            "line": 46,
+            "line": 53,
             "description": "The application version string",
             "itemtype": "property",
             "name": "version",
@@ -507,7 +536,7 @@
         },
         {
             "file": "Application.js",
-            "line": 53,
+            "line": 60,
             "description": "The application edition string",
             "itemtype": "property",
             "name": "edition",
@@ -516,7 +545,7 @@
         },
         {
             "file": "Application.js",
-            "line": 60,
+            "line": 67,
             "description": "The application's copyright message",
             "itemtype": "property",
             "name": "copyright",
@@ -525,7 +554,7 @@
         },
         {
             "file": "Application.js",
-            "line": 67,
+            "line": 74,
             "description": "The application's build number",
             "itemtype": "property",
             "name": "build",
@@ -534,11 +563,35 @@
         },
         {
             "file": "Application.js",
-            "line": 74,
+            "line": 81,
+            "description": "An array of color entries for the color index table",
+            "itemtype": "property",
+            "name": "build",
+            "type": "{ColorEntry[]}",
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 88,
             "description": "The application's busy status",
             "itemtype": "property",
             "name": "busy",
             "type": "{Boolean}",
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 97,
+            "description": "Fired when the application busy state changes",
+            "itemtype": "event",
+            "name": "busyChanged",
+            "params": [
+                {
+                    "name": "busy",
+                    "description": "True if the app is currently busy",
+                    "type": "Boolean"
+                }
+            ],
             "class": "Application"
         },
         {
@@ -986,6 +1039,24 @@
             "itemtype": "event",
             "name": "disconnected",
             "class": "Cantabile"
+        },
+        {
+            "file": "ColorEntry.js",
+            "line": 7,
+            "description": "The foreground color in #RRGGBBAA format",
+            "itemtype": "property",
+            "name": "fore",
+            "type": "{String}",
+            "class": "ColorEntry"
+        },
+        {
+            "file": "ColorEntry.js",
+            "line": 13,
+            "description": "The background color in #RRGGBBAA format",
+            "itemtype": "property",
+            "name": "back",
+            "type": "{String}",
+            "class": "ColorEntry"
         },
         {
             "file": "EndPoint.js",

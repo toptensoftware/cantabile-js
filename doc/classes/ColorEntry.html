@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>State - Cantabile JavaScript API</title>
+    <title>ColorEntry - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -92,7 +92,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>State</h1>
+    <h1>ColorEntry</h1>
 </div>
 
 
@@ -101,7 +101,7 @@
 
 
 <div class="yuidoc-class-description">
-<p>An anonymous type representing a state</p>
+<p>An anonymous type representing a color table entry</p>
 
 </div>
 
@@ -114,9 +114,8 @@
 		<li>
 			<strong>Properties</strong>
 			<ul>
-				<li><a href="#prop-color"><span class="ip">color</span></a></li>
-				<li><a href="#prop-name"><span class="ip">name</span></a></li>
-				<li><a href="#prop-pr"><span class="ip">pr</span></a></li>
+				<li><a href="#prop-back"><span class="ip">back</span></a></li>
+				<li><a href="#prop-fore"><span class="ip">fore</span></a></li>
 			</ul>
 		</li>
 
@@ -134,33 +133,8 @@
         <h2 class="off-left">Properties</h2>
 
         <div class="item-list">
-<div id="prop-color" class="property item">
-    <h3 class="name"><code>color</code></h3>
-    <span class="type">Number</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/State.js.html#l19"><code>State.js:19</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>The color of the state (0 to 15)</p>
-
-    </div>
-
-
-
-</div>
-<div id="prop-name" class="property item">
-    <h3 class="name"><code>name</code></h3>
+<div id="prop-back" class="property item">
+    <h3 class="name"><code>back</code></h3>
     <span class="type">String</span>
 
 
@@ -170,23 +144,23 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/State.js.html#l7"><code>State.js:7</code></a>
+        <a href="../files/ColorEntry.js.html#l13"><code>ColorEntry.js:13</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>The name of the state</p>
+        <p>The background color in #RRGGBBAA format</p>
 
     </div>
 
 
 
 </div>
-<div id="prop-pr" class="property item">
-    <h3 class="name"><code>pr</code></h3>
-    <span class="type">Number</span>
+<div id="prop-fore" class="property item">
+    <h3 class="name"><code>fore</code></h3>
+    <span class="type">String</span>
 
 
 
@@ -195,14 +169,14 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/State.js.html#l13"><code>State.js:13</code></a>
+        <a href="../files/ColorEntry.js.html#l7"><code>ColorEntry.js:7</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>The zero based program number of the state</p>
+        <p>The foreground color in #RRGGBBAA format</p>
 
     </div>
 

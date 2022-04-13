@@ -27,7 +27,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Application", "classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/Song", "classes/SongStates", "classes/State", "classes/States", "classes/Transport", "classes/Variables"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Application", "classes/BindingPointInfo", "classes/Bindings", "classes/BindingWatcher", "classes/Cantabile", "classes/ColorEntry", "classes/EndPoint", "classes/KeyRange", "classes/KeyRanges", "classes/MidiControllerEvent", "classes/PatternWatcher", "classes/SetList", "classes/SetListItem", "classes/ShowNote", "classes/ShowNotes", "classes/Song", "classes/SongStates", "classes/State", "classes/States", "classes/Transport", "classes/Variables"]'>
         </form>
     </div>
 </div>
@@ -43,6 +43,7 @@
                 <li><a href="../classes/Bindings.html">Bindings</a></li>
                 <li><a href="../classes/BindingWatcher.html">BindingWatcher</a></li>
                 <li><a href="../classes/Cantabile.html">Cantabile</a></li>
+                <li><a href="../classes/ColorEntry.html">ColorEntry</a></li>
                 <li><a href="../classes/EndPoint.html">EndPoint</a></li>
                 <li><a href="../classes/KeyRange.html">KeyRange</a></li>
                 <li><a href="../classes/KeyRanges.html">KeyRanges</a></li>
@@ -128,6 +129,7 @@
 			<strong>Properties</strong>
 			<ul>
 				<li><a href="#prop-build"><span class="ip">build</span></a></li>
+				<li><a href="#prop-build"><span class="ip">build</span></a></li>
 				<li><a href="#prop-busy"><span class="ip">busy</span></a></li>
 				<li><a href="#prop-companyName"><span class="ip">companyName</span></a></li>
 				<li><a href="#prop-copyright"><span class="ip">copyright</span></a></li>
@@ -138,6 +140,13 @@
 		</li>
 
 
+        <li>
+            <strong>Events</strong>
+            <ul>
+                <li><a href="#event-busyChanged"><span class="im">busyChanged</span></a></li>
+                <li><a href="#event-changed"><span class="im">changed</span></a></li>
+            </ul>
+        </li>
 
 
 	</ul>
@@ -276,7 +285,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Application.js.html#l67"><code>Application.js:67</code></a>
+        <a href="../files/Application.js.html#l74"><code>Application.js:74</code></a>
         </p>
 
 
@@ -284,6 +293,31 @@ await C.application.untilOpen();</code></pre>
 
     <div class="description">
         <p>The application's build number</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-build" class="property item">
+    <h3 class="name"><code>build</code></h3>
+    <span class="type"><a href="../classes/ColorEntry.html" class="crosslink">ColorEntry[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Application.js.html#l81"><code>Application.js:81</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>An array of color entries for the color index table</p>
 
     </div>
 
@@ -301,7 +335,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Application.js.html#l74"><code>Application.js:74</code></a>
+        <a href="../files/Application.js.html#l88"><code>Application.js:88</code></a>
         </p>
 
 
@@ -326,7 +360,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Application.js.html#l32"><code>Application.js:32</code></a>
+        <a href="../files/Application.js.html#l39"><code>Application.js:39</code></a>
         </p>
 
 
@@ -351,7 +385,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Application.js.html#l60"><code>Application.js:60</code></a>
+        <a href="../files/Application.js.html#l67"><code>Application.js:67</code></a>
         </p>
 
 
@@ -376,7 +410,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Application.js.html#l53"><code>Application.js:53</code></a>
+        <a href="../files/Application.js.html#l60"><code>Application.js:60</code></a>
         </p>
 
 
@@ -401,7 +435,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Application.js.html#l39"><code>Application.js:39</code></a>
+        <a href="../files/Application.js.html#l46"><code>Application.js:46</code></a>
         </p>
 
 
@@ -426,7 +460,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Application.js.html#l46"><code>Application.js:46</code></a>
+        <a href="../files/Application.js.html#l53"><code>Application.js:53</code></a>
         </p>
 
 
@@ -444,6 +478,79 @@ await C.application.untilOpen();</code></pre>
     </div>
 
 
+    <div id="events" class="page-section">
+        <h2 class="off-left">Events</h2>
+
+        <div class="item-list">
+<div id="event-busyChanged" class="events item">
+    <h3 class="name"><code>busyChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Application.js.html#l97"><code>Application.js:97</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the application busy state changes</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">busy</code>
+                        <span class="type">Boolean</span>
+
+
+                    <div class="param-description">
+                        <p>True if the app is currently busy</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+</div>
+<div id="event-changed" class="events item">
+    <h3 class="name"><code>changed</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Application.js.html#l22"><code>Application.js:22</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when any of the application properties change</p>
+
+    </div>
+
+
+
+</div>
+        </div>
+    </div>
 
                     </div>
                 </div>

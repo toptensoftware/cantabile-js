@@ -61,7 +61,14 @@ class SetList extends EndPoint
 	 * @property currentSongIndex
 	 * @type {Number}
 	 */
-	get currentSongIndex() { return this._data.items.indexOf(this._currentSong); }
+	get currentSongIndex() 
+	{ 
+		if (!this._currentSong)
+			return -1;
+		if (!this._data)
+			return -1;
+		return this._data.items.indexOf(this._currentSong); 
+	}
 
 	/**
 	 * The currently loaded item (or null if the current song isn't in the set list)

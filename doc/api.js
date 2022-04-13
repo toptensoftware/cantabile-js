@@ -6,6 +6,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "BindingWatcher",
         "Bindings",
         "Cantabile",
+        "ColorEntry",
         "EndPoint",
         "KeyRange",
         "KeyRanges",

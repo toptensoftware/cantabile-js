@@ -50,7 +50,14 @@ class States extends EndPoint
 	 * @property currentStateIndex
 	 * @type {Number}
 	 */
-	get currentStateIndex() { return this._data.items.indexOf(this._currentState); }
+	get currentStateIndex() 
+	{ 
+		if (!this._currentState)
+			return -1;
+		if (!this._data)
+			return -1;
+		return this._data.items.indexOf(this._currentState); 
+	}
 
 	/**
 	 * The currently loaded item (or null if no active state)
