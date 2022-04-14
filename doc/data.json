@@ -914,7 +914,7 @@
             "line": 87,
             "description": "Provides access to master transport controls",
             "itemtype": "property",
-            "name": "song",
+            "name": "transport",
             "type": "{Song}",
             "class": "Cantabile"
         },
@@ -1225,7 +1225,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 66,
+            "line": 73,
             "description": "The currently loaded item (or null if the current song isn't in the set list)",
             "itemtype": "property",
             "name": "currentSong",
@@ -1234,7 +1234,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 73,
+            "line": 80,
             "description": "Load the song at a given index position",
             "itemtype": "method",
             "name": "loadSongByIndex",
@@ -1256,7 +1256,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 87,
+            "line": 94,
             "description": "Load the song with a given program number",
             "itemtype": "method",
             "name": "loadSongByProgram",
@@ -1278,7 +1278,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 101,
+            "line": 108,
             "description": "Load the first song in the set list",
             "itemtype": "method",
             "name": "loadFirstSong",
@@ -1295,7 +1295,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 113,
+            "line": 120,
             "description": "Load the last song in the set list",
             "itemtype": "method",
             "name": "loadLastSong",
@@ -1312,7 +1312,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 125,
+            "line": 132,
             "description": "Load the next or previous song in the set list",
             "itemtype": "method",
             "name": "loadNextSong",
@@ -1341,7 +1341,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 170,
+            "line": 177,
             "description": "Fired after a new item has been added to the set list",
             "itemtype": "event",
             "name": "itemAdded",
@@ -1356,7 +1356,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 177,
+            "line": 184,
             "description": "Fired when anything about the contents of the set list changes",
             "itemtype": "event",
             "name": "changed",
@@ -1364,7 +1364,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 190,
+            "line": 197,
             "description": "Fired after an item has been removed from the set list",
             "itemtype": "event",
             "name": "itemRemoved",
@@ -1379,7 +1379,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 206,
+            "line": 213,
             "description": "Fired when an item in the set list has been moved",
             "itemtype": "event",
             "name": "itemMoved",
@@ -1399,7 +1399,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 225,
+            "line": 232,
             "description": "Fired when something about an item has changed",
             "itemtype": "event",
             "name": "itemChanged",
@@ -1414,7 +1414,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 241,
+            "line": 248,
             "description": "Fired when the entire set list has changed (eg: after a sort operation, or loading a new set list)",
             "itemtype": "event",
             "name": "reload",
@@ -1422,7 +1422,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 253,
+            "line": 260,
             "description": "Fired when the pre-loaded state of the list has changed",
             "itemtype": "event",
             "name": "preLoadedChanged",
@@ -1430,7 +1430,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 266,
+            "line": 273,
             "description": "Fired when the currently loaded song changes",
             "itemtype": "event",
             "name": "currentSongChanged",
@@ -1438,7 +1438,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 279,
+            "line": 286,
             "description": "Fired when the part of the currently loaded song changes",
             "itemtype": "event",
             "name": "currentSongPartChanged",
@@ -1458,7 +1458,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 295,
+            "line": 302,
             "description": "Fired when the name of the currently loaded set list changes",
             "itemtype": "event",
             "name": "nameChanged",
@@ -1832,7 +1832,7 @@
         },
         {
             "file": "States.js",
-            "line": 55,
+            "line": 62,
             "description": "The currently loaded item (or null if no active state)",
             "itemtype": "property",
             "name": "currentState",
@@ -1841,7 +1841,7 @@
         },
         {
             "file": "States.js",
-            "line": 62,
+            "line": 69,
             "description": "Load the State at a given index position",
             "itemtype": "method",
             "name": "loadStateByIndex",
@@ -1863,7 +1863,7 @@
         },
         {
             "file": "States.js",
-            "line": 76,
+            "line": 83,
             "description": "Load the State with a given program number",
             "itemtype": "method",
             "name": "loadStateByProgram",
@@ -1885,7 +1885,7 @@
         },
         {
             "file": "States.js",
-            "line": 90,
+            "line": 97,
             "description": "Load the first state",
             "itemtype": "method",
             "name": "loadFirstState",
@@ -1902,7 +1902,7 @@
         },
         {
             "file": "States.js",
-            "line": 102,
+            "line": 109,
             "description": "Load the last state",
             "itemtype": "method",
             "name": "loadLastState",
@@ -1919,7 +1919,7 @@
         },
         {
             "file": "States.js",
-            "line": 114,
+            "line": 121,
             "description": "Load the next or previous state",
             "itemtype": "method",
             "name": "loadNextState",
@@ -1948,7 +1948,7 @@
         },
         {
             "file": "States.js",
-            "line": 158,
+            "line": 165,
             "description": "Fired after a new state has been added",
             "itemtype": "event",
             "name": "itemAdded",
@@ -1963,7 +1963,7 @@
         },
         {
             "file": "States.js",
-            "line": 165,
+            "line": 172,
             "description": "Fired when anything about the contents of state list changes",
             "itemtype": "event",
             "name": "changed",
@@ -1971,7 +1971,7 @@
         },
         {
             "file": "States.js",
-            "line": 178,
+            "line": 185,
             "description": "Fired after a state has been removed",
             "itemtype": "event",
             "name": "itemRemoved",
@@ -1986,7 +1986,7 @@
         },
         {
             "file": "States.js",
-            "line": 194,
+            "line": 201,
             "description": "Fired when an item has been moved",
             "itemtype": "event",
             "name": "itemMoved",
@@ -2006,7 +2006,7 @@
         },
         {
             "file": "States.js",
-            "line": 213,
+            "line": 220,
             "description": "Fired when something about an state has changed",
             "itemtype": "event",
             "name": "itemChanged",
@@ -2021,7 +2021,7 @@
         },
         {
             "file": "States.js",
-            "line": 229,
+            "line": 236,
             "description": "Fired when the entire set of states has changed (eg: after a sort operation, or loading a new song/rack)",
             "itemtype": "event",
             "name": "reload",
@@ -2029,7 +2029,7 @@
         },
         {
             "file": "States.js",
-            "line": 242,
+            "line": 249,
             "description": "Fired when the current state changes",
             "itemtype": "event",
             "name": "currentStateChanged",
@@ -2037,7 +2037,7 @@
         },
         {
             "file": "States.js",
-            "line": 256,
+            "line": 263,
             "description": "Fired when the name of the containing song or rack changes",
             "itemtype": "event",
             "name": "nameChanged",
