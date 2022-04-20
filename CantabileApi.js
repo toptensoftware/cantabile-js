@@ -10,32 +10,17 @@ const EventEmitter = require('events');
 * @class Cantabile
 * @extends EventEmitter
 * @constructor
-* @param {String} [socketUrl] The websocket URL of the Cantabile instance to connect to.
-* When running in a browser, the defaults to `ws://${window.location.host}/api/socket`.  In other
-* environments it defaults to `ws://localhost:35007/api/socket`.
+* @param {String} [host] The host to connect to. This can be either <baseaddress> or http://<baseaddress> or ws://<baseaddress>
+* When running in a browser, the defaults to `${window.location.host}`.  In other environments it defaults to 
+`localhost:35007`.  
 */
 class Cantabile extends EventEmitter
 {
-	constructor(socketUrl)
+	constructor(host)
 	{
 		super();
 
-		if (socketUrl)
-		{
-			this.hostUrl = socketUrl
-				.replace("ws://", "http://")
-				.replace("wss://", "https://")
-				.replace("/api/socket/", "/")
-				.replace("/api/socket", "/");
-				
-			this.socketUrl = socketUrl;
-		}
-		else
-		{
-			var defaultHost = process.browser ? window.location.host : "localhost:35007";
-			this.hostUrl = `http://${defaultHost}/`;
-			this.socketUrl = socketUrl || `ws://${defaultHost}/api/socket/`;
-		}
+		this.host = host;
 
 		this.shouldConnect = false;
 		this._nextRid = 1;
@@ -256,6 +241,73 @@ class Cantabile extends EventEmitter
 		}
 	}
 
+	/**
+	 * The current host
+	 *
+	 * @property host
+	 * @type {String} 
+	 */
+    get host()
+	{
+		return this._host;
+	}
+
+	set host(value)
+	{
+		// Use defualt?
+		if (!value)
+		{
+			value = (process.browser ? window.location.host : "http://localhost:35007");
+		}
+
+		// Normalize value by converting to http:// or https:// and removing /api/socket/ if
+		// supplied (this is to support old clients that we're supposed to provide socket url)
+		this._host = value
+			.replace("ws://", "http://")
+			.replace("wss://", "https://")
+			.replace("/api/socket", "");
+
+		// Remove trailing slashes
+		while (this._host.endsWith('/'))
+			this._host = this._host.substring(0, this._host.length - 1);
+	}
+
+	/**
+	 * The base socket url
+	 *
+	 * @property host
+	 * @type {String} 
+	 */
+	 get socketUrl()
+	{
+		let ws = this._host
+			.replace("http://", "ws://")
+			.replace("https://", "wss://")
+
+		return `${ws}/api/socket/`;
+	}
+
+	/**
+	 * The base host url
+	 *
+	 * @property host
+	 * @type {String} 
+	 */
+	 get hostUrl()
+	{
+		return this._host;
+	}
+	set hostUrl(value)
+	{
+		throw new Error("The `hostUrl` property is read-only, use `host` instead");
+	}
+
+	set socketUrl(value)
+	{
+		throw new Error("The `socketUrl` property has been deprecated, use `host` instead");
+	}
+
+
 	// Internal helper to actually perform the connection
 	_internalConnect()
 	{
@@ -270,8 +322,6 @@ class Cantabile extends EventEmitter
 
 		// Work out socket url
 		let socketUrl = this.socketUrl;
-		if (!socketUrl)
-		 	socketUrl = this.hostUrl.replace("http://", "ws://").replace("https://", "wss://");
 
 		// Create the socket and hook up handlers
 		debug("Opening web socket '%s'", socketUrl);
