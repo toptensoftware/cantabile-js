@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Run Sandbox",
-            "program": "${workspaceFolder}/sandbox.js"
+            "program": "${workspaceFolder}/engine.js"
         },
     ]
 }

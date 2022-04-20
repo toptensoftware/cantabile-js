@@ -4,16 +4,6 @@ const debug = require('debug')('Cantabile');
 const EventEmitter = require('events');
 
 
-// Helper to correctly join two paths ensuring only a single slash between them
-function joinPath(a,b)
-{
-	while (a.endsWith('/'))
-		a = a.substr(0, a.length - 1);
-	while (b.startsWith('/'))
-		b = b.substr(1);
-	return `${a}/${b}`;
-}
-
 /**
  * Common functionality for all end point handlers
  *
@@ -107,7 +97,7 @@ class EndPoint extends EventEmitter
 		{
 			// If connection isn't open, need to specify the full end point url
 			return this.owner.send({
-				ep: joinPath(this.endPoint, endPoint),
+				ep: EndPoint.joinPath(this.endPoint, endPoint),
 				method: method,
 				data: data,
 			});
@@ -130,7 +120,7 @@ class EndPoint extends EventEmitter
 		{
 			// If connection isn't open, need to specify the full end point url
 			return this.owner.request({
-				ep: joinPath(this.endPoint, endPoint),
+				ep: EndPoint.joinPath(this.endPoint, endPoint),
 				method: method,
 				data: data,
 			});
@@ -235,6 +225,17 @@ class EndPoint extends EventEmitter
 			this["_onEvent_" + eventName](data);
 		}
 	}
+
+	// Helper to correctly join two paths ensuring only a single slash between them
+	static joinPath(a,b)
+	{
+		while (a.endsWith('/'))
+			a = a.substr(0, a.length - 1);
+		while (b.startsWith('/'))
+			b = b.substr(1);
+		return `${a}/${b}`;
+	}
+
 
 }
 

@@ -1,0 +1,92 @@
+'use strict';
+
+const debug = require('debug')('Cantabile');
+const EndPoint = require('./EndPoint');
+const fetch = require('node-fetch');
+
+/**
+ * Provides access to Cantabile's engine object for start/stop control
+ * 
+ * Access this object via the {{#crossLink "Cantabile/engine:property"}}{{/crossLink}} property.
+ *
+ * @class Engine
+ * @extends EndPoint
+ */
+class Engine
+{
+    constructor(owner)
+    {
+		this.owner = owner;
+    }
+
+	/**
+	 * Returns a promise to provide the started state of Cantabile's audio engine.
+	 * 
+	 * This API is only available via  AJAX, and not WebSocket
+	 *
+	 * @method isStarted
+	 * @type {Promise|Boolean} 
+	 */
+	 async isStarted()
+	{
+		let f = await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/")).then(r => r.json());
+		return f.isStarted;
+	}
+
+	/**
+	 * Starts Cantabile's audio engine
+	 * 
+	 * This API is only available via  AJAX, and not WebSocket
+	 *
+	 * @method start
+	 * @type {Promise} 
+	 */
+	async start()
+	{
+		await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/start"), { method: "POST" });
+	}
+
+	/**
+	 * Stops Cantabile's audio engine
+	 * 
+	 * This API is only available via  AJAX, and not WebSocket
+	 *
+	 * @method start
+	 * @type {Promise} 
+	 */
+	async stop()
+	{
+		await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/stop"), { method: "POST" });
+	}
+
+	/**
+	 * Restarts Cantabile's audio engine
+	 * 
+	 * This API is only available via  AJAX, and not WebSocket
+	 *
+	 * @method restart
+	 * @type {Promise} 
+	 */
+	 async restart()
+	 {
+		 await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/restart"), { method: "POST" });
+	 }
+ 
+ 	/**
+	 * Toggles the audio engine between started and stopped
+	 * 
+	 * This API is only available via  AJAX, and not WebSocket
+	 *
+	 * @method restart
+	 * @type {Promise} 
+	 */
+	  async startStop()
+	  {
+		  await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/startStop"), { method: "POST" });
+	  }
+  
+  }
+
+
+
+module.exports = Engine;

@@ -20,8 +20,23 @@ class Cantabile extends EventEmitter
 	{
 		super();
 
-		var defaultHost = process.browser ? window.location.host : "localhost:35007";
-		this.socketUrl = socketUrl || `ws://${defaultHost}/api/socket/`;
+		if (socketUrl)
+		{
+			this.hostUrl = socketUrl
+				.replace("ws://", "http://")
+				.replace("wss://", "https://")
+				.replace("/api/socket/", "/")
+				.replace("/api/socket", "/");
+				
+			this.socketUrl = socketUrl;
+		}
+		else
+		{
+			var defaultHost = process.browser ? window.location.host : "localhost:35007";
+			this.hostUrl = `http://${defaultHost}/`;
+			this.socketUrl = socketUrl || `ws://${defaultHost}/api/socket/`;
+		}
+
 		this.shouldConnect = false;
 		this._nextRid = 1;
 		this._pendingResponseHandlers = {};
@@ -107,7 +122,15 @@ class Cantabile extends EventEmitter
 		 * @type {Application} 
 		 */
 		this.application = new (require('./Application'))(this);
-	}
+
+		/**
+		 * Provides access to the engine object
+		 *
+		 * @property engine 
+		 * @type {Engine} 
+		 */
+		 this.engine = new (require('./Engine'))(this);
+		}
 
 	/**
 	 * The current connection state, either "connecting", "connected" or "disconnected"
@@ -245,9 +268,14 @@ class Cantabile extends EventEmitter
 
 		this._setState("connecting");
 
+		// Work out socket url
+		let socketUrl = this.socketUrl;
+		if (!socketUrl)
+		 	socketUrl = this.hostUrl.replace("http://", "ws://").replace("https://", "wss://");
+
 		// Create the socket and hook up handlers
-		debug("Opening web socket '%s'", this.socketUrl);
-		this._ws =  new WebSocket(this.socketUrl);
+		debug("Opening web socket '%s'", socketUrl);
+		this._ws =  new WebSocket(socketUrl);
 		this._ws.onerror = this._onSocketError.bind(this);
 		this._ws.onopen = this._onSocketOpen.bind(this);
 		this._ws.onclose = this._onSocketClose.bind(this);
