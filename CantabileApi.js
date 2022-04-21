@@ -254,22 +254,53 @@ class Cantabile extends EventEmitter
 
 	set host(value)
 	{
-		// Use defualt?
+		if (!value && process.browser)
+			value = window.location.host
 		if (!value)
+			value = "localhost"
+
+		// Crack protocol
+		let secure = false;
+		if (value.startsWith("https://"))
 		{
-			value = (process.browser ? window.location.host : "http://localhost:35007");
+			secure = true;
+			value = value.substring(8);
+		}
+		else if (value.startsWith("wss://"))
+		{
+			secure = true;
+			value = value.substring(6);
+		}
+		else if (value.startsWith("http://"))
+		{
+			value = value.substring(7);
+		}
+		else if (value.startsWith("ws://"))
+		{
+			value = value.substring(5);
 		}
 
-		// Normalize value by converting to http:// or https:// and removing /api/socket/ if
-		// supplied (this is to support old clients that we're supposed to provide socket url)
-		this._host = value
-			.replace("ws://", "http://")
-			.replace("wss://", "https://")
-			.replace("/api/socket", "");
-
 		// Remove trailing slashes
-		while (this._host.endsWith('/'))
-			this._host = this._host.substring(0, this._host.length - 1);
+		while (value.endsWith('/'))
+			value = value.substring(0, value.length - 1);
+
+		// Remove socket url
+		if (value.endsWith("/api/socket"))
+			value = value.substring(0, value.length - 11);
+
+		// Ensure port
+		if (value.indexOf(':') < 0)
+		{
+			let slashPos = value.indexOf('/');
+			if (slashPos < 0)
+				value += ":35007";
+			else
+				value = value.substring(0, slashPos) + ':35007' + value.substring(slashPos);
+		}
+
+		// Build final http and ws url
+		this._host = (secure ? "https://" : "http://") + value;
+		this._socketUrl = (secure ? "wss://" : "ws://") + value + "/api/socket/";
 	}
 
 	/**
@@ -280,11 +311,7 @@ class Cantabile extends EventEmitter
 	 */
 	 get socketUrl()
 	{
-		let ws = this._host
-			.replace("http://", "ws://")
-			.replace("https://", "wss://")
-
-		return `${ws}/api/socket/`;
+		return this._socketUrl;
 	}
 
 	/**

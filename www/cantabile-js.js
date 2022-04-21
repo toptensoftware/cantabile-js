@@ -1131,19 +1131,38 @@ var Cantabile = function (_EventEmitter) {
 			return this._host;
 		},
 		set: function set(value) {
-			// Use defualt?
-			if (!value) {
-				value = process.browser ? window.location.host : "http://localhost:35007";
-			}
+			if (!value && process.browser) value = window.location.host;
+			if (!value) value = "localhost";
 
-			// Normalize value by converting to http:// or https:// and removing /api/socket/ if
-			// supplied (this is to support old clients that we're supposed to provide socket url)
-			this._host = value.replace("ws://", "http://").replace("wss://", "https://").replace("/api/socket", "");
+			// Crack protocol
+			var secure = false;
+			if (value.startsWith("https://")) {
+				secure = true;
+				value = value.substring(8);
+			} else if (value.startsWith("wss://")) {
+				secure = true;
+				value = value.substring(6);
+			} else if (value.startsWith("http://")) {
+				value = value.substring(7);
+			} else if (value.startsWith("ws://")) {
+				value = value.substring(5);
+			}
 
 			// Remove trailing slashes
-			while (this._host.endsWith('/')) {
-				this._host = this._host.substring(0, this._host.length - 1);
+			while (value.endsWith('/')) {
+				value = value.substring(0, value.length - 1);
+			} // Remove socket url
+			if (value.endsWith("/api/socket")) value = value.substring(0, value.length - 11);
+
+			// Ensure port
+			if (value.indexOf(':') < 0) {
+				var slashPos = value.indexOf('/');
+				if (slashPos < 0) value += ":35007";else value = value.substring(0, slashPos) + ':35007' + value.substring(slashPos);
 			}
+
+			// Build final http and ws url
+			this._host = (secure ? "https://" : "http://") + value;
+			this._socketUrl = (secure ? "wss://" : "ws://") + value + "/api/socket/";
 		}
 
 		/**
@@ -1156,9 +1175,7 @@ var Cantabile = function (_EventEmitter) {
 	}, {
 		key: 'socketUrl',
 		get: function get() {
-			var ws = this._host.replace("http://", "ws://").replace("https://", "wss://");
-
-			return `${ws}/api/socket/`;
+			return this._socketUrl;
 		}
 
 		/**
