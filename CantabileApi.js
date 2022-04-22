@@ -20,6 +20,8 @@ class Cantabile extends EventEmitter
 	{
 		super();
 
+		this.setMaxListeners(30);
+
 		this.host = host;
 
 		this.shouldConnect = false;
@@ -66,9 +68,17 @@ class Cantabile extends EventEmitter
 		 * @property variables
 		 * @type {Variables} 
 		 */
-		this.variables = new (require('./Variables'))(this);
+		 this.variables = new (require('./Variables'))(this);
 
 		/**
+		 * Provides access to controllers managed by Cantabile's onscreen keyboard device
+		 *
+		 * @property onscreenKeyboard
+		 * @type {OnscreenKeyboard} 
+		 */
+		 this.onscreenKeyboard = new (require('./OnscreenKeyboard'))(this);
+
+		 /**
 		 * Provides access to global binding points
 		 *
 		 * @property bindings
