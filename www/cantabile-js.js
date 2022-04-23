@@ -2335,6 +2335,38 @@ var OnscreenKeyboard = function (_EndPoint) {
 
 			return w;
 		}
+
+		/**
+   * Inject MIDI from the on-screen keyboard device
+   * 
+   * @example
+   * 
+   * Using a callback function:
+   * 
+   * 	   // Send a note on event
+   *     C.onscreenKeyboard.inject([0x90, 64, 64]);
+   * 
+   * @example
+   * 
+   * Using the MidiControllerEvent
+   * 
+   * 		// Send Midi CC 23 = 127
+   *      let watcher = C.onscreenKeyboard.inject({
+   * 			channel: 0,
+   * 			kind: "controller",
+   * 			controller: 23,
+   * 			value: 127,
+   * 		});
+   *
+   */
+
+	}, {
+		key: 'injectMidi',
+		value: function injectMidi(data) {
+			this.post("/injectMidi", {
+				value: data
+			});
+		}
 	}, {
 		key: '_registerWatcher',
 		value: function _registerWatcher(id, watcher) {
