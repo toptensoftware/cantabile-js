@@ -659,7 +659,7 @@ var Bindings = function (_EndPoint) {
 			var w = new BindingWatcher(this, name, indicies, condition, listener);
 			this._watchers.push(w);
 
-			this.open();
+			if (this._watchers.length == 1) this.open();
 
 			if (this.isOpen) w._start();
 
@@ -681,7 +681,7 @@ var Bindings = function (_EndPoint) {
 			this._watchers = this._watchers.filter(function (x) {
 				return x != w;
 			});
-			this.close();
+			if (this._watchers.length == 0) this.close();
 		}
 	}, {
 		key: '_onEvent_invoked',
@@ -2329,7 +2329,7 @@ var OnscreenKeyboard = function (_EndPoint) {
 			var w = new ControllerWatcher(this, channel, kind, controller, listener);
 			this.watchers.push(w);
 
-			this.open();
+			if (this.watchers.length == 1) this.open();
 
 			if (this.isOpen) w._start();
 
@@ -2383,7 +2383,7 @@ var OnscreenKeyboard = function (_EndPoint) {
 			this.watchers = this.watchers.filter(function (x) {
 				return x != w;
 			});
-			this.close();
+			if (this.watchers.length == 0) this.close();
 		}
 	}, {
 		key: '_onEvent_controllerChanged',
@@ -3927,8 +3927,7 @@ var Variables = function (_EndPoint) {
 		value: function watch(pattern, listener) {
 			var w = new PatternWatcher(this, pattern, listener);
 			this.watchers.push(w);
-
-			this.open();
+			if (this.watchers.length == 1) this.open();
 
 			if (this.isOpen) w._start();
 
@@ -3950,7 +3949,7 @@ var Variables = function (_EndPoint) {
 			this.watchers = this.watchers.filter(function (x) {
 				return x != w;
 			});
-			this.close();
+			if (this.watchers.length == 0) this.close();
 		}
 	}, {
 		key: '_onEvent_patternChanged',

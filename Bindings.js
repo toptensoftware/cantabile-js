@@ -348,7 +348,8 @@ class Bindings extends EndPoint
 		let w = new BindingWatcher(this, name, indicies, condition, listener);
 		this._watchers.push(w);
 
-		this.open();
+		if (this._watchers.length == 1)
+			this.open();
 
 		if (this.isOpen)
 			w._start();
@@ -369,7 +370,8 @@ class Bindings extends EndPoint
 	_revokeWatcher(w)
 	{
 		this._watchers = this._watchers.filter(x=>x != w);
-		this.close();
+		if (this._watchers.length == 0)
+			this.close();
 	}
 
 	_onEvent_invoked(data)
