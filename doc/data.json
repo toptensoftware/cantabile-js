@@ -73,11 +73,38 @@
             "fors": {},
             "namespaces": {}
         },
+        "CommandInfo.js": {
+            "name": "CommandInfo.js",
+            "modules": {},
+            "classes": {
+                "CommandInfo": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Commands.js": {
+            "name": "Commands.js",
+            "modules": {},
+            "classes": {
+                "Commands": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "EndPoint.js": {
             "name": "EndPoint.js",
             "modules": {},
             "classes": {
                 "EndPoint": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Engine.js": {
+            "name": "Engine.js",
+            "modules": {},
+            "classes": {
+                "Engine": 1
             },
             "fors": {},
             "namespaces": {}
@@ -105,6 +132,16 @@
             "modules": {},
             "classes": {
                 "MidiControllerEvent": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "OnscreenKeyboard.js": {
+            "name": "OnscreenKeyboard.js",
+            "modules": {},
+            "classes": {
+                "ControllerWatcher": 1,
+                "OnscreenKeyboard": 1
             },
             "fors": {},
             "namespaces": {}
@@ -269,8 +306,8 @@
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "socketUrl",
-                    "description": "The websocket URL of the Cantabile instance to connect to.\nWhen running in a browser, the defaults to `ws://${window.location.host}/api/socket`.  In other\nenvironments it defaults to `ws://localhost:35007/api/socket`.",
+                    "name": "host",
+                    "description": "The host to connect to. This can be either <baseaddress> or http://<baseaddress> or ws://<baseaddress>\nWhen running in a browser, the defaults to `${window.location.host}`.  In other environments it defaults to \n`localhost:35007`.",
                     "type": "String",
                     "optional": true
                 }
@@ -288,6 +325,31 @@
             "line": 1,
             "description": "An anonymous type representing a color table entry"
         },
+        "CommandInfo": {
+            "name": "CommandInfo",
+            "shortname": "CommandInfo",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "CommandInfo.js",
+            "line": 1,
+            "description": "An anonymous type that describes a command"
+        },
+        "Commands": {
+            "name": "Commands",
+            "shortname": "Commands",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Commands.js",
+            "line": 7,
+            "description": "Provides access to Cantabile's UI commands\n\nAccess this object via the {{#crossLink \"Cantabile/commands:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
         "EndPoint": {
             "name": "EndPoint",
             "shortname": "EndPoint",
@@ -297,9 +359,22 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "EndPoint.js",
-            "line": 17,
+            "line": 7,
             "description": "Common functionality for all end point handlers",
             "extends": "EventEmitter"
+        },
+        "Engine": {
+            "name": "Engine",
+            "shortname": "Engine",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Engine.js",
+            "line": 7,
+            "description": "Provides access to Cantabile's engine object for start/stop control\n\nAccess this object via the {{#crossLink \"Cantabile/engine:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
         },
         "KeyRange": {
             "name": "KeyRange",
@@ -337,6 +412,32 @@
             "file": "MidiControllerEvent.js",
             "line": 1,
             "description": "An anonymous type representing a complex MIDI controller event.  \n\nMidiController events can be passed to anywhere that expects MIDI Data (eg: a target MIDI binding point), or can be \nused as a condition on a MIDI source binding point."
+        },
+        "ControllerWatcher": {
+            "name": "ControllerWatcher",
+            "shortname": "ControllerWatcher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "OnscreenKeyboard.js",
+            "line": 7,
+            "description": "Represents a monitored controller\n\nReturned from the {{#crossLink \"OnscreenKeyboard/watch:method\"}}{{/crossLink}} method.",
+            "extends": "EventEmitter"
+        },
+        "OnscreenKeyboard": {
+            "name": "OnscreenKeyboard",
+            "shortname": "OnscreenKeyboard",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "OnscreenKeyboard.js",
+            "line": 125,
+            "description": "Provides access to controllers managed by Cantabile's on-screen keyboard device\n\nAccess this object via the {{#crossLink \"Cantabile/onscreenKeyboard:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
         },
         "SetList": {
             "name": "SetList",
@@ -848,7 +949,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 31,
+            "line": 33,
             "description": "Gets the setList object",
             "itemtype": "property",
             "name": "setList",
@@ -857,7 +958,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 39,
+            "line": 41,
             "description": "Gets the states of the current song",
             "itemtype": "property",
             "name": "songStates",
@@ -866,7 +967,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 47,
+            "line": 49,
             "description": "Gets the currently active key ranges",
             "itemtype": "property",
             "name": "keyRanges",
@@ -875,7 +976,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 55,
+            "line": 57,
             "description": "Gets the current set of show notes",
             "itemtype": "property",
             "name": "showNotes",
@@ -884,7 +985,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 63,
+            "line": 65,
             "description": "Provides access to variable expansion facilities",
             "itemtype": "property",
             "name": "variables",
@@ -893,7 +994,16 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 71,
+            "line": 73,
+            "description": "Provides access to controllers managed by Cantabile's onscreen keyboard device",
+            "itemtype": "property",
+            "name": "onscreenKeyboard",
+            "type": "{OnscreenKeyboard}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 81,
             "description": "Provides access to global binding points",
             "itemtype": "property",
             "name": "bindings",
@@ -902,7 +1012,16 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 79,
+            "line": 89,
+            "description": "Provides access to global commands",
+            "itemtype": "property",
+            "name": "commands",
+            "type": "{Commands}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 97,
             "description": "Provides access to information about the current song",
             "itemtype": "property",
             "name": "song",
@@ -911,7 +1030,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 87,
+            "line": 105,
             "description": "Provides access to master transport controls",
             "itemtype": "property",
             "name": "transport",
@@ -920,7 +1039,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 95,
+            "line": 113,
             "description": "Provides access to the application object",
             "itemtype": "property",
             "name": "application",
@@ -929,7 +1048,16 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 104,
+            "line": 121,
+            "description": "Provides access to the engine object",
+            "itemtype": "property",
+            "name": "engine",
+            "type": "{Engine}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 130,
             "description": "The current connection state, either \"connecting\", \"connected\" or \"disconnected\"",
             "itemtype": "property",
             "name": "state",
@@ -938,7 +1066,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 115,
+            "line": 141,
             "description": "Initiate connection and retry if fails",
             "itemtype": "method",
             "name": "connect",
@@ -946,7 +1074,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 125,
+            "line": 151,
             "description": "Disconnect and stop retries",
             "itemtype": "method",
             "name": "disconnect",
@@ -954,7 +1082,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 135,
+            "line": 161,
             "description": "Stringify an object as a JSON message and send it to the server",
             "itemtype": "method",
             "name": "send",
@@ -969,7 +1097,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 147,
+            "line": 173,
             "description": "Stringify an object as a JSON message, send it to the server and returns \na promise which will resolve to the result.",
             "itemtype": "method",
             "name": "request",
@@ -988,7 +1116,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 174,
+            "line": 200,
             "description": "Returns a promise that will be resolved when connected",
             "example": [
                 "\n\n    let C = new CantabileApi();\n    await C.untilConnected();"
@@ -1003,7 +1131,34 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 375,
+            "line": 254,
+            "description": "The current host",
+            "itemtype": "property",
+            "name": "host",
+            "type": "{String}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 316,
+            "description": "The base socket url",
+            "itemtype": "property",
+            "name": "host",
+            "type": "{String}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 327,
+            "description": "The base host url",
+            "itemtype": "property",
+            "name": "host",
+            "type": "{String}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 498,
             "description": "Fired when the {{#crossLink \"Cantabile/state:property\"}}{{/crossLink}} property value changes",
             "itemtype": "event",
             "name": "stateChanged",
@@ -1018,7 +1173,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 383,
+            "line": 506,
             "description": "Fired when entering the connected state",
             "itemtype": "event",
             "name": "connected",
@@ -1026,7 +1181,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 390,
+            "line": 513,
             "description": "Fired when entering the connecting state",
             "itemtype": "event",
             "name": "connecting",
@@ -1034,7 +1189,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 397,
+            "line": 520,
             "description": "Fired when entering the disconnected state",
             "itemtype": "event",
             "name": "disconnected",
@@ -1059,8 +1214,63 @@
             "class": "ColorEntry"
         },
         {
+            "file": "CommandInfo.js",
+            "line": 7,
+            "description": "The id of the command",
+            "itemtype": "property",
+            "name": "id",
+            "type": "{String}",
+            "class": "CommandInfo"
+        },
+        {
+            "file": "CommandInfo.js",
+            "line": 13,
+            "description": "The display name of the command",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "CommandInfo"
+        },
+        {
+            "file": "Commands.js",
+            "line": 31,
+            "description": "Retrieves a list of available commands\n\nIf Cantabile is running on your local machine you can view this list\ndirectly at <http://localhost:35007/api/commands/availableCommands>",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n    C.connect();\n    console.log(await C.commands.availableCommands());"
+            ],
+            "itemtype": "method",
+            "name": "availableCommands",
+            "return": {
+                "description": "A promise to return an array of CommandInfo",
+                "type": "Promise|CommandInfo[]"
+            },
+            "class": "Commands"
+        },
+        {
+            "file": "Commands.js",
+            "line": 52,
+            "description": "Invokes a command",
+            "example": [
+                "\n\nShow the file open dialog\n\n    C.commands.invoke(\"file.open\");"
+            ],
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The id of the command to invoke",
+                    "type": "String"
+                }
+            ],
+            "itemtype": "method",
+            "name": "invoke",
+            "return": {
+                "description": "A promise that resolves once the target command has been invoked",
+                "type": "Promise"
+            },
+            "class": "Commands"
+        },
+        {
             "file": "EndPoint.js",
-            "line": 45,
+            "line": 35,
             "description": "Opens this end point and starts listening for events. \n\nThis method no longer needs to be explicitly called as end points are now\nautomatically opened when the first event listener is attached.\n\nUse this method to keep the end point open even when no event listeners are attached.",
             "itemtype": "method",
             "name": "open",
@@ -1068,7 +1278,7 @@
         },
         {
             "file": "EndPoint.js",
-            "line": 65,
+            "line": 55,
             "description": "Closes the end point and stops listening for events.\n\nThis method no longer needs to be explicitly called as end points are now\nautomatically closed when the last event listener is removed.",
             "itemtype": "method",
             "name": "close",
@@ -1076,7 +1286,7 @@
         },
         {
             "file": "EndPoint.js",
-            "line": 147,
+            "line": 137,
             "description": "Returns a promise that will be resolved when this end point is opened",
             "example": [
                 "\n\n    let C = new CantabileApi();\n\t   C.application.open();\n    await C.application.untilOpen();"
@@ -1088,6 +1298,51 @@
                 "type": "Promise"
             },
             "class": "EndPoint"
+        },
+        {
+            "file": "Engine.js",
+            "line": 22,
+            "description": "Returns a promise to provide the started state of Cantabile's audio engine.\n\nThis API is only available via  AJAX, and not WebSocket",
+            "itemtype": "method",
+            "name": "isStarted",
+            "type": "{Promise|Boolean}",
+            "class": "Engine"
+        },
+        {
+            "file": "Engine.js",
+            "line": 36,
+            "description": "Starts Cantabile's audio engine\n\nThis API is only available via  AJAX, and not WebSocket",
+            "itemtype": "method",
+            "name": "start",
+            "type": "{Promise}",
+            "class": "Engine"
+        },
+        {
+            "file": "Engine.js",
+            "line": 49,
+            "description": "Stops Cantabile's audio engine\n\nThis API is only available via  AJAX, and not WebSocket",
+            "itemtype": "method",
+            "name": "start",
+            "type": "{Promise}",
+            "class": "Engine"
+        },
+        {
+            "file": "Engine.js",
+            "line": 62,
+            "description": "Restarts Cantabile's audio engine\n\nThis API is only available via  AJAX, and not WebSocket",
+            "itemtype": "method",
+            "name": "restart",
+            "type": "{Promise}",
+            "class": "Engine"
+        },
+        {
+            "file": "Engine.js",
+            "line": 75,
+            "description": "Toggles the audio engine between started and stopped\n\nThis API is only available via  AJAX, and not WebSocket",
+            "itemtype": "method",
+            "name": "restart",
+            "type": "{Promise}",
+            "class": "Engine"
         },
         {
             "file": "KeyRange.js",
@@ -1186,6 +1441,152 @@
             "name": "value",
             "type": "{Number}",
             "class": "MidiControllerEvent"
+        },
+        {
+            "file": "OnscreenKeyboard.js",
+            "line": 28,
+            "description": "Returns the MIDI channel number of controller being watched",
+            "itemtype": "property",
+            "name": "channel",
+            "type": "{Number}",
+            "class": "ControllerWatcher"
+        },
+        {
+            "file": "OnscreenKeyboard.js",
+            "line": 36,
+            "description": "Returns the kind of controller being watched",
+            "itemtype": "property",
+            "name": "kind",
+            "type": "{String}",
+            "class": "ControllerWatcher"
+        },
+        {
+            "file": "OnscreenKeyboard.js",
+            "line": 44,
+            "description": "Returns the number of the controller being watched",
+            "itemtype": "property",
+            "name": "controller",
+            "type": "{Number}",
+            "class": "ControllerWatcher"
+        },
+        {
+            "file": "OnscreenKeyboard.js",
+            "line": 52,
+            "description": "Returns the current value of the controller",
+            "itemtype": "property",
+            "name": "value",
+            "type": "{Number}",
+            "class": "ControllerWatcher"
+        },
+        {
+            "file": "OnscreenKeyboard.js",
+            "line": 89,
+            "description": "Stops monitoring this controller for changes",
+            "itemtype": "method",
+            "name": "unwatch",
+            "class": "ControllerWatcher"
+        },
+        {
+            "file": "OnscreenKeyboard.js",
+            "line": 112,
+            "description": "Fired after a new show note has been added",
+            "itemtype": "event",
+            "name": "controllerChanged",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "The new value of the controller",
+                    "type": "Number"
+                },
+                {
+                    "name": "source",
+                    "description": "This object",
+                    "type": "ControllerWatcher"
+                }
+            ],
+            "class": "ControllerWatcher"
+        },
+        {
+            "file": "OnscreenKeyboard.js",
+            "line": 143,
+            "description": "Queries the on-screen keyboard for the current value of a controller",
+            "example": [
+                "\n\n\t   // Get the value of cc 64 on channel 1\n    let C = new CantabileApi();\n    console.log(await C.onscreenKeyboard.queryController(1, \"controller\", 64));",
+                "\n\n    let C = new CantabileApi();\n    C.onscreenKeyboard.queryController(1, \"controller\", 64).then(r => console.log(r)));"
+            ],
+            "itemtype": "method",
+            "name": "queryController",
+            "params": [
+                {
+                    "name": "channel",
+                    "description": "The MIDI channel number of the controller",
+                    "type": "Number"
+                },
+                {
+                    "name": "kind",
+                    "description": "The MIDI controller kind",
+                    "type": "String"
+                },
+                {
+                    "name": "controller",
+                    "description": "The number of the controller",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "A promise to provide the controller value",
+                "type": "Promise|String"
+            },
+            "class": "OnscreenKeyboard"
+        },
+        {
+            "file": "OnscreenKeyboard.js",
+            "line": 190,
+            "description": "Starts watching a controller for changes",
+            "example": [
+                "\n\nUsing a callback function:\n\n    let C = new CantabileApi();\n    \n    // Watch a controller using a callback function\n    C.onscreenKeyboard.watchController(1, \"controller\", 64, function(value) {\n        console.log(value);\n    })\n    \n\t   // The \"onscreenKeyboard\" end point must be opened before callbacks will happen\n    C.onscreenKeyboard.open();",
+                "\n\nUsing the ControllerWatcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.onscreenKeyboard.watchController(1, \"controller\", 64);\n    watcher.on('changed', function(value) {\n        console.log(value);\n    });\n    \n\t   // The \"onscreenKeyboard\" end point must be opened before callbacks will happen\n    C.onscreenKeyboard.open();\n    \n    /// later, stop listening\n    watcher.unwatch();"
+            ],
+            "itemtype": "method",
+            "name": "watch",
+            "params": [
+                {
+                    "name": "channel",
+                    "description": "The MIDI channel number of the controller",
+                    "type": "Number"
+                },
+                {
+                    "name": "kind",
+                    "description": "The MIDI controller kind",
+                    "type": "String"
+                },
+                {
+                    "name": "controller",
+                    "description": "The number of the controller",
+                    "type": "Number"
+                },
+                {
+                    "name": "callback",
+                    "description": "Optional callback function to be called when the controller value changes.\n\nThe callback function has the form function(value, source) where value is the controller value and source\nis the ControllerWatcher instance.",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "ControllerWatcher"
+            },
+            "class": "OnscreenKeyboard"
+        },
+        {
+            "file": "OnscreenKeyboard.js",
+            "line": 248,
+            "description": "Inject MIDI from the on-screen keyboard device",
+            "example": [
+                "\n\nUsing a callback function:\n\n\t   // Send a note on event\n    C.onscreenKeyboard.inject([0x90, 64, 64]);",
+                "\n\nUsing the MidiControllerEvent\n\n\t\t// Send Midi CC 23 = 127\n     let watcher = C.onscreenKeyboard.inject({\n\t\t\tchannel: 0,\n\t\t\tkind: \"controller\",\n\t\t\tcontroller: 23,\n\t\t\tvalue: 127,\n\t\t});\n"
+            ],
+            "class": "OnscreenKeyboard"
         },
         {
             "file": "SetList.js",
@@ -2272,6 +2673,10 @@
         {
             "message": "Missing item type\nHack for:\nhttps://github.com/yui/yuidoc/issues/198\n\nUsage:\n  {{#crossLinkWrapper type}}{{#crossLink type}}{{/crossLink}}{{/crossLinkWrapper}}",
             "line": " yuidoc-lucid-theme\\helpers\\helpers.js:16"
+        },
+        {
+            "message": "Missing item type\nInject MIDI from the on-screen keyboard device",
+            "line": " OnscreenKeyboard.js:248"
         }
     ]
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Variables.js - Cantabile JavaScript API</title>
+    <title>OnscreenKeyboard.js - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -97,7 +97,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>Variables.js <small>File</small></h1>
+    <h1>OnscreenKeyboard.js <small>File</small></h1>
 </div>
 
 <div class="file">
@@ -109,70 +109,89 @@ const EndPoint = require(&#x27;./EndPoint&#x27;);
 const EventEmitter = require(&#x27;events&#x27;);
 
 /**
- * Represents a monitored pattern string.
+ * Represents a monitored controller
 
- * Returned from the {{#crossLink &quot;Variables/watch:method&quot;}}{{/crossLink}} method.
+ * Returned from the {{#crossLink &quot;OnscreenKeyboard/watch:method&quot;}}{{/crossLink}} method.
  *
- * @class PatternWatcher
+ * @class ControllerWatcher
  * @extends EventEmitter
  */
-class PatternWatcher extends EventEmitter
+class ControllerWatcher extends EventEmitter
 {
-	constructor(owner, pattern, listener)
+	constructor(owner, channel, kind, controller, listener)
 	{
 		super();
 		this.owner = owner;
-		this._pattern = pattern;	
-		this._patternId = 0;
-		this._resolved = &quot;&quot;;
+		this._channel = channel;	
+		this._kind = kind;
+		this._controller = controller;
+		this._value = null;
 		this._listener = listener;
 	}
 
 	/**
-	 * Returns the pattern string being watched
+	 * Returns the MIDI channel number of controller being watched
 	 *
-	 * @property pattern
-	 * @type {String} 
+	 * @property channel
+	 * @type {Number} 
 	 */
-	get pattern() { return this._pattern; }
+	 get channel() { return this._channel; }
 
 	/**
-	 * Returns the current resolved display string
+	 * Returns the kind of controller being watched
 	 *
-	 * @property resolved
+	 * @property kind
 	 * @type {String} 
 	 */
-	get resolved() { return this._resolved; }
+	 get kind() { return this._kind; }
+
+	/**
+	 * Returns the number of the controller being watched
+	 *
+	 * @property controller
+	 * @type {Number} 
+	 */
+	 get controller() { return this._controller; }
+
+	 /**
+	 * Returns the current value of the controller
+	 *
+	 * @property value
+	 * @type {Number} 
+	 */
+	get value() { return this._value; }
 
 	_start()
 	{
-		this.owner.post(&quot;/watch&quot;, {
-			pattern: this._pattern,
+		this.owner.post(&quot;/watchController&quot;, {
+			channel: this._channel,
+			kind: this._kind,
+			controller: this._controller,
 		}).then(r =&gt; {
-			if (r.data.patternId)
+			if (r.data.id)
 			{
-				this.owner._registerPatternId(r.data.patternId, this);
-				this._patternId = r.data.patternId;
+				this.owner._registerWatcher(r.data.id, this);
+				this._id = r.data.id;
 			}
-			this._resolved = r.data.resolved;
+			this._value = r.data.value;
 			this._fireChanged();
 		});
 	}
 
 	_stop()
 	{
-		if (this.owner._epid &amp;&amp; this._patternId)
+		if (this.owner._epid &amp;&amp; this._id)
 		{
-			this.owner.send(&quot;/unwatch&quot;, { patternId: this._patternId})
-			this.owner._revokePatternId(this._patternId);
-			this._patternId = 0;
-			this._resolved = &quot;&quot;;
+			this.owner.send(&quot;/unwatch&quot;, { id: this._id})
+			this.owner._revokeWatcher(this._id);
+			this._id = 0;
+			this._value = null;
 			this._fireChanged();
 		}
 	}
 
 	/**
-	 * Stops monitoring this pattern string for changes
+	 * Stops monitoring this controller for changes
 	 *
 	 * @method unwatch
 	 */
@@ -184,7 +203,7 @@ class PatternWatcher extends EventEmitter
 
 	_update(data)
 	{
-		this._resolved = data.resolved;
+		this._value = data.value;
 		this._fireChanged();
 	}
 
@@ -192,63 +211,68 @@ class PatternWatcher extends EventEmitter
 	{
 		// Function listener?
 		if (this._listener)
-			this._listener(this.resolved, this);
+			this._listener(this._value, this);
 
 		/**
 		 * Fired after a new show note has been added
 		 *
-		 * @event changed
-		 * @param {String} resolved The new display string
-		 * @param {PatternWatcher} source This object
+		 * @event controllerChanged
+		 * @param {Number} value The new value of the controller
+		 * @param {ControllerWatcher} source This object
 		 */
-		this.emit(&#x27;changed&#x27;, this.resolved, this);
+		this.emit(&#x27;controllerChanged&#x27;, this._value, this);
 	}
 }
 
 
 
 /**
- * Provides access to Cantabile&#x27;s internal variables by allowing a pattern string to be
- * expanded into a final display string.
+ * Provides access to controllers managed by Cantabile&#x27;s on-screen keyboard device
  * 
- * Access this object via the {{#crossLink &quot;Cantabile/variables:property&quot;}}{{/crossLink}} property.
+ * Access this object via the {{#crossLink &quot;Cantabile/onscreenKeyboard:property&quot;}}{{/crossLink}} property.
  *
- * @class Variables
+ * @class OnscreenKeyboard
  * @extends EndPoint
  */
-class Variables extends EndPoint
+class OnscreenKeyboard extends EndPoint
 {
 	constructor(owner)
 	{
-		super(owner, &quot;/api/variables&quot;);
+		super(owner, &quot;/api/onscreenKeyboard&quot;);
 		this.watchers = [];
-		this.patternIds = {};
+		this.ids = {};
 	}
 
 
 	/**
-	 * Resolves a variable pattern string into a final display string
+	 * Queries the on-screen keyboard for the current value of a controller
+	 * 
+	 * @example
+	 * 
+	 * 	   // Get the value of cc 64 on channel 1
+	 *     let C = new CantabileApi();
+	 *     console.log(await C.onscreenKeyboard.queryController(1, &quot;controller&quot;, 64));
 	 * 
 	 * @example
 	 * 
 	 *     let C = new CantabileApi();
-	 *     console.log(await C.variables.resolve(&quot;Song: $(SongTitle)&quot;));
-	 * 
-	 * @example
-	 * 
-	 *     let C = new CantabileApi();
-	 *     C.variables.resolve(&quot;Song: $(SongTitle)&quot;).then(r =&gt; console.log(r)));
+	 *     C.onscreenKeyboard.queryController(1, &quot;controller&quot;, 64).then(r =&gt; console.log(r)));
 	 *
-	 * @method resolve
-	 * @return {Promise|String} A promise to provide the resolved string
+	 * @method queryController
+	 * @param {Number} channel 		The MIDI channel number of the controller
+	 * @param {String} kind 		The MIDI controller kind
+	 * @param {Number} controller	The number of the controller
+	 * @return {Promise|String} A promise to provide the controller value
 	 */
-	async resolve(pattern)
+	async queryController(channel, kind, controller)
 	{
 		await this.owner.untilConnected();
 
-		return (await this.post(&quot;/resolve&quot;, {
-			pattern: pattern
-		})).data.resolved;
+		return (await this.post(&quot;/queryController&quot;, {
+			channel: channel,
+			kind: kind,
+			controller: controller || 0,
+		})).data.value;
 	}
 
 	_onOpen()
@@ -268,7 +292,7 @@ class Variables extends EndPoint
 	}
 
 	/**
-	 * Starts watching a pattern string for changes
+	 * Starts watching a controller for changes
 	 * 
 	 * @example
 	 * 
@@ -276,43 +300,46 @@ class Variables extends EndPoint
 	 * 
 	 *     let C = new CantabileApi();
 	 *     
-	 *     // Watch a string pattern using a callback function
-	 *     C.variables.watch(&quot;Song: $(SongTitle)&quot;, function(resolved) {
-	 *         console.log(resolved);
+	 *     // Watch a controller using a callback function
+	 *     C.onscreenKeyboard.watchController(1, &quot;controller&quot;, 64, function(value) {
+	 *         console.log(value);
 	 *     })
 	 *     
-	 * 	   // The &quot;variables&quot; end point must be opened before callbacks will happen
-	 *     C.variables.open();
+	 * 	   // The &quot;onscreenKeyboard&quot; end point must be opened before callbacks will happen
+	 *     C.onscreenKeyboard.open();
 	 * 
 	 * @example
 	 * 
-	 * Using the PatternWatcher class and events:
+	 * Using the ControllerWatcher class and events:
 	 * 
 	 *     let C = new CantabileApi();
-	 *     let watcher = C.variables.watch(&quot;Song: $(SongTitle)&quot;);
-	 *     watcher.on(&#x27;changed&#x27;, function(resolved) {
-	 *         console.log(resolved);
+	 *     let watcher = C.onscreenKeyboard.watchController(1, &quot;controller&quot;, 64);
+	 *     watcher.on(&#x27;changed&#x27;, function(value) {
+	 *         console.log(value);
 	 *     });
 	 *     
-	 * 	   // The &quot;variables&quot; end point must be opened before callbacks will happen
-	 *     C.variables.open();
+	 * 	   // The &quot;onscreenKeyboard&quot; end point must be opened before callbacks will happen
+	 *     C.onscreenKeyboard.open();
 	 *     
 	 *     /// later, stop listening
 	 *     watcher.unwatch();
 	 *
 	 * @method watch
-	 * @param {String} pattern The string pattern to watch
-	 * @param {Function} [callback] Optional callback function to be called when the resolved display string changes.
+	 * @param {Number} channel 		The MIDI channel number of the controller
+	 * @param {String} kind 		The MIDI controller kind
+	 * @param {Number} controller	The number of the controller
+	 * @param {Function} [callback] Optional callback function to be called when the controller value changes.
 	 * 
-	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
-	 * is the PatternWatcher instance.
+	 * The callback function has the form function(value, source) where value is the controller value and source
+	 * is the ControllerWatcher instance.
 	 * 
-	 * @return {PatternWatcher}
+	 * @return {ControllerWatcher}
 	 */
-	watch(pattern, listener)
+	watch(channel, kind, controller, listener)
 	{
-		let w = new PatternWatcher(this, pattern, listener);
+		let w = new ControllerWatcher(this, channel, kind, controller, listener);
 		this.watchers.push(w);
+
 		if (this.watchers.length == 1)
 			this.open();
 
@@ -322,14 +349,44 @@ class Variables extends EndPoint
 		return w;
 	}
 
-	_registerPatternId(patternId, watcher)
+	/**
+	 * Inject MIDI from the on-screen keyboard device
+	 * 
+	 * @example
+	 * 
+	 * Using a callback function:
+	 * 
+	 * 	   // Send a note on event
+	 *     C.onscreenKeyboard.inject([0x90, 64, 64]);
+	 * 
+	 * @example
+	 * 
+	 * Using the MidiControllerEvent
+	 * 
+	 * 		// Send Midi CC 23 = 127
+	 *      let watcher = C.onscreenKeyboard.inject({
+	 * 			channel: 0,
+	 * 			kind: &quot;controller&quot;,
+	 * 			controller: 23,
+	 * 			value: 127,
+	 * 		});
+	 *
+	 */
+	 injectMidi(data)
+	 {
+		this.post(&quot;/injectMidi&quot;, {
+			value: data
+		})		 
+	 }
+
+	_registerWatcher(id, watcher)
 	{
-		this.patternIds[patternId] = watcher;
+		this.ids[id] = watcher;
 	}
 
-	_revokePatternId(patternId)
+	_revokeWatcher(id)
 	{
-		delete this.patternIds[patternId];
+		delete this.ids[id];
 	}
 
 	_revokeWatcher(w)
@@ -339,20 +396,20 @@ class Variables extends EndPoint
 			this.close();
 	}
 
-	_onEvent_patternChanged(data)
+	_onEvent_controllerChanged(data)
 	{
 		// Get the watcher
-		let w = this.patternIds[data.patternId];
+		let w = this.ids[data.id];
 		if (w)
 		{
-			w._update(data);
+			w._update(data.value);
 		}
 	}
 }
 
 
 
-module.exports = Variables;
+module.exports = OnscreenKeyboard;
     </pre>
 </div>
                     </div>

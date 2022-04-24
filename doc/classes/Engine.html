@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>SetListItem - Cantabile JavaScript API</title>
+    <title>Engine - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -97,16 +97,22 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>SetListItem</h1>
+    <h1>Engine</h1>
 </div>
 
 
+	<div class="well well-small">
+        <div class="extends">
+            Extends <a href="../classes/EndPoint.html" class="crosslink">EndPoint</a>
+        </div>
+    </div>
 
 
 
 
 <div class="yuidoc-class-description">
-<p>An anonymous type representing a item (either a song or break) in a set list</p>
+<p>Provides access to Cantabile's engine object for start/stop control</p>
+<p>Access this object via the <a href="../classes/Cantabile.html#property_engine" class="crosslink">engine</a> property.</p>
 
 </div>
 
@@ -115,16 +121,20 @@
 <div id="class-toc" class="page-section">
 	<h2>Table of Contents</h2>
     <ul>
-
 		<li>
-			<strong>Properties</strong>
+			<strong>Methods</strong>
 			<ul>
-				<li><a href="#prop-color"><span class="ip">color</span></a></li>
-				<li><a href="#prop-kind"><span class="ip">kind</span></a></li>
-				<li><a href="#prop-name"><span class="ip">name</span></a></li>
-				<li><a href="#prop-pr"><span class="ip">pr</span></a></li>
+				<li><a href="#method-close"><span class="im">close</span>()</a></li>
+				<li><a href="#method-isStarted"><span class="im">isStarted</span>()</a></li>
+				<li><a href="#method-open"><span class="im">open</span>()</a></li>
+				<li><a href="#method-restart"><span class="im">restart</span>()</a></li>
+				<li><a href="#method-restart"><span class="im">restart</span>()</a></li>
+				<li><a href="#method-start"><span class="im">start</span>()</a></li>
+				<li><a href="#method-start"><span class="im">start</span>()</a></li>
+				<li><a href="#method-untilOpen"><span class="im">untilOpen</span>()</a></li>
 			</ul>
 		</li>
+
 
 
 
@@ -135,113 +145,266 @@
 <!-- details -->
 
 
-
-    <div id="properties" class="page-section">
-        <h2 class="off-left">Properties</h2>
-
+    <div id="methods" class="page-section">
+        <h2 class="off-left">Methods</h2>
         <div class="item-list">
-<div id="prop-color" class="property item">
-    <h3 class="name"><code>color</code></h3>
-    <span class="type">Number</span>
+<div id="method-close" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>close</code></span>
+
+		<span class="paren">()</span>
+	</div>
 
 
 
 
 
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/SetListItem.js.html#l25"><code>SetListItem.js:25</code></a>
-        </p>
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_close">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l55"><code>EndPoint.js:55</code></a>
+		</p>
 
 
-    </div>
 
-    <div class="description">
-        <p>The color of the item (0 to 15)</p>
+	</div>
 
-    </div>
+	<div class="description"><p>Closes the end point and stops listening for events.</p>
+<p>This method no longer needs to be explicitly called as end points are now
+automatically closed when the last event listener is removed.</p>
+</div>
 
 
 
 </div>
-<div id="prop-kind" class="property item">
-    <h3 class="name"><code>kind</code></h3>
-    <span class="type">String</span>
+<div id="method-isStarted" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>isStarted</code></span>
+
+		<span class="paren">()</span>
+	</div>
 
 
 
 
 
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/SetListItem.js.html#l7"><code>SetListItem.js:7</code></a>
-        </p>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Engine.js.html#l22"><code>Engine.js:22</code></a>
+		</p>
 
 
-    </div>
 
-    <div class="description">
-        <p>The item kind - either "song" or "break"</p>
+	</div>
 
-    </div>
+	<div class="description"><p>Returns a promise to provide the started state of Cantabile's audio engine.</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
 
 
 
 </div>
-<div id="prop-name" class="property item">
-    <h3 class="name"><code>name</code></h3>
-    <span class="type">String</span>
+<div id="method-open" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>open</code></span>
+
+		<span class="paren">()</span>
+	</div>
 
 
 
 
 
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/SetListItem.js.html#l13"><code>SetListItem.js:13</code></a>
-        </p>
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_open">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l35"><code>EndPoint.js:35</code></a>
+		</p>
 
 
-    </div>
 
-    <div class="description">
-        <p>The name of the song or break</p>
+	</div>
 
-    </div>
+	<div class="description"><p>Opens this end point and starts listening for events.</p>
+<p>This method no longer needs to be explicitly called as end points are now
+automatically opened when the first event listener is attached.</p>
+<p>Use this method to keep the end point open even when no event listeners are attached.</p>
+</div>
 
 
 
 </div>
-<div id="prop-pr" class="property item">
-    <h3 class="name"><code>pr</code></h3>
-    <span class="type">Number</span>
+<div id="method-restart" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>restart</code></span>
+
+		<span class="paren">()</span>
+	</div>
 
 
 
 
 
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/SetListItem.js.html#l19"><code>SetListItem.js:19</code></a>
-        </p>
 
-
-    </div>
-
-    <div class="description">
-        <p>The zero based program number of a song</p>
-
-    </div>
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Engine.js.html#l62"><code>Engine.js:62</code></a>
+		</p>
 
 
 
+	</div>
+
+	<div class="description"><p>Restarts Cantabile's audio engine</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
+
+
+
+</div>
+<div id="method-restart" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>restart</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Engine.js.html#l75"><code>Engine.js:75</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Toggles the audio engine between started and stopped</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
+
+
+
+</div>
+<div id="method-start" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>start</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Engine.js.html#l36"><code>Engine.js:36</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Starts Cantabile's audio engine</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
+
+
+
+</div>
+<div id="method-start" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>start</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Engine.js.html#l49"><code>Engine.js:49</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Stops Cantabile's audio engine</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
+
+
+
+</div>
+<div id="method-untilOpen" class="method item inherited">
+	<div class="method-signature">
+	<span class="name"><code>untilOpen</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_untilOpen">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l137"><code>EndPoint.js:137</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Returns a promise that will be resolved when this end point is opened</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>let C = new CantabileApi();
+   C.application.open();
+await C.application.untilOpen();</code></pre>
+
+			</div>
+		</div>
 </div>
         </div>
     </div>
+
 
 
 

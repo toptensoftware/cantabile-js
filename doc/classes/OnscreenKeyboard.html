@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>EndPoint - Cantabile JavaScript API</title>
+    <title>OnscreenKeyboard - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -97,13 +97,13 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>EndPoint</h1>
+    <h1>OnscreenKeyboard</h1>
 </div>
 
 
 	<div class="well well-small">
         <div class="extends">
-            Extends EventEmitter
+            Extends <a href="../classes/EndPoint.html" class="crosslink">EndPoint</a>
         </div>
     </div>
 
@@ -111,7 +111,8 @@
 
 
 <div class="yuidoc-class-description">
-<p>Common functionality for all end point handlers</p>
+<p>Provides access to controllers managed by Cantabile's on-screen keyboard device</p>
+<p>Access this object via the <a href="../classes/Cantabile.html#property_onscreenKeyboard" class="crosslink">onscreenKeyboard</a> property.</p>
 
 </div>
 
@@ -125,7 +126,9 @@
 			<ul>
 				<li><a href="#method-close"><span class="im">close</span>()</a></li>
 				<li><a href="#method-open"><span class="im">open</span>()</a></li>
+				<li><a href="#method-queryController"><span class="im">queryController</span>(<span class="ia">channel</span><span class="ia">kind</span><span class="ia">controller</span>)</a></li>
 				<li><a href="#method-untilOpen"><span class="im">untilOpen</span>()</a></li>
+				<li><a href="#method-watch"><span class="im">watch</span>(<span class="ia">channel</span><span class="ia">kind</span><span class="ia">controller</span><span class="ia">callback</span>)</a></li>
 			</ul>
 		</li>
 
@@ -142,7 +145,7 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
-<div id="method-close" class="method item">
+<div id="method-close" class="method item inherited">
 	<div class="method-signature">
 	<span class="name"><code>close</code></span>
 
@@ -155,8 +158,8 @@
 
 
 	<div class="meta">
-				<p>
-				Defined in
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_close">EndPoint</a>:
 		<a href="../files/EndPoint.js.html#l55"><code>EndPoint.js:55</code></a>
 		</p>
 
@@ -172,7 +175,7 @@ automatically closed when the last event listener is removed.</p>
 
 
 </div>
-<div id="method-open" class="method item">
+<div id="method-open" class="method item inherited">
 	<div class="method-signature">
 	<span class="name"><code>open</code></span>
 
@@ -185,8 +188,8 @@ automatically closed when the last event listener is removed.</p>
 
 
 	<div class="meta">
-				<p>
-				Defined in
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_open">EndPoint</a>:
 		<a href="../files/EndPoint.js.html#l35"><code>EndPoint.js:35</code></a>
 		</p>
 
@@ -203,7 +206,104 @@ automatically opened when the first event listener is attached.</p>
 
 
 </div>
-<div id="method-untilOpen" class="method item">
+<div id="method-queryController" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>queryController</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>channel</code>
+				</li>
+				<li class="arg">
+						<code>kind</code>
+				</li>
+				<li class="arg">
+						<code>controller</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Promise  |  String</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/OnscreenKeyboard.js.html#l143"><code>OnscreenKeyboard.js:143</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Queries the on-screen keyboard for the current value of a controller</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">channel</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><p>The MIDI channel number of the controller</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">kind</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><p>The MIDI controller kind</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">controller</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><p>The number of the controller</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise  |  String</span>:
+					<p>A promise to provide the controller value</p>
+
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>   // Get the value of cc 64 on channel 1
+let C = new CantabileApi();
+console.log(await C.onscreenKeyboard.queryController(1, "controller", 64));</code></pre>
+<pre class="code prettyprint"><code>let C = new CantabileApi();
+C.onscreenKeyboard.queryController(1, "controller", 64).then(r =&gt; console.log(r)));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-untilOpen" class="method item inherited">
 	<div class="method-signature">
 	<span class="name"><code>untilOpen</code></span>
 
@@ -219,8 +319,8 @@ automatically opened when the first event listener is attached.</p>
 
 
 	<div class="meta">
-				<p>
-				Defined in
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_untilOpen">EndPoint</a>:
 		<a href="../files/EndPoint.js.html#l137"><code>EndPoint.js:137</code></a>
 		</p>
 
@@ -247,6 +347,133 @@ automatically opened when the first event listener is attached.</p>
 				<pre class="code prettyprint"><code>let C = new CantabileApi();
    C.application.open();
 await C.application.untilOpen();</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-watch" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>watch</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>channel</code>
+				</li>
+				<li class="arg">
+						<code>kind</code>
+				</li>
+				<li class="arg">
+						<code>controller</code>
+				</li>
+				<li class="arg">
+						<code class="optional">callback</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="../classes/ControllerWatcher.html" class="crosslink">ControllerWatcher</a></span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/OnscreenKeyboard.js.html#l190"><code>OnscreenKeyboard.js:190</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Starts watching a controller for changes</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">channel</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><p>The MIDI channel number of the controller</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">kind</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><p>The MIDI controller kind</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">controller</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><p>The number of the controller</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[callback]</code>
+						<span class="type">Function</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>Optional callback function to be called when the controller value changes.</p>
+<p>The callback function has the form function(value, source) where value is the controller value and source
+is the ControllerWatcher instance.</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="../classes/ControllerWatcher.html" class="crosslink">ControllerWatcher</a></span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<p>Using a callback function:</p>
+<pre class="code prettyprint"><code>let C = new CantabileApi();
+
+// Watch a controller using a callback function
+C.onscreenKeyboard.watchController(1, "controller", 64, function(value) {
+    console.log(value);
+})
+
+   // The "onscreenKeyboard" end point must be opened before callbacks will happen
+C.onscreenKeyboard.open();</code></pre>
+<p>Using the ControllerWatcher class and events:</p>
+<pre class="code prettyprint"><code>let C = new CantabileApi();
+let watcher = C.onscreenKeyboard.watchController(1, "controller", 64);
+watcher.on('changed', function(value) {
+    console.log(value);
+});
+
+   // The "onscreenKeyboard" end point must be opened before callbacks will happen
+C.onscreenKeyboard.open();
+
+/// later, stop listening
+watcher.unwatch();</code></pre>
 
 			</div>
 		</div>
