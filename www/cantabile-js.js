@@ -2391,7 +2391,7 @@ var OnscreenKeyboard = function (_EndPoint) {
 			// Get the watcher
 			var w = this.ids[data.id];
 			if (w) {
-				w._update(data.value);
+				w._update(data);
 			}
 		}
 	}]);
