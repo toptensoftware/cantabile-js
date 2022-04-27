@@ -260,7 +260,7 @@ var BindingWatcher = function (_EventEmitter) {
 		key: '_stop',
 		value: function _stop() {
 			if (this.owner._epid && this._watchId) {
-				this.owner.send("/unwatch", { watchId: this._watchId });
+				this.owner.send("POST", "/unwatch", { watchId: this._watchId });
 				this.owner._revokeWatchId(this._watchId);
 				this._watchId = 0;
 				if (this._value !== null && this._value !== undefined) {
@@ -2093,7 +2093,7 @@ var ControllerWatcher = function (_EventEmitter) {
 		key: '_stop',
 		value: function _stop() {
 			if (this.owner._epid && this._id) {
-				this.owner.send("/unwatch", { id: this._id });
+				this.owner.send("POST", "/unwatch", { id: this._id });
 				this.owner._revokeWatcher(this._id);
 				this._id = 0;
 				this._value = null;
@@ -3725,7 +3725,7 @@ var PatternWatcher = function (_EventEmitter) {
 		key: '_stop',
 		value: function _stop() {
 			if (this.owner._epid && this._patternId) {
-				this.owner.send("/unwatch", { patternId: this._patternId });
+				this.owner.send("POST", "/unwatch", { patternId: this._patternId });
 				this.owner._revokePatternId(this._patternId);
 				this._patternId = 0;
 				this._resolved = "";

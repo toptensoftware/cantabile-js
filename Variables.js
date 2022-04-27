@@ -59,7 +59,7 @@ class PatternWatcher extends EventEmitter
 	{
 		if (this.owner._epid && this._patternId)
 		{
-			this.owner.send("/unwatch", { patternId: this._patternId})
+			this.owner.send("POST", "/unwatch", { patternId: this._patternId})
 			this.owner._revokePatternId(this._patternId);
 			this._patternId = 0;
 			this._resolved = "";

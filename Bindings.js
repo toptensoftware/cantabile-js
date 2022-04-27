@@ -78,7 +78,7 @@ class BindingWatcher extends EventEmitter
 	{
 		if (this.owner._epid && this._watchId)
 		{
-			this.owner.send("/unwatch", { watchId: this._watchId})
+			this.owner.send("POST", "/unwatch", { watchId: this._watchId})
 			this.owner._revokeWatchId(this._watchId);
 			this._watchId = 0;
 			if (this._value !== null && this._value !== undefined)

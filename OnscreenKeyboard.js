@@ -78,7 +78,7 @@ class ControllerWatcher extends EventEmitter
 	{
 		if (this.owner._epid && this._id)
 		{
-			this.owner.send("/unwatch", { id: this._id})
+			this.owner.send("POST", "/unwatch", { id: this._id})
 			this.owner._revokeWatcher(this._id);
 			this._id = 0;
 			this._value = null;
