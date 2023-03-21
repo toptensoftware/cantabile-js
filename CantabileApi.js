@@ -84,9 +84,17 @@ class Cantabile extends EventEmitter
 		 * @property bindings
 		 * @type {Bindings} 
 		 */
-		 this.bindings = new (require('./Bindings'))(this);
+		  this.bindings = new (require('./Bindings'))(this);
 
-		/**
+		 /**
+		 * Provides access to global binding v4 points
+		 *
+		 * @property bindings4
+		 * @type {Bindings4} 
+		 */
+		  this.bindings = new (require('./Bindings4'))(this);
+
+		  /**
 		 * Provides access to global commands
 		 *
 		 * @property commands
