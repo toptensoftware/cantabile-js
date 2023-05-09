@@ -14,11 +14,12 @@ const EventEmitter = require('events');
  */
 class Binding4Watcher extends EventEmitter
 {
-	constructor(owner, id, bindableParams, bindingPointParams, callback)
+	constructor(owner, bindableId, bindingPointId, bindableParams, bindingPointParams, callback)
 	{
 		super();
 		this.owner = owner;
-		this._id = id;
+		this._bindableId = bindableId;
+		this._bindingPointId = bindingPointId;
 		this._bindableParams = bindableParams;
 		this._bindingPointParams = bindingPointParams;
         this._callback = callback;
@@ -26,12 +27,20 @@ class Binding4Watcher extends EventEmitter
 	}
 
 	/**
-	 * Returns the id of the binding point being listened to
+	 * Returns the id of the bindable object being listened to
 	 *
-	 * @property id
+	 * @property bindableId
 	 * @type {String} 
 	 */
-	get id() { return this._id; }
+	get bindableId() { return this._bindableId; }
+
+	/**
+	 * Returns the id of the binding point being listened to
+	 *
+	 * @property bindingPointId
+	 * @type {String} 
+	 */
+	 get bindingPointId() { return this._bindingPointId; }
 
 	/**
 	 * Returns the parameters of the bindable object
@@ -60,7 +69,8 @@ class Binding4Watcher extends EventEmitter
 	_start()
 	{
 		this.owner.post("/watch", {
-            id: this._id,
+            bindableId: this._bindableId,
+			bindingPointId: this._bindingPointId,
             bindableParams: this._bindableParams,
             bindingPointParams: this._bindingPointParams
 		}).then(r => {
@@ -185,16 +195,17 @@ class Bindings4 extends EndPoint
      * 
      *     let C = new CantabileApi();
      *     C.connect();
-     *     console.log(await C.bindings4.bindingPointInfo("setList.loadSongByProgram", false, {}, {}));
+     *     console.log(await C.bindings4.bindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
      * 
      * @method bindingPointInfo
      * @return {Promise|BindingPointInfo4[]} A promise to return an array of BindingPointInfo
      */
-	 async bindingPointInfo(id, source, bindableParams, bindingPointParams)
+	 async bindingPointInfo(bindableId, bindingPointId, source, bindableParams, bindingPointParams)
 	{
         await this.owner.untilConnected();
         return (await this.request("GET", "/bindingPointInfo", {
-			id: id,
+			bindableId: bindableId,
+			bindingPointId: bindingPointId,
 			source: source,
 			bindableParams: bindableParams,
 			bindingPointParams: bindingPointParams
@@ -211,13 +222,13 @@ class Bindings4 extends EndPoint
      * 
      * Set the master output level gain
 	 * 
-     *     C.bindings4.invoke("masterLevels.outputGain", 0.5);
+     *     C.bindings4.invoke("masterLevels", "outputGain", 0.5);
      * 
      * @example
      * 
      * Suspend the 2nd plugin in the song
 	 * 
-     *     C.bindings4.invoke("indexedPlugin.suspend", true, { 
+     *     C.bindings4.invoke("indexedPlugin", "suspend", true, { 
 	 * 		rackIndex: 0,
 	 *      pluginIndex: 1,
 	 * 		}
@@ -228,7 +239,7 @@ class Bindings4 extends EndPoint
 	 * 
 	 * Sending a MIDI Controller Event
 	 * 
-	 *     C.bindings4.invoke("midiPorts.out.Main Keyboard", 65, {
+	 *     C.bindings4.invoke("midiPorts", "out.Main Keyboard", 65, {
 	 *         kind: "Controller",
 	 *         controller: 10,
 	 * 		   channel: 0
@@ -238,13 +249,13 @@ class Bindings4 extends EndPoint
 	 * 
 	 * Sending MIDI Data directly
 	 * 
-	 *     C.bindings4.invoke("midiPorts.out.Main Keyboard", [ 0xb0, 23, 99 ]);
+	 *     C.bindings4.invoke("midiPorts", "out.Main Keyboard", [ 0xb0, 23, 99 ]);
 	 * 
 	 * @example
 	 * 
 	 * Sending MIDI Sysex Data directly
 	 * 
-	 *     C.bindings4.invoke("midiPorts.out.Main Keyboard", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
+	 *     C.bindings4.invoke("midiPorts", "out.Main Keyboard", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
 	 * 
      * @example
      * 
@@ -255,21 +266,22 @@ class Bindings4 extends EndPoint
      * 
      * eg: Load the song with program number 12
 	 * 
-     *     C.bindings4.invoke("setList.loadSongWithProgram", null, null, {
+     *     C.bindings4.invoke("setList", "loadSongWithProgram", null, null, {
 	 * 			program: 12
 	 *     });
      * 
-     * @param {String} id The id of the binding point to invoke
+     * @param {String} bindableId The id of the bindable object
+     * @param {String} bindingPointId The id of the binding point to invoke
      * @param {Object} [value] The value to pass to the binding point
      * @param {Object} [bindableParams] Parameters for the bindable object
      * @param {Object} [bindingPointParams] Parameters for the binding point object
      * @method invoke
      * @return {Promise} A promise that resolves once the target binding point has been invoked
      */
-    async invoke(id, value, bindableParams, bindingPointParams)
+    async invoke(bindableId, bindingPointId, value, bindableParams, bindingPointParams)
     {
         return (await this.request("POST", "/invoke", {
-            id, value, bindableParams, bindingPointParams
+            bindableId, bindingPointId, value, bindableParams, bindingPointParams
         }));
     }
 
@@ -278,18 +290,19 @@ class Bindings4 extends EndPoint
      *
      * @example
      * 
-     *     console.log("Current Output Gain:", await C.bindings4.query("masterLevels.outputGain"));
+     *     console.log("Current Output Gain:", await C.bindings4.query("masterLevels", "outputGain"));
      * 
 	 * @method query
-     * @param {String} id The id of the binding point to invoke
+     * @param {String} bindableId The id of the bindable object
+     * @param {String} bindingPointId The id of the binding point to query
      * @param {Object} [bindableParams] Parameters for the bindable object
      * @param {Object} [bindingPointParams] Parameters for the binding point object
 	 * @return {Object} The current value of the binding source
      */
-    async query(name, indicies)
+    async query(bindableId, bindingPointId, indicies)
     {
         return (await this.request("POST", "/query", {
-            name, bindableParams, bindingPointParams
+            bindableId, bindingPointId, bindableParams, bindingPointParams
         })).data.value;
     }
 
@@ -303,7 +316,7 @@ class Bindings4 extends EndPoint
 	 *     let C = new CantabileApi();
 	 *     
 	 *     // Watch a source binding point using a callback function
-	 *     C.bindings4.watch("masterLevels.outputGain", null, null, function(value) {
+	 *     C.bindings4.watch("masterLevels", "outputGain", null, null, function(value) {
 	 *         console.log("Master output gain changed to:", value);
 	 *     })
 	 *     
@@ -315,7 +328,7 @@ class Bindings4 extends EndPoint
 	 * Using the Binding4Watcher class and events:
 	 * 
 	 *     let C = new CantabileApi();
-	 *     let watcher = C.bindings4.watch("masterLevels.outputGain");
+	 *     let watcher = C.bindings4.watch("masterLevels", "outputGain");
 	 *     watcher.on('invoked', function(value) {
 	 *         console.log("Master output gain changed to:", value);
 	 *     });
@@ -330,7 +343,7 @@ class Bindings4 extends EndPoint
 	 * 
 	 * Watching for a MIDI event:
 	 * 
-     *     C.bindings4.watch("midiPorts.in.Onscreen Keyboard", null, {
+     *     C.bindings4.watch("midiPorts", "in.Onscreen Keyboard", null, {
      *         channel: 0,
      *         kind: "ProgramChange",
      *         controller: -1,
@@ -342,7 +355,7 @@ class Bindings4 extends EndPoint
 
 	 * Watching for a keystroke:
 	 * 
-	 *     C.bindings4.watch("global.pckeyboard.keyPress", null, {
+	 *     C.bindings4.watch("pckeyboard", "keyPress", null, {
 	 * 			key: "Ctrl+Alt+M"
 	 * 	   }, function() {
      *         console.log("Key press!");
@@ -352,7 +365,8 @@ class Bindings4 extends EndPoint
 	 * 
 	 *
 	 * @method watch
-     * @param {String} id The id of the binding point to invoke
+     * @param {String} bindableId The id of the bindable object
+     * @param {String} bindingPointId The id of the binding point to query
      * @param {Object} [bindableParams] Parameters for the bindable object
      * @param {Object} [bindingPointParams] Parameters for the binding point object
 	 * @param {Function} [callback] Optional callback function to be called when the source binding triggers
@@ -362,9 +376,9 @@ class Bindings4 extends EndPoint
 	 * 
 	 * @return {Binding4Watcher}
 	 */
-	watch(id, bindableParams, bindingPointParams, callback)
+	watch(bindableId, bindingPointId, bindableParams, bindingPointParams, callback)
 	{
-		let w = new Binding4Watcher(this, id, bindableParams, bindingPointParams, callback);
+		let w = new Binding4Watcher(this, bindableId, bindingPointId, bindableParams, bindingPointParams, callback);
 		this._watchers.push(w);
 
 		if (this._watchers.length == 1)
