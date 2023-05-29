@@ -303,8 +303,8 @@ class Bindings extends EndPoint
 	 *         console.log("Master output gain changed to:", value);
 	 *     });
 	 *     
-	 * 	   // The "variables" end point must be opened before callbacks will happen
-	 *     C.variables.open();
+	 * 	   // The "bindings" end point must be opened before callbacks will happen
+	 *     C.bindings.open();
 	 *     
 	 *     /// later, stop listening
 	 *     watcher.unwatch();
