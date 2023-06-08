@@ -2,9 +2,14 @@ YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
         "Application",
+        "Binding4Watcher",
+        "BindingParam",
+        "BindingPointEntry4",
         "BindingPointInfo",
+        "BindingPointInfo4",
         "BindingWatcher",
         "Bindings",
+        "Bindings4",
         "Cantabile",
         "ColorEntry",
         "CommandInfo",

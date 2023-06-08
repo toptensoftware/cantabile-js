@@ -36,11 +36,38 @@
             "fors": {},
             "namespaces": {}
         },
+        "BindingParam.js": {
+            "name": "BindingParam.js",
+            "modules": {},
+            "classes": {
+                "BindingParam": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "BindingPointEntry4.js": {
+            "name": "BindingPointEntry4.js",
+            "modules": {},
+            "classes": {
+                "BindingPointEntry4": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "BindingPointInfo.js": {
             "name": "BindingPointInfo.js",
             "modules": {},
             "classes": {
                 "BindingPointInfo": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "BindingPointInfo4.js": {
+            "name": "BindingPointInfo4.js",
+            "modules": {},
+            "classes": {
+                "BindingPointInfo4": 1
             },
             "fors": {},
             "namespaces": {}
@@ -51,6 +78,16 @@
             "classes": {
                 "BindingWatcher": 1,
                 "Bindings": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Bindings4.js": {
+            "name": "Bindings4.js",
+            "modules": {},
+            "classes": {
+                "Binding4Watcher": 1,
+                "Bindings4": 1
             },
             "fors": {},
             "namespaces": {}
@@ -253,6 +290,30 @@
             "description": "Interface to the application object\n\nAccess this object via the {{#crossLink \"Cantabile/application:property\"}}{{/crossLink}} property.",
             "extends": "EndPoint"
         },
+        "BindingParam": {
+            "name": "BindingParam",
+            "shortname": "BindingParam",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "BindingParam.js",
+            "line": 1,
+            "description": "An anonymous type that describes a binding point parameter"
+        },
+        "BindingPointEntry4": {
+            "name": "BindingPointEntry4",
+            "shortname": "BindingPointEntry4",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "BindingPointEntry4.js",
+            "line": 1,
+            "description": "An anonymous type that describes a binding point entry as returned from {{#crossLink \"Bindings4/availableBindingPoints:method\"}}{{/crosslink}}"
+        },
         "BindingPointInfo": {
             "name": "BindingPointInfo",
             "shortname": "BindingPointInfo",
@@ -262,6 +323,18 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "BindingPointInfo.js",
+            "line": 1,
+            "description": "An anonymous type that describes a binding point"
+        },
+        "BindingPointInfo4": {
+            "name": "BindingPointInfo4",
+            "shortname": "BindingPointInfo4",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "BindingPointInfo4.js",
             "line": 1,
             "description": "An anonymous type that describes a binding point"
         },
@@ -289,6 +362,32 @@
             "file": "Bindings.js",
             "line": 126,
             "description": "Provides access to Cantabile's binding points.\n\nAccess this object via the {{#crossLink \"Cantabile/bindings:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
+        "Binding4Watcher": {
+            "name": "Binding4Watcher",
+            "shortname": "Binding4Watcher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Bindings4.js",
+            "line": 7,
+            "description": "Represents an active connection watching a source binding point for changes/invocations\n\nReturned from the {{#crossLink \"Bindings/watch:method\"}}{{/crossLink}} method.",
+            "extends": "EventEmitter"
+        },
+        "Bindings4": {
+            "name": "Bindings4",
+            "shortname": "Bindings4",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Bindings4.js",
+            "line": 136,
+            "description": "Provides access to Cantabile's binding points.\n\nAccess this object via the {{#crossLink \"Cantabile/bindings4:property\"}}{{/crossLink}} property.",
             "extends": "EndPoint"
         },
         "Cantabile": {
@@ -696,6 +795,69 @@
             "class": "Application"
         },
         {
+            "file": "BindingParam.js",
+            "line": 7,
+            "description": "The name of the parameter",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "BindingParam"
+        },
+        {
+            "file": "BindingParam.js",
+            "line": 13,
+            "description": "The type of the parameter",
+            "itemtype": "property",
+            "name": "type",
+            "type": "{String}",
+            "class": "BindingParam"
+        },
+        {
+            "file": "BindingPointEntry4.js",
+            "line": 7,
+            "description": "The id of the bindable object",
+            "itemtype": "property",
+            "name": "bindableId",
+            "type": "{String}",
+            "class": "BindingPointEntry4"
+        },
+        {
+            "file": "BindingPointEntry4.js",
+            "line": 13,
+            "description": "The id of the binding point on the bindable object",
+            "itemtype": "property",
+            "name": "bindingPointId",
+            "type": "{String}",
+            "class": "BindingPointEntry4"
+        },
+        {
+            "file": "BindingPointEntry4.js",
+            "line": 19,
+            "description": "The display name of the binding point",
+            "itemtype": "property",
+            "name": "displayName",
+            "type": "{String}",
+            "class": "BindingPointEntry4"
+        },
+        {
+            "file": "BindingPointEntry4.js",
+            "line": 25,
+            "description": "Indicates if this binding point can be used as a source binding point",
+            "itemtype": "property",
+            "name": "isSource",
+            "type": "{Boolean}",
+            "class": "BindingPointEntry4"
+        },
+        {
+            "file": "BindingPointEntry4.js",
+            "line": 31,
+            "description": "Indicates if this binding point can be used as a target binding point",
+            "itemtype": "property",
+            "name": "isTarget",
+            "type": "{Boolean}",
+            "class": "BindingPointEntry4"
+        },
+        {
             "file": "BindingPointInfo.js",
             "line": 7,
             "description": "The name of the binding point",
@@ -751,6 +913,78 @@
             "name": "parameterKind",
             "type": "{String}",
             "class": "BindingPointInfo"
+        },
+        {
+            "file": "BindingPointInfo4.js",
+            "line": 7,
+            "description": "The id of the binding point",
+            "itemtype": "property",
+            "name": "id",
+            "type": "{String}",
+            "class": "BindingPointInfo4"
+        },
+        {
+            "file": "BindingPointInfo4.js",
+            "line": 13,
+            "description": "The display name of the binding point",
+            "itemtype": "property",
+            "name": "displayName",
+            "type": "{String}",
+            "class": "BindingPointInfo4"
+        },
+        {
+            "file": "BindingPointInfo4.js",
+            "line": 19,
+            "description": "The kind of value accepted/sent by this binding point\n\n* \"Command\" - value is ignored, binding point is a simple \"action\"\n* \"Switch\" - True/false value, <0.5 = false, >= 0.5 = true\n* \"Value\" - A numeric value (floating point or integer)\n* \"Object\" - An object value (typically double, string or byte array)",
+            "itemtype": "property",
+            "name": "kind",
+            "type": "{String}",
+            "class": "BindingPointInfo4"
+        },
+        {
+            "file": "BindingPointInfo4.js",
+            "line": 33,
+            "description": "The kind of value accepted/sent by this binding point\n\n* \"Float\" - a floating point value\n* \"Integer\" - an integer value\n* \"Index\" - an index displayed either 0 or 1 based\n* \"ProgramNumber\" - a program number displayed either 0 or 1 based\n* \"BankedProgramNumber\" - a banked program number displayed in one of several banked program number formats\n* \"GainLevel\" - a gain level displayed by convertin from scalar value to decibels\n* \"PitchBend\" - a pitch bend value from 0 to 16384 but displayed as -8192 to 8191\n\nThis property is only present if 'kind' is \"Value\"",
+            "itemtype": "property",
+            "name": "valueFormat",
+            "type": "{String}",
+            "class": "BindingPointInfo4"
+        },
+        {
+            "file": "BindingPointInfo4.js",
+            "line": 51,
+            "description": "The minimum value range\n\nThis property is only present if 'kind' is \"Value\"",
+            "itemtype": "property",
+            "name": "valueMin",
+            "type": "{Number}",
+            "class": "BindingPointInfo4"
+        },
+        {
+            "file": "BindingPointInfo4.js",
+            "line": 61,
+            "description": "The maximum value range\n\nThis property is only present if 'kind' is \"Value\"",
+            "itemtype": "property",
+            "name": "valueMax",
+            "type": "{Number}",
+            "class": "BindingPointInfo4"
+        },
+        {
+            "file": "BindingPointInfo4.js",
+            "line": 71,
+            "description": "Information about the bindable object parameters supported by this binding point",
+            "itemtype": "property",
+            "name": "bindableParams",
+            "type": "{BindingParam[]}",
+            "class": "BindingPointInfo4"
+        },
+        {
+            "file": "BindingPointInfo4.js",
+            "line": 78,
+            "description": "Information about the binding point parameters supported by this binding point",
+            "itemtype": "property",
+            "name": "bindingPointParams",
+            "type": "{BindingParam[]}",
+            "class": "BindingPointInfo4"
         },
         {
             "file": "Bindings.js",
@@ -910,7 +1144,7 @@
             "description": "Starts watching a source binding point for changes (or invocations)\n\nIf Cantabile is running on your local machine a full list of available binding\npoints is [available here](http://localhost:35007/api/bindings/availableBindingPoints)",
             "example": [
                 "\n\nUsing a callback function:\n\n    let C = new CantabileApi();\n    \n    // Watch a source binding point using a callback function\n    C.bindings.watch(\"global.masterLevels.outputGain\", null, null, function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    })\n    \n\t   // The \"bindings\" end point must be opened before callbacks will happen\n    C.bindings.open();",
-                "\n\nUsing the BindingWatcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.bindings.watch(\"global.masterLevels.outputGain\");\n    watcher.on('invoked', function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    });\n    \n\t   // The \"variables\" end point must be opened before callbacks will happen\n    C.variables.open();\n    \n    /// later, stop listening\n    watcher.unwatch();",
+                "\n\nUsing the BindingWatcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.bindings.watch(\"global.masterLevels.outputGain\");\n    watcher.on('invoked', function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    });\n    \n\t   // The \"bindings\" end point must be opened before callbacks will happen\n    C.bindings.open();\n    \n    /// later, stop listening\n    watcher.unwatch();",
                 "\n\nWatching for a MIDI event:\n\n    C.bindings.watch(\"midiInputPort.Onscreen Keyboard\", null, {\n        channel: 0,\n        kind: \"ProgramChange\",\n        controller: -1,\n    }, function(value) {\n        console.log(\"Program Change: \", value);\n    })",
                 "\n\nWatching for a keystroke:\n\n    C.bindings.watch(\"global.pckeyboard.keyPress\", null, \"Ctrl+Alt+M\", function() {\n        console.log(\"Key press!\");\n    })"
             ],
@@ -946,6 +1180,246 @@
                 "type": "BindingWatcher"
             },
             "class": "Bindings"
+        },
+        {
+            "file": "Bindings4.js",
+            "line": 29,
+            "description": "Returns the id of the bindable object being listened to",
+            "itemtype": "property",
+            "name": "bindableId",
+            "type": "{String}",
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "Bindings4.js",
+            "line": 37,
+            "description": "Returns the id of the binding point being listened to",
+            "itemtype": "property",
+            "name": "bindingPointId",
+            "type": "{String}",
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "Bindings4.js",
+            "line": 45,
+            "description": "Returns the parameters of the bindable object",
+            "itemtype": "property",
+            "name": "bindableParams",
+            "type": "{Object}",
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "Bindings4.js",
+            "line": 53,
+            "description": "Returns the parameters of the binding point object",
+            "itemtype": "property",
+            "name": "bindingPointParams",
+            "type": "{Object}",
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "Bindings4.js",
+            "line": 61,
+            "description": "Returns the last received value for the source binding point",
+            "itemtype": "property",
+            "name": "value",
+            "type": "{Object}",
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "Bindings4.js",
+            "line": 102,
+            "description": "Stops monitoring this binding source",
+            "itemtype": "method",
+            "name": "unwatch",
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "Bindings4.js",
+            "line": 125,
+            "description": "Fired when the source binding point is triggered",
+            "itemtype": "event",
+            "name": "invoked",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "The value supplied from the source binding",
+                    "type": "Object"
+                },
+                {
+                    "name": "source",
+                    "description": "This object",
+                    "type": "Binding4Watcher"
+                }
+            ],
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "Bindings4.js",
+            "line": 170,
+            "description": "Retrieves a list of available binding points\n\nIf Cantabile is running on your local machine you can view this list\ndirectly at <http://localhost:35007/api/bindings/availableBindingPoints>",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n    C.connect();\n    console.log(await C.bindings4.availableBindingPoints());"
+            ],
+            "itemtype": "method",
+            "name": "availableBindingPoints",
+            "return": {
+                "description": "A promise to return an array of BindingPointInfo",
+                "type": "Promise|BindingPointEntry4[]"
+            },
+            "class": "Bindings4"
+        },
+        {
+            "file": "Bindings4.js",
+            "line": 191,
+            "description": "Retrieves additional information about a specific binding point",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n    C.connect();\n    console.log(await C.bindings4.bindingPointInfo(\"setList\", \"loadSongByProgram\", false, {}, {}));"
+            ],
+            "itemtype": "method",
+            "name": "bindingPointInfo",
+            "return": {
+                "description": "A promise to return an array of BindingPointInfo",
+                "type": "Promise|BindingPointInfo4[]"
+            },
+            "class": "Bindings4"
+        },
+        {
+            "file": "Bindings4.js",
+            "line": 215,
+            "description": "Invokes a target binding point\n\nIf Cantabile is running on your local machine a full list of available binding\npoints is [available here](http://localhost:35007/api/bindings/availableBindingPoints)",
+            "example": [
+                "\n\nSet the master output level gain\n\n    C.bindings4.invoke(\"masterLevels\", \"outputGain\", 0.5);",
+                "\n\nSuspend the 2nd plugin in the song\n\n    C.bindings4.invoke(\"indexedPlugin\", \"suspend\", true, { \n\t\trackIndex: 0,\n     pluginIndex: 1,\n\t\t}\n   );",
+                "\n\nSending a MIDI Controller Event\n\n    C.bindings4.invoke(\"midiPorts\", \"out.Main Keyboard\", 65, {\n        kind: \"Controller\",\n        controller: 10,\n\t\t   channel: 0\n\t   });",
+                "\n\nSending MIDI Data directly\n\n    C.bindings4.invoke(\"midiPorts\", \"out.Main Keyboard\", [ 0xb0, 23, 99 ]);",
+                "\n\nSending MIDI Sysex Data directly\n\n    C.bindings4.invoke(\"midiPorts\", \"out.Main Keyboard\", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);",
+                "\n\nSome binding points expect parameters.  Parameter values are similar to the `value` parameter\nin that they specify a value to invoke on the target of the binding.  The difference is related to the\nway they're managed internally for user created bindings.  The `value` comes from the source of the binding \nwhereas parameters are stored with the binding itself.\n\neg: Load the song with program number 12\n\n    C.bindings4.invoke(\"setList\", \"loadSongWithProgram\", null, null, {\n\t\t\tprogram: 12\n    });"
+            ],
+            "params": [
+                {
+                    "name": "bindableId",
+                    "description": "The id of the bindable object",
+                    "type": "String"
+                },
+                {
+                    "name": "bindingPointId",
+                    "description": "The id of the binding point to invoke",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "The value to pass to the binding point",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "bindableParams",
+                    "description": "Parameters for the bindable object",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "bindingPointParams",
+                    "description": "Parameters for the binding point object",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "invoke",
+            "return": {
+                "description": "A promise that resolves once the target binding point has been invoked",
+                "type": "Promise"
+            },
+            "class": "Bindings4"
+        },
+        {
+            "file": "Bindings4.js",
+            "line": 288,
+            "description": "Queries a source binding point for it's current value.",
+            "example": [
+                "\n\n    console.log(\"Current Output Gain:\", await C.bindings4.query(\"masterLevels\", \"outputGain\"));"
+            ],
+            "itemtype": "method",
+            "name": "query",
+            "params": [
+                {
+                    "name": "bindableId",
+                    "description": "The id of the bindable object",
+                    "type": "String"
+                },
+                {
+                    "name": "bindingPointId",
+                    "description": "The id of the binding point to query",
+                    "type": "String"
+                },
+                {
+                    "name": "bindableParams",
+                    "description": "Parameters for the bindable object",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "bindingPointParams",
+                    "description": "Parameters for the binding point object",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "The current value of the binding source",
+                "type": "Object"
+            },
+            "class": "Bindings4"
+        },
+        {
+            "file": "Bindings4.js",
+            "line": 309,
+            "description": "Starts watching a source binding point for changes (or invocations)",
+            "example": [
+                "\n\nUsing a callback function:\n\n    let C = new CantabileApi();\n    \n    // Watch a source binding point using a callback function\n    C.bindings4.watch(\"masterLevels\", \"outputGain\", null, null, function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    })\n    \n\t   // The \"bindings\" end point must be opened before callbacks will happen\n    C.bindings4.open();",
+                "\n\nUsing the Binding4Watcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.bindings4.watch(\"masterLevels\", \"outputGain\");\n    watcher.on('invoked', function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    });\n    \n\t   // The \"bindings\" end point must be opened before callbacks will happen\n    C.bindings4.open();\n    \n    /// later, stop listening\n    watcher.unwatch();",
+                "\n\nWatching for a MIDI event:\n\n    C.bindings4.watch(\"midiPorts\", \"in.Onscreen Keyboard\", null, {\n        channel: 0,\n        kind: \"ProgramChange\",\n        controller: -1,\n    }, function(value) {\n        console.log(\"Program Change: \", value);\n    })",
+                "\n\nWatching for a keystroke:\n\n    C.bindings4.watch(\"pckeyboard\", \"keyPress\", null, {\n\t\t\tkey: \"Ctrl+Alt+M\"\n\t   }, function() {\n        console.log(\"Key press!\");\n    })"
+            ],
+            "itemtype": "method",
+            "name": "watch",
+            "params": [
+                {
+                    "name": "bindableId",
+                    "description": "The id of the bindable object",
+                    "type": "String"
+                },
+                {
+                    "name": "bindingPointId",
+                    "description": "The id of the binding point to query",
+                    "type": "String"
+                },
+                {
+                    "name": "bindableParams",
+                    "description": "Parameters for the bindable object",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "bindingPointParams",
+                    "description": "Parameters for the binding point object",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "callback",
+                    "description": "Optional callback function to be called when the source binding triggers\n\nThe callback function has the form function(value, source) where value is the new binding point value and source\nis the Binding4Watcher instance.",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Binding4Watcher"
+            },
+            "class": "Bindings4"
         },
         {
             "file": "CantabileApi.js",
@@ -1013,6 +1487,15 @@
         {
             "file": "CantabileApi.js",
             "line": 89,
+            "description": "Provides access to global binding v4 points",
+            "itemtype": "property",
+            "name": "bindings4",
+            "type": "{Bindings4}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "CantabileApi.js",
+            "line": 97,
             "description": "Provides access to global commands",
             "itemtype": "property",
             "name": "commands",
@@ -1021,7 +1504,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 97,
+            "line": 105,
             "description": "Provides access to information about the current song",
             "itemtype": "property",
             "name": "song",
@@ -1030,7 +1513,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 105,
+            "line": 113,
             "description": "Provides access to master transport controls",
             "itemtype": "property",
             "name": "transport",
@@ -1039,7 +1522,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 113,
+            "line": 121,
             "description": "Provides access to the application object",
             "itemtype": "property",
             "name": "application",
@@ -1048,7 +1531,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 121,
+            "line": 129,
             "description": "Provides access to the engine object",
             "itemtype": "property",
             "name": "engine",
@@ -1057,7 +1540,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 130,
+            "line": 138,
             "description": "The current connection state, either \"connecting\", \"connected\" or \"disconnected\"",
             "itemtype": "property",
             "name": "state",
@@ -1066,7 +1549,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 141,
+            "line": 149,
             "description": "Initiate connection and retry if fails",
             "itemtype": "method",
             "name": "connect",
@@ -1074,7 +1557,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 151,
+            "line": 159,
             "description": "Disconnect and stop retries",
             "itemtype": "method",
             "name": "disconnect",
@@ -1082,7 +1565,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 161,
+            "line": 169,
             "description": "Stringify an object as a JSON message and send it to the server",
             "itemtype": "method",
             "name": "send",
@@ -1097,7 +1580,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 173,
+            "line": 181,
             "description": "Stringify an object as a JSON message, send it to the server and returns \na promise which will resolve to the result.",
             "itemtype": "method",
             "name": "request",
@@ -1116,7 +1599,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 200,
+            "line": 208,
             "description": "Returns a promise that will be resolved when connected",
             "example": [
                 "\n\n    let C = new CantabileApi();\n    await C.untilConnected();"
@@ -1131,7 +1614,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 254,
+            "line": 262,
             "description": "The current host",
             "itemtype": "property",
             "name": "host",
@@ -1140,7 +1623,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 316,
+            "line": 324,
             "description": "The base socket url",
             "itemtype": "property",
             "name": "host",
@@ -1149,7 +1632,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 327,
+            "line": 335,
             "description": "The base host url",
             "itemtype": "property",
             "name": "host",
@@ -1158,7 +1641,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 498,
+            "line": 506,
             "description": "Fired when the {{#crossLink \"Cantabile/state:property\"}}{{/crossLink}} property value changes",
             "itemtype": "event",
             "name": "stateChanged",
@@ -1173,7 +1656,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 506,
+            "line": 514,
             "description": "Fired when entering the connected state",
             "itemtype": "event",
             "name": "connected",
@@ -1181,7 +1664,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 513,
+            "line": 521,
             "description": "Fired when entering the connecting state",
             "itemtype": "event",
             "name": "connecting",
@@ -1189,7 +1672,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 520,
+            "line": 528,
             "description": "Fired when entering the disconnected state",
             "itemtype": "event",
             "name": "disconnected",

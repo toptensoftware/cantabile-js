@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Bindings - Cantabile JavaScript API</title>
+    <title>Bindings4 - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -102,7 +102,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>Bindings</h1>
+    <h1>Bindings4</h1>
 </div>
 
 
@@ -117,7 +117,7 @@
 
 <div class="yuidoc-class-description">
 <p>Provides access to Cantabile's binding points.</p>
-<p>Access this object via the <a href="../classes/Cantabile.html#property_bindings" class="crosslink">bindings</a> property.</p>
+<p>Access this object via the <a href="../classes/Cantabile.html#property_bindings4" class="crosslink">bindings4</a> property.</p>
 
 </div>
 
@@ -130,12 +130,13 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-availableBindingPoints"><span class="im">availableBindingPoints</span>()</a></li>
+				<li><a href="#method-bindingPointInfo"><span class="im">bindingPointInfo</span>()</a></li>
 				<li><a href="#method-close"><span class="im">close</span>()</a></li>
-				<li><a href="#method-invoke"><span class="im">invoke</span>(<span class="ia">name</span><span class="ia">value</span><span class="ia">indicies</span><span class="ia">parameter</span>)</a></li>
+				<li><a href="#method-invoke"><span class="im">invoke</span>(<span class="ia">bindableId</span><span class="ia">bindingPointId</span><span class="ia">value</span><span class="ia">bindableParams</span><span class="ia">bindingPointParams</span>)</a></li>
 				<li><a href="#method-open"><span class="im">open</span>()</a></li>
-				<li><a href="#method-query"><span class="im">query</span>(<span class="ia">name</span><span class="ia">indicies</span>)</a></li>
+				<li><a href="#method-query"><span class="im">query</span>(<span class="ia">bindableId</span><span class="ia">bindingPointId</span><span class="ia">bindableParams</span><span class="ia">bindingPointParams</span>)</a></li>
 				<li><a href="#method-untilOpen"><span class="im">untilOpen</span>()</a></li>
-				<li><a href="#method-watch"><span class="im">watch</span>(<span class="ia">name</span><span class="ia">indicies</span><span class="ia">condition</span><span class="ia">callback</span>)</a></li>
+				<li><a href="#method-watch"><span class="im">watch</span>(<span class="ia">bindableId</span><span class="ia">bindingPointId</span><span class="ia">bindableParams</span><span class="ia">bindingPointParams</span><span class="ia">callback</span>)</a></li>
 			</ul>
 		</li>
 
@@ -158,7 +159,7 @@
 
 		<span class="paren">()</span>
 		<span class="returns-inline">
-			<span class="type">Promise  |  <a href="../classes/BindingPointInfo.html" class="crosslink">BindingPointInfo[][]</a></span>
+			<span class="type">Promise  |  <a href="../classes/BindingPointEntry4.html" class="crosslink">BindingPointEntry4[][]</a></span>
 		</span>
 	</div>
 
@@ -170,7 +171,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Bindings.js.html#l160"><code>Bindings.js:160</code></a>
+		<a href="../files/Bindings4.js.html#l170"><code>Bindings4.js:170</code></a>
 		</p>
 
 
@@ -187,7 +188,7 @@ directly at <a href="http://localhost:35007/api/bindings/availableBindingPoints"
 			<h4>Returns:</h4>
 
 			<div class="returns-description">
-						<span class="type">Promise  |  <a href="../classes/BindingPointInfo.html" class="crosslink">BindingPointInfo[][]</a></span>:
+						<span class="type">Promise  |  <a href="../classes/BindingPointEntry4.html" class="crosslink">BindingPointEntry4[][]</a></span>:
 					<p>A promise to return an array of BindingPointInfo</p>
 
 			</div>
@@ -199,7 +200,57 @@ directly at <a href="http://localhost:35007/api/bindings/availableBindingPoints"
 			<div class="example-content">
 				<pre class="code prettyprint"><code>let C = new CantabileApi();
 C.connect();
-console.log(await C.bindings.availableBindingPoints());</code></pre>
+console.log(await C.bindings4.availableBindingPoints());</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-bindingPointInfo" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>bindingPointInfo</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise  |  <a href="../classes/BindingPointInfo4.html" class="crosslink">BindingPointInfo4[][]</a></span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Bindings4.js.html#l191"><code>Bindings4.js:191</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Retrieves additional information about a specific binding point</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise  |  <a href="../classes/BindingPointInfo4.html" class="crosslink">BindingPointInfo4[][]</a></span>:
+					<p>A promise to return an array of BindingPointInfo</p>
+
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>let C = new CantabileApi();
+C.connect();
+console.log(await C.bindings4.bindingPointInfo("setList", "loadSongByProgram", false, {}, {}));</code></pre>
 
 			</div>
 		</div>
@@ -241,16 +292,19 @@ automatically closed when the last event listener is removed.</div>
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>name</code>
+						<code>bindableId</code>
+				</li>
+				<li class="arg">
+						<code>bindingPointId</code>
 				</li>
 				<li class="arg">
 						<code class="optional">value</code>
 				</li>
 				<li class="arg">
-						<code class="optional">indicies</code>
+						<code class="optional">bindableParams</code>
 				</li>
 				<li class="arg">
-						<code class="optional">parameter</code>
+						<code class="optional">bindingPointParams</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -267,7 +321,7 @@ automatically closed when the last event listener is removed.</div>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Bindings.js.html#l181"><code>Bindings.js:181</code></a>
+		<a href="../files/Bindings4.js.html#l215"><code>Bindings4.js:215</code></a>
 		</p>
 
 
@@ -284,11 +338,20 @@ points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">a
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">name</code>
+						<code class="param-name">bindableId</code>
 						<span class="type">String</span>
 
 
-					<div class="param-description"><p>The name of the binding point to invoke</p>
+					<div class="param-description"><p>The id of the bindable object</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">bindingPointId</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><p>The id of the binding point to invoke</p>
 </div>
 
 				</li>
@@ -303,22 +366,22 @@ points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">a
 
 				</li>
 				<li class="param">
-						<code class="param-name optional">[indicies]</code>
-						<span class="type">Number[]</span>
-						<span class="flag optional" title="This parameter is optional.">optional</span>
-
-
-					<div class="param-description"><p>The integer indicies of the target binding point</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name optional">[parameter]</code>
+						<code class="param-name optional">[bindableParams]</code>
 						<span class="type">Object</span>
 						<span class="flag optional" title="This parameter is optional.">optional</span>
 
 
-					<div class="param-description"><p>The parameter value to invoke the target with</p>
+					<div class="param-description"><p>Parameters for the bindable object</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[bindingPointParams]</code>
+						<span class="type">Object</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>Parameters for the binding point object</p>
 </div>
 
 				</li>
@@ -340,28 +403,32 @@ points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">a
 
 			<div class="example-content">
 				<p>Set the master output level gain</p>
-<pre class="code prettyprint"><code>C.bindings.invoke("global.masterLevels.outputGain", 0.5);</code></pre>
+<pre class="code prettyprint"><code>C.bindings4.invoke("masterLevels", "outputGain", 0.5);</code></pre>
 <p>Suspend the 2nd plugin in the song</p>
-<pre class="code prettyprint"><code>C.bindings.invoke("global.indexedPlugin.suspend", true, [
-        0,     // Rack index (zero = song)
-     1      // Plugin index (zero based, 1 = the second plugin)
-    ]);</code></pre>
+<pre class="code prettyprint"><code>C.bindings4.invoke("indexedPlugin", "suspend", true, { 
+    rackIndex: 0,
+ pluginIndex: 1,
+    }
+</code></pre>
+<p>);</p>
 <p>Sending a MIDI Controller Event</p>
-<pre class="code prettyprint"><code>C.bindings.invoke("midiInputPort.Main Keyboard", new {
-    kind: "FineController",
+<pre class="code prettyprint"><code>C.bindings4.invoke("midiPorts", "out.Main Keyboard", 65, {
+    kind: "Controller",
     controller: 10,
-    value: 1000,
+       channel: 0
    });</code></pre>
 <p>Sending MIDI Data directly</p>
-<pre class="code prettyprint"><code>C.bindings.invoke("midiInputPort.Main Keyboard", [ 0xb0, 23, 99 ]);</code></pre>
+<pre class="code prettyprint"><code>C.bindings4.invoke("midiPorts", "out.Main Keyboard", [ 0xb0, 23, 99 ]);</code></pre>
 <p>Sending MIDI Sysex Data directly</p>
-<pre class="code prettyprint"><code>C.bindings.invoke("midiInputPort.Main Keyboard", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);</code></pre>
-<p>Some binding points expect a "parameter" value.  Parameter values are similar to the <code>value</code> parameter
+<pre class="code prettyprint"><code>C.bindings4.invoke("midiPorts", "out.Main Keyboard", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);</code></pre>
+<p>Some binding points expect parameters.  Parameter values are similar to the <code>value</code> parameter
 in that they specify a value to invoke on the target of the binding.  The difference is related to the
 way they're managed internally for user created bindings.  The <code>value</code> comes from the source of the binding
-whereas a <code>parameter</code> value is stored with the binding itself.</p>
+whereas parameters are stored with the binding itself.</p>
 <p>eg: Load the song with program number 12</p>
-<pre class="code prettyprint"><code>C.bindings.invoke("global.setList.loadSpecificSongByProgramInstant", null, null, 12);</code></pre>
+<pre class="code prettyprint"><code>C.bindings4.invoke("setList", "loadSongWithProgram", null, null, {
+        program: 12
+});</code></pre>
 
 			</div>
 		</div>
@@ -405,10 +472,16 @@ Use this method to keep the end point open even when no event listeners are atta
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>name</code>
+						<code>bindableId</code>
 				</li>
 				<li class="arg">
-						<code class="optional">indicies</code>
+						<code>bindingPointId</code>
+				</li>
+				<li class="arg">
+						<code class="optional">bindableParams</code>
+				</li>
+				<li class="arg">
+						<code class="optional">bindingPointParams</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -425,7 +498,7 @@ Use this method to keep the end point open even when no event listeners are atta
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Bindings.js.html#l253"><code>Bindings.js:253</code></a>
+		<a href="../files/Bindings4.js.html#l288"><code>Bindings4.js:288</code></a>
 		</p>
 
 
@@ -433,8 +506,6 @@ Use this method to keep the end point open even when no event listeners are atta
 	</div>
 
 	<div class="description"><p>Queries a source binding point for it's current value.</p>
-<p>If Cantabile is running on your local machine a full list of available binding
-points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">available here</a></p>
 </div>
 
 		<div class="params">
@@ -442,21 +513,40 @@ points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">a
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">name</code>
+						<code class="param-name">bindableId</code>
 						<span class="type">String</span>
 
 
-					<div class="param-description"><p>The name of the binding point to query</p>
+					<div class="param-description"><p>The id of the bindable object</p>
 </div>
 
 				</li>
 				<li class="param">
-						<code class="param-name optional">[indicies]</code>
-						<span class="type">Number[]</span>
+						<code class="param-name">bindingPointId</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><p>The id of the binding point to query</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[bindableParams]</code>
+						<span class="type">Object</span>
 						<span class="flag optional" title="This parameter is optional.">optional</span>
 
 
-					<div class="param-description"><p>The integer indicies of the binding point</p>
+					<div class="param-description"><p>Parameters for the bindable object</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[bindingPointParams]</code>
+						<span class="type">Object</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>Parameters for the binding point object</p>
 </div>
 
 				</li>
@@ -477,7 +567,7 @@ points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">a
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>console.log("Current Output Gain:", await C.bindings.query("global.masterLevels.outputGain"));</code></pre>
+				<pre class="code prettyprint"><code>console.log("Current Output Gain:", await C.bindings4.query("masterLevels", "outputGain"));</code></pre>
 
 			</div>
 		</div>
@@ -536,13 +626,16 @@ await C.application.untilOpen();</code></pre>
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>name</code>
+						<code>bindableId</code>
 				</li>
 				<li class="arg">
-						<code class="optional">indicies</code>
+						<code>bindingPointId</code>
 				</li>
 				<li class="arg">
-						<code class="optional">condition</code>
+						<code class="optional">bindableParams</code>
+				</li>
+				<li class="arg">
+						<code class="optional">bindingPointParams</code>
 				</li>
 				<li class="arg">
 						<code class="optional">callback</code>
@@ -550,7 +643,7 @@ await C.application.untilOpen();</code></pre>
 			</ul><span class="paren">)</span>
 		</div>
 		<span class="returns-inline">
-			<span class="type"><a href="../classes/BindingWatcher.html" class="crosslink">BindingWatcher</a></span>
+			<span class="type"><a href="../classes/Binding4Watcher.html" class="crosslink">Binding4Watcher</a></span>
 		</span>
 	</div>
 
@@ -562,7 +655,7 @@ await C.application.untilOpen();</code></pre>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Bindings.js.html#l276"><code>Bindings.js:276</code></a>
+		<a href="../files/Bindings4.js.html#l309"><code>Bindings4.js:309</code></a>
 		</p>
 
 
@@ -570,8 +663,6 @@ await C.application.untilOpen();</code></pre>
 	</div>
 
 	<div class="description"><p>Starts watching a source binding point for changes (or invocations)</p>
-<p>If Cantabile is running on your local machine a full list of available binding
-points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">available here</a></p>
 </div>
 
 		<div class="params">
@@ -579,31 +670,40 @@ points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">a
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">name</code>
+						<code class="param-name">bindableId</code>
 						<span class="type">String</span>
 
 
-					<div class="param-description"><p>The name of the binding point to query</p>
+					<div class="param-description"><p>The id of the bindable object</p>
 </div>
 
 				</li>
 				<li class="param">
-						<code class="param-name optional">[indicies]</code>
-						<span class="type">Number[]</span>
-						<span class="flag optional" title="This parameter is optional.">optional</span>
+						<code class="param-name">bindingPointId</code>
+						<span class="type">String</span>
 
 
-					<div class="param-description"><p>The integer indicies of the binding point</p>
+					<div class="param-description"><p>The id of the binding point to query</p>
 </div>
 
 				</li>
 				<li class="param">
-						<code class="param-name optional">[condition]</code>
+						<code class="param-name optional">[bindableParams]</code>
 						<span class="type">Object</span>
 						<span class="flag optional" title="This parameter is optional.">optional</span>
 
 
-					<div class="param-description"><p>The condition for triggering the binding</p>
+					<div class="param-description"><p>Parameters for the bindable object</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[bindingPointParams]</code>
+						<span class="type">Object</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>Parameters for the binding point object</p>
 </div>
 
 				</li>
@@ -614,8 +714,8 @@ points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">a
 
 
 					<div class="param-description"><p>Optional callback function to be called when the source binding triggers</p>
-<p>The callback function has the form function(resolved, source) where resolved is the resolved display string and source
-is the BindingWatcher instance.</p>
+<p>The callback function has the form function(value, source) where value is the new binding point value and source
+is the Binding4Watcher instance.</p>
 </div>
 
 				</li>
@@ -626,7 +726,7 @@ is the BindingWatcher instance.</p>
 			<h4>Returns:</h4>
 
 			<div class="returns-description">
-						<span class="type"><a href="../classes/BindingWatcher.html" class="crosslink">BindingWatcher</a></span>
+						<span class="type"><a href="../classes/Binding4Watcher.html" class="crosslink">Binding4Watcher</a></span>
 			</div>
 		</div>
 
@@ -638,26 +738,26 @@ is the BindingWatcher instance.</p>
 <pre class="code prettyprint"><code>let C = new CantabileApi();
 
 // Watch a source binding point using a callback function
-C.bindings.watch("global.masterLevels.outputGain", null, null, function(value) {
+C.bindings4.watch("masterLevels", "outputGain", null, null, function(value) {
     console.log("Master output gain changed to:", value);
 })
 
    // The "bindings" end point must be opened before callbacks will happen
-C.bindings.open();</code></pre>
-<p>Using the BindingWatcher class and events:</p>
+C.bindings4.open();</code></pre>
+<p>Using the Binding4Watcher class and events:</p>
 <pre class="code prettyprint"><code>let C = new CantabileApi();
-let watcher = C.bindings.watch("global.masterLevels.outputGain");
+let watcher = C.bindings4.watch("masterLevels", "outputGain");
 watcher.on('invoked', function(value) {
     console.log("Master output gain changed to:", value);
 });
 
    // The "bindings" end point must be opened before callbacks will happen
-C.bindings.open();
+C.bindings4.open();
 
 /// later, stop listening
 watcher.unwatch();</code></pre>
 <p>Watching for a MIDI event:</p>
-<pre class="code prettyprint"><code>C.bindings.watch("midiInputPort.Onscreen Keyboard", null, {
+<pre class="code prettyprint"><code>C.bindings4.watch("midiPorts", "in.Onscreen Keyboard", null, {
     channel: 0,
     kind: "ProgramChange",
     controller: -1,
@@ -665,7 +765,9 @@ watcher.unwatch();</code></pre>
     console.log("Program Change: ", value);
 })</code></pre>
 <p>Watching for a keystroke:</p>
-<pre class="code prettyprint"><code>C.bindings.watch("global.pckeyboard.keyPress", null, "Ctrl+Alt+M", function() {
+<pre class="code prettyprint"><code>C.bindings4.watch("pckeyboard", "keyPress", null, {
+        key: "Ctrl+Alt+M"
+   }, function() {
     console.log("Key press!");
 })</code></pre>
 

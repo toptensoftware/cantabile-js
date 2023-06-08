@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>CommandInfo - Cantabile JavaScript API</title>
+    <title>Binding4Watcher - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -102,16 +102,22 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>CommandInfo</h1>
+    <h1>Binding4Watcher</h1>
 </div>
 
 
+	<div class="well well-small">
+        <div class="extends">
+            Extends EventEmitter
+        </div>
+    </div>
 
 
 
 
 <div class="yuidoc-class-description">
-<p>An anonymous type that describes a command</p>
+<p>Represents an active connection watching a source binding point for changes/invocations</p>
+<p>Returned from the <a href="../classes/Bindings.html#method_watch" class="crosslink">watch</a> method.</p>
 
 </div>
 
@@ -120,16 +126,31 @@
 <div id="class-toc" class="page-section">
 	<h2>Table of Contents</h2>
     <ul>
+		<li>
+			<strong>Methods</strong>
+			<ul>
+				<li><a href="#method-unwatch"><span class="im">unwatch</span>()</a></li>
+			</ul>
+		</li>
 
 		<li>
 			<strong>Properties</strong>
 			<ul>
-				<li><a href="#prop-id"><span class="ip">id</span></a></li>
-				<li><a href="#prop-name"><span class="ip">name</span></a></li>
+				<li><a href="#prop-bindableId"><span class="ip">bindableId</span></a></li>
+				<li><a href="#prop-bindableParams"><span class="ip">bindableParams</span></a></li>
+				<li><a href="#prop-bindingPointId"><span class="ip">bindingPointId</span></a></li>
+				<li><a href="#prop-bindingPointParams"><span class="ip">bindingPointParams</span></a></li>
+				<li><a href="#prop-value"><span class="ip">value</span></a></li>
 			</ul>
 		</li>
 
 
+        <li>
+            <strong>Events</strong>
+            <ul>
+                <li><a href="#event-invoked"><span class="im">invoked</span></a></li>
+            </ul>
+        </li>
 
 
 	</ul>
@@ -138,13 +159,46 @@
 <!-- details -->
 
 
+    <div id="methods" class="page-section">
+        <h2 class="off-left">Methods</h2>
+        <div class="item-list">
+<div id="method-unwatch" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>unwatch</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Bindings4.js.html#l102"><code>Bindings4.js:102</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Stops monitoring this binding source</p>
+</div>
+
+
+
+</div>
+        </div>
+    </div>
 
     <div id="properties" class="page-section">
         <h2 class="off-left">Properties</h2>
 
         <div class="item-list">
-<div id="prop-id" class="property item">
-    <h3 class="name"><code>id</code></h3>
+<div id="prop-bindableId" class="property item">
+    <h3 class="name"><code>bindableId</code></h3>
     <span class="type">String</span>
 
 
@@ -154,22 +208,47 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CommandInfo.js.html#l7"><code>CommandInfo.js:7</code></a>
+        <a href="../files/Bindings4.js.html#l29"><code>Bindings4.js:29</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>The id of the command</p>
+        <p>Returns the id of the bindable object being listened to</p>
 
     </div>
 
 
 
 </div>
-<div id="prop-name" class="property item">
-    <h3 class="name"><code>name</code></h3>
+<div id="prop-bindableParams" class="property item">
+    <h3 class="name"><code>bindableParams</code></h3>
+    <span class="type">Object</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Bindings4.js.html#l45"><code>Bindings4.js:45</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns the parameters of the bindable object</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-bindingPointId" class="property item">
+    <h3 class="name"><code>bindingPointId</code></h3>
     <span class="type">String</span>
 
 
@@ -179,14 +258,64 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CommandInfo.js.html#l13"><code>CommandInfo.js:13</code></a>
+        <a href="../files/Bindings4.js.html#l37"><code>Bindings4.js:37</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>The display name of the command</p>
+        <p>Returns the id of the binding point being listened to</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-bindingPointParams" class="property item">
+    <h3 class="name"><code>bindingPointParams</code></h3>
+    <span class="type">Object</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Bindings4.js.html#l53"><code>Bindings4.js:53</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns the parameters of the binding point object</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-value" class="property item">
+    <h3 class="name"><code>value</code></h3>
+    <span class="type">Object</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Bindings4.js.html#l61"><code>Bindings4.js:61</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns the last received value for the source binding point</p>
 
     </div>
 
@@ -197,6 +326,65 @@
     </div>
 
 
+    <div id="events" class="page-section">
+        <h2 class="off-left">Events</h2>
+
+        <div class="item-list">
+<div id="event-invoked" class="events item">
+    <h3 class="name"><code>invoked</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Bindings4.js.html#l125"><code>Bindings4.js:125</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the source binding point is triggered</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">value</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <p>The value supplied from the source binding</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">source</code>
+                        <span class="type"><a href="../classes/Binding4Watcher.html" class="crosslink">Binding4Watcher</a></span>
+
+
+                    <div class="param-description">
+                        <p>This object</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+</div>
+        </div>
+    </div>
 
                     </div>
                 </div>

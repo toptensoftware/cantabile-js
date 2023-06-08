@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>CommandInfo - Cantabile JavaScript API</title>
+    <title>BindingPointInfo4 - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -102,7 +102,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>CommandInfo</h1>
+    <h1>BindingPointInfo4</h1>
 </div>
 
 
@@ -111,7 +111,7 @@
 
 
 <div class="yuidoc-class-description">
-<p>An anonymous type that describes a command</p>
+<p>An anonymous type that describes a binding point</p>
 
 </div>
 
@@ -124,8 +124,14 @@
 		<li>
 			<strong>Properties</strong>
 			<ul>
+				<li><a href="#prop-bindableParams"><span class="ip">bindableParams</span></a></li>
+				<li><a href="#prop-bindingPointParams"><span class="ip">bindingPointParams</span></a></li>
+				<li><a href="#prop-displayName"><span class="ip">displayName</span></a></li>
 				<li><a href="#prop-id"><span class="ip">id</span></a></li>
-				<li><a href="#prop-name"><span class="ip">name</span></a></li>
+				<li><a href="#prop-kind"><span class="ip">kind</span></a></li>
+				<li><a href="#prop-valueFormat"><span class="ip">valueFormat</span></a></li>
+				<li><a href="#prop-valueMax"><span class="ip">valueMax</span></a></li>
+				<li><a href="#prop-valueMin"><span class="ip">valueMin</span></a></li>
 			</ul>
 		</li>
 
@@ -143,6 +149,81 @@
         <h2 class="off-left">Properties</h2>
 
         <div class="item-list">
+<div id="prop-bindableParams" class="property item">
+    <h3 class="name"><code>bindableParams</code></h3>
+    <span class="type"><a href="../classes/BindingParam.html" class="crosslink">BindingParam[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/BindingPointInfo4.js.html#l71"><code>BindingPointInfo4.js:71</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Information about the bindable object parameters supported by this binding point</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-bindingPointParams" class="property item">
+    <h3 class="name"><code>bindingPointParams</code></h3>
+    <span class="type"><a href="../classes/BindingParam.html" class="crosslink">BindingParam[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/BindingPointInfo4.js.html#l78"><code>BindingPointInfo4.js:78</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Information about the binding point parameters supported by this binding point</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-displayName" class="property item">
+    <h3 class="name"><code>displayName</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/BindingPointInfo4.js.html#l13"><code>BindingPointInfo4.js:13</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The display name of the binding point</p>
+
+    </div>
+
+
+
+</div>
 <div id="prop-id" class="property item">
     <h3 class="name"><code>id</code></h3>
     <span class="type">String</span>
@@ -154,22 +235,22 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CommandInfo.js.html#l7"><code>CommandInfo.js:7</code></a>
+        <a href="../files/BindingPointInfo4.js.html#l7"><code>BindingPointInfo4.js:7</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>The id of the command</p>
+        <p>The id of the binding point</p>
 
     </div>
 
 
 
 </div>
-<div id="prop-name" class="property item">
-    <h3 class="name"><code>name</code></h3>
+<div id="prop-kind" class="property item">
+    <h3 class="name"><code>kind</code></h3>
     <span class="type">String</span>
 
 
@@ -179,14 +260,107 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CommandInfo.js.html#l13"><code>CommandInfo.js:13</code></a>
+        <a href="../files/BindingPointInfo4.js.html#l19"><code>BindingPointInfo4.js:19</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>The display name of the command</p>
+        <p>The kind of value accepted/sent by this binding point</p>
+<ul>
+<li>"Command" - value is ignored, binding point is a simple "action"</li>
+<li>"Switch" - True/false value, &lt;0.5 = false, &gt;= 0.5 = true</li>
+<li>"Value" - A numeric value (floating point or integer)</li>
+<li>"Object" - An object value (typically double, string or byte array)</li>
+</ul>
+
+    </div>
+
+
+
+</div>
+<div id="prop-valueFormat" class="property item">
+    <h3 class="name"><code>valueFormat</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/BindingPointInfo4.js.html#l33"><code>BindingPointInfo4.js:33</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The kind of value accepted/sent by this binding point</p>
+<ul>
+<li>"Float" - a floating point value</li>
+<li>"Integer" - an integer value</li>
+<li>"Index" - an index displayed either 0 or 1 based</li>
+<li>"ProgramNumber" - a program number displayed either 0 or 1 based</li>
+<li>"BankedProgramNumber" - a banked program number displayed in one of several banked program number formats</li>
+<li>"GainLevel" - a gain level displayed by convertin from scalar value to decibels</li>
+<li>"PitchBend" - a pitch bend value from 0 to 16384 but displayed as -8192 to 8191</li>
+</ul>
+<p>This property is only present if 'kind' is "Value"</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-valueMax" class="property item">
+    <h3 class="name"><code>valueMax</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/BindingPointInfo4.js.html#l61"><code>BindingPointInfo4.js:61</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The maximum value range</p>
+<p>This property is only present if 'kind' is "Value"</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-valueMin" class="property item">
+    <h3 class="name"><code>valueMin</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/BindingPointInfo4.js.html#l51"><code>BindingPointInfo4.js:51</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The minimum value range</p>
+<p>This property is only present if 'kind' is "Value"</p>
 
     </div>
 

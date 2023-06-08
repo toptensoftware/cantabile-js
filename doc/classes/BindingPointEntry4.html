@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>CommandInfo - Cantabile JavaScript API</title>
+    <title>BindingPointEntry4 - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -102,7 +102,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>CommandInfo</h1>
+    <h1>BindingPointEntry4</h1>
 </div>
 
 
@@ -111,7 +111,7 @@
 
 
 <div class="yuidoc-class-description">
-<p>An anonymous type that describes a command</p>
+<p>An anonymous type that describes a binding point entry as returned from {{#crossLink "Bindings4/availableBindingPoints:method"}}{{/crosslink}}</p>
 
 </div>
 
@@ -124,8 +124,11 @@
 		<li>
 			<strong>Properties</strong>
 			<ul>
-				<li><a href="#prop-id"><span class="ip">id</span></a></li>
-				<li><a href="#prop-name"><span class="ip">name</span></a></li>
+				<li><a href="#prop-bindableId"><span class="ip">bindableId</span></a></li>
+				<li><a href="#prop-bindingPointId"><span class="ip">bindingPointId</span></a></li>
+				<li><a href="#prop-displayName"><span class="ip">displayName</span></a></li>
+				<li><a href="#prop-isSource"><span class="ip">isSource</span></a></li>
+				<li><a href="#prop-isTarget"><span class="ip">isTarget</span></a></li>
 			</ul>
 		</li>
 
@@ -143,8 +146,8 @@
         <h2 class="off-left">Properties</h2>
 
         <div class="item-list">
-<div id="prop-id" class="property item">
-    <h3 class="name"><code>id</code></h3>
+<div id="prop-bindableId" class="property item">
+    <h3 class="name"><code>bindableId</code></h3>
     <span class="type">String</span>
 
 
@@ -154,22 +157,22 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CommandInfo.js.html#l7"><code>CommandInfo.js:7</code></a>
+        <a href="../files/BindingPointEntry4.js.html#l7"><code>BindingPointEntry4.js:7</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>The id of the command</p>
+        <p>The id of the bindable object</p>
 
     </div>
 
 
 
 </div>
-<div id="prop-name" class="property item">
-    <h3 class="name"><code>name</code></h3>
+<div id="prop-bindingPointId" class="property item">
+    <h3 class="name"><code>bindingPointId</code></h3>
     <span class="type">String</span>
 
 
@@ -179,14 +182,89 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CommandInfo.js.html#l13"><code>CommandInfo.js:13</code></a>
+        <a href="../files/BindingPointEntry4.js.html#l13"><code>BindingPointEntry4.js:13</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>The display name of the command</p>
+        <p>The id of the binding point on the bindable object</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-displayName" class="property item">
+    <h3 class="name"><code>displayName</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/BindingPointEntry4.js.html#l19"><code>BindingPointEntry4.js:19</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The display name of the binding point</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-isSource" class="property item">
+    <h3 class="name"><code>isSource</code></h3>
+    <span class="type">Boolean</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/BindingPointEntry4.js.html#l25"><code>BindingPointEntry4.js:25</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Indicates if this binding point can be used as a source binding point</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-isTarget" class="property item">
+    <h3 class="name"><code>isTarget</code></h3>
+    <span class="type">Boolean</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/BindingPointEntry4.js.html#l31"><code>BindingPointEntry4.js:31</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Indicates if this binding point can be used as a target binding point</p>
 
     </div>
 
