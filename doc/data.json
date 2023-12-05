@@ -2322,7 +2322,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 286,
+            "line": 284,
             "description": "Fired when the part of the currently loaded song changes",
             "itemtype": "event",
             "name": "currentSongPartChanged",
@@ -2342,7 +2342,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 302,
+            "line": 300,
             "description": "Fired when the name of the currently loaded set list changes",
             "itemtype": "event",
             "name": "nameChanged",
