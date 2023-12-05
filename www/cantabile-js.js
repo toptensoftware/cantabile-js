@@ -1408,7 +1408,7 @@ var Cantabile = function (_EventEmitter) {
   * @property bindings4
   * @type {Bindings4} 
   */
-		_this.bindings = new (require('./Bindings4'))(_this);
+		_this.bindings4 = new (require('./Bindings4'))(_this);
 
 		/**
   * Provides access to global commands
