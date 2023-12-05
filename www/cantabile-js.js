@@ -171,7 +171,7 @@ var Application = function (_EndPoint) {
 
 module.exports = Application;
 
-},{"./EndPoint":5,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26}],2:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],2:[function(require,module,exports){
 'use strict';
 
 var _regenerator = require('babel-runtime/regenerator');
@@ -613,8 +613,8 @@ var Bindings = function (_EndPoint) {
    *         console.log("Master output gain changed to:", value);
    *     });
    *     
-   * 	   // The "variables" end point must be opened before callbacks will happen
-   *     C.variables.open();
+   * 	   // The "bindings" end point must be opened before callbacks will happen
+   *     C.bindings.open();
    *     
    *     /// later, stop listening
    *     watcher.unwatch();
@@ -698,7 +698,600 @@ var Bindings = function (_EndPoint) {
 
 module.exports = Bindings;
 
-},{"./EndPoint":5,"babel-runtime/helpers/asyncToGenerator":22,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26,"babel-runtime/regenerator":28,"debug":122,"events":124}],3:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],3:[function(require,module,exports){
+'use strict';
+
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var debug = require('debug')('Cantabile');
+var EndPoint = require('./EndPoint');
+var EventEmitter = require('events');
+
+/**
+ * Represents an active connection watching a source binding point for changes/invocations
+
+ * Returned from the {{#crossLink "Bindings/watch:method"}}{{/crossLink}} method.
+ * 
+ * @class Binding4Watcher
+ * @extends EventEmitter
+ */
+
+var Binding4Watcher = function (_EventEmitter) {
+	(0, _inherits3.default)(Binding4Watcher, _EventEmitter);
+
+	function Binding4Watcher(owner, bindableId, bindingPointId, bindableParams, bindingPointParams, callback) {
+		(0, _classCallCheck3.default)(this, Binding4Watcher);
+
+		var _this = (0, _possibleConstructorReturn3.default)(this, (Binding4Watcher.__proto__ || Object.getPrototypeOf(Binding4Watcher)).call(this));
+
+		_this.owner = owner;
+		_this._bindableId = bindableId;
+		_this._bindingPointId = bindingPointId;
+		_this._bindableParams = bindableParams;
+		_this._bindingPointParams = bindingPointParams;
+		_this._callback = callback;
+		_this._value = null;
+		return _this;
+	}
+
+	/**
+  * Returns the id of the bindable object being listened to
+  *
+  * @property bindableId
+  * @type {String} 
+  */
+
+
+	(0, _createClass3.default)(Binding4Watcher, [{
+		key: '_start',
+		value: function _start() {
+			var _this2 = this;
+
+			this.owner.post("/watch", {
+				bindableId: this._bindableId,
+				bindingPointId: this._bindingPointId,
+				bindableParams: this._bindableParams,
+				bindingPointParams: this._bindingPointParams
+			}).then(function (r) {
+				_this2.owner._registerWatchId(r.data.watchId, _this2);
+				_this2._watchId = r.data.watchId;
+				if (r.data.value !== null && r.data.value !== undefined) {
+					_this2._value = r.data.value;
+					_this2._fireInvoked();
+				}
+			});
+		}
+	}, {
+		key: '_stop',
+		value: function _stop() {
+			if (this.owner._epid && this._watchId) {
+				this.owner.send("POST", "/unwatch", { watchId: this._watchId });
+				this.owner._revokeWatchId(this._watchId);
+				this._watchId = 0;
+				if (this._value !== null && this._value !== undefined) {
+					this._value = null;
+					this._fireInvoked();
+				}
+			}
+		}
+
+		/**
+   * Stops monitoring this binding source
+   *
+   * @method unwatch
+   */
+
+	}, {
+		key: 'unwatch',
+		value: function unwatch() {
+			this._stop();
+			this.owner._revokeWatcher(this);
+		}
+	}, {
+		key: '_update',
+		value: function _update(data) {
+			this._value = data.value;
+			this._fireInvoked();
+		}
+	}, {
+		key: '_fireInvoked',
+		value: function _fireInvoked() {
+			// Function listener?
+			if (this._callback) this._callback(this._value, this);
+
+			/**
+    * Fired when the source binding point is triggered
+    *
+    * @event invoked
+    * @param {Object} value The value supplied from the source binding
+    * @param {Binding4Watcher} source This object
+    */
+			this.emit('invoked', this.value, this);
+		}
+	}, {
+		key: 'bindableId',
+		get: function get() {
+			return this._bindableId;
+		}
+
+		/**
+   * Returns the id of the binding point being listened to
+   *
+   * @property bindingPointId
+   * @type {String} 
+   */
+
+	}, {
+		key: 'bindingPointId',
+		get: function get() {
+			return this._bindingPointId;
+		}
+
+		/**
+   * Returns the parameters of the bindable object
+   *
+   * @property bindableParams
+   * @type {Object} 
+   */
+
+	}, {
+		key: 'bindableParams',
+		get: function get() {
+			return this._bindableParams;
+		}
+
+		/**
+   * Returns the parameters of the binding point object
+   *
+   * @property bindingPointParams
+   * @type {Object} 
+   */
+
+	}, {
+		key: 'bindingPointParams',
+		get: function get() {
+			return this._bindingPointParams;
+		}
+
+		/**
+   * Returns the last received value for the source binding point
+   *
+   * @property value
+   * @type {Object} 
+   */
+
+	}, {
+		key: 'value',
+		get: function get() {
+			return this._value;
+		}
+	}]);
+	return Binding4Watcher;
+}(EventEmitter);
+
+/**
+ * Provides access to Cantabile's binding points.
+ * 
+ * Access this object via the {{#crossLink "Cantabile/bindings4:property"}}{{/crossLink}} property.
+ *
+ * @class Bindings4
+ * @extends EndPoint
+ */
+
+
+var Bindings4 = function (_EndPoint) {
+	(0, _inherits3.default)(Bindings4, _EndPoint);
+
+	function Bindings4(owner) {
+		(0, _classCallCheck3.default)(this, Bindings4);
+
+		var _this3 = (0, _possibleConstructorReturn3.default)(this, (Bindings4.__proto__ || Object.getPrototypeOf(Bindings4)).call(this, owner, "/api/bindings4"));
+
+		_this3._watchers = [];
+		_this3._watchIds = {};
+		return _this3;
+	}
+
+	(0, _createClass3.default)(Bindings4, [{
+		key: '_onOpen',
+		value: function _onOpen() {
+			for (var i = 0; i < this._watchers.length; i++) {
+				this._watchers[i]._start();
+			}
+		}
+	}, {
+		key: '_onClose',
+		value: function _onClose() {
+			for (var i = 0; i < this._watchers.length; i++) {
+				this._watchers[i]._stop();
+			}
+		}
+
+		/**
+   * Retrieves a list of available binding points
+  * 
+  * If Cantabile is running on your local machine you can view this list
+  * directly at <http://localhost:35007/api/bindings/availableBindingPoints>
+   * 
+   * @example
+   * 
+   *     let C = new CantabileApi();
+   *     C.connect();
+   *     console.log(await C.bindings4.availableBindingPoints());
+   * 
+   * @method availableBindingPoints
+   * @return {Promise|BindingPointEntry4[]} A promise to return an array of BindingPointInfo
+   */
+
+	}, {
+		key: 'availableBindingPoints',
+		value: function () {
+			var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+				return _regenerator2.default.wrap(function _callee$(_context) {
+					while (1) {
+						switch (_context.prev = _context.next) {
+							case 0:
+								_context.next = 2;
+								return this.owner.untilConnected();
+
+							case 2:
+								_context.next = 4;
+								return this.request("GET", "/availableBindingPoints");
+
+							case 4:
+								return _context.abrupt('return', _context.sent.data);
+
+							case 5:
+							case 'end':
+								return _context.stop();
+						}
+					}
+				}, _callee, this);
+			}));
+
+			function availableBindingPoints() {
+				return _ref.apply(this, arguments);
+			}
+
+			return availableBindingPoints;
+		}()
+
+		/**
+   * Retrieves additional information about a specific binding point
+  * 
+   * @example
+   * 
+   *     let C = new CantabileApi();
+   *     C.connect();
+   *     console.log(await C.bindings4.bindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
+   * 
+   * @method bindingPointInfo
+   * @return {Promise|BindingPointInfo4[]} A promise to return an array of BindingPointInfo
+   */
+
+	}, {
+		key: 'bindingPointInfo',
+		value: function () {
+			var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(bindableId, bindingPointId, source, bindableParams, bindingPointParams) {
+				return _regenerator2.default.wrap(function _callee2$(_context2) {
+					while (1) {
+						switch (_context2.prev = _context2.next) {
+							case 0:
+								_context2.next = 2;
+								return this.owner.untilConnected();
+
+							case 2:
+								_context2.next = 4;
+								return this.request("GET", "/bindingPointInfo", {
+									bindableId: bindableId,
+									bindingPointId: bindingPointId,
+									source: source,
+									bindableParams: bindableParams,
+									bindingPointParams: bindingPointParams
+								});
+
+							case 4:
+								return _context2.abrupt('return', _context2.sent.data);
+
+							case 5:
+							case 'end':
+								return _context2.stop();
+						}
+					}
+				}, _callee2, this);
+			}));
+
+			function bindingPointInfo(_x, _x2, _x3, _x4, _x5) {
+				return _ref2.apply(this, arguments);
+			}
+
+			return bindingPointInfo;
+		}()
+
+		/**
+   * Invokes a target binding point
+   * 
+   * If Cantabile is running on your local machine a full list of available binding
+   * points is [available here](http://localhost:35007/api/bindings/availableBindingPoints)
+   * 
+   * @example
+   * 
+   * Set the master output level gain
+  * 
+   *     C.bindings4.invoke("masterLevels", "outputGain", 0.5);
+   * 
+   * @example
+   * 
+   * Suspend the 2nd plugin in the song
+  * 
+   *     C.bindings4.invoke("indexedPlugin", "suspend", true, { 
+  * 		rackIndex: 0,
+  *      pluginIndex: 1,
+  * 		}
+  *    );
+   * 
+  * 
+  * @example
+  * 
+  * Sending a MIDI Controller Event
+  * 
+  *     C.bindings4.invoke("midiPorts", "out.Main Keyboard", 65, {
+  *         kind: "Controller",
+  *         controller: 10,
+  * 		   channel: 0
+  * 	   });
+  *
+  * @example
+  * 
+  * Sending MIDI Data directly
+  * 
+  *     C.bindings4.invoke("midiPorts", "out.Main Keyboard", [ 0xb0, 23, 99 ]);
+  * 
+  * @example
+  * 
+  * Sending MIDI Sysex Data directly
+  * 
+  *     C.bindings4.invoke("midiPorts", "out.Main Keyboard", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
+  * 
+   * @example
+   * 
+   * Some binding points expect parameters.  Parameter values are similar to the `value` parameter
+   * in that they specify a value to invoke on the target of the binding.  The difference is related to the
+   * way they're managed internally for user created bindings.  The `value` comes from the source of the binding 
+   * whereas parameters are stored with the binding itself.
+   * 
+   * eg: Load the song with program number 12
+  * 
+   *     C.bindings4.invoke("setList", "loadSongWithProgram", null, null, {
+  * 			program: 12
+  *     });
+   * 
+   * @param {String} bindableId The id of the bindable object
+   * @param {String} bindingPointId The id of the binding point to invoke
+   * @param {Object} [value] The value to pass to the binding point
+   * @param {Object} [bindableParams] Parameters for the bindable object
+   * @param {Object} [bindingPointParams] Parameters for the binding point object
+   * @method invoke
+   * @return {Promise} A promise that resolves once the target binding point has been invoked
+   */
+
+	}, {
+		key: 'invoke',
+		value: function () {
+			var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(bindableId, bindingPointId, value, bindableParams, bindingPointParams) {
+				return _regenerator2.default.wrap(function _callee3$(_context3) {
+					while (1) {
+						switch (_context3.prev = _context3.next) {
+							case 0:
+								_context3.next = 2;
+								return this.request("POST", "/invoke", {
+									bindableId, bindingPointId, value, bindableParams, bindingPointParams
+								});
+
+							case 2:
+								return _context3.abrupt('return', _context3.sent);
+
+							case 3:
+							case 'end':
+								return _context3.stop();
+						}
+					}
+				}, _callee3, this);
+			}));
+
+			function invoke(_x6, _x7, _x8, _x9, _x10) {
+				return _ref3.apply(this, arguments);
+			}
+
+			return invoke;
+		}()
+
+		/**
+   * Queries a source binding point for it's current value.
+   *
+   * @example
+   * 
+   *     console.log("Current Output Gain:", await C.bindings4.query("masterLevels", "outputGain"));
+   * 
+  * @method query
+   * @param {String} bindableId The id of the bindable object
+   * @param {String} bindingPointId The id of the binding point to query
+   * @param {Object} [bindableParams] Parameters for the bindable object
+   * @param {Object} [bindingPointParams] Parameters for the binding point object
+  * @return {Object} The current value of the binding source
+   */
+
+	}, {
+		key: 'query',
+		value: function () {
+			var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(bindableId, bindingPointId, indicies) {
+				return _regenerator2.default.wrap(function _callee4$(_context4) {
+					while (1) {
+						switch (_context4.prev = _context4.next) {
+							case 0:
+								_context4.next = 2;
+								return this.request("POST", "/query", {
+									bindableId, bindingPointId, bindableParams, bindingPointParams
+								});
+
+							case 2:
+								return _context4.abrupt('return', _context4.sent.data.value);
+
+							case 3:
+							case 'end':
+								return _context4.stop();
+						}
+					}
+				}, _callee4, this);
+			}));
+
+			function query(_x11, _x12, _x13) {
+				return _ref4.apply(this, arguments);
+			}
+
+			return query;
+		}()
+
+		/**
+   * Starts watching a source binding point for changes (or invocations)
+   * 
+   * @example
+   * 
+   * Using a callback function:
+   * 
+   *     let C = new CantabileApi();
+   *     
+   *     // Watch a source binding point using a callback function
+   *     C.bindings4.watch("masterLevels", "outputGain", null, null, function(value) {
+   *         console.log("Master output gain changed to:", value);
+   *     })
+   *     
+   * 	   // The "bindings" end point must be opened before callbacks will happen
+   *     C.bindings4.open();
+   * 
+   * @example
+   * 
+   * Using the Binding4Watcher class and events:
+   * 
+   *     let C = new CantabileApi();
+   *     let watcher = C.bindings4.watch("masterLevels", "outputGain");
+   *     watcher.on('invoked', function(value) {
+   *         console.log("Master output gain changed to:", value);
+   *     });
+   *     
+   * 	   // The "bindings" end point must be opened before callbacks will happen
+   *     C.bindings4.open();
+   *     
+   *     /// later, stop listening
+   *     watcher.unwatch();
+   * 
+   * @example
+   * 
+   * Watching for a MIDI event:
+   * 
+      *     C.bindings4.watch("midiPorts", "in.Onscreen Keyboard", null, {
+      *         channel: 0,
+      *         kind: "ProgramChange",
+      *         controller: -1,
+      *     }, function(value) {
+      *         console.log("Program Change: ", value);
+      *     })
+   * 
+   * @example
+  	 * Watching for a keystroke:
+   * 
+   *     C.bindings4.watch("pckeyboard", "keyPress", null, {
+   * 			key: "Ctrl+Alt+M"
+   * 	   }, function() {
+      *         console.log("Key press!");
+      *     })
+   * 
+   * 
+   * 
+   *
+   * @method watch
+      * @param {String} bindableId The id of the bindable object
+      * @param {String} bindingPointId The id of the binding point to query
+      * @param {Object} [bindableParams] Parameters for the bindable object
+      * @param {Object} [bindingPointParams] Parameters for the binding point object
+   * @param {Function} [callback] Optional callback function to be called when the source binding triggers
+   * 
+   * The callback function has the form function(value, source) where value is the new binding point value and source
+   * is the Binding4Watcher instance.
+   * 
+   * @return {Binding4Watcher}
+   */
+
+	}, {
+		key: 'watch',
+		value: function watch(bindableId, bindingPointId, bindableParams, bindingPointParams, callback) {
+			var w = new Binding4Watcher(this, bindableId, bindingPointId, bindableParams, bindingPointParams, callback);
+			this._watchers.push(w);
+
+			if (this._watchers.length == 1) this.open();
+
+			if (this.isOpen) w._start();
+
+			return w;
+		}
+	}, {
+		key: '_registerWatchId',
+		value: function _registerWatchId(watchId, watcher) {
+			this._watchIds[watchId] = watcher;
+		}
+	}, {
+		key: '_revokeWatchId',
+		value: function _revokeWatchId(watchId) {
+			delete this._watchIds[watchId];
+		}
+	}, {
+		key: '_revokeWatcher',
+		value: function _revokeWatcher(w) {
+			this._watchers = this._watchers.filter(function (x) {
+				return x != w;
+			});
+			if (this._watchers.length == 0) this.close();
+		}
+	}, {
+		key: '_onEvent_invoked',
+		value: function _onEvent_invoked(data) {
+			// Get the watcher
+			var w = this._watchIds[data.watchId];
+			if (w) {
+				w._update(data);
+			}
+		}
+	}]);
+	return Bindings4;
+}(EndPoint);
+
+module.exports = Bindings4;
+
+},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],4:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -810,11 +1403,19 @@ var Cantabile = function (_EventEmitter) {
 		_this.bindings = new (require('./Bindings'))(_this);
 
 		/**
-   * Provides access to global commands
-   *
-   * @property commands
-   * @type {Commands} 
-   */
+  * Provides access to global binding v4 points
+  *
+  * @property bindings4
+  * @type {Bindings4} 
+  */
+		_this.bindings = new (require('./Bindings4'))(_this);
+
+		/**
+  * Provides access to global commands
+  *
+  * @property commands
+  * @type {Commands} 
+  */
 		_this.commands = new (require('./Commands'))(_this);
 
 		/**
@@ -1244,7 +1845,7 @@ var eventDiconnected = "disconnected";
 module.exports = Cantabile;
 
 }).call(this)}).call(this,require('_process'))
-},{"./Application":1,"./Bindings":2,"./Commands":4,"./Engine":6,"./KeyRanges":7,"./OnscreenKeyboard":8,"./SetList":9,"./ShowNotes":10,"./Song":11,"./SongStates":12,"./Transport":14,"./Variables":15,"_process":127,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26,"debug":122,"events":124,"isomorphic-ws":125}],4:[function(require,module,exports){
+},{"./Application":1,"./Bindings":2,"./Bindings4":3,"./Commands":5,"./Engine":7,"./KeyRanges":8,"./OnscreenKeyboard":9,"./SetList":10,"./ShowNotes":11,"./Song":12,"./SongStates":13,"./Transport":15,"./Variables":16,"_process":128,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122,"events":124,"isomorphic-ws":125}],5:[function(require,module,exports){
 'use strict';
 
 var _regenerator = require('babel-runtime/regenerator');
@@ -1399,7 +2000,7 @@ var Commands = function (_EndPoint) {
 
 module.exports = Commands;
 
-},{"./EndPoint":5,"babel-runtime/helpers/asyncToGenerator":22,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26,"babel-runtime/regenerator":28,"debug":122}],5:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122}],6:[function(require,module,exports){
 'use strict';
 
 var _regenerator = require('babel-runtime/regenerator');
@@ -1695,7 +2296,7 @@ var EndPoint = function (_EventEmitter) {
 
 module.exports = EndPoint;
 
-},{"babel-runtime/helpers/asyncToGenerator":22,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26,"babel-runtime/regenerator":28,"debug":122,"events":124}],6:[function(require,module,exports){
+},{"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],7:[function(require,module,exports){
 'use strict';
 
 var _regenerator = require('babel-runtime/regenerator');
@@ -1924,7 +2525,7 @@ var Engine = function () {
 
 module.exports = Engine;
 
-},{"./EndPoint":5,"babel-runtime/helpers/asyncToGenerator":22,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/regenerator":28,"debug":122,"node-fetch":126}],7:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/regenerator":29,"debug":122,"node-fetch":127}],8:[function(require,module,exports){
 'use strict';
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
@@ -2004,7 +2605,7 @@ var KeyRanges = function (_EndPoint) {
 
 module.exports = KeyRanges;
 
-},{"./EndPoint":5,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26,"debug":122}],8:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122}],9:[function(require,module,exports){
 'use strict';
 
 var _regenerator = require('babel-runtime/regenerator');
@@ -2400,7 +3001,7 @@ var OnscreenKeyboard = function (_EndPoint) {
 
 module.exports = OnscreenKeyboard;
 
-},{"./EndPoint":5,"babel-runtime/helpers/asyncToGenerator":22,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26,"babel-runtime/regenerator":28,"debug":122,"events":124}],9:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],10:[function(require,module,exports){
 'use strict';
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
@@ -2676,8 +3277,6 @@ var SetList = function (_EndPoint) {
 	}, {
 		key: '_onEvent_currentSongPartChanged',
 		value: function _onEvent_currentSongPartChanged(data) {
-			this._data.current = data.current;
-			this._resolveCurrentSong();
 			this.emit('currentSongPartChanged', data.part, data.partCount);
 
 			/**
@@ -2762,7 +3361,7 @@ var SetList = function (_EndPoint) {
 
 module.exports = SetList;
 
-},{"./EndPoint":5,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26,"debug":122}],10:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122}],11:[function(require,module,exports){
 'use strict';
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
@@ -2912,7 +3511,7 @@ var ShowNotes = function (_EndPoint) {
 
 module.exports = ShowNotes;
 
-},{"./EndPoint":5,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26,"debug":122}],11:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122}],12:[function(require,module,exports){
 'use strict';
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
@@ -3035,7 +3634,7 @@ var SongStates = function (_EndPoint) {
 
 module.exports = SongStates;
 
-},{"./EndPoint":5,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26}],12:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],13:[function(require,module,exports){
 'use strict';
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
@@ -3076,7 +3675,7 @@ var SongStates = function (_States) {
 
 module.exports = SongStates;
 
-},{"./States":13,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26}],13:[function(require,module,exports){
+},{"./States":14,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],14:[function(require,module,exports){
 'use strict';
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
@@ -3394,7 +3993,7 @@ var States = function (_EndPoint) {
 
 module.exports = States;
 
-},{"./EndPoint":5,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26,"debug":122}],14:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122}],15:[function(require,module,exports){
 'use strict';
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
@@ -3639,7 +4238,7 @@ var Transport = function (_EndPoint) {
 
 module.exports = Transport;
 
-},{"./EndPoint":5,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26}],15:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],16:[function(require,module,exports){
 'use strict';
 
 var _regenerator = require('babel-runtime/regenerator');
@@ -3966,19 +4565,19 @@ var Variables = function (_EndPoint) {
 
 module.exports = Variables;
 
-},{"./EndPoint":5,"babel-runtime/helpers/asyncToGenerator":22,"babel-runtime/helpers/classCallCheck":23,"babel-runtime/helpers/createClass":24,"babel-runtime/helpers/inherits":25,"babel-runtime/helpers/possibleConstructorReturn":26,"babel-runtime/regenerator":28,"debug":122,"events":124}],16:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],17:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/create"), __esModule: true };
-},{"core-js/library/fn/object/create":29}],17:[function(require,module,exports){
+},{"core-js/library/fn/object/create":30}],18:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/define-property"), __esModule: true };
-},{"core-js/library/fn/object/define-property":30}],18:[function(require,module,exports){
+},{"core-js/library/fn/object/define-property":31}],19:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/set-prototype-of"), __esModule: true };
-},{"core-js/library/fn/object/set-prototype-of":31}],19:[function(require,module,exports){
+},{"core-js/library/fn/object/set-prototype-of":32}],20:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/promise"), __esModule: true };
-},{"core-js/library/fn/promise":32}],20:[function(require,module,exports){
+},{"core-js/library/fn/promise":33}],21:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/symbol"), __esModule: true };
-},{"core-js/library/fn/symbol":33}],21:[function(require,module,exports){
+},{"core-js/library/fn/symbol":34}],22:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/symbol/iterator"), __esModule: true };
-},{"core-js/library/fn/symbol/iterator":34}],22:[function(require,module,exports){
+},{"core-js/library/fn/symbol/iterator":35}],23:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4017,7 +4616,7 @@ exports.default = function (fn) {
     });
   };
 };
-},{"../core-js/promise":19}],23:[function(require,module,exports){
+},{"../core-js/promise":20}],24:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4027,7 +4626,7 @@ exports.default = function (instance, Constructor) {
     throw new TypeError("Cannot call a class as a function");
   }
 };
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4055,7 +4654,7 @@ exports.default = function () {
     return Constructor;
   };
 }();
-},{"../core-js/object/define-property":17}],25:[function(require,module,exports){
+},{"../core-js/object/define-property":18}],26:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4089,7 +4688,7 @@ exports.default = function (subClass, superClass) {
   });
   if (superClass) _setPrototypeOf2.default ? (0, _setPrototypeOf2.default)(subClass, superClass) : subClass.__proto__ = superClass;
 };
-},{"../core-js/object/create":16,"../core-js/object/set-prototype-of":18,"../helpers/typeof":27}],26:[function(require,module,exports){
+},{"../core-js/object/create":17,"../core-js/object/set-prototype-of":19,"../helpers/typeof":28}],27:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4107,7 +4706,7 @@ exports.default = function (self, call) {
 
   return call && ((typeof call === "undefined" ? "undefined" : (0, _typeof3.default)(call)) === "object" || typeof call === "function") ? call : self;
 };
-},{"../helpers/typeof":27}],27:[function(require,module,exports){
+},{"../helpers/typeof":28}],28:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4129,28 +4728,28 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 } : function (obj) {
   return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
 };
-},{"../core-js/symbol":20,"../core-js/symbol/iterator":21}],28:[function(require,module,exports){
+},{"../core-js/symbol":21,"../core-js/symbol/iterator":22}],29:[function(require,module,exports){
 module.exports = require("regenerator-runtime");
 
-},{"regenerator-runtime":128}],29:[function(require,module,exports){
+},{"regenerator-runtime":129}],30:[function(require,module,exports){
 require('../../modules/es6.object.create');
 var $Object = require('../../modules/_core').Object;
 module.exports = function create(P, D) {
   return $Object.create(P, D);
 };
 
-},{"../../modules/_core":42,"../../modules/es6.object.create":109}],30:[function(require,module,exports){
+},{"../../modules/_core":43,"../../modules/es6.object.create":110}],31:[function(require,module,exports){
 require('../../modules/es6.object.define-property');
 var $Object = require('../../modules/_core').Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
 };
 
-},{"../../modules/_core":42,"../../modules/es6.object.define-property":110}],31:[function(require,module,exports){
+},{"../../modules/_core":43,"../../modules/es6.object.define-property":111}],32:[function(require,module,exports){
 require('../../modules/es6.object.set-prototype-of');
 module.exports = require('../../modules/_core').Object.setPrototypeOf;
 
-},{"../../modules/_core":42,"../../modules/es6.object.set-prototype-of":111}],32:[function(require,module,exports){
+},{"../../modules/_core":43,"../../modules/es6.object.set-prototype-of":112}],33:[function(require,module,exports){
 require('../modules/es6.object.to-string');
 require('../modules/es6.string.iterator');
 require('../modules/web.dom.iterable');
@@ -4159,42 +4758,42 @@ require('../modules/es7.promise.finally');
 require('../modules/es7.promise.try');
 module.exports = require('../modules/_core').Promise;
 
-},{"../modules/_core":42,"../modules/es6.object.to-string":112,"../modules/es6.promise":113,"../modules/es6.string.iterator":114,"../modules/es7.promise.finally":116,"../modules/es7.promise.try":117,"../modules/web.dom.iterable":120}],33:[function(require,module,exports){
+},{"../modules/_core":43,"../modules/es6.object.to-string":113,"../modules/es6.promise":114,"../modules/es6.string.iterator":115,"../modules/es7.promise.finally":117,"../modules/es7.promise.try":118,"../modules/web.dom.iterable":121}],34:[function(require,module,exports){
 require('../../modules/es6.symbol');
 require('../../modules/es6.object.to-string');
 require('../../modules/es7.symbol.async-iterator');
 require('../../modules/es7.symbol.observable');
 module.exports = require('../../modules/_core').Symbol;
 
-},{"../../modules/_core":42,"../../modules/es6.object.to-string":112,"../../modules/es6.symbol":115,"../../modules/es7.symbol.async-iterator":118,"../../modules/es7.symbol.observable":119}],34:[function(require,module,exports){
+},{"../../modules/_core":43,"../../modules/es6.object.to-string":113,"../../modules/es6.symbol":116,"../../modules/es7.symbol.async-iterator":119,"../../modules/es7.symbol.observable":120}],35:[function(require,module,exports){
 require('../../modules/es6.string.iterator');
 require('../../modules/web.dom.iterable');
 module.exports = require('../../modules/_wks-ext').f('iterator');
 
-},{"../../modules/_wks-ext":105,"../../modules/es6.string.iterator":114,"../../modules/web.dom.iterable":120}],35:[function(require,module,exports){
+},{"../../modules/_wks-ext":106,"../../modules/es6.string.iterator":115,"../../modules/web.dom.iterable":121}],36:[function(require,module,exports){
 module.exports = function (it) {
   if (typeof it != 'function') throw TypeError(it + ' is not a function!');
   return it;
 };
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 module.exports = function () { /* empty */ };
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 module.exports = function (it, Constructor, name, forbiddenField) {
   if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
     throw TypeError(name + ': incorrect invocation!');
   } return it;
 };
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 var isObject = require('./_is-object');
 module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
 };
 
-},{"./_is-object":61}],39:[function(require,module,exports){
+},{"./_is-object":62}],40:[function(require,module,exports){
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = require('./_to-iobject');
@@ -4219,7 +4818,7 @@ module.exports = function (IS_INCLUDES) {
   };
 };
 
-},{"./_to-absolute-index":96,"./_to-iobject":98,"./_to-length":99}],40:[function(require,module,exports){
+},{"./_to-absolute-index":97,"./_to-iobject":99,"./_to-length":100}],41:[function(require,module,exports){
 // getting tag from 19.1.3.6 Object.prototype.toString()
 var cof = require('./_cof');
 var TAG = require('./_wks')('toStringTag');
@@ -4244,18 +4843,18 @@ module.exports = function (it) {
     : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
 };
 
-},{"./_cof":41,"./_wks":106}],41:[function(require,module,exports){
+},{"./_cof":42,"./_wks":107}],42:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = function (it) {
   return toString.call(it).slice(8, -1);
 };
 
-},{}],42:[function(require,module,exports){
-var core = module.exports = { version: '2.5.7' };
+},{}],43:[function(require,module,exports){
+var core = module.exports = { version: '2.6.12' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
-},{}],43:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 // optional / simple context binding
 var aFunction = require('./_a-function');
 module.exports = function (fn, that, length) {
@@ -4277,20 +4876,20 @@ module.exports = function (fn, that, length) {
   };
 };
 
-},{"./_a-function":35}],44:[function(require,module,exports){
+},{"./_a-function":36}],45:[function(require,module,exports){
 // 7.2.1 RequireObjectCoercible(argument)
 module.exports = function (it) {
   if (it == undefined) throw TypeError("Can't call method on  " + it);
   return it;
 };
 
-},{}],45:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 // Thank's IE8 for his funny defineProperty
 module.exports = !require('./_fails')(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
-},{"./_fails":50}],46:[function(require,module,exports){
+},{"./_fails":51}],47:[function(require,module,exports){
 var isObject = require('./_is-object');
 var document = require('./_global').document;
 // typeof document.createElement is 'object' in old IE
@@ -4299,13 +4898,13 @@ module.exports = function (it) {
   return is ? document.createElement(it) : {};
 };
 
-},{"./_global":52,"./_is-object":61}],47:[function(require,module,exports){
+},{"./_global":53,"./_is-object":62}],48:[function(require,module,exports){
 // IE 8- don't enum bug keys
 module.exports = (
   'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
 ).split(',');
 
-},{}],48:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 // all enumerable object keys, includes symbols
 var getKeys = require('./_object-keys');
 var gOPS = require('./_object-gops');
@@ -4322,7 +4921,7 @@ module.exports = function (it) {
   } return result;
 };
 
-},{"./_object-gops":78,"./_object-keys":81,"./_object-pie":82}],49:[function(require,module,exports){
+},{"./_object-gops":79,"./_object-keys":82,"./_object-pie":83}],50:[function(require,module,exports){
 var global = require('./_global');
 var core = require('./_core');
 var ctx = require('./_ctx');
@@ -4386,7 +4985,7 @@ $export.U = 64;  // safe
 $export.R = 128; // real proto method for `library`
 module.exports = $export;
 
-},{"./_core":42,"./_ctx":43,"./_global":52,"./_has":53,"./_hide":54}],50:[function(require,module,exports){
+},{"./_core":43,"./_ctx":44,"./_global":53,"./_has":54,"./_hide":55}],51:[function(require,module,exports){
 module.exports = function (exec) {
   try {
     return !!exec();
@@ -4395,7 +4994,7 @@ module.exports = function (exec) {
   }
 };
 
-},{}],51:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 var ctx = require('./_ctx');
 var call = require('./_iter-call');
 var isArrayIter = require('./_is-array-iter');
@@ -4422,7 +5021,7 @@ var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) 
 exports.BREAK = BREAK;
 exports.RETURN = RETURN;
 
-},{"./_an-object":38,"./_ctx":43,"./_is-array-iter":59,"./_iter-call":62,"./_to-length":99,"./core.get-iterator-method":107}],52:[function(require,module,exports){
+},{"./_an-object":39,"./_ctx":44,"./_is-array-iter":60,"./_iter-call":63,"./_to-length":100,"./core.get-iterator-method":108}],53:[function(require,module,exports){
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 var global = module.exports = typeof window != 'undefined' && window.Math == Math
   ? window : typeof self != 'undefined' && self.Math == Math ? self
@@ -4430,13 +5029,13 @@ var global = module.exports = typeof window != 'undefined' && window.Math == Mat
   : Function('return this')();
 if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
-},{}],53:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 var hasOwnProperty = {}.hasOwnProperty;
 module.exports = function (it, key) {
   return hasOwnProperty.call(it, key);
 };
 
-},{}],54:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 var dP = require('./_object-dp');
 var createDesc = require('./_property-desc');
 module.exports = require('./_descriptors') ? function (object, key, value) {
@@ -4446,16 +5045,16 @@ module.exports = require('./_descriptors') ? function (object, key, value) {
   return object;
 };
 
-},{"./_descriptors":45,"./_object-dp":73,"./_property-desc":85}],55:[function(require,module,exports){
+},{"./_descriptors":46,"./_object-dp":74,"./_property-desc":86}],56:[function(require,module,exports){
 var document = require('./_global').document;
 module.exports = document && document.documentElement;
 
-},{"./_global":52}],56:[function(require,module,exports){
+},{"./_global":53}],57:[function(require,module,exports){
 module.exports = !require('./_descriptors') && !require('./_fails')(function () {
   return Object.defineProperty(require('./_dom-create')('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
-},{"./_descriptors":45,"./_dom-create":46,"./_fails":50}],57:[function(require,module,exports){
+},{"./_descriptors":46,"./_dom-create":47,"./_fails":51}],58:[function(require,module,exports){
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
 module.exports = function (fn, args, that) {
   var un = that === undefined;
@@ -4473,7 +5072,7 @@ module.exports = function (fn, args, that) {
   } return fn.apply(that, args);
 };
 
-},{}],58:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
 var cof = require('./_cof');
 // eslint-disable-next-line no-prototype-builtins
@@ -4481,7 +5080,7 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return cof(it) == 'String' ? it.split('') : Object(it);
 };
 
-},{"./_cof":41}],59:[function(require,module,exports){
+},{"./_cof":42}],60:[function(require,module,exports){
 // check on default Array iterator
 var Iterators = require('./_iterators');
 var ITERATOR = require('./_wks')('iterator');
@@ -4491,19 +5090,19 @@ module.exports = function (it) {
   return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
 };
 
-},{"./_iterators":67,"./_wks":106}],60:[function(require,module,exports){
+},{"./_iterators":68,"./_wks":107}],61:[function(require,module,exports){
 // 7.2.2 IsArray(argument)
 var cof = require('./_cof');
 module.exports = Array.isArray || function isArray(arg) {
   return cof(arg) == 'Array';
 };
 
-},{"./_cof":41}],61:[function(require,module,exports){
+},{"./_cof":42}],62:[function(require,module,exports){
 module.exports = function (it) {
   return typeof it === 'object' ? it !== null : typeof it === 'function';
 };
 
-},{}],62:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 // call something on iterator step with safe closing on error
 var anObject = require('./_an-object');
 module.exports = function (iterator, fn, value, entries) {
@@ -4517,7 +5116,7 @@ module.exports = function (iterator, fn, value, entries) {
   }
 };
 
-},{"./_an-object":38}],63:[function(require,module,exports){
+},{"./_an-object":39}],64:[function(require,module,exports){
 'use strict';
 var create = require('./_object-create');
 var descriptor = require('./_property-desc');
@@ -4532,7 +5131,7 @@ module.exports = function (Constructor, NAME, next) {
   setToStringTag(Constructor, NAME + ' Iterator');
 };
 
-},{"./_hide":54,"./_object-create":72,"./_property-desc":85,"./_set-to-string-tag":90,"./_wks":106}],64:[function(require,module,exports){
+},{"./_hide":55,"./_object-create":73,"./_property-desc":86,"./_set-to-string-tag":91,"./_wks":107}],65:[function(require,module,exports){
 'use strict';
 var LIBRARY = require('./_library');
 var $export = require('./_export');
@@ -4603,7 +5202,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
   return methods;
 };
 
-},{"./_export":49,"./_hide":54,"./_iter-create":63,"./_iterators":67,"./_library":68,"./_object-gpo":79,"./_redefine":87,"./_set-to-string-tag":90,"./_wks":106}],65:[function(require,module,exports){
+},{"./_export":50,"./_hide":55,"./_iter-create":64,"./_iterators":68,"./_library":69,"./_object-gpo":80,"./_redefine":88,"./_set-to-string-tag":91,"./_wks":107}],66:[function(require,module,exports){
 var ITERATOR = require('./_wks')('iterator');
 var SAFE_CLOSING = false;
 
@@ -4627,18 +5226,18 @@ module.exports = function (exec, skipClosing) {
   return safe;
 };
 
-},{"./_wks":106}],66:[function(require,module,exports){
+},{"./_wks":107}],67:[function(require,module,exports){
 module.exports = function (done, value) {
   return { value: value, done: !!done };
 };
 
-},{}],67:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 module.exports = {};
 
-},{}],68:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 module.exports = true;
 
-},{}],69:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 var META = require('./_uid')('meta');
 var isObject = require('./_is-object');
 var has = require('./_has');
@@ -4693,7 +5292,7 @@ var meta = module.exports = {
   onFreeze: onFreeze
 };
 
-},{"./_fails":50,"./_has":53,"./_is-object":61,"./_object-dp":73,"./_uid":102}],70:[function(require,module,exports){
+},{"./_fails":51,"./_has":54,"./_is-object":62,"./_object-dp":74,"./_uid":103}],71:[function(require,module,exports){
 var global = require('./_global');
 var macrotask = require('./_task').set;
 var Observer = global.MutationObserver || global.WebKitMutationObserver;
@@ -4764,7 +5363,7 @@ module.exports = function () {
   };
 };
 
-},{"./_cof":41,"./_global":52,"./_task":95}],71:[function(require,module,exports){
+},{"./_cof":42,"./_global":53,"./_task":96}],72:[function(require,module,exports){
 'use strict';
 // 25.4.1.5 NewPromiseCapability(C)
 var aFunction = require('./_a-function');
@@ -4784,7 +5383,7 @@ module.exports.f = function (C) {
   return new PromiseCapability(C);
 };
 
-},{"./_a-function":35}],72:[function(require,module,exports){
+},{"./_a-function":36}],73:[function(require,module,exports){
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = require('./_an-object');
 var dPs = require('./_object-dps');
@@ -4827,7 +5426,7 @@ module.exports = Object.create || function create(O, Properties) {
   return Properties === undefined ? result : dPs(result, Properties);
 };
 
-},{"./_an-object":38,"./_dom-create":46,"./_enum-bug-keys":47,"./_html":55,"./_object-dps":74,"./_shared-key":91}],73:[function(require,module,exports){
+},{"./_an-object":39,"./_dom-create":47,"./_enum-bug-keys":48,"./_html":56,"./_object-dps":75,"./_shared-key":92}],74:[function(require,module,exports){
 var anObject = require('./_an-object');
 var IE8_DOM_DEFINE = require('./_ie8-dom-define');
 var toPrimitive = require('./_to-primitive');
@@ -4845,7 +5444,7 @@ exports.f = require('./_descriptors') ? Object.defineProperty : function defineP
   return O;
 };
 
-},{"./_an-object":38,"./_descriptors":45,"./_ie8-dom-define":56,"./_to-primitive":101}],74:[function(require,module,exports){
+},{"./_an-object":39,"./_descriptors":46,"./_ie8-dom-define":57,"./_to-primitive":102}],75:[function(require,module,exports){
 var dP = require('./_object-dp');
 var anObject = require('./_an-object');
 var getKeys = require('./_object-keys');
@@ -4860,7 +5459,7 @@ module.exports = require('./_descriptors') ? Object.defineProperties : function 
   return O;
 };
 
-},{"./_an-object":38,"./_descriptors":45,"./_object-dp":73,"./_object-keys":81}],75:[function(require,module,exports){
+},{"./_an-object":39,"./_descriptors":46,"./_object-dp":74,"./_object-keys":82}],76:[function(require,module,exports){
 var pIE = require('./_object-pie');
 var createDesc = require('./_property-desc');
 var toIObject = require('./_to-iobject');
@@ -4878,7 +5477,7 @@ exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor
   if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
 };
 
-},{"./_descriptors":45,"./_has":53,"./_ie8-dom-define":56,"./_object-pie":82,"./_property-desc":85,"./_to-iobject":98,"./_to-primitive":101}],76:[function(require,module,exports){
+},{"./_descriptors":46,"./_has":54,"./_ie8-dom-define":57,"./_object-pie":83,"./_property-desc":86,"./_to-iobject":99,"./_to-primitive":102}],77:[function(require,module,exports){
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = require('./_to-iobject');
 var gOPN = require('./_object-gopn').f;
@@ -4899,7 +5498,7 @@ module.exports.f = function getOwnPropertyNames(it) {
   return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
 };
 
-},{"./_object-gopn":77,"./_to-iobject":98}],77:[function(require,module,exports){
+},{"./_object-gopn":78,"./_to-iobject":99}],78:[function(require,module,exports){
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
 var $keys = require('./_object-keys-internal');
 var hiddenKeys = require('./_enum-bug-keys').concat('length', 'prototype');
@@ -4908,10 +5507,10 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
 };
 
-},{"./_enum-bug-keys":47,"./_object-keys-internal":80}],78:[function(require,module,exports){
+},{"./_enum-bug-keys":48,"./_object-keys-internal":81}],79:[function(require,module,exports){
 exports.f = Object.getOwnPropertySymbols;
 
-},{}],79:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = require('./_has');
 var toObject = require('./_to-object');
@@ -4926,7 +5525,7 @@ module.exports = Object.getPrototypeOf || function (O) {
   } return O instanceof Object ? ObjectProto : null;
 };
 
-},{"./_has":53,"./_shared-key":91,"./_to-object":100}],80:[function(require,module,exports){
+},{"./_has":54,"./_shared-key":92,"./_to-object":101}],81:[function(require,module,exports){
 var has = require('./_has');
 var toIObject = require('./_to-iobject');
 var arrayIndexOf = require('./_array-includes')(false);
@@ -4945,7 +5544,7 @@ module.exports = function (object, names) {
   return result;
 };
 
-},{"./_array-includes":39,"./_has":53,"./_shared-key":91,"./_to-iobject":98}],81:[function(require,module,exports){
+},{"./_array-includes":40,"./_has":54,"./_shared-key":92,"./_to-iobject":99}],82:[function(require,module,exports){
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
 var $keys = require('./_object-keys-internal');
 var enumBugKeys = require('./_enum-bug-keys');
@@ -4954,10 +5553,10 @@ module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
 };
 
-},{"./_enum-bug-keys":47,"./_object-keys-internal":80}],82:[function(require,module,exports){
+},{"./_enum-bug-keys":48,"./_object-keys-internal":81}],83:[function(require,module,exports){
 exports.f = {}.propertyIsEnumerable;
 
-},{}],83:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 module.exports = function (exec) {
   try {
     return { e: false, v: exec() };
@@ -4966,7 +5565,7 @@ module.exports = function (exec) {
   }
 };
 
-},{}],84:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 var anObject = require('./_an-object');
 var isObject = require('./_is-object');
 var newPromiseCapability = require('./_new-promise-capability');
@@ -4980,7 +5579,7 @@ module.exports = function (C, x) {
   return promiseCapability.promise;
 };
 
-},{"./_an-object":38,"./_is-object":61,"./_new-promise-capability":71}],85:[function(require,module,exports){
+},{"./_an-object":39,"./_is-object":62,"./_new-promise-capability":72}],86:[function(require,module,exports){
 module.exports = function (bitmap, value) {
   return {
     enumerable: !(bitmap & 1),
@@ -4990,7 +5589,7 @@ module.exports = function (bitmap, value) {
   };
 };
 
-},{}],86:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 var hide = require('./_hide');
 module.exports = function (target, src, safe) {
   for (var key in src) {
@@ -4999,10 +5598,10 @@ module.exports = function (target, src, safe) {
   } return target;
 };
 
-},{"./_hide":54}],87:[function(require,module,exports){
+},{"./_hide":55}],88:[function(require,module,exports){
 module.exports = require('./_hide');
 
-},{"./_hide":54}],88:[function(require,module,exports){
+},{"./_hide":55}],89:[function(require,module,exports){
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
 var isObject = require('./_is-object');
@@ -5029,7 +5628,7 @@ module.exports = {
   check: check
 };
 
-},{"./_an-object":38,"./_ctx":43,"./_is-object":61,"./_object-gopd":75}],89:[function(require,module,exports){
+},{"./_an-object":39,"./_ctx":44,"./_is-object":62,"./_object-gopd":76}],90:[function(require,module,exports){
 'use strict';
 var global = require('./_global');
 var core = require('./_core');
@@ -5045,7 +5644,7 @@ module.exports = function (KEY) {
   });
 };
 
-},{"./_core":42,"./_descriptors":45,"./_global":52,"./_object-dp":73,"./_wks":106}],90:[function(require,module,exports){
+},{"./_core":43,"./_descriptors":46,"./_global":53,"./_object-dp":74,"./_wks":107}],91:[function(require,module,exports){
 var def = require('./_object-dp').f;
 var has = require('./_has');
 var TAG = require('./_wks')('toStringTag');
@@ -5054,14 +5653,14 @@ module.exports = function (it, tag, stat) {
   if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
 };
 
-},{"./_has":53,"./_object-dp":73,"./_wks":106}],91:[function(require,module,exports){
+},{"./_has":54,"./_object-dp":74,"./_wks":107}],92:[function(require,module,exports){
 var shared = require('./_shared')('keys');
 var uid = require('./_uid');
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
 
-},{"./_shared":92,"./_uid":102}],92:[function(require,module,exports){
+},{"./_shared":93,"./_uid":103}],93:[function(require,module,exports){
 var core = require('./_core');
 var global = require('./_global');
 var SHARED = '__core-js_shared__';
@@ -5072,10 +5671,10 @@ var store = global[SHARED] || (global[SHARED] = {});
 })('versions', []).push({
   version: core.version,
   mode: require('./_library') ? 'pure' : 'global',
-  copyright: '© 2018 Denis Pushkarev (zloirock.ru)'
+  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
 });
 
-},{"./_core":42,"./_global":52,"./_library":68}],93:[function(require,module,exports){
+},{"./_core":43,"./_global":53,"./_library":69}],94:[function(require,module,exports){
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
 var anObject = require('./_an-object');
 var aFunction = require('./_a-function');
@@ -5086,7 +5685,7 @@ module.exports = function (O, D) {
   return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
 };
 
-},{"./_a-function":35,"./_an-object":38,"./_wks":106}],94:[function(require,module,exports){
+},{"./_a-function":36,"./_an-object":39,"./_wks":107}],95:[function(require,module,exports){
 var toInteger = require('./_to-integer');
 var defined = require('./_defined');
 // true  -> String#at
@@ -5105,7 +5704,7 @@ module.exports = function (TO_STRING) {
   };
 };
 
-},{"./_defined":44,"./_to-integer":97}],95:[function(require,module,exports){
+},{"./_defined":45,"./_to-integer":98}],96:[function(require,module,exports){
 var ctx = require('./_ctx');
 var invoke = require('./_invoke');
 var html = require('./_html');
@@ -5191,7 +5790,7 @@ module.exports = {
   clear: clearTask
 };
 
-},{"./_cof":41,"./_ctx":43,"./_dom-create":46,"./_global":52,"./_html":55,"./_invoke":57}],96:[function(require,module,exports){
+},{"./_cof":42,"./_ctx":44,"./_dom-create":47,"./_global":53,"./_html":56,"./_invoke":58}],97:[function(require,module,exports){
 var toInteger = require('./_to-integer');
 var max = Math.max;
 var min = Math.min;
@@ -5200,7 +5799,7 @@ module.exports = function (index, length) {
   return index < 0 ? max(index + length, 0) : min(index, length);
 };
 
-},{"./_to-integer":97}],97:[function(require,module,exports){
+},{"./_to-integer":98}],98:[function(require,module,exports){
 // 7.1.4 ToInteger
 var ceil = Math.ceil;
 var floor = Math.floor;
@@ -5208,7 +5807,7 @@ module.exports = function (it) {
   return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
 };
 
-},{}],98:[function(require,module,exports){
+},{}],99:[function(require,module,exports){
 // to indexed object, toObject with fallback for non-array-like ES3 strings
 var IObject = require('./_iobject');
 var defined = require('./_defined');
@@ -5216,7 +5815,7 @@ module.exports = function (it) {
   return IObject(defined(it));
 };
 
-},{"./_defined":44,"./_iobject":58}],99:[function(require,module,exports){
+},{"./_defined":45,"./_iobject":59}],100:[function(require,module,exports){
 // 7.1.15 ToLength
 var toInteger = require('./_to-integer');
 var min = Math.min;
@@ -5224,14 +5823,14 @@ module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
 };
 
-},{"./_to-integer":97}],100:[function(require,module,exports){
+},{"./_to-integer":98}],101:[function(require,module,exports){
 // 7.1.13 ToObject(argument)
 var defined = require('./_defined');
 module.exports = function (it) {
   return Object(defined(it));
 };
 
-},{"./_defined":44}],101:[function(require,module,exports){
+},{"./_defined":45}],102:[function(require,module,exports){
 // 7.1.1 ToPrimitive(input [, PreferredType])
 var isObject = require('./_is-object');
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
@@ -5245,20 +5844,20 @@ module.exports = function (it, S) {
   throw TypeError("Can't convert object to primitive value");
 };
 
-},{"./_is-object":61}],102:[function(require,module,exports){
+},{"./_is-object":62}],103:[function(require,module,exports){
 var id = 0;
 var px = Math.random();
 module.exports = function (key) {
   return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
 };
 
-},{}],103:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 var global = require('./_global');
 var navigator = global.navigator;
 
 module.exports = navigator && navigator.userAgent || '';
 
-},{"./_global":52}],104:[function(require,module,exports){
+},{"./_global":53}],105:[function(require,module,exports){
 var global = require('./_global');
 var core = require('./_core');
 var LIBRARY = require('./_library');
@@ -5269,10 +5868,10 @@ module.exports = function (name) {
   if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
 };
 
-},{"./_core":42,"./_global":52,"./_library":68,"./_object-dp":73,"./_wks-ext":105}],105:[function(require,module,exports){
+},{"./_core":43,"./_global":53,"./_library":69,"./_object-dp":74,"./_wks-ext":106}],106:[function(require,module,exports){
 exports.f = require('./_wks');
 
-},{"./_wks":106}],106:[function(require,module,exports){
+},{"./_wks":107}],107:[function(require,module,exports){
 var store = require('./_shared')('wks');
 var uid = require('./_uid');
 var Symbol = require('./_global').Symbol;
@@ -5285,7 +5884,7 @@ var $exports = module.exports = function (name) {
 
 $exports.store = store;
 
-},{"./_global":52,"./_shared":92,"./_uid":102}],107:[function(require,module,exports){
+},{"./_global":53,"./_shared":93,"./_uid":103}],108:[function(require,module,exports){
 var classof = require('./_classof');
 var ITERATOR = require('./_wks')('iterator');
 var Iterators = require('./_iterators');
@@ -5295,7 +5894,7 @@ module.exports = require('./_core').getIteratorMethod = function (it) {
     || Iterators[classof(it)];
 };
 
-},{"./_classof":40,"./_core":42,"./_iterators":67,"./_wks":106}],108:[function(require,module,exports){
+},{"./_classof":41,"./_core":43,"./_iterators":68,"./_wks":107}],109:[function(require,module,exports){
 'use strict';
 var addToUnscopables = require('./_add-to-unscopables');
 var step = require('./_iter-step');
@@ -5331,24 +5930,24 @@ addToUnscopables('keys');
 addToUnscopables('values');
 addToUnscopables('entries');
 
-},{"./_add-to-unscopables":36,"./_iter-define":64,"./_iter-step":66,"./_iterators":67,"./_to-iobject":98}],109:[function(require,module,exports){
+},{"./_add-to-unscopables":37,"./_iter-define":65,"./_iter-step":67,"./_iterators":68,"./_to-iobject":99}],110:[function(require,module,exports){
 var $export = require('./_export');
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 $export($export.S, 'Object', { create: require('./_object-create') });
 
-},{"./_export":49,"./_object-create":72}],110:[function(require,module,exports){
+},{"./_export":50,"./_object-create":73}],111:[function(require,module,exports){
 var $export = require('./_export');
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
 $export($export.S + $export.F * !require('./_descriptors'), 'Object', { defineProperty: require('./_object-dp').f });
 
-},{"./_descriptors":45,"./_export":49,"./_object-dp":73}],111:[function(require,module,exports){
+},{"./_descriptors":46,"./_export":50,"./_object-dp":74}],112:[function(require,module,exports){
 // 19.1.3.19 Object.setPrototypeOf(O, proto)
 var $export = require('./_export');
 $export($export.S, 'Object', { setPrototypeOf: require('./_set-proto').set });
 
-},{"./_export":49,"./_set-proto":88}],112:[function(require,module,exports){
+},{"./_export":50,"./_set-proto":89}],113:[function(require,module,exports){
 
-},{}],113:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 'use strict';
 var LIBRARY = require('./_library');
 var global = require('./_global');
@@ -5636,7 +6235,7 @@ $export($export.S + $export.F * !(USE_NATIVE && require('./_iter-detect')(functi
   }
 });
 
-},{"./_a-function":35,"./_an-instance":37,"./_classof":40,"./_core":42,"./_ctx":43,"./_export":49,"./_for-of":51,"./_global":52,"./_is-object":61,"./_iter-detect":65,"./_library":68,"./_microtask":70,"./_new-promise-capability":71,"./_perform":83,"./_promise-resolve":84,"./_redefine-all":86,"./_set-species":89,"./_set-to-string-tag":90,"./_species-constructor":93,"./_task":95,"./_user-agent":103,"./_wks":106}],114:[function(require,module,exports){
+},{"./_a-function":36,"./_an-instance":38,"./_classof":41,"./_core":43,"./_ctx":44,"./_export":50,"./_for-of":52,"./_global":53,"./_is-object":62,"./_iter-detect":66,"./_library":69,"./_microtask":71,"./_new-promise-capability":72,"./_perform":84,"./_promise-resolve":85,"./_redefine-all":87,"./_set-species":90,"./_set-to-string-tag":91,"./_species-constructor":94,"./_task":96,"./_user-agent":104,"./_wks":107}],115:[function(require,module,exports){
 'use strict';
 var $at = require('./_string-at')(true);
 
@@ -5655,7 +6254,7 @@ require('./_iter-define')(String, 'String', function (iterated) {
   return { value: point, done: false };
 });
 
-},{"./_iter-define":64,"./_string-at":94}],115:[function(require,module,exports){
+},{"./_iter-define":65,"./_string-at":95}],116:[function(require,module,exports){
 'use strict';
 // ECMAScript 6 symbols shim
 var global = require('./_global');
@@ -5675,12 +6274,14 @@ var enumKeys = require('./_enum-keys');
 var isArray = require('./_is-array');
 var anObject = require('./_an-object');
 var isObject = require('./_is-object');
+var toObject = require('./_to-object');
 var toIObject = require('./_to-iobject');
 var toPrimitive = require('./_to-primitive');
 var createDesc = require('./_property-desc');
 var _create = require('./_object-create');
 var gOPNExt = require('./_object-gopn-ext');
 var $GOPD = require('./_object-gopd');
+var $GOPS = require('./_object-gops');
 var $DP = require('./_object-dp');
 var $keys = require('./_object-keys');
 var gOPD = $GOPD.f;
@@ -5697,7 +6298,7 @@ var SymbolRegistry = shared('symbol-registry');
 var AllSymbols = shared('symbols');
 var OPSymbols = shared('op-symbols');
 var ObjectProto = Object[PROTOTYPE];
-var USE_NATIVE = typeof $Symbol == 'function';
+var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
 var QObject = global.QObject;
 // Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
 var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
@@ -5807,7 +6408,7 @@ if (!USE_NATIVE) {
   $DP.f = $defineProperty;
   require('./_object-gopn').f = gOPNExt.f = $getOwnPropertyNames;
   require('./_object-pie').f = $propertyIsEnumerable;
-  require('./_object-gops').f = $getOwnPropertySymbols;
+  $GOPS.f = $getOwnPropertySymbols;
 
   if (DESCRIPTORS && !require('./_library')) {
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
@@ -5858,6 +6459,16 @@ $export($export.S + $export.F * !USE_NATIVE, 'Object', {
   getOwnPropertySymbols: $getOwnPropertySymbols
 });
 
+// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
+// https://bugs.chromium.org/p/v8/issues/detail?id=3443
+var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
+
+$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
+  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
+    return $GOPS.f(toObject(it));
+  }
+});
+
 // 24.3.2 JSON.stringify(value [, replacer [, space]])
 $JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
   var S = $Symbol();
@@ -5891,7 +6502,7 @@ setToStringTag(Math, 'Math', true);
 // 24.3.3 JSON[@@toStringTag]
 setToStringTag(global.JSON, 'JSON', true);
 
-},{"./_an-object":38,"./_descriptors":45,"./_enum-keys":48,"./_export":49,"./_fails":50,"./_global":52,"./_has":53,"./_hide":54,"./_is-array":60,"./_is-object":61,"./_library":68,"./_meta":69,"./_object-create":72,"./_object-dp":73,"./_object-gopd":75,"./_object-gopn":77,"./_object-gopn-ext":76,"./_object-gops":78,"./_object-keys":81,"./_object-pie":82,"./_property-desc":85,"./_redefine":87,"./_set-to-string-tag":90,"./_shared":92,"./_to-iobject":98,"./_to-primitive":101,"./_uid":102,"./_wks":106,"./_wks-define":104,"./_wks-ext":105}],116:[function(require,module,exports){
+},{"./_an-object":39,"./_descriptors":46,"./_enum-keys":49,"./_export":50,"./_fails":51,"./_global":53,"./_has":54,"./_hide":55,"./_is-array":61,"./_is-object":62,"./_library":69,"./_meta":70,"./_object-create":73,"./_object-dp":74,"./_object-gopd":76,"./_object-gopn":78,"./_object-gopn-ext":77,"./_object-gops":79,"./_object-keys":82,"./_object-pie":83,"./_property-desc":86,"./_redefine":88,"./_set-to-string-tag":91,"./_shared":93,"./_to-iobject":99,"./_to-object":101,"./_to-primitive":102,"./_uid":103,"./_wks":107,"./_wks-define":105,"./_wks-ext":106}],117:[function(require,module,exports){
 // https://github.com/tc39/proposal-promise-finally
 'use strict';
 var $export = require('./_export');
@@ -5913,7 +6524,7 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
   );
 } });
 
-},{"./_core":42,"./_export":49,"./_global":52,"./_promise-resolve":84,"./_species-constructor":93}],117:[function(require,module,exports){
+},{"./_core":43,"./_export":50,"./_global":53,"./_promise-resolve":85,"./_species-constructor":94}],118:[function(require,module,exports){
 'use strict';
 // https://github.com/tc39/proposal-promise-try
 var $export = require('./_export');
@@ -5927,13 +6538,13 @@ $export($export.S, 'Promise', { 'try': function (callbackfn) {
   return promiseCapability.promise;
 } });
 
-},{"./_export":49,"./_new-promise-capability":71,"./_perform":83}],118:[function(require,module,exports){
+},{"./_export":50,"./_new-promise-capability":72,"./_perform":84}],119:[function(require,module,exports){
 require('./_wks-define')('asyncIterator');
 
-},{"./_wks-define":104}],119:[function(require,module,exports){
+},{"./_wks-define":105}],120:[function(require,module,exports){
 require('./_wks-define')('observable');
 
-},{"./_wks-define":104}],120:[function(require,module,exports){
+},{"./_wks-define":105}],121:[function(require,module,exports){
 require('./es6.array.iterator');
 var global = require('./_global');
 var hide = require('./_hide');
@@ -5954,171 +6565,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
   Iterators[NAME] = Iterators.Array;
 }
 
-},{"./_global":52,"./_hide":54,"./_iterators":67,"./_wks":106,"./es6.array.iterator":108}],121:[function(require,module,exports){
-/**
- * Helpers.
- */
-
-var s = 1000;
-var m = s * 60;
-var h = m * 60;
-var d = h * 24;
-var w = d * 7;
-var y = d * 365.25;
-
-/**
- * Parse or format the given `val`.
- *
- * Options:
- *
- *  - `long` verbose formatting [false]
- *
- * @param {String|Number} val
- * @param {Object} [options]
- * @throws {Error} throw an error if val is not a non-empty string or a number
- * @return {String|Number}
- * @api public
- */
-
-module.exports = function (val, options) {
-  options = options || {};
-  var type = typeof val;
-  if (type === 'string' && val.length > 0) {
-    return parse(val);
-  } else if (type === 'number' && isFinite(val)) {
-    return options.long ? fmtLong(val) : fmtShort(val);
-  }
-  throw new Error(
-    'val is not a non-empty string or a valid number. val=' +
-      JSON.stringify(val)
-  );
-};
-
-/**
- * Parse the given `str` and return milliseconds.
- *
- * @param {String} str
- * @return {Number}
- * @api private
- */
-
-function parse(str) {
-  str = String(str);
-  if (str.length > 100) {
-    return;
-  }
-  var match = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
-    str
-  );
-  if (!match) {
-    return;
-  }
-  var n = parseFloat(match[1]);
-  var type = (match[2] || 'ms').toLowerCase();
-  switch (type) {
-    case 'years':
-    case 'year':
-    case 'yrs':
-    case 'yr':
-    case 'y':
-      return n * y;
-    case 'weeks':
-    case 'week':
-    case 'w':
-      return n * w;
-    case 'days':
-    case 'day':
-    case 'd':
-      return n * d;
-    case 'hours':
-    case 'hour':
-    case 'hrs':
-    case 'hr':
-    case 'h':
-      return n * h;
-    case 'minutes':
-    case 'minute':
-    case 'mins':
-    case 'min':
-    case 'm':
-      return n * m;
-    case 'seconds':
-    case 'second':
-    case 'secs':
-    case 'sec':
-    case 's':
-      return n * s;
-    case 'milliseconds':
-    case 'millisecond':
-    case 'msecs':
-    case 'msec':
-    case 'ms':
-      return n;
-    default:
-      return undefined;
-  }
-}
-
-/**
- * Short format for `ms`.
- *
- * @param {Number} ms
- * @return {String}
- * @api private
- */
-
-function fmtShort(ms) {
-  var msAbs = Math.abs(ms);
-  if (msAbs >= d) {
-    return Math.round(ms / d) + 'd';
-  }
-  if (msAbs >= h) {
-    return Math.round(ms / h) + 'h';
-  }
-  if (msAbs >= m) {
-    return Math.round(ms / m) + 'm';
-  }
-  if (msAbs >= s) {
-    return Math.round(ms / s) + 's';
-  }
-  return ms + 'ms';
-}
-
-/**
- * Long format for `ms`.
- *
- * @param {Number} ms
- * @return {String}
- * @api private
- */
-
-function fmtLong(ms) {
-  var msAbs = Math.abs(ms);
-  if (msAbs >= d) {
-    return plural(ms, msAbs, d, 'day');
-  }
-  if (msAbs >= h) {
-    return plural(ms, msAbs, h, 'hour');
-  }
-  if (msAbs >= m) {
-    return plural(ms, msAbs, m, 'minute');
-  }
-  if (msAbs >= s) {
-    return plural(ms, msAbs, s, 'second');
-  }
-  return ms + ' ms';
-}
-
-/**
- * Pluralization helper.
- */
-
-function plural(ms, msAbs, n, name) {
-  var isPlural = msAbs >= n * 1.5;
-  return Math.round(ms / n) + ' ' + name + (isPlural ? 's' : '');
-}
-
-},{}],122:[function(require,module,exports){
+},{"./_global":53,"./_hide":55,"./_iterators":68,"./_wks":107,"./es6.array.iterator":109}],122:[function(require,module,exports){
 (function (process){(function (){
 "use strict";
 
@@ -6302,7 +6749,7 @@ formatters.j = function (v) {
 
 
 }).call(this)}).call(this,require('_process'))
-},{"./common":123,"_process":127}],123:[function(require,module,exports){
+},{"./common":123,"_process":128}],123:[function(require,module,exports){
 "use strict";
 
 /**
@@ -6553,7 +7000,7 @@ function setup(env) {
 module.exports = setup;
 
 
-},{"ms":121}],124:[function(require,module,exports){
+},{"ms":126}],124:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -7074,6 +7521,170 @@ module.exports = ws
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],126:[function(require,module,exports){
+/**
+ * Helpers.
+ */
+
+var s = 1000;
+var m = s * 60;
+var h = m * 60;
+var d = h * 24;
+var w = d * 7;
+var y = d * 365.25;
+
+/**
+ * Parse or format the given `val`.
+ *
+ * Options:
+ *
+ *  - `long` verbose formatting [false]
+ *
+ * @param {String|Number} val
+ * @param {Object} [options]
+ * @throws {Error} throw an error if val is not a non-empty string or a number
+ * @return {String|Number}
+ * @api public
+ */
+
+module.exports = function (val, options) {
+  options = options || {};
+  var type = typeof val;
+  if (type === 'string' && val.length > 0) {
+    return parse(val);
+  } else if (type === 'number' && isFinite(val)) {
+    return options.long ? fmtLong(val) : fmtShort(val);
+  }
+  throw new Error(
+    'val is not a non-empty string or a valid number. val=' +
+      JSON.stringify(val)
+  );
+};
+
+/**
+ * Parse the given `str` and return milliseconds.
+ *
+ * @param {String} str
+ * @return {Number}
+ * @api private
+ */
+
+function parse(str) {
+  str = String(str);
+  if (str.length > 100) {
+    return;
+  }
+  var match = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
+    str
+  );
+  if (!match) {
+    return;
+  }
+  var n = parseFloat(match[1]);
+  var type = (match[2] || 'ms').toLowerCase();
+  switch (type) {
+    case 'years':
+    case 'year':
+    case 'yrs':
+    case 'yr':
+    case 'y':
+      return n * y;
+    case 'weeks':
+    case 'week':
+    case 'w':
+      return n * w;
+    case 'days':
+    case 'day':
+    case 'd':
+      return n * d;
+    case 'hours':
+    case 'hour':
+    case 'hrs':
+    case 'hr':
+    case 'h':
+      return n * h;
+    case 'minutes':
+    case 'minute':
+    case 'mins':
+    case 'min':
+    case 'm':
+      return n * m;
+    case 'seconds':
+    case 'second':
+    case 'secs':
+    case 'sec':
+    case 's':
+      return n * s;
+    case 'milliseconds':
+    case 'millisecond':
+    case 'msecs':
+    case 'msec':
+    case 'ms':
+      return n;
+    default:
+      return undefined;
+  }
+}
+
+/**
+ * Short format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function fmtShort(ms) {
+  var msAbs = Math.abs(ms);
+  if (msAbs >= d) {
+    return Math.round(ms / d) + 'd';
+  }
+  if (msAbs >= h) {
+    return Math.round(ms / h) + 'h';
+  }
+  if (msAbs >= m) {
+    return Math.round(ms / m) + 'm';
+  }
+  if (msAbs >= s) {
+    return Math.round(ms / s) + 's';
+  }
+  return ms + 'ms';
+}
+
+/**
+ * Long format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function fmtLong(ms) {
+  var msAbs = Math.abs(ms);
+  if (msAbs >= d) {
+    return plural(ms, msAbs, d, 'day');
+  }
+  if (msAbs >= h) {
+    return plural(ms, msAbs, h, 'hour');
+  }
+  if (msAbs >= m) {
+    return plural(ms, msAbs, m, 'minute');
+  }
+  if (msAbs >= s) {
+    return plural(ms, msAbs, s, 'second');
+  }
+  return ms + ' ms';
+}
+
+/**
+ * Pluralization helper.
+ */
+
+function plural(ms, msAbs, n, name) {
+  var isPlural = msAbs >= n * 1.5;
+  return Math.round(ms / n) + ' ' + name + (isPlural ? 's' : '');
+}
+
+},{}],127:[function(require,module,exports){
 (function (global){(function (){
 "use strict";
 
@@ -7088,20 +7699,21 @@ var getGlobal = function () {
 	throw new Error('unable to locate global object');
 }
 
-var global = getGlobal();
+var globalObject = getGlobal();
 
-module.exports = exports = global.fetch;
+module.exports = exports = globalObject.fetch;
 
 // Needed for TypeScript and Webpack.
-if (global.fetch) {
-	exports.default = global.fetch.bind(global);
+if (globalObject.fetch) {
+	exports.default = globalObject.fetch.bind(globalObject);
 }
 
-exports.Headers = global.Headers;
-exports.Request = global.Request;
-exports.Response = global.Response;
+exports.Headers = globalObject.Headers;
+exports.Request = globalObject.Request;
+exports.Response = globalObject.Response;
+
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],127:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -7287,7 +7899,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],128:[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -7324,7 +7936,7 @@ if (hadRuntime) {
   }
 }
 
-},{"./runtime":129}],129:[function(require,module,exports){
+},{"./runtime":130}],130:[function(require,module,exports){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -8053,5 +8665,5 @@ if (hadRuntime) {
   (function() { return this })() || Function("return this")()
 );
 
-},{}]},{},[3])(3)
+},{}]},{},[4])(4)
 });

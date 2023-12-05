@@ -279,8 +279,6 @@ class SetList extends EndPoint
 
 	_onEvent_currentSongPartChanged(data)
 	{
-		this._data.current = data.current;
-		this._resolveCurrentSong();
 		this.emit('currentSongPartChanged', data.part, data.partCount);
 
 		/**
