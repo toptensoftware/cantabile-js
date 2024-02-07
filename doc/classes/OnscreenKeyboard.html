@@ -130,6 +130,7 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-close"><span class="im">close</span>()</a></li>
+				<li><a href="#method-injectMidi"><span class="im">injectMidi</span>(<span class="ia">data</span>)</a></li>
 				<li><a href="#method-open"><span class="im">open</span>()</a></li>
 				<li><a href="#method-queryController"><span class="im">queryController</span>(<span class="ia">channel</span><span class="ia">kind</span><span class="ia">controller</span>)</a></li>
 				<li><a href="#method-untilOpen"><span class="im">untilOpen</span>()</a></li>
@@ -179,6 +180,74 @@ automatically closed when the last event listener is removed.</p>
 
 
 
+</div>
+<div id="method-injectMidi" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>injectMidi</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/OnscreenKeyboard.js.html#l248"><code>OnscreenKeyboard.js:248</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Inject MIDI from the on-screen keyboard device</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><p>An array of bytes or a MidiControllerEvent</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<p>Using a callback function:</p>
+<pre class="code prettyprint"><code>// Send a note on event
+C.onscreenKeyboard.inject([0x90, 64, 64]);</code></pre>
+<p>Using the MidiControllerEvent</p>
+<pre class="code prettyprint"><code>// Send Midi CC 23 = 127
+let watcher = C.onscreenKeyboard.inject({
+     channel: 0,
+     kind: "controller",
+     controller: 23,
+     value: 127,
+});
+</code></pre>
+
+			</div>
+		</div>
 </div>
 <div id="method-open" class="method item inherited">
 	<div class="method-signature">
@@ -474,7 +543,7 @@ watcher.on('changed', function(value) {
     console.log(value);
 });
 
-   // The "onscreenKeyboard" end point must be opened before callbacks will happen
+// The "onscreenKeyboard" end point must be opened before callbacks will happen
 C.onscreenKeyboard.open();
 
 /// later, stop listening

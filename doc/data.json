@@ -2028,7 +2028,7 @@
             "description": "Starts watching a controller for changes",
             "example": [
                 "\n\nUsing a callback function:\n\n    let C = new CantabileApi();\n    \n    // Watch a controller using a callback function\n    C.onscreenKeyboard.watchController(1, \"controller\", 64, function(value) {\n        console.log(value);\n    })\n    \n\t   // The \"onscreenKeyboard\" end point must be opened before callbacks will happen\n    C.onscreenKeyboard.open();",
-                "\n\nUsing the ControllerWatcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.onscreenKeyboard.watchController(1, \"controller\", 64);\n    watcher.on('changed', function(value) {\n        console.log(value);\n    });\n    \n\t   // The \"onscreenKeyboard\" end point must be opened before callbacks will happen\n    C.onscreenKeyboard.open();\n    \n    /// later, stop listening\n    watcher.unwatch();"
+                "\n\nUsing the ControllerWatcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.onscreenKeyboard.watchController(1, \"controller\", 64);\n    watcher.on('changed', function(value) {\n        console.log(value);\n    });\n    \n    // The \"onscreenKeyboard\" end point must be opened before callbacks will happen\n    C.onscreenKeyboard.open();\n    \n    /// later, stop listening\n    watcher.unwatch();"
             ],
             "itemtype": "method",
             "name": "watch",
@@ -2065,9 +2065,18 @@
             "file": "OnscreenKeyboard.js",
             "line": 248,
             "description": "Inject MIDI from the on-screen keyboard device",
+            "itemtype": "method",
+            "name": "injectMidi",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "An array of bytes or a MidiControllerEvent",
+                    "type": "Object"
+                }
+            ],
             "example": [
-                "\n\nUsing a callback function:\n\n\t   // Send a note on event\n    C.onscreenKeyboard.inject([0x90, 64, 64]);",
-                "\n\nUsing the MidiControllerEvent\n\n\t\t// Send Midi CC 23 = 127\n     let watcher = C.onscreenKeyboard.inject({\n\t\t\tchannel: 0,\n\t\t\tkind: \"controller\",\n\t\t\tcontroller: 23,\n\t\t\tvalue: 127,\n\t\t});\n"
+                "\n\nUsing a callback function:\n\n    // Send a note on event\n    C.onscreenKeyboard.inject([0x90, 64, 64]);",
+                "\n\nUsing the MidiControllerEvent\n\n    // Send Midi CC 23 = 127\n    let watcher = C.onscreenKeyboard.inject({\n         channel: 0,\n         kind: \"controller\",\n         controller: 23,\n         value: 127,\n    });\n"
             ],
             "class": "OnscreenKeyboard"
         },
@@ -3156,10 +3165,6 @@
         {
             "message": "Missing item type\nHack for:\nhttps://github.com/yui/yuidoc/issues/198\n\nUsage:\n  {{#crossLinkWrapper type}}{{#crossLink type}}{{/crossLink}}{{/crossLinkWrapper}}",
             "line": " yuidoc-lucid-theme\\helpers\\helpers.js:16"
-        },
-        {
-            "message": "Missing item type\nInject MIDI from the on-screen keyboard device",
-            "line": " OnscreenKeyboard.js:248"
         }
     ]
 }
