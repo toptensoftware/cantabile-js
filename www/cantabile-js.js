@@ -2906,7 +2906,7 @@ var OnscreenKeyboard = function (_EndPoint) {
    *         console.log(value);
    *     });
    *     
-   * 	   // The "onscreenKeyboard" end point must be opened before callbacks will happen
+   *     // The "onscreenKeyboard" end point must be opened before callbacks will happen
    *     C.onscreenKeyboard.open();
    *     
    *     /// later, stop listening
@@ -2940,24 +2940,27 @@ var OnscreenKeyboard = function (_EndPoint) {
 		/**
    * Inject MIDI from the on-screen keyboard device
    * 
+   * @method injectMidi
+   * @param {object} data		An array of bytes or a MidiControllerEvent
+   * 
    * @example
    * 
    * Using a callback function:
    * 
-   * 	   // Send a note on event
+   *     // Send a note on event
    *     C.onscreenKeyboard.inject([0x90, 64, 64]);
    * 
    * @example
    * 
    * Using the MidiControllerEvent
    * 
-   * 		// Send Midi CC 23 = 127
-   *      let watcher = C.onscreenKeyboard.inject({
-   * 			channel: 0,
-   * 			kind: "controller",
-   * 			controller: 23,
-   * 			value: 127,
-   * 		});
+   *     // Send Midi CC 23 = 127
+   *     let watcher = C.onscreenKeyboard.inject({
+   *          channel: 0,
+   *          kind: "controller",
+   *          controller: 23,
+   *          value: 127,
+   *     });
    *
    */
 
