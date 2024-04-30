@@ -3621,6 +3621,18 @@ var SongStates = function (_EndPoint) {
 		}
 
 		/**
+   * The set list program number of the song (or -1 if not in set list, or not set)
+   * @property name
+   * @type {Number}
+   */
+
+	}, {
+		key: 'pr',
+		get: function get() {
+			return this._data ? this._data.pr : null;
+		}
+
+		/**
    * The name of the current song state
    * @property currentState
    * @type {String}

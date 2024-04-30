@@ -56,6 +56,13 @@ class SongStates extends EndPoint
 	get name() { return this._data ? this._data.name : null; }
 
 	/**
+	 * The set list program number of the song (or -1 if not in set list, or not set)
+	 * @property name
+	 * @type {Number}
+	 */
+	get pr() { return this._data ? this._data.pr : null; }
+
+	/**
 	 * The name of the current song state
 	 * @property currentState
 	 * @type {String}
