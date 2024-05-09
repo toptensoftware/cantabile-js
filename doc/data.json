@@ -2663,6 +2663,15 @@
         {
             "file": "Song.js",
             "line": 58,
+            "description": "The set list program number of the song (or -1 if not in set list, or not set)",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{Number}",
+            "class": "Song"
+        },
+        {
+            "file": "Song.js",
+            "line": 65,
             "description": "The name of the current song state",
             "itemtype": "property",
             "name": "currentState",
