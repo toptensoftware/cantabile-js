@@ -4052,6 +4052,7 @@ var Transport = function (_EndPoint) {
         key: '_onOpen',
         value: function _onOpen() {
             this.emit('stateChanged');
+            this.emit('loopStateChanged');
             this.emit('timeSignatureChanged');
             this.emit('tempoChanged');
         }
@@ -4059,6 +4060,7 @@ var Transport = function (_EndPoint) {
         key: '_onClose',
         value: function _onClose() {
             this.emit('stateChanged');
+            this.emit('loopStateChanged');
             this.emit('timeSignatureChanged');
             this.emit('tempoChanged');
         }
@@ -4106,11 +4108,23 @@ var Transport = function (_EndPoint) {
             this._data.tempo = data.tempo;
             this.emit('tempoChanged');
         }
+    }, {
+        key: '_onEvent_loopStateChanged',
+        value: function _onEvent_loopStateChanged(data) {
+            /**
+             * Fired when the current loop state, iteration or count has changed
+             *
+             * @event loopStateChanged
+             */
+
+            Object.assign(this._data, data);
+            this.emit('loopStateChanged');
+        }
 
         /**
-         * Starts transport playback
-         * @method play
-         */
+        * Starts transport playback
+        * @method play
+        */
 
     }, {
         key: 'play',
@@ -4183,6 +4197,33 @@ var Transport = function (_EndPoint) {
         value: function stop() {
             if (this.state != "stopped") this.post("/stop", {});
         }
+
+        /**
+         * Stops the master transport
+         * @method stop
+         */
+
+    }, {
+        key: 'cycleLoopMode',
+        value: function cycleLoopMode() {
+            switch (this.loopMode) {
+                case "auto":
+                    this.loopMode = "break";
+                    break;
+
+                case "break":
+                    this.loopMode = "loopOnce";
+                    break;
+
+                case "loopOnce":
+                    this.loopMode = "loop";
+                    break;
+
+                case "loop":
+                    this.loopMode = "auto";
+                    break;
+            }
+        }
     }, {
         key: 'state',
         get: function get() {
@@ -4246,6 +4287,54 @@ var Transport = function (_EndPoint) {
         key: 'tempo',
         get: function get() {
             return this._data ? this._data.tempo : 0;
+        }
+
+        /**
+         * Gets the current loopMode
+         * @property loopMode
+         * @type {String}
+         */
+
+    }, {
+        key: 'loopMode',
+        get: function get() {
+            return this._data ? this._data.loopMode : 0;
+        }
+
+        /**
+         * Sets the current loopMode
+         * @property loopMode
+         * @type {String}
+         */
+        ,
+        set: function set(value) {
+            if (this.loopMode == value) return;
+
+            this.post("/setLoopMode", { loopMode: value });
+        }
+
+        /**
+         * Gets the current loopCount
+         * @property loopCount
+         * @type {Number}
+         */
+
+    }, {
+        key: 'loopCount',
+        get: function get() {
+            return this._data ? this._data.loopCount : -1;
+        }
+
+        /**
+         * Gets the current loopIteration
+         * @property loopIteration
+         * @type {Number}
+         */
+
+    }, {
+        key: 'loopIteration',
+        get: function get() {
+            return this._data ? this._data.loopIteration : -1;
         }
     }]);
     return Transport;

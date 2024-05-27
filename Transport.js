@@ -20,6 +20,7 @@ class Transport extends EndPoint
 	_onOpen()
 	{
         this.emit('stateChanged');
+        this.emit('loopStateChanged');
         this.emit('timeSignatureChanged');
         this.emit('tempoChanged');
     }
@@ -27,6 +28,7 @@ class Transport extends EndPoint
 	_onClose()
 	{
         this.emit('stateChanged');
+        this.emit('loopStateChanged');
         this.emit('timeSignatureChanged');
         this.emit('tempoChanged');
 	}
@@ -77,7 +79,41 @@ class Transport extends EndPoint
 	 */
     get tempo() { return this._data ? this._data.tempo : 0 }
 
-	_onEvent_stateChanged(data)
+	/**
+	 * Gets the current loopMode
+	 * @property loopMode
+	 * @type {String}
+	 */
+    get loopMode() { return this._data ? this._data.loopMode : 0 }
+
+	/**
+	 * Sets the current loopMode
+	 * @property loopMode
+	 * @type {String}
+	 */
+    set loopMode(value)
+    {
+        if (this.loopMode == value)
+            return;
+
+        this.post("/setLoopMode", { loopMode: value });
+    }
+
+	/**
+	 * Gets the current loopCount
+	 * @property loopCount
+	 * @type {Number}
+	 */
+    get loopCount() { return this._data ? this._data.loopCount : -1 }
+
+	/**
+	 * Gets the current loopIteration
+	 * @property loopIteration
+	 * @type {Number}
+	 */
+    get loopIteration() { return this._data ? this._data.loopIteration : -1 }
+
+    _onEvent_stateChanged(data)
 	{
 		/**
 		 * Fired when the current transport state has changed
@@ -114,7 +150,20 @@ class Transport extends EndPoint
         this.emit('tempoChanged');
     }
     
-	/**
+    _onEvent_loopStateChanged(data)
+	{
+		/**
+		 * Fired when the current loop state, iteration or count has changed
+		 *
+		 * @event loopStateChanged
+		 */
+
+        Object.assign(this._data, data);
+		this.emit('loopStateChanged');
+    }
+
+
+    /**
 	 * Starts transport playback
 	 * @method play
 	 */
@@ -190,6 +239,32 @@ class Transport extends EndPoint
     {
         if (this.state != "stopped")
             this.post("/stop", {});
+    }
+
+	/**
+	 * Stops the master transport
+	 * @method stop
+	 */
+    cycleLoopMode()
+    {
+        switch (this.loopMode)
+        {
+            case "auto":
+                this.loopMode = "break";
+                break;
+
+            case "break":
+                this.loopMode = "loopOnce";
+                break;
+
+            case "loopOnce":
+                this.loopMode = "loop";
+                break;
+
+            case "loop":
+                this.loopMode = "auto";
+                break;
+        }
     }
 
 }
