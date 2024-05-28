@@ -129,6 +129,7 @@ class Transport extends EndPoint
 	_onOpen()
 	{
         this.emit(&#x27;stateChanged&#x27;);
+        this.emit(&#x27;loopStateChanged&#x27;);
         this.emit(&#x27;timeSignatureChanged&#x27;);
         this.emit(&#x27;tempoChanged&#x27;);
     }
@@ -136,6 +137,7 @@ class Transport extends EndPoint
 	_onClose()
 	{
         this.emit(&#x27;stateChanged&#x27;);
+        this.emit(&#x27;loopStateChanged&#x27;);
         this.emit(&#x27;timeSignatureChanged&#x27;);
         this.emit(&#x27;tempoChanged&#x27;);
 	}
@@ -186,7 +188,41 @@ class Transport extends EndPoint
 	 */
     get tempo() { return this._data ? this._data.tempo : 0 }
 
-	_onEvent_stateChanged(data)
+	/**
+	 * Gets the current loopMode
+	 * @property loopMode
+	 * @type {String}
+	 */
+    get loopMode() { return this._data ? this._data.loopMode : 0 }
+
+	/**
+	 * Sets the current loopMode
+	 * @property loopMode
+	 * @type {String}
+	 */
+    set loopMode(value)
+    {
+        if (this.loopMode == value)
+            return;
+
+        this.post(&quot;/setLoopMode&quot;, { loopMode: value });
+    }
+
+	/**
+	 * Gets the current loopCount
+	 * @property loopCount
+	 * @type {Number}
+	 */
+    get loopCount() { return this._data ? this._data.loopCount : -1 }
+
+	/**
+	 * Gets the current loopIteration
+	 * @property loopIteration
+	 * @type {Number}
+	 */
+    get loopIteration() { return this._data ? this._data.loopIteration : -1 }
+
+    _onEvent_stateChanged(data)
 	{
 		/**
 		 * Fired when the current transport state has changed
@@ -223,7 +259,20 @@ class Transport extends EndPoint
         this.emit(&#x27;tempoChanged&#x27;);
     }
     
-	/**
+    _onEvent_loopStateChanged(data)
+	{
+		/**
+		 * Fired when the current loop state, iteration or count has changed
+		 *
+		 * @event loopStateChanged
+		 */
+
+        Object.assign(this._data, data);
+		this.emit(&#x27;loopStateChanged&#x27;);
+    }
+
+
+    /**
 	 * Starts transport playback
 	 * @method play
 	 */
@@ -299,6 +348,32 @@ class Transport extends EndPoint
     {
         if (this.state != &quot;stopped&quot;)
             this.post(&quot;/stop&quot;, {});
+    }
+
+	/**
+	 * Stops the master transport
+	 * @method stop
+	 */
+    cycleLoopMode()
+    {
+        switch (this.loopMode)
+        {
+            case &quot;auto&quot;:
+                this.loopMode = &quot;break&quot;;
+                break;
+
+            case &quot;break&quot;:
+                this.loopMode = &quot;loopOnce&quot;;
+                break;
+
+            case &quot;loopOnce&quot;:
+                this.loopMode = &quot;loop&quot;;
+                break;
+
+            case &quot;loop&quot;:
+                this.loopMode = &quot;auto&quot;;
+                break;
+        }
     }
 
 }

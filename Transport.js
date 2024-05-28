@@ -84,7 +84,7 @@ class Transport extends EndPoint
 	 * @property loopMode
 	 * @type {String}
 	 */
-    get loopMode() { return this._data ? this._data.loopMode : 0 }
+    get loopMode() { return this._data ? this._data.loopMode : "none" }
 
 	/**
 	 * Sets the current loopMode

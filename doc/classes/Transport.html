@@ -134,6 +134,7 @@
 				<li><a href="#method-pause"><span class="im">pause</span>()</a></li>
 				<li><a href="#method-play"><span class="im">play</span>()</a></li>
 				<li><a href="#method-stop"><span class="im">stop</span>()</a></li>
+				<li><a href="#method-stop"><span class="im">stop</span>()</a></li>
 				<li><a href="#method-togglePlay"><span class="im">togglePlay</span>()</a></li>
 				<li><a href="#method-togglePlayPause"><span class="im">togglePlayPause</span>()</a></li>
 				<li><a href="#method-togglePlayPause"><span class="im">togglePlayPause</span>()</a></li>
@@ -145,6 +146,10 @@
 		<li>
 			<strong>Properties</strong>
 			<ul>
+				<li><a href="#prop-loopCount"><span class="ip">loopCount</span></a></li>
+				<li><a href="#prop-loopIteration"><span class="ip">loopIteration</span></a></li>
+				<li><a href="#prop-loopMode"><span class="ip">loopMode</span></a></li>
+				<li><a href="#prop-loopMode"><span class="ip">loopMode</span></a></li>
 				<li><a href="#prop-state"><span class="ip">state</span></a></li>
 				<li><a href="#prop-tempo"><span class="ip">tempo</span></a></li>
 				<li><a href="#prop-timeSignature"><span class="ip">timeSignature</span></a></li>
@@ -157,6 +162,7 @@
         <li>
             <strong>Events</strong>
             <ul>
+                <li><a href="#event-loopStateChanged"><span class="im">loopStateChanged</span></a></li>
                 <li><a href="#event-stateChanged"><span class="im">stateChanged</span></a></li>
                 <li><a href="#event-tempoChanged"><span class="im">tempoChanged</span></a></li>
                 <li><a href="#event-timeSignatureChanged"><span class="im">timeSignatureChanged</span></a></li>
@@ -249,7 +255,7 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l175"><code>Transport.js:175</code></a>
+		<a href="../files/Transport.js.html#l224"><code>Transport.js:224</code></a>
 		</p>
 
 
@@ -277,7 +283,7 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l117"><code>Transport.js:117</code></a>
+		<a href="../files/Transport.js.html#l166"><code>Transport.js:166</code></a>
 		</p>
 
 
@@ -305,7 +311,35 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l185"><code>Transport.js:185</code></a>
+		<a href="../files/Transport.js.html#l234"><code>Transport.js:234</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Stops the master transport</p>
+</div>
+
+
+
+</div>
+<div id="method-stop" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>stop</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Transport.js.html#l244"><code>Transport.js:244</code></a>
 		</p>
 
 
@@ -333,7 +367,7 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l151"><code>Transport.js:151</code></a>
+		<a href="../files/Transport.js.html#l200"><code>Transport.js:200</code></a>
 		</p>
 
 
@@ -361,7 +395,7 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l127"><code>Transport.js:127</code></a>
+		<a href="../files/Transport.js.html#l176"><code>Transport.js:176</code></a>
 		</p>
 
 
@@ -389,7 +423,7 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l139"><code>Transport.js:139</code></a>
+		<a href="../files/Transport.js.html#l188"><code>Transport.js:188</code></a>
 		</p>
 
 
@@ -417,7 +451,7 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l163"><code>Transport.js:163</code></a>
+		<a href="../files/Transport.js.html#l212"><code>Transport.js:212</code></a>
 		</p>
 
 
@@ -485,6 +519,106 @@ await C.application.untilOpen();</code></pre>
         <h2 class="off-left">Properties</h2>
 
         <div class="item-list">
+<div id="prop-loopCount" class="property item">
+    <h3 class="name"><code>loopCount</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Transport.js.html#l102"><code>Transport.js:102</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the current loopCount</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-loopIteration" class="property item">
+    <h3 class="name"><code>loopIteration</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Transport.js.html#l109"><code>Transport.js:109</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the current loopIteration</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-loopMode" class="property item">
+    <h3 class="name"><code>loopMode</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Transport.js.html#l82"><code>Transport.js:82</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the current loopMode</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-loopMode" class="property item">
+    <h3 class="name"><code>loopMode</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Transport.js.html#l89"><code>Transport.js:89</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Sets the current loopMode</p>
+
+    </div>
+
+
+
+</div>
 <div id="prop-state" class="property item">
     <h3 class="name"><code>state</code></h3>
     <span class="type">String</span>
@@ -496,7 +630,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l34"><code>Transport.js:34</code></a>
+        <a href="../files/Transport.js.html#l36"><code>Transport.js:36</code></a>
         </p>
 
 
@@ -521,7 +655,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l73"><code>Transport.js:73</code></a>
+        <a href="../files/Transport.js.html#l75"><code>Transport.js:75</code></a>
         </p>
 
 
@@ -546,7 +680,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l66"><code>Transport.js:66</code></a>
+        <a href="../files/Transport.js.html#l68"><code>Transport.js:68</code></a>
         </p>
 
 
@@ -571,7 +705,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l59"><code>Transport.js:59</code></a>
+        <a href="../files/Transport.js.html#l61"><code>Transport.js:61</code></a>
         </p>
 
 
@@ -596,7 +730,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l52"><code>Transport.js:52</code></a>
+        <a href="../files/Transport.js.html#l54"><code>Transport.js:54</code></a>
         </p>
 
 
@@ -618,6 +752,31 @@ await C.application.untilOpen();</code></pre>
         <h2 class="off-left">Events</h2>
 
         <div class="item-list">
+<div id="event-loopStateChanged" class="events item">
+    <h3 class="name"><code>loopStateChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Transport.js.html#l155"><code>Transport.js:155</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the current loop state, iteration or count has changed</p>
+
+    </div>
+
+
+
+</div>
 <div id="event-stateChanged" class="events item">
     <h3 class="name"><code>stateChanged</code></h3>
     <span class="type"></span>
@@ -629,7 +788,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l82"><code>Transport.js:82</code></a>
+        <a href="../files/Transport.js.html#l118"><code>Transport.js:118</code></a>
         </p>
 
 
@@ -654,7 +813,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l107"><code>Transport.js:107</code></a>
+        <a href="../files/Transport.js.html#l143"><code>Transport.js:143</code></a>
         </p>
 
 
@@ -679,7 +838,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l94"><code>Transport.js:94</code></a>
+        <a href="../files/Transport.js.html#l130"><code>Transport.js:130</code></a>
         </p>
 
 

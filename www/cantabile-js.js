@@ -4298,7 +4298,7 @@ var Transport = function (_EndPoint) {
     }, {
         key: 'loopMode',
         get: function get() {
-            return this._data ? this._data.loopMode : 0;
+            return this._data ? this._data.loopMode : "none";
         }
 
         /**

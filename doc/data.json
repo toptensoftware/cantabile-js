@@ -2947,7 +2947,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 34,
+            "line": 36,
             "description": "Gets or sets the current transport state.  Supported values include \"playing\", \"paused\" or \"stopped\"",
             "itemtype": "property",
             "name": "state",
@@ -2956,7 +2956,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 52,
+            "line": 54,
             "description": "Gets the current time signture numerator",
             "itemtype": "property",
             "name": "timeSignatureNum",
@@ -2965,7 +2965,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 59,
+            "line": 61,
             "description": "Gets the current time signture denominator",
             "itemtype": "property",
             "name": "timeSignatureDen",
@@ -2974,7 +2974,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 66,
+            "line": 68,
             "description": "Gets the current time signture as a string (eg: \"3/4\")",
             "itemtype": "property",
             "name": "timeSignature",
@@ -2983,7 +2983,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 73,
+            "line": 75,
             "description": "Gets the current tempo",
             "itemtype": "property",
             "name": "tempo",
@@ -2993,6 +2993,42 @@
         {
             "file": "Transport.js",
             "line": 82,
+            "description": "Gets the current loopMode",
+            "itemtype": "property",
+            "name": "loopMode",
+            "type": "{String}",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 89,
+            "description": "Sets the current loopMode",
+            "itemtype": "property",
+            "name": "loopMode",
+            "type": "{String}",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 102,
+            "description": "Gets the current loopCount",
+            "itemtype": "property",
+            "name": "loopCount",
+            "type": "{Number}",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 109,
+            "description": "Gets the current loopIteration",
+            "itemtype": "property",
+            "name": "loopIteration",
+            "type": "{Number}",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 118,
             "description": "Fired when the current transport state has changed",
             "itemtype": "event",
             "name": "stateChanged",
@@ -3000,7 +3036,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 94,
+            "line": 130,
             "description": "Fired when the current time signature has changed",
             "itemtype": "event",
             "name": "timeSignatureChanged",
@@ -3008,7 +3044,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 107,
+            "line": 143,
             "description": "Fired when the current tempo has changed",
             "itemtype": "event",
             "name": "tempoChanged",
@@ -3016,7 +3052,15 @@
         },
         {
             "file": "Transport.js",
-            "line": 117,
+            "line": 155,
+            "description": "Fired when the current loop state, iteration or count has changed",
+            "itemtype": "event",
+            "name": "loopStateChanged",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 166,
             "description": "Starts transport playback",
             "itemtype": "method",
             "name": "play",
@@ -3024,7 +3068,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 127,
+            "line": 176,
             "description": "Toggles between play and pause states",
             "itemtype": "method",
             "name": "togglePlayPause",
@@ -3032,7 +3076,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 139,
+            "line": 188,
             "description": "Toggles pause and play states (unless stopped)",
             "itemtype": "method",
             "name": "togglePlayPause",
@@ -3040,7 +3084,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 151,
+            "line": 200,
             "description": "Toggles play and stopped states",
             "itemtype": "method",
             "name": "togglePlay",
@@ -3048,7 +3092,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 163,
+            "line": 212,
             "description": "Toggles between play and stop states",
             "itemtype": "method",
             "name": "togglePlayStop",
@@ -3056,7 +3100,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 175,
+            "line": 224,
             "description": "Pauses the master transport",
             "itemtype": "method",
             "name": "pause",
@@ -3064,7 +3108,15 @@
         },
         {
             "file": "Transport.js",
-            "line": 185,
+            "line": 234,
+            "description": "Stops the master transport",
+            "itemtype": "method",
+            "name": "stop",
+            "class": "Transport"
+        },
+        {
+            "file": "Transport.js",
+            "line": 244,
             "description": "Stops the master transport",
             "itemtype": "method",
             "name": "stop",
