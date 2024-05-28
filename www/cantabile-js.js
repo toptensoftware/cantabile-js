@@ -4112,7 +4112,7 @@ var Transport = function (_EndPoint) {
         key: '_onEvent_loopStateChanged',
         value: function _onEvent_loopStateChanged(data) {
             /**
-             * Fired when the current loop state, iteration or count has changed
+             * Fired when the current loop mode, loop iteration or loop count has changed
              *
              * @event loopStateChanged
              */
@@ -4199,8 +4199,8 @@ var Transport = function (_EndPoint) {
         }
 
         /**
-         * Stops the master transport
-         * @method stop
+         * Cycles between the various loop modes
+         * @method cycleLoopMode
          */
 
     }, {
@@ -4290,7 +4290,7 @@ var Transport = function (_EndPoint) {
         }
 
         /**
-         * Gets the current loopMode
+         * Gets or sets the current loopMode ("auto", "break", "loopOnce" or "loop")
          * @property loopMode
          * @type {String}
          */
@@ -4299,14 +4299,7 @@ var Transport = function (_EndPoint) {
         key: 'loopMode',
         get: function get() {
             return this._data ? this._data.loopMode : "none";
-        }
-
-        /**
-         * Sets the current loopMode
-         * @property loopMode
-         * @type {String}
-         */
-        ,
+        },
         set: function set(value) {
             if (this.loopMode == value) return;
 
