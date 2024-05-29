@@ -189,17 +189,12 @@ class Transport extends EndPoint
     get tempo() { return this._data ? this._data.tempo : 0 }
 
 	/**
-	 * Gets the current loopMode
+	 * Gets or sets the current loopMode (&quot;auto&quot;, &quot;break&quot;, &quot;loopOnce&quot; or &quot;loop&quot;)
 	 * @property loopMode
 	 * @type {String}
 	 */
     get loopMode() { return this._data ? this._data.loopMode : &quot;none&quot; }
 
-	/**
-	 * Sets the current loopMode
-	 * @property loopMode
-	 * @type {String}
-	 */
     set loopMode(value)
     {
         if (this.loopMode == value)
@@ -262,7 +257,7 @@ class Transport extends EndPoint
     _onEvent_loopStateChanged(data)
 	{
 		/**
-		 * Fired when the current loop state, iteration or count has changed
+		 * Fired when the current loop mode, loop iteration or loop count has changed
 		 *
 		 * @event loopStateChanged
 		 */
@@ -351,8 +346,8 @@ class Transport extends EndPoint
     }
 
 	/**
-	 * Stops the master transport
-	 * @method stop
+	 * Cycles between the various loop modes
+	 * @method cycleLoopMode
 	 */
     cycleLoopMode()
     {
