@@ -25,7 +25,13 @@ class Application extends EndPoint
 		 * @event changed
 		 */
 
+		/**
+		 * Fired when the application object has initially loaded
+		 * 
+		 * @event open
+		 */
 
+		this.emit('open');
 		this.emit('busyChanged', this.busy);
 		this.emit('changed');
 	}
@@ -92,7 +98,22 @@ class Application extends EndPoint
 	 */
 	get busy() { return this._data ? this._data.busy : false; }
 
-	_onEvent_busyChanged(data)
+
+	 /**
+	 * The base program number (0 or 1)
+	 * @property baseProgramNumber
+	 * @type {Number}
+	 */
+	 get baseProgramNumber() { return this._data ? this._data.baseProgramNumber : null; }
+
+	 /**
+	 * The preferred banked program display format - "SeparateBanks","CombinedBanks","Plain" or "ZeroPadded"
+	 * @property bankedProgramNumberFormat
+	 * @type {String}
+	 */
+	 get bankedProgramNumberFormat() { return this._data ? this._data.bankedProgramNumberFormat : null; }
+
+	 _onEvent_busyChanged(data)
 	{
 		/**
 		 * Fired when the application busy state changes

@@ -47,6 +47,13 @@ var Application = function (_EndPoint) {
     * @event changed
     */
 
+			/**
+    * Fired when the application object has initially loaded
+    * 
+    * @event open
+    */
+
+			this.emit('open');
 			this.emit('busyChanged', this.busy);
 			this.emit('changed');
 		}
@@ -164,6 +171,30 @@ var Application = function (_EndPoint) {
 		key: 'busy',
 		get: function get() {
 			return this._data ? this._data.busy : false;
+		}
+
+		/**
+  * The base program number (0 or 1)
+  * @property baseProgramNumber
+  * @type {Number}
+  */
+
+	}, {
+		key: 'baseProgramNumber',
+		get: function get() {
+			return this._data ? this._data.baseProgramNumber : null;
+		}
+
+		/**
+  * The preferred banked program display format - "SeparateBanks","CombinedBanks","Plain" or "ZeroPadded"
+  * @property bankedProgramNumberFormat
+  * @type {String}
+  */
+
+	}, {
+		key: 'bankedProgramNumberFormat',
+		get: function get() {
+			return this._data ? this._data.bankedProgramNumberFormat : null;
 		}
 	}]);
 	return Application;
