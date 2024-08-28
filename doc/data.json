@@ -709,7 +709,15 @@
         },
         {
             "file": "Application.js",
-            "line": 39,
+            "line": 28,
+            "description": "Fired when the application object has initially loaded",
+            "itemtype": "event",
+            "name": "open",
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 45,
             "description": "The application's company name",
             "itemtype": "property",
             "name": "companyName",
@@ -718,7 +726,7 @@
         },
         {
             "file": "Application.js",
-            "line": 46,
+            "line": 52,
             "description": "The application name",
             "itemtype": "property",
             "name": "name",
@@ -727,7 +735,7 @@
         },
         {
             "file": "Application.js",
-            "line": 53,
+            "line": 59,
             "description": "The application version string",
             "itemtype": "property",
             "name": "version",
@@ -736,7 +744,7 @@
         },
         {
             "file": "Application.js",
-            "line": 60,
+            "line": 66,
             "description": "The application edition string",
             "itemtype": "property",
             "name": "edition",
@@ -745,7 +753,7 @@
         },
         {
             "file": "Application.js",
-            "line": 67,
+            "line": 73,
             "description": "The application's copyright message",
             "itemtype": "property",
             "name": "copyright",
@@ -754,7 +762,7 @@
         },
         {
             "file": "Application.js",
-            "line": 74,
+            "line": 80,
             "description": "The application's build number",
             "itemtype": "property",
             "name": "build",
@@ -763,7 +771,7 @@
         },
         {
             "file": "Application.js",
-            "line": 81,
+            "line": 87,
             "description": "An array of color entries for the color index table",
             "itemtype": "property",
             "name": "build",
@@ -772,7 +780,7 @@
         },
         {
             "file": "Application.js",
-            "line": 88,
+            "line": 94,
             "description": "The application's busy status",
             "itemtype": "property",
             "name": "busy",
@@ -781,7 +789,25 @@
         },
         {
             "file": "Application.js",
-            "line": 97,
+            "line": 102,
+            "description": "The base program number (0 or 1)",
+            "itemtype": "property",
+            "name": "baseProgramNumber",
+            "type": "{Number}",
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 109,
+            "description": "The preferred banked program display format - \"SeparateBanks\",\"CombinedBanks\",\"Plain\" or \"ZeroPadded\"",
+            "itemtype": "property",
+            "name": "bankedProgramNumberFormat",
+            "type": "{String}",
+            "class": "Application"
+        },
+        {
+            "file": "Application.js",
+            "line": 118,
             "description": "Fired when the application busy state changes",
             "itemtype": "event",
             "name": "busyChanged",
