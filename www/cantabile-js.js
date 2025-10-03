@@ -663,8 +663,7 @@ var Bindings = function (_EndPoint) {
       *     })
    * 
    * @example
-  
-   * Watching for a keystroke:
+  	 * Watching for a keystroke:
    * 
    *     C.bindings.watch("global.pckeyboard.keyPress", null, "Ctrl+Alt+M", function() {
       *         console.log("Key press!");
@@ -1254,8 +1253,7 @@ var Bindings4 = function (_EndPoint) {
       *     })
    * 
    * @example
-  
-   * Watching for a keystroke:
+  	 * Watching for a keystroke:
    * 
    *     C.bindings4.watch("pckeyboard", "keyPress", null, {
    * 			key: "Ctrl+Alt+M"
