@@ -7,7 +7,7 @@
 To install `cantabile-js` using npm...
 
 ```bash
-$ npm install --save "https://bitbucket.org/toptensoftware/cantabile-js.git"
+$ npm install --save "toptensoftware/cantabile-js"
 ```
 
 To create an instances:
