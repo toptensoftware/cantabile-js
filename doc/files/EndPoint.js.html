@@ -241,6 +241,11 @@ class EndPoint extends EventEmitter
 		return this.request(&#x27;post&#x27;, endPoint, data);
 	}
 
+	get(endPoint)
+	{
+		return this.request(&#x27;get&#x27;, endPoint);
+	}
+
 	get isOpen() { return !!this._epid }
 
 	/**

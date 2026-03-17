@@ -2193,6 +2193,11 @@ var EndPoint = function (_EventEmitter) {
 			return this.request('post', endPoint, data);
 		}
 	}, {
+		key: 'get',
+		value: function get(endPoint) {
+			return this.request('get', endPoint);
+		}
+	}, {
 		key: 'untilOpen',
 
 
@@ -3181,6 +3186,34 @@ var SetList = function (_EndPoint) {
 				direction: direction,
 				delayed: delayed,
 				wrap: wrap
+			});
+		}
+
+		/**
+   * Gets a list of available set lists in the user's set list folder
+   * @returns {String[]} An array of set list names (relative to user's set list folder, extension removed)
+   */
+
+	}, {
+		key: 'available',
+		value: function available() {
+			return this.get("/available");
+		}
+
+		/**
+   * Loads the specified set list from the user's set list folder
+   * @param {String} name Name of the set to load (relative to user's set list folder, without extension)
+   * @param {Boolean} loadFirst True to load the first song in the set list (default = true)
+   */
+
+	}, {
+		key: 'loadSetList',
+		value: function loadSetList(name) {
+			var loadFirst = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+			this.post("/loadSetList", {
+				name,
+				loadFirst
 			});
 		}
 	}, {

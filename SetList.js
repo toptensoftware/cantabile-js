@@ -149,9 +149,9 @@ class SetList extends EndPoint
 	 * Gets a list of available set lists in the user's set list folder
 	 * @returns {String[]} An array of set list names (relative to user's set list folder, extension removed)
 	 */
-	available()
+	async available()
 	{
-		return this.get("/available");
+		return (await this.get("/available")).data.setLists;
 	}
 
 	/**

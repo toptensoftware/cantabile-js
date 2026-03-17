@@ -1795,7 +1795,7 @@
         },
         {
             "file": "EndPoint.js",
-            "line": 137,
+            "line": 142,
             "description": "Returns a promise that will be resolved when this end point is opened",
             "example": [
                 "\n\n    let C = new CantabileApi();\n\t   C.application.open();\n    await C.application.untilOpen();"
@@ -2260,7 +2260,35 @@
         },
         {
             "file": "SetList.js",
-            "line": 177,
+            "line": 148,
+            "description": "Gets a list of available set lists in the user's set list folder",
+            "return": {
+                "description": "An array of set list names (relative to user's set list folder, extension removed)",
+                "type": "String[]"
+            },
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 157,
+            "description": "Loads the specified set list from the user's set list folder",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of the set to load (relative to user's set list folder, without extension)",
+                    "type": "String"
+                },
+                {
+                    "name": "loadFirst",
+                    "description": "True to load the first song in the set list (default = true)",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "SetList.js",
+            "line": 199,
             "description": "Fired after a new item has been added to the set list",
             "itemtype": "event",
             "name": "itemAdded",
@@ -2275,7 +2303,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 184,
+            "line": 206,
             "description": "Fired when anything about the contents of the set list changes",
             "itemtype": "event",
             "name": "changed",
@@ -2283,7 +2311,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 197,
+            "line": 219,
             "description": "Fired after an item has been removed from the set list",
             "itemtype": "event",
             "name": "itemRemoved",
@@ -2298,7 +2326,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 213,
+            "line": 235,
             "description": "Fired when an item in the set list has been moved",
             "itemtype": "event",
             "name": "itemMoved",
@@ -2318,7 +2346,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 232,
+            "line": 254,
             "description": "Fired when something about an item has changed",
             "itemtype": "event",
             "name": "itemChanged",
@@ -2333,7 +2361,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 248,
+            "line": 270,
             "description": "Fired when the entire set list has changed (eg: after a sort operation, or loading a new set list)",
             "itemtype": "event",
             "name": "reload",
@@ -2341,7 +2369,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 260,
+            "line": 282,
             "description": "Fired when the pre-loaded state of the list has changed",
             "itemtype": "event",
             "name": "preLoadedChanged",
@@ -2349,7 +2377,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 273,
+            "line": 295,
             "description": "Fired when the currently loaded song changes",
             "itemtype": "event",
             "name": "currentSongChanged",
@@ -2357,7 +2385,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 284,
+            "line": 306,
             "description": "Fired when the part of the currently loaded song changes",
             "itemtype": "event",
             "name": "currentSongPartChanged",
@@ -2377,7 +2405,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 300,
+            "line": 322,
             "description": "Fired when the name of the currently loaded set list changes",
             "itemtype": "event",
             "name": "nameChanged",
@@ -3233,6 +3261,10 @@
     ],
     "warnings": [
         {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " SetList.js:148"
+        },
+        {
             "message": "Missing item type\nBootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
             "line": " doc\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js:1"
         },
@@ -3243,6 +3275,14 @@
         {
             "message": "Missing item type\nHack for:\nhttps://github.com/yui/yuidoc/issues/198\n\nUsage:\n  {{#crossLinkWrapper type}}{{#crossLink type}}{{/crossLink}}{{/crossLinkWrapper}}",
             "line": " yuidoc-lucid-theme\\helpers\\helpers.js:16"
+        },
+        {
+            "message": "Missing item type\nGets a list of available set lists in the user's set list folder",
+            "line": " SetList.js:148"
+        },
+        {
+            "message": "Missing item type\nLoads the specified set list from the user's set list folder",
+            "line": " SetList.js:157"
         }
     ]
 }

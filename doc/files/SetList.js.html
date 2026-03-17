@@ -254,6 +254,28 @@ class SetList extends EndPoint
 		})
 	}
 
+	/**
+	 * Gets a list of available set lists in the user&#x27;s set list folder
+	 * @returns {String[]} An array of set list names (relative to user&#x27;s set list folder, extension removed)
+	 */
+	available()
+	{
+		return this.get(&quot;/available&quot;);
+	}
+
+	/**
+	 * Loads the specified set list from the user&#x27;s set list folder
+	 * @param {String} name Name of the set to load (relative to user&#x27;s set list folder, without extension)
+	 * @param {Boolean} loadFirst True to load the first song in the set list (default = true)
+	 */
+	loadSetList(name, loadFirst = true)
+	{
+		this.post(&quot;/loadSetList&quot;, {
+			name, 
+			loadFirst
+		});
+	}
+
 
 	_resolveCurrentSong()
 	{
