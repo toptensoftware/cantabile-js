@@ -2262,6 +2262,8 @@
             "file": "SetList.js",
             "line": 148,
             "description": "Gets a list of available set lists in the user's set list folder",
+            "itemtype": "method",
+            "name": "available",
             "return": {
                 "description": "An array of set list names (relative to user's set list folder, extension removed)",
                 "type": "String[]"
@@ -2270,8 +2272,10 @@
         },
         {
             "file": "SetList.js",
-            "line": 157,
+            "line": 158,
             "description": "Loads the specified set list from the user's set list folder",
+            "itemtype": "method",
+            "name": "loadSetList",
             "params": [
                 {
                     "name": "name",
@@ -2288,7 +2292,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 199,
+            "line": 201,
             "description": "Fired after a new item has been added to the set list",
             "itemtype": "event",
             "name": "itemAdded",
@@ -2303,7 +2307,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 206,
+            "line": 208,
             "description": "Fired when anything about the contents of the set list changes",
             "itemtype": "event",
             "name": "changed",
@@ -2311,7 +2315,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 219,
+            "line": 221,
             "description": "Fired after an item has been removed from the set list",
             "itemtype": "event",
             "name": "itemRemoved",
@@ -2326,7 +2330,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 235,
+            "line": 237,
             "description": "Fired when an item in the set list has been moved",
             "itemtype": "event",
             "name": "itemMoved",
@@ -2346,7 +2350,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 254,
+            "line": 256,
             "description": "Fired when something about an item has changed",
             "itemtype": "event",
             "name": "itemChanged",
@@ -2361,7 +2365,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 270,
+            "line": 272,
             "description": "Fired when the entire set list has changed (eg: after a sort operation, or loading a new set list)",
             "itemtype": "event",
             "name": "reload",
@@ -2369,7 +2373,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 282,
+            "line": 284,
             "description": "Fired when the pre-loaded state of the list has changed",
             "itemtype": "event",
             "name": "preLoadedChanged",
@@ -2377,7 +2381,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 295,
+            "line": 297,
             "description": "Fired when the currently loaded song changes",
             "itemtype": "event",
             "name": "currentSongChanged",
@@ -2385,7 +2389,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 306,
+            "line": 308,
             "description": "Fired when the part of the currently loaded song changes",
             "itemtype": "event",
             "name": "currentSongPartChanged",
@@ -2405,7 +2409,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 322,
+            "line": 324,
             "description": "Fired when the name of the currently loaded set list changes",
             "itemtype": "event",
             "name": "nameChanged",
@@ -3275,14 +3279,6 @@
         {
             "message": "Missing item type\nHack for:\nhttps://github.com/yui/yuidoc/issues/198\n\nUsage:\n  {{#crossLinkWrapper type}}{{#crossLink type}}{{/crossLink}}{{/crossLinkWrapper}}",
             "line": " yuidoc-lucid-theme\\helpers\\helpers.js:16"
-        },
-        {
-            "message": "Missing item type\nGets a list of available set lists in the user's set list folder",
-            "line": " SetList.js:148"
-        },
-        {
-            "message": "Missing item type\nLoads the specified set list from the user's set list folder",
-            "line": " SetList.js:157"
         }
     ]
 }

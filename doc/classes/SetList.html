@@ -129,10 +129,12 @@
 		<li>
 			<strong>Methods</strong>
 			<ul>
+				<li><a href="#method-available"><span class="im">available</span>()</a></li>
 				<li><a href="#method-close"><span class="im">close</span>()</a></li>
 				<li><a href="#method-loadFirstSong"><span class="im">loadFirstSong</span>(<span class="ia">delayed</span>)</a></li>
 				<li><a href="#method-loadLastSong"><span class="im">loadLastSong</span>(<span class="ia">delayed</span>)</a></li>
 				<li><a href="#method-loadNextSong"><span class="im">loadNextSong</span>(<span class="ia">direction</span><span class="ia">delayed</span><span class="ia">wrap</span>)</a></li>
+				<li><a href="#method-loadSetList"><span class="im">loadSetList</span>(<span class="ia">name</span><span class="ia">loadFirst</span>)</a></li>
 				<li><a href="#method-loadSongByIndex"><span class="im">loadSongByIndex</span>(<span class="ia">index</span><span class="ia">delayed</span>)</a></li>
 				<li><a href="#method-loadSongByProgram"><span class="im">loadSongByProgram</span>(<span class="ia">index</span><span class="ia">delayed</span>)</a></li>
 				<li><a href="#method-open"><span class="im">open</span>()</a></li>
@@ -178,6 +180,46 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
+<div id="method-available" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>available</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">String[]</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/SetList.js.html#l148"><code>SetList.js:148</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Gets a list of available set lists in the user's set list folder</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">String[]</span>:
+					<p>An array of set list names (relative to user's set list folder, extension removed)</p>
+
+			</div>
+		</div>
+
+</div>
 <div id="method-close" class="method item inherited">
 	<div class="method-signature">
 	<span class="name"><code>close</code></span>
@@ -375,6 +417,67 @@ automatically closed when the last event listener is removed.</p>
 
 
 					<div class="param-description"><p>Whether to wrap around at the start/end of the list</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-loadSetList" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>loadSetList</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>name</code>
+				</li>
+				<li class="arg">
+						<code>loadFirst</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/SetList.js.html#l158"><code>SetList.js:158</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Loads the specified set list from the user's set list folder</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">name</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><p>Name of the set to load (relative to user's set list folder, without extension)</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">loadFirst</code>
+						<span class="type">Boolean</span>
+
+
+					<div class="param-description"><p>True to load the first song in the set list (default = true)</p>
 </div>
 
 				</li>
@@ -737,7 +840,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/SetList.js.html#l206"><code>SetList.js:206</code></a>
+        <a href="../files/SetList.js.html#l208"><code>SetList.js:208</code></a>
         </p>
 
 
@@ -762,7 +865,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/SetList.js.html#l295"><code>SetList.js:295</code></a>
+        <a href="../files/SetList.js.html#l297"><code>SetList.js:297</code></a>
         </p>
 
 
@@ -787,7 +890,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/SetList.js.html#l306"><code>SetList.js:306</code></a>
+        <a href="../files/SetList.js.html#l308"><code>SetList.js:308</code></a>
         </p>
 
 
@@ -840,7 +943,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/SetList.js.html#l199"><code>SetList.js:199</code></a>
+        <a href="../files/SetList.js.html#l201"><code>SetList.js:201</code></a>
         </p>
 
 
@@ -882,7 +985,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/SetList.js.html#l254"><code>SetList.js:254</code></a>
+        <a href="../files/SetList.js.html#l256"><code>SetList.js:256</code></a>
         </p>
 
 
@@ -924,7 +1027,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/SetList.js.html#l235"><code>SetList.js:235</code></a>
+        <a href="../files/SetList.js.html#l237"><code>SetList.js:237</code></a>
         </p>
 
 
@@ -977,7 +1080,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/SetList.js.html#l219"><code>SetList.js:219</code></a>
+        <a href="../files/SetList.js.html#l221"><code>SetList.js:221</code></a>
         </p>
 
 
@@ -1019,7 +1122,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/SetList.js.html#l322"><code>SetList.js:322</code></a>
+        <a href="../files/SetList.js.html#l324"><code>SetList.js:324</code></a>
         </p>
 
 
@@ -1044,7 +1147,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/SetList.js.html#l282"><code>SetList.js:282</code></a>
+        <a href="../files/SetList.js.html#l284"><code>SetList.js:284</code></a>
         </p>
 
 
@@ -1069,7 +1172,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/SetList.js.html#l270"><code>SetList.js:270</code></a>
+        <a href="../files/SetList.js.html#l272"><code>SetList.js:272</code></a>
         </p>
 
 
