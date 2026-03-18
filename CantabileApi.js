@@ -44,15 +44,15 @@ class Cantabile extends EventEmitter
 		this._setState("disconnected");
 
 		/**
-		 * Gets the setList object
+		 * Gets the {{#crossLink "SetList"}}{{/crossLink}} object
 		 *
 		 * @property setList
-		 * @type {SetList} 
+		 * @type {SetList}
 		 */
 		this.setList = new SetList(this);
 
 		/**
-		 * Gets the states of the current song
+		 * Gets the {{#crossLink "SongStates"}}{{/crossLink}} for the current song
 		 *
 		 * @property songStates
 		 * @type {SongStates}
@@ -60,7 +60,7 @@ class Cantabile extends EventEmitter
 		this.songStates = new SongStates(this);
 
 		/**
-		 * Gets the currently active key ranges
+		 * Gets the currently active {{#crossLink "KeyRanges"}}{{/crossLink}}
 		 *
 		 * @property keyRanges
 		 * @type {KeyRanges}
@@ -68,7 +68,7 @@ class Cantabile extends EventEmitter
 		this.keyRanges = new KeyRanges(this);
 
 		/**
-		 * Gets the current set of show notes
+		 * Gets the current {{#crossLink "ShowNotes"}}{{/crossLink}}
 		 *
 		 * @property showNotes
 		 * @type {ShowNotes}
@@ -76,7 +76,7 @@ class Cantabile extends EventEmitter
 		this.showNotes = new ShowNotes(this);
 
 		/**
-		 * Provides access to variable expansion facilities
+		 * Provides access to {{#crossLink "Variables"}}{{/crossLink}} expansion facilities
 		 *
 		 * @property variables
 		 * @type {Variables}
@@ -84,7 +84,7 @@ class Cantabile extends EventEmitter
 		 this.variables = new Variables(this);
 
 		/**
-		 * Provides access to controllers managed by Cantabile's onscreen keyboard device
+		 * Provides access to controllers managed by Cantabile's {{#crossLink "OnscreenKeyboard"}}{{/crossLink}} device
 		 *
 		 * @property onscreenKeyboard
 		 * @type {OnscreenKeyboard}
@@ -92,7 +92,7 @@ class Cantabile extends EventEmitter
 		 this.onscreenKeyboard = new OnscreenKeyboard(this);
 
 		 /**
-		 * Provides access to global binding points
+		 * Provides access to global {{#crossLink "Bindings"}}{{/crossLink}} points
 		 *
 		 * @property bindings
 		 * @type {Bindings}
@@ -100,7 +100,7 @@ class Cantabile extends EventEmitter
 		  this.bindings = new Bindings(this);
 
 		 /**
-		 * Provides access to global binding v4 points
+		 * Provides access to global {{#crossLink "Bindings4"}}{{/crossLink}} points
 		 *
 		 * @property bindings4
 		 * @type {Bindings4}
@@ -108,7 +108,7 @@ class Cantabile extends EventEmitter
 		  this.bindings4 = new Bindings4(this);
 
 		  /**
-		 * Provides access to global commands
+		 * Provides access to global {{#crossLink "Commands"}}{{/crossLink}}
 		 *
 		 * @property commands
 		 * @type {Commands}
@@ -116,7 +116,7 @@ class Cantabile extends EventEmitter
 		 this.commands = new Commands(this);
 
 		 /**
-		 * Provides access to information about the current song
+		 * Provides access to {{#crossLink "Song"}}{{/crossLink}} information about the current song
 		 *
 		 * @property song
 		 * @type {Song}
@@ -124,7 +124,7 @@ class Cantabile extends EventEmitter
 		this.song = new Song(this);
 
 		/**
-		 * Provides access to master transport controls
+		 * Provides access to master {{#crossLink "Transport"}}{{/crossLink}} controls
 		 *
 		 * @property transport
 		 * @type {Transport}
@@ -132,7 +132,7 @@ class Cantabile extends EventEmitter
 		this.transport = new Transport(this);
 
 		/**
-		 * Provides access to the application object
+		 * Provides access to the {{#crossLink "Application"}}{{/crossLink}} object
 		 *
 		 * @property application
 		 * @type {Application}
@@ -140,7 +140,7 @@ class Cantabile extends EventEmitter
 		this.application = new Application(this);
 
 		/**
-		 * Provides access to the engine object
+		 * Provides access to the {{#crossLink "Engine"}}{{/crossLink}} object
 		 *
 		 * @property engine
 		 * @type {Engine}

@@ -227,8 +227,8 @@ class OnscreenKeyboard extends EndPoint
 	 * @param {Function} [callback] Optional callback function to be called when the controller value changes.
 	 * 
 	 * The callback function has the form function(value, source) where value is the controller value and source
-	 * is the ControllerWatcher instance.
-	 * 
+	 * is the {{#crossLink "ControllerWatcher"}}{{/crossLink}} instance.
+	 *
 	 * @return {ControllerWatcher}
 	 */
 	watch(channel, kind, controller, listener)

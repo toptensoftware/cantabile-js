@@ -38,7 +38,7 @@ class Commands extends EndPoint
      *     console.log(await C.commands.availableCommands());
      * 
      * @method availableCommands
-     * @return {Promise|CommandInfo[]} A promise to return an array of CommandInfo
+     * @return {Promise|CommandInfo[]} A promise to return an array of {{#crossLink "CommandInfo"}}{{/crossLink}} objects
      */
     async availableCommands()
     {

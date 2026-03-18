@@ -28,7 +28,7 @@ class ShowNotes extends EndPoint
 	}
 
 	/**
-	 * An array of show note items
+	 * An array of {{#crossLink "ShowNote"}}{{/crossLink}} items
 	 * @property items
 	 * @type {ShowNote[]}
 	 */

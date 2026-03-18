@@ -31,7 +31,7 @@ class KeyRanges extends EndPoint
 	}
 
 	/**
-	 * An array of key ranges
+	 * An array of {{#crossLink "KeyRange"}}{{/crossLink}} items
 	 * @property items
 	 * @type {KeyRange[]}
 	 */

@@ -201,8 +201,8 @@ class Variables extends EndPoint
 	 * @param {Function} [callback] Optional callback function to be called when the resolved display string changes.
 	 * 
 	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
-	 * is the PatternWatcher instance.
-	 * 
+	 * is the {{#crossLink "PatternWatcher"}}{{/crossLink}} instance.
+	 *
 	 * @return {PatternWatcher}
 	 */
 	watch(pattern, listener)

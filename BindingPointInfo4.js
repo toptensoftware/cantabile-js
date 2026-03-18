@@ -70,14 +70,14 @@
 
 /**
  * Information about the bindable object parameters supported by this binding point
- * 
+ *
  * @property bindableParams
- * @type {BindingParam[]}
+ * @type {BindingParam[]} Array of {{#crossLink "BindingParam"}}{{/crossLink}} objects
  */
 
 /**
  * Information about the binding point parameters supported by this binding point
- * 
+ *
  * @property bindingPointParams
- * @type {BindingParam[]}
+ * @type {BindingParam[]} Array of {{#crossLink "BindingParam"}}{{/crossLink}} objects
  */

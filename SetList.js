@@ -36,7 +36,7 @@ class SetList extends EndPoint
 	}
 
 	/**
-	 * An array of items in the set list
+	 * An array of {{#crossLink "SetListItem"}}{{/crossLink}} items in the set list
 	 * @property items
 	 * @type {SetListItem[]}
 	 */
@@ -57,7 +57,8 @@ class SetList extends EndPoint
 	get preLoaded() { return this._data ? this._data.preLoaded : false; }
 
 	/**
-	 * The index of the currently loaded song (or -1 if the current song isn't in the set list)
+	 * The index of the currently loaded song (or -1 if the current song isn't in the set list).
+	 * See also {{#crossLink "SetList/currentSong:property"}}{{/crossLink}}.
 	 * @property currentSongIndex
 	 * @type {Number}
 	 */
@@ -71,7 +72,8 @@ class SetList extends EndPoint
 	}
 
 	/**
-	 * The currently loaded item (or null if the current song isn't in the set list)
+	 * The currently loaded {{#crossLink "SetListItem"}}{{/crossLink}} (or null if the current song isn't in the set list).
+	 * See also {{#crossLink "SetList/currentSongIndex:property"}}{{/crossLink}}.
 	 * @property currentSong
 	 * @type {SetListItem}
 	 */

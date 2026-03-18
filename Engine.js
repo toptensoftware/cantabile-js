@@ -7,7 +7,6 @@ import fetch from 'node-fetch';
  * Access this object via the {{#crossLink "Cantabile/engine:property"}}{{/crossLink}} property.
  *
  * @class Engine
- * @extends EndPoint
  */
 class Engine
 {

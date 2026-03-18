@@ -170,7 +170,7 @@ class Bindings extends EndPoint
      *     console.log(await C.bindings.availableBindingPoints());
      * 
      * @method availableBindingPoints
-     * @return {Promise|BindingPointInfo[]} A promise to return an array of BindingPointInfo
+     * @return {Promise|BindingPointInfo[]} A promise to return an array of {{#crossLink "BindingPointInfo"}}{{/crossLink}} objects
      */
     async availableBindingPoints()
     {

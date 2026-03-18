@@ -32,7 +32,7 @@ class States extends EndPoint
 	}
 
 	/**
-	 * An array of states
+	 * An array of {{#crossLink "State"}}{{/crossLink}} items
 	 * @property items
 	 * @type {State[]}
 	 */
@@ -46,7 +46,8 @@ class States extends EndPoint
 	get name() { return this._data ? this._data.name : null; }
 
 	/**
-	 * The index of the currently loaded State (or -1 if no active state)
+	 * The index of the currently loaded State (or -1 if no active state).
+	 * See also {{#crossLink "States/currentState:property"}}{{/crossLink}}.
 	 * @property currentStateIndex
 	 * @type {Number}
 	 */
@@ -60,7 +61,8 @@ class States extends EndPoint
 	}
 
 	/**
-	 * The currently loaded item (or null if no active state)
+	 * The currently loaded {{#crossLink "State"}}{{/crossLink}} (or null if no active state).
+	 * See also {{#crossLink "States/currentStateIndex:property"}}{{/crossLink}}.
 	 * @property currentState
 	 * @type {State}
 	 */

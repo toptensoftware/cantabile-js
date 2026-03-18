@@ -83,7 +83,7 @@ class Application extends EndPoint
 	 get build() { return this._data ? this._data.build : null; }
 
 	/**
-	 * An array of color entries for the color index table
+	 * An array of {{#crossLink "ColorEntry"}}{{/crossLink}} items for the color index table
 	 * @property colors
 	 * @type {ColorEntry[]}
 	 */

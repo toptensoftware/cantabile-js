@@ -32,7 +32,10 @@ class Transport extends EndPoint
 	}
 
 	/**
-	 * Gets or sets the current transport state.  Supported values include "playing", "paused" or "stopped"
+	 * Gets or sets the current transport state.  Supported values include "playing", "paused" or "stopped".
+	 * Setting this property calls {{#crossLink "Transport/play:method"}}{{/crossLink}},
+	 * {{#crossLink "Transport/pause:method"}}{{/crossLink}}, or
+	 * {{#crossLink "Transport/stop:method"}}{{/crossLink}} accordingly.
 	 * @property state
 	 * @type {String}
 	 */
@@ -78,7 +81,8 @@ class Transport extends EndPoint
     get tempo() { return this._data ? this._data.tempo : 0 }
 
 	/**
-	 * Gets or sets the current loopMode ("auto", "break", "loopOnce" or "loop")
+	 * Gets or sets the current loopMode ("auto", "break", "loopOnce" or "loop").
+	 * Changes fire the {{#crossLink "Transport/loopStateChanged:event"}}{{/crossLink}} event.
 	 * @property loopMode
 	 * @type {String}
 	 */

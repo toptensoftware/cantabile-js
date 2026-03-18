@@ -180,7 +180,7 @@ class Bindings4 extends EndPoint
      *     console.log(await C.bindings4.availableBindingPoints());
      * 
      * @method availableBindingPoints
-     * @return {Promise|BindingPointEntry4[]} A promise to return an array of BindingPointEntry4
+     * @return {Promise|BindingPointEntry4[]} A promise to return an array of {{#crossLink "BindingPointEntry4"}}{{/crossLink}} objects
      */
     async availableBindingPoints()
     {
@@ -198,7 +198,7 @@ class Bindings4 extends EndPoint
      *     console.log(await C.bindings4.bindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
      * 
      * @method bindingPointInfo
-     * @return {Promise|BindingPointInfo4} A promise to return a BindingPointInfo4 object
+     * @return {Promise|BindingPointInfo4} A promise to return a {{#crossLink "BindingPointInfo4"}}{{/crossLink}} object
      */
 	 async bindingPointInfo(bindableId, bindingPointId, source, bindableParams, bindingPointParams)
 	{
