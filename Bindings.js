@@ -338,7 +338,7 @@ class Bindings extends EndPoint
      * @param {Object} [condition] The condition for triggering the binding
 	 * @param {Function} [callback] Optional callback function to be called when the source binding triggers
 	 * 
-	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
+	 * The callback function has the form function(value, source) where value is the binding point value and source
 	 * is the BindingWatcher instance.
 	 * 
 	 * @return {BindingWatcher}

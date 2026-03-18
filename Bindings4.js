@@ -7,7 +7,7 @@ const debug = _debug('Cantabile');
 /**
  * Represents an active connection watching a source binding point for changes/invocations
 
- * Returned from the {{#crossLink "Bindings/watch:method"}}{{/crossLink}} method.
+ * Returned from the {{#crossLink "Bindings4/watch:method"}}{{/crossLink}} method.
  * 
  * @class Binding4Watcher
  * @extends EventEmitter
@@ -180,7 +180,7 @@ class Bindings4 extends EndPoint
      *     console.log(await C.bindings4.availableBindingPoints());
      * 
      * @method availableBindingPoints
-     * @return {Promise|BindingPointEntry4[]} A promise to return an array of BindingPointInfo
+     * @return {Promise|BindingPointEntry4[]} A promise to return an array of BindingPointEntry4
      */
     async availableBindingPoints()
     {
@@ -198,7 +198,7 @@ class Bindings4 extends EndPoint
      *     console.log(await C.bindings4.bindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
      * 
      * @method bindingPointInfo
-     * @return {Promise|BindingPointInfo4[]} A promise to return an array of BindingPointInfo
+     * @return {Promise|BindingPointInfo4} A promise to return a BindingPointInfo4 object
      */
 	 async bindingPointInfo(bindableId, bindingPointId, source, bindableParams, bindingPointParams)
 	{
@@ -299,7 +299,7 @@ class Bindings4 extends EndPoint
      * @param {Object} [bindingPointParams] Parameters for the binding point object
 	 * @return {Object} The current value of the binding source
      */
-    async query(bindableId, bindingPointId, indicies)
+    async query(bindableId, bindingPointId, bindableParams, bindingPointParams)
     {
         return (await this.request("POST", "/query", {
             bindableId, bindingPointId, bindableParams, bindingPointParams

@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 /**
  * Provides access to Cantabile's engine object for start/stop control
- * 
+ *
  * Access this object via the {{#crossLink "Cantabile/engine:property"}}{{/crossLink}} property.
  *
  * @class Engine
@@ -18,11 +18,11 @@ class Engine
 
 	/**
 	 * Returns a promise to provide the started state of Cantabile's audio engine.
-	 * 
+	 *
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method isStarted
-	 * @type {Promise|Boolean} 
+	 * @return {Promise|Boolean}
 	 */
 	 async isStarted()
 	{
@@ -32,11 +32,11 @@ class Engine
 
 	/**
 	 * Starts Cantabile's audio engine
-	 * 
+	 *
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method start
-	 * @type {Promise} 
+	 * @return {Promise}
 	 */
 	async start()
 	{
@@ -45,11 +45,11 @@ class Engine
 
 	/**
 	 * Stops Cantabile's audio engine
-	 * 
+	 *
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
-	 * @method start
-	 * @type {Promise} 
+	 * @method stop
+	 * @return {Promise}
 	 */
 	async stop()
 	{
@@ -58,30 +58,30 @@ class Engine
 
 	/**
 	 * Restarts Cantabile's audio engine
-	 * 
+	 *
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method restart
-	 * @type {Promise} 
+	 * @return {Promise}
 	 */
 	 async restart()
 	 {
 		 await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/restart"), { method: "POST" });
 	 }
- 
+
  	/**
 	 * Toggles the audio engine between started and stopped
-	 * 
+	 *
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
-	 * @method restart
-	 * @type {Promise} 
+	 * @method startStop
+	 * @return {Promise}
 	 */
 	  async startStop()
 	  {
 		  await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/startStop"), { method: "POST" });
 	  }
-  
+
   }
 
 

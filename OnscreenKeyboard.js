@@ -110,7 +110,7 @@ class ControllerWatcher extends EventEmitter
 			this._listener(this._value, this);
 
 		/**
-		 * Fired after a new show note has been added
+		 * Fired when the controller value has changed
 		 *
 		 * @event controllerChanged
 		 * @param {Number} value The new value of the controller
@@ -158,7 +158,7 @@ class OnscreenKeyboard extends EndPoint
 	 * @param {Number} channel 		The MIDI channel number of the controller
 	 * @param {String} kind 		The MIDI controller kind
 	 * @param {Number} controller	The number of the controller
-	 * @return {Promise|String} A promise to provide the controller value
+	 * @return {Promise|Number} A promise to provide the controller value
 	 */
 	async queryController(channel, kind, controller)
 	{

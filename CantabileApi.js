@@ -127,7 +127,7 @@ class Cantabile extends EventEmitter
 		 * Provides access to master transport controls
 		 *
 		 * @property transport
-		 * @type {Song}
+		 * @type {Transport}
 		 */
 		this.transport = new Transport(this);
 
@@ -337,8 +337,8 @@ class Cantabile extends EventEmitter
 	/**
 	 * The base socket url
 	 *
-	 * @property host
-	 * @type {String} 
+	 * @property socketUrl
+	 * @type {String}
 	 */
 	 get socketUrl()
 	{
@@ -348,8 +348,8 @@ class Cantabile extends EventEmitter
 	/**
 	 * The base host url
 	 *
-	 * @property host
-	 * @type {String} 
+	 * @property hostUrl
+	 * @type {String}
 	 */
 	 get hostUrl()
 	{

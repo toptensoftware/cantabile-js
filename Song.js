@@ -8,7 +8,7 @@ import EndPoint from './EndPoint';
  * @class Song
  * @extends EndPoint
  */
-class SongStates extends EndPoint
+class Song extends EndPoint
 {
 	constructor(owner)
 	{
@@ -55,7 +55,7 @@ class SongStates extends EndPoint
 
 	/**
 	 * The set list program number of the song (or -1 if not in set list, or not set)
-	 * @property name
+	 * @property pr
 	 * @type {Number}
 	 */
 	get pr() { return this._data ? this._data.pr : null; }
@@ -92,4 +92,4 @@ class SongStates extends EndPoint
 }
 
 
-export default SongStates;
+export default Song;

@@ -91,10 +91,10 @@ class PatternWatcher extends EventEmitter
 			this._listener(this.resolved, this);
 
 		/**
-		 * Fired after a new show note has been added
+		 * Fired when the resolved display string has changed
 		 *
 		 * @event changed
-		 * @param {String} resolved The new display string
+		 * @param {String} resolved The new resolved display string
 		 * @param {PatternWatcher} source This object
 		 */
 		this.emit('changed', this.resolved, this);

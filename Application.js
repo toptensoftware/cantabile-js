@@ -84,7 +84,7 @@ class Application extends EndPoint
 
 	/**
 	 * An array of color entries for the color index table
-	 * @property build
+	 * @property colors
 	 * @type {ColorEntry[]}
 	 */
 	 get colors() { return this._data ? this._data.colors : null; }

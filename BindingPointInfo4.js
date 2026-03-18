@@ -38,7 +38,7 @@
  * * "Index" - an index displayed either 0 or 1 based
  * * "ProgramNumber" - a program number displayed either 0 or 1 based
  * * "BankedProgramNumber" - a banked program number displayed in one of several banked program number formats
- * * "GainLevel" - a gain level displayed by convertin from scalar value to decibels
+ * * "GainLevel" - a gain level displayed by converting from scalar value to decibels
  * * "PitchBend" - a pitch bend value from 0 to 16384 but displayed as -8192 to 8191
  * 
  * This property is only present if 'kind' is "Value"

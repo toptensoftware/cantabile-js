@@ -50,21 +50,21 @@ class Transport extends EndPoint
     }
 
 	/**
-	 * Gets the current time signture numerator
+	 * Gets the current time signature numerator
 	 * @property timeSignatureNum
 	 * @type {Number}
 	 */
     get timeSignatureNum() { return this._data ? this._data.timeSigNum : 0 }
 
 	/**
-	 * Gets the current time signture denominator
+	 * Gets the current time signature denominator
 	 * @property timeSignatureDen
 	 * @type {Number}
 	 */
     get timeSignatureDen() { return this._data ? this._data.timeSigDen : 0 }
 
 	/**
-	 * Gets the current time signture as a string (eg: "3/4")
+	 * Gets the current time signature as a string (eg: "3/4")
 	 * @property timeSignature
 	 * @type {String}
 	 */
@@ -180,7 +180,7 @@ class Transport extends EndPoint
 
 	/**
 	 * Toggles pause and play states (unless stopped)
-	 * @method togglePlayPause
+	 * @method togglePause
 	 */
     togglePause()
     {
