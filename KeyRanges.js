@@ -1,7 +1,4 @@
-'use strict';
-
-const debug = require('debug')('Cantabile');
-const EndPoint = require('./EndPoint');
+import EndPoint from './EndPoint';
 
 /**
  * Provides access to information about the currently active set of key ranges
@@ -49,4 +46,4 @@ class KeyRanges extends EndPoint
 
 
 
-module.exports = KeyRanges;
+export default KeyRanges;

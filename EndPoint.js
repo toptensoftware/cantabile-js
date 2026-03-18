@@ -1,7 +1,7 @@
-'use strict';
+import _debug from 'debug';
+import EventEmitter from 'events';
 
-const debug = require('debug')('Cantabile');
-const EventEmitter = require('events');
+const debug = _debug('Cantabile');
 
 
 /**
@@ -244,4 +244,4 @@ class EndPoint extends EventEmitter
 
 }
 
-module.exports = EndPoint;
+export default EndPoint;

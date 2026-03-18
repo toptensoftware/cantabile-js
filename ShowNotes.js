@@ -1,7 +1,4 @@
-'use strict';
-
-const debug = require('debug')('Cantabile');
-const EndPoint = require('./EndPoint');
+import EndPoint from './EndPoint';
 
 /**
  * Used to access the current set of show notes
@@ -119,4 +116,4 @@ class ShowNotes extends EndPoint
 
 
 
-module.exports = ShowNotes;
+export default ShowNotes;

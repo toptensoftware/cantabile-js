@@ -1,7 +1,4 @@
-'use strict';
-
-const debug = require('debug')('Cantabile');
-const EndPoint = require('./EndPoint');
+import EndPoint from './EndPoint';
 
 
 /**
@@ -72,4 +69,4 @@ class Commands extends EndPoint
 
 
 
-module.exports = Commands;
+export default Commands;

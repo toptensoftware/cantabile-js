@@ -1,6 +1,4 @@
-'use strict';
-
-const EndPoint = require('./EndPoint');
+import EndPoint from './EndPoint';
 
 /**
  * Interface to the application object
@@ -130,4 +128,4 @@ class Application extends EndPoint
 }
 
 
-module.exports = Application;
+export default Application;

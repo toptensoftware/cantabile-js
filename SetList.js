@@ -1,7 +1,7 @@
-'use strict';
+import _debug from 'debug';
+import EndPoint from './EndPoint';
 
-const debug = require('debug')('Cantabile');
-const EndPoint = require('./EndPoint');
+const debug = _debug('Cantabile');
 
 /**
  * Used to access and control Cantabile's set list functionality.
@@ -331,4 +331,4 @@ class SetList extends EndPoint
 
 
 
-module.exports = SetList;
+export default SetList;

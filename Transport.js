@@ -1,6 +1,4 @@
-'use strict';
-
-const EndPoint = require('./EndPoint');
+import EndPoint from './EndPoint';
 
 /**
  * Interface to the master transport
@@ -265,4 +263,4 @@ class Transport extends EndPoint
 }
 
 
-module.exports = Transport;
+export default Transport;

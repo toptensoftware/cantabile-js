@@ -1,8 +1,8 @@
-'use strict';
+import _debug from 'debug';
+import EndPoint from './EndPoint';
+import EventEmitter from 'events';
 
-const debug = require('debug')('Cantabile');
-const EndPoint = require('./EndPoint');
-const EventEmitter = require('events');
+const debug = _debug('Cantabile');
 
 /**
  * Represents an active connection watching a source binding point for changes/invocations
@@ -387,4 +387,4 @@ class Bindings extends EndPoint
 
 
 
-module.exports = Bindings;
+export default Bindings;

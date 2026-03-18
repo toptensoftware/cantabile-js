@@ -1,7 +1,7 @@
-'use strict';
+import _debug from 'debug';
+import EndPoint from './EndPoint';
 
-const debug = require('debug')('Cantabile');
-const EndPoint = require('./EndPoint');
+const debug = _debug('Cantabile');
 
 /**
  * Base states functionality for State and racks
@@ -270,4 +270,4 @@ class States extends EndPoint
 
 
 
-module.exports = States;
+export default States;

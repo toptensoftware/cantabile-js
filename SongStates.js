@@ -1,6 +1,4 @@
-'use strict';
-
-const States = require('./States');
+import States from './States';
 
 /**
  * Interface to the states of the current song
@@ -19,4 +17,4 @@ class SongStates extends States
 }
 
 
-module.exports = SongStates;
+export default SongStates;

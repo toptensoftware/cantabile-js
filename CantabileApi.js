@@ -1,8 +1,21 @@
-'use strict';
+import WebSocket from 'isomorphic-ws';
+import _debug from 'debug';
+import EventEmitter from 'events';
+import SetList from './SetList';
+import SongStates from './SongStates';
+import KeyRanges from './KeyRanges';
+import ShowNotes from './ShowNotes';
+import Variables from './Variables';
+import OnscreenKeyboard from './OnscreenKeyboard';
+import Bindings from './Bindings';
+import Bindings4 from './Bindings4';
+import Commands from './Commands';
+import Song from './Song';
+import Transport from './Transport';
+import Application from './Application';
+import Engine from './Engine';
 
-const WebSocket = require('isomorphic-ws');
-const debug = require('debug')('Cantabile');
-const EventEmitter = require('events');
+const debug = _debug('Cantabile');
 
 /**
 * Represents a connection to Cantabile.
@@ -36,103 +49,103 @@ class Cantabile extends EventEmitter
 		 * @property setList
 		 * @type {SetList} 
 		 */
-		this.setList = new (require('./SetList'))(this);
+		this.setList = new SetList(this);
 
 		/**
 		 * Gets the states of the current song
 		 *
 		 * @property songStates
-		 * @type {SongStates} 
+		 * @type {SongStates}
 		 */
-		this.songStates = new (require('./SongStates'))(this);
+		this.songStates = new SongStates(this);
 
 		/**
 		 * Gets the currently active key ranges
 		 *
 		 * @property keyRanges
-		 * @type {KeyRanges} 
+		 * @type {KeyRanges}
 		 */
-		this.keyRanges = new (require('./KeyRanges'))(this);
+		this.keyRanges = new KeyRanges(this);
 
 		/**
 		 * Gets the current set of show notes
 		 *
 		 * @property showNotes
-		 * @type {ShowNotes} 
+		 * @type {ShowNotes}
 		 */
-		this.showNotes = new (require('./ShowNotes'))(this);
+		this.showNotes = new ShowNotes(this);
 
 		/**
 		 * Provides access to variable expansion facilities
 		 *
 		 * @property variables
-		 * @type {Variables} 
+		 * @type {Variables}
 		 */
-		 this.variables = new (require('./Variables'))(this);
+		 this.variables = new Variables(this);
 
 		/**
 		 * Provides access to controllers managed by Cantabile's onscreen keyboard device
 		 *
 		 * @property onscreenKeyboard
-		 * @type {OnscreenKeyboard} 
+		 * @type {OnscreenKeyboard}
 		 */
-		 this.onscreenKeyboard = new (require('./OnscreenKeyboard'))(this);
+		 this.onscreenKeyboard = new OnscreenKeyboard(this);
 
 		 /**
 		 * Provides access to global binding points
 		 *
 		 * @property bindings
-		 * @type {Bindings} 
+		 * @type {Bindings}
 		 */
-		  this.bindings = new (require('./Bindings'))(this);
+		  this.bindings = new Bindings(this);
 
 		 /**
 		 * Provides access to global binding v4 points
 		 *
 		 * @property bindings4
-		 * @type {Bindings4} 
+		 * @type {Bindings4}
 		 */
-		  this.bindings4 = new (require('./Bindings4'))(this);
+		  this.bindings4 = new Bindings4(this);
 
 		  /**
 		 * Provides access to global commands
 		 *
 		 * @property commands
-		 * @type {Commands} 
+		 * @type {Commands}
 		 */
-		 this.commands = new (require('./Commands'))(this);
+		 this.commands = new Commands(this);
 
 		 /**
 		 * Provides access to information about the current song
 		 *
 		 * @property song
-		 * @type {Song} 
+		 * @type {Song}
 		 */
-		this.song = new (require('./Song'))(this);
+		this.song = new Song(this);
 
 		/**
 		 * Provides access to master transport controls
 		 *
 		 * @property transport
-		 * @type {Song} 
+		 * @type {Song}
 		 */
-		this.transport = new (require('./Transport'))(this);
+		this.transport = new Transport(this);
 
 		/**
 		 * Provides access to the application object
 		 *
 		 * @property application
-		 * @type {Application} 
+		 * @type {Application}
 		 */
-		this.application = new (require('./Application'))(this);
+		this.application = new Application(this);
 
 		/**
 		 * Provides access to the engine object
 		 *
-		 * @property engine 
-		 * @type {Engine} 
+		 * @property engine
+		 * @type {Engine}
 		 */
-		 this.engine = new (require('./Engine'))(this);
+		 this.engine = new Engine(this);
 		}
 
 	/**
@@ -535,4 +548,4 @@ const eventDiconnected = "disconnected";
 
 
 
-module.exports = Cantabile;
+export default Cantabile;

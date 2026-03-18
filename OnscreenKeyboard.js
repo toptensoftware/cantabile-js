@@ -1,8 +1,8 @@
-'use strict';
+import _debug from 'debug';
+import EndPoint from './EndPoint';
+import EventEmitter from 'events';
 
-const debug = require('debug')('Cantabile');
-const EndPoint = require('./EndPoint');
-const EventEmitter = require('events');
+const debug = _debug('Cantabile');
 
 /**
  * Represents a monitored controller
@@ -308,4 +308,4 @@ class OnscreenKeyboard extends EndPoint
 
 
 
-module.exports = OnscreenKeyboard;
+export default OnscreenKeyboard;

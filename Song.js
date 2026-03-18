@@ -1,6 +1,4 @@
-'use strict';
-
-const EndPoint = require('./EndPoint');
+import EndPoint from './EndPoint';
 
 /**
  * Interface to the current song
@@ -94,4 +92,4 @@ class SongStates extends EndPoint
 }
 
 
-module.exports = SongStates;
+export default SongStates;

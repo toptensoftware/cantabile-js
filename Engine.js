@@ -1,8 +1,5 @@
-'use strict';
-
-const debug = require('debug')('Cantabile');
-const EndPoint = require('./EndPoint');
-const fetch = require('node-fetch');
+import EndPoint from './EndPoint';
+import fetch from 'node-fetch';
 
 /**
  * Provides access to Cantabile's engine object for start/stop control
@@ -89,4 +86,4 @@ class Engine
 
 
 
-module.exports = Engine;
+export default Engine;
