@@ -27,7 +27,7 @@ const debug = _debug('Cantabile');
 * When running in a browser, the defaults to `${window.location.host}`.  In other environments it defaults to 
 `localhost:35007`.  
 */
-class Cantabile extends EventEmitter
+export class Cantabile extends EventEmitter
 {
 	constructor(host)
 	{
@@ -545,7 +545,3 @@ const eventConnecting = "connecting";
  */
 const eventDiconnected = "disconnected";
 
-
-
-
-export default Cantabile;

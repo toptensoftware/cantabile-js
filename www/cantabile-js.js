@@ -1364,6 +1364,7 @@ exports.default = Bindings4;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+exports.Cantabile = undefined;
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -1460,7 +1461,7 @@ var debug = (0, _debug3.default)('Cantabile');
 `localhost:35007`.  
 */
 
-var Cantabile = function (_EventEmitter) {
+var Cantabile = exports.Cantabile = function (_EventEmitter) {
 	(0, _inherits3.default)(Cantabile, _EventEmitter);
 
 	function Cantabile(host) {
@@ -1973,8 +1974,6 @@ var eventConnecting = "connecting";
  * @event disconnected
  */
 var eventDiconnected = "disconnected";
-
-exports.default = Cantabile;
 
 }).call(this)}).call(this,require('_process'))
 },{"./Application.js":1,"./Bindings.js":2,"./Bindings4.js":3,"./Commands.js":5,"./Engine.js":7,"./KeyRanges.js":8,"./OnscreenKeyboard.js":9,"./SetList.js":10,"./ShowNotes.js":11,"./Song.js":12,"./SongStates.js":13,"./Transport.js":15,"./Variables.js":16,"_process":128,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122,"events":124,"isomorphic-ws":125}],5:[function(require,module,exports){
