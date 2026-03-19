@@ -33,7 +33,8 @@ export class Cantabile extends EventEmitter
 	{
 		super();
 
-		this.setMaxListeners(30);
+		if (this.setMaxListeners)
+			this.setMaxListeners(30);
 
 		this.host = host;
 

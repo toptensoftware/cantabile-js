@@ -7,13 +7,13 @@
 To install `cantabile-js` using npm...
 
 ```bash
-$ npm install --save "toptensoftware/cantabile-js"
+$ npm install --save toptensoftware/cantabile-js#v0.2
 ```
 
 To create an instances:
 
 ```JavaScript
-const Cantabile = require('cantabile-js');
+import { Cantabile } from "@toptensoftware/cantabile-js";
 
 // Create an instance of the Cantabile object and connect it
 let C = new Cantabile();
@@ -22,25 +22,21 @@ C.connect();
 
 ## Browser 
 
-For use in a browser, Cantabile's build-in web server includes a copy of the same library:
+For use in a browser
 
 ```html
-<!-- Import the Cantabile Javscript API library -->
-<script src="/lib/cantabile-js.min.js"></script>
-```
-
-Which makes the `CantabileAPI` class available as the global `Cantabile`:
-
-```JavaScript
-<script>
-
-    // Create an instance of the Cantabile object and connect it
+<script type="module">
+    import { Cantabile } from "./lib/cantabile.js"
     let C = new Cantabile();
-    C.connect();
-
+</script>
 ```
 
-(Note the library assumes ES6 support and only works in modern compatible browsers).
+Note:
+
+* assumes ES6 support and only works in modern compatible browsers.
+* distribution files are available in the `./dist/` sub-folder of this repository.
+* the library files have been renamed to `cantabile.js`/`cantabile.min.js` (previous versions were `cantabile-js.js`/`cantabile-js.min.js`)
+* Cantabile's built-in web server includes a copy of the library (typically `http://localhost:35007/lib/cantabile.js`)
 
 ## Debug Logging
 
