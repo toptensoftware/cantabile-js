@@ -1,4 +1,4 @@
-import EndPoint from './EndPoint';
+import EndPoint from './EndPoint.js';
 
 /**
  * Used to access the current set of show notes

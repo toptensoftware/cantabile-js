@@ -1,4 +1,4 @@
-import States from './States';
+import States from './States.js';
 
 /**
  * Interface to the states of the current song

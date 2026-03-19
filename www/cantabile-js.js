@@ -1,6 +1,10 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Cantabile = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -17,9 +21,11 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _EndPoint2 = require('./EndPoint');
 
-var EndPoint = require('./EndPoint');
+var _EndPoint3 = _interopRequireDefault(_EndPoint2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Interface to the application object
@@ -29,7 +35,6 @@ var EndPoint = require('./EndPoint');
  * @class Application
  * @extends EndPoint
  */
-
 var Application = function (_EndPoint) {
 	(0, _inherits3.default)(Application, _EndPoint);
 
@@ -150,8 +155,8 @@ var Application = function (_EndPoint) {
 		}
 
 		/**
-   * An array of color entries for the color index table
-   * @property build
+   * An array of {{#crossLink "ColorEntry"}}{{/crossLink}} items for the color index table
+   * @property colors
    * @type {ColorEntry[]}
    */
 
@@ -198,12 +203,16 @@ var Application = function (_EndPoint) {
 		}
 	}]);
 	return Application;
-}(EndPoint);
+}(_EndPoint3.default);
 
-module.exports = Application;
+exports.default = Application;
 
 },{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],2:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -229,11 +238,21 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _debug2 = require('debug');
+
+var _debug3 = _interopRequireDefault(_debug2);
+
+var _EndPoint2 = require('./EndPoint');
+
+var _EndPoint3 = _interopRequireDefault(_EndPoint2);
+
+var _events = require('events');
+
+var _events2 = _interopRequireDefault(_events);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var debug = require('debug')('Cantabile');
-var EndPoint = require('./EndPoint');
-var EventEmitter = require('events');
+var debug = (0, _debug3.default)('Cantabile');
 
 /**
  * Represents an active connection watching a source binding point for changes/invocations
@@ -380,7 +399,7 @@ var BindingWatcher = function (_EventEmitter) {
 		}
 	}]);
 	return BindingWatcher;
-}(EventEmitter);
+}(_events2.default);
 
 /**
  * Provides access to Cantabile's binding points.
@@ -433,7 +452,7 @@ var Bindings = function (_EndPoint) {
    *     console.log(await C.bindings.availableBindingPoints());
    * 
    * @method availableBindingPoints
-   * @return {Promise|BindingPointInfo[]} A promise to return an array of BindingPointInfo
+   * @return {Promise|BindingPointInfo[]} A promise to return an array of {{#crossLink "BindingPointInfo"}}{{/crossLink}} objects
    */
 
 	}, {
@@ -679,7 +698,7 @@ var Bindings = function (_EndPoint) {
       * @param {Object} [condition] The condition for triggering the binding
    * @param {Function} [callback] Optional callback function to be called when the source binding triggers
    * 
-   * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
+   * The callback function has the form function(value, source) where value is the binding point value and source
    * is the BindingWatcher instance.
    * 
    * @return {BindingWatcher}
@@ -726,12 +745,16 @@ var Bindings = function (_EndPoint) {
 		}
 	}]);
 	return Bindings;
-}(EndPoint);
+}(_EndPoint3.default);
 
-module.exports = Bindings;
+exports.default = Bindings;
 
 },{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],3:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -757,16 +780,26 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _debug2 = require('debug');
+
+var _debug3 = _interopRequireDefault(_debug2);
+
+var _EndPoint2 = require('./EndPoint');
+
+var _EndPoint3 = _interopRequireDefault(_EndPoint2);
+
+var _events = require('events');
+
+var _events2 = _interopRequireDefault(_events);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var debug = require('debug')('Cantabile');
-var EndPoint = require('./EndPoint');
-var EventEmitter = require('events');
+var debug = (0, _debug3.default)('Cantabile');
 
 /**
  * Represents an active connection watching a source binding point for changes/invocations
 
- * Returned from the {{#crossLink "Bindings/watch:method"}}{{/crossLink}} method.
+ * Returned from the {{#crossLink "Bindings4/watch:method"}}{{/crossLink}} method.
  * 
  * @class Binding4Watcher
  * @extends EventEmitter
@@ -923,7 +956,7 @@ var Binding4Watcher = function (_EventEmitter) {
 		}
 	}]);
 	return Binding4Watcher;
-}(EventEmitter);
+}(_events2.default);
 
 /**
  * Provides access to Cantabile's binding points.
@@ -976,7 +1009,7 @@ var Bindings4 = function (_EndPoint) {
    *     console.log(await C.bindings4.availableBindingPoints());
    * 
    * @method availableBindingPoints
-   * @return {Promise|BindingPointEntry4[]} A promise to return an array of BindingPointInfo
+   * @return {Promise|BindingPointEntry4[]} A promise to return an array of {{#crossLink "BindingPointEntry4"}}{{/crossLink}} objects
    */
 
 	}, {
@@ -1022,7 +1055,7 @@ var Bindings4 = function (_EndPoint) {
    *     console.log(await C.bindings4.bindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
    * 
    * @method bindingPointInfo
-   * @return {Promise|BindingPointInfo4[]} A promise to return an array of BindingPointInfo
+   * @return {Promise|BindingPointInfo4} A promise to return a {{#crossLink "BindingPointInfo4"}}{{/crossLink}} object
    */
 
 	}, {
@@ -1180,7 +1213,7 @@ var Bindings4 = function (_EndPoint) {
 	}, {
 		key: 'query',
 		value: function () {
-			var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(bindableId, bindingPointId, indicies) {
+			var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(bindableId, bindingPointId, bindableParams, bindingPointParams) {
 				return _regenerator2.default.wrap(function _callee4$(_context4) {
 					while (1) {
 						switch (_context4.prev = _context4.next) {
@@ -1201,7 +1234,7 @@ var Bindings4 = function (_EndPoint) {
 				}, _callee4, this);
 			}));
 
-			function query(_x11, _x12, _x13) {
+			function query(_x11, _x12, _x13, _x14) {
 				return _ref4.apply(this, arguments);
 			}
 
@@ -1320,13 +1353,17 @@ var Bindings4 = function (_EndPoint) {
 		}
 	}]);
 	return Bindings4;
-}(EndPoint);
+}(_EndPoint3.default);
 
-module.exports = Bindings4;
+exports.default = Bindings4;
 
 },{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],4:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -1344,11 +1381,73 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _isomorphicWs = require('isomorphic-ws');
+
+var _isomorphicWs2 = _interopRequireDefault(_isomorphicWs);
+
+var _debug2 = require('debug');
+
+var _debug3 = _interopRequireDefault(_debug2);
+
+var _events = require('events');
+
+var _events2 = _interopRequireDefault(_events);
+
+var _SetList = require('./SetList');
+
+var _SetList2 = _interopRequireDefault(_SetList);
+
+var _SongStates = require('./SongStates');
+
+var _SongStates2 = _interopRequireDefault(_SongStates);
+
+var _KeyRanges = require('./KeyRanges');
+
+var _KeyRanges2 = _interopRequireDefault(_KeyRanges);
+
+var _ShowNotes = require('./ShowNotes');
+
+var _ShowNotes2 = _interopRequireDefault(_ShowNotes);
+
+var _Variables = require('./Variables');
+
+var _Variables2 = _interopRequireDefault(_Variables);
+
+var _OnscreenKeyboard = require('./OnscreenKeyboard');
+
+var _OnscreenKeyboard2 = _interopRequireDefault(_OnscreenKeyboard);
+
+var _Bindings = require('./Bindings');
+
+var _Bindings2 = _interopRequireDefault(_Bindings);
+
+var _Bindings3 = require('./Bindings4');
+
+var _Bindings4 = _interopRequireDefault(_Bindings3);
+
+var _Commands = require('./Commands');
+
+var _Commands2 = _interopRequireDefault(_Commands);
+
+var _Song = require('./Song');
+
+var _Song2 = _interopRequireDefault(_Song);
+
+var _Transport = require('./Transport');
+
+var _Transport2 = _interopRequireDefault(_Transport);
+
+var _Application = require('./Application');
+
+var _Application2 = _interopRequireDefault(_Application);
+
+var _Engine = require('./Engine');
+
+var _Engine2 = _interopRequireDefault(_Engine);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var WebSocket = require('isomorphic-ws');
-var debug = require('debug')('Cantabile');
-var EventEmitter = require('events');
+var debug = (0, _debug3.default)('Cantabile');
 
 /**
 * Represents a connection to Cantabile.
@@ -1380,108 +1479,108 @@ var Cantabile = function (_EventEmitter) {
 		_this._setState("disconnected");
 
 		/**
-   * Gets the setList object
+   * Gets the {{#crossLink "SetList"}}{{/crossLink}} object
    *
    * @property setList
-   * @type {SetList} 
+   * @type {SetList}
    */
-		_this.setList = new (require('./SetList'))(_this);
+		_this.setList = new _SetList2.default(_this);
 
 		/**
-   * Gets the states of the current song
+   * Gets the {{#crossLink "SongStates"}}{{/crossLink}} for the current song
    *
    * @property songStates
-   * @type {SongStates} 
+   * @type {SongStates}
    */
-		_this.songStates = new (require('./SongStates'))(_this);
+		_this.songStates = new _SongStates2.default(_this);
 
 		/**
-   * Gets the currently active key ranges
+   * Gets the currently active {{#crossLink "KeyRanges"}}{{/crossLink}}
    *
    * @property keyRanges
-   * @type {KeyRanges} 
+   * @type {KeyRanges}
    */
-		_this.keyRanges = new (require('./KeyRanges'))(_this);
+		_this.keyRanges = new _KeyRanges2.default(_this);
 
 		/**
-   * Gets the current set of show notes
+   * Gets the current {{#crossLink "ShowNotes"}}{{/crossLink}}
    *
    * @property showNotes
-   * @type {ShowNotes} 
+   * @type {ShowNotes}
    */
-		_this.showNotes = new (require('./ShowNotes'))(_this);
+		_this.showNotes = new _ShowNotes2.default(_this);
 
 		/**
-   * Provides access to variable expansion facilities
+   * Provides access to {{#crossLink "Variables"}}{{/crossLink}} expansion facilities
    *
    * @property variables
-   * @type {Variables} 
+   * @type {Variables}
    */
-		_this.variables = new (require('./Variables'))(_this);
+		_this.variables = new _Variables2.default(_this);
 
 		/**
-   * Provides access to controllers managed by Cantabile's onscreen keyboard device
+   * Provides access to controllers managed by Cantabile's {{#crossLink "OnscreenKeyboard"}}{{/crossLink}} device
    *
    * @property onscreenKeyboard
-   * @type {OnscreenKeyboard} 
+   * @type {OnscreenKeyboard}
    */
-		_this.onscreenKeyboard = new (require('./OnscreenKeyboard'))(_this);
+		_this.onscreenKeyboard = new _OnscreenKeyboard2.default(_this);
 
 		/**
-  * Provides access to global binding points
+  * Provides access to global {{#crossLink "Bindings"}}{{/crossLink}} points
   *
   * @property bindings
-  * @type {Bindings} 
+  * @type {Bindings}
   */
-		_this.bindings = new (require('./Bindings'))(_this);
+		_this.bindings = new _Bindings2.default(_this);
 
 		/**
-  * Provides access to global binding v4 points
+  * Provides access to global {{#crossLink "Bindings4"}}{{/crossLink}} points
   *
   * @property bindings4
-  * @type {Bindings4} 
+  * @type {Bindings4}
   */
-		_this.bindings4 = new (require('./Bindings4'))(_this);
+		_this.bindings4 = new _Bindings4.default(_this);
 
 		/**
-  * Provides access to global commands
+  * Provides access to global {{#crossLink "Commands"}}{{/crossLink}}
   *
   * @property commands
-  * @type {Commands} 
+  * @type {Commands}
   */
-		_this.commands = new (require('./Commands'))(_this);
+		_this.commands = new _Commands2.default(_this);
 
 		/**
-  * Provides access to information about the current song
+  * Provides access to {{#crossLink "Song"}}{{/crossLink}} information about the current song
   *
   * @property song
-  * @type {Song} 
+  * @type {Song}
   */
-		_this.song = new (require('./Song'))(_this);
+		_this.song = new _Song2.default(_this);
 
 		/**
-   * Provides access to master transport controls
+   * Provides access to master {{#crossLink "Transport"}}{{/crossLink}} controls
    *
    * @property transport
-   * @type {Song} 
+   * @type {Transport}
    */
-		_this.transport = new (require('./Transport'))(_this);
+		_this.transport = new _Transport2.default(_this);
 
 		/**
-   * Provides access to the application object
+   * Provides access to the {{#crossLink "Application"}}{{/crossLink}} object
    *
    * @property application
-   * @type {Application} 
+   * @type {Application}
    */
-		_this.application = new (require('./Application'))(_this);
+		_this.application = new _Application2.default(_this);
 
 		/**
-   * Provides access to the engine object
+   * Provides access to the {{#crossLink "Engine"}}{{/crossLink}} object
    *
-   * @property engine 
-   * @type {Engine} 
+   * @property engine
+   * @type {Engine}
    */
-		_this.engine = new (require('./Engine'))(_this);
+		_this.engine = new _Engine2.default(_this);
 		return _this;
 	}
 
@@ -1636,7 +1735,7 @@ var Cantabile = function (_EventEmitter) {
 
 			// Create the socket and hook up handlers
 			debug("Opening web socket '%s'", socketUrl);
-			this._ws = new WebSocket(socketUrl);
+			this._ws = new _isomorphicWs2.default(socketUrl);
 			this._ws.onerror = this._onSocketError.bind(this);
 			this._ws.onopen = this._onSocketOpen.bind(this);
 			this._ws.onclose = this._onSocketClose.bind(this);
@@ -1812,8 +1911,8 @@ var Cantabile = function (_EventEmitter) {
 		/**
    * The base socket url
    *
-   * @property host
-   * @type {String} 
+   * @property socketUrl
+   * @type {String}
    */
 
 	}, {
@@ -1825,8 +1924,8 @@ var Cantabile = function (_EventEmitter) {
 		/**
    * The base host url
    *
-   * @property host
-   * @type {String} 
+   * @property hostUrl
+   * @type {String}
    */
 		,
 		set: function set(value) {
@@ -1842,7 +1941,7 @@ var Cantabile = function (_EventEmitter) {
 		}
 	}]);
 	return Cantabile;
-}(EventEmitter);
+}(_events2.default);
 
 /**
  * Fired when the {{#crossLink "Cantabile/state:property"}}{{/crossLink}} property value changes
@@ -1875,40 +1974,45 @@ var eventConnecting = "connecting";
  */
 var eventDiconnected = "disconnected";
 
-module.exports = Cantabile;
+exports.default = Cantabile;
 
 }).call(this)}).call(this,require('_process'))
 },{"./Application":1,"./Bindings":2,"./Bindings4":3,"./Commands":5,"./Engine":7,"./KeyRanges":8,"./OnscreenKeyboard":9,"./SetList":10,"./ShowNotes":11,"./Song":12,"./SongStates":13,"./Transport":15,"./Variables":16,"_process":128,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122,"events":124,"isomorphic-ws":125}],5:[function(require,module,exports){
-'use strict';
+"use strict";
 
-var _regenerator = require('babel-runtime/regenerator');
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _regenerator = require("babel-runtime/regenerator");
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = require('babel-runtime/helpers/createClass');
+var _createClass2 = require("babel-runtime/helpers/createClass");
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = require('babel-runtime/helpers/inherits');
+var _inherits2 = require("babel-runtime/helpers/inherits");
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _EndPoint2 = require("./EndPoint");
 
-var debug = require('debug')('Cantabile');
-var EndPoint = require('./EndPoint');
+var _EndPoint3 = _interopRequireDefault(_EndPoint2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Provides access to Cantabile's UI commands
@@ -1918,7 +2022,6 @@ var EndPoint = require('./EndPoint');
  * @class Commands
  * @extends EndPoint
  */
-
 var Commands = function (_EndPoint) {
     (0, _inherits3.default)(Commands, _EndPoint);
 
@@ -1928,10 +2031,10 @@ var Commands = function (_EndPoint) {
     }
 
     (0, _createClass3.default)(Commands, [{
-        key: '_onOpen',
+        key: "_onOpen",
         value: function _onOpen() {}
     }, {
-        key: '_onClose',
+        key: "_onClose",
         value: function _onClose() {}
 
         /**
@@ -1947,11 +2050,11 @@ var Commands = function (_EndPoint) {
          *     console.log(await C.commands.availableCommands());
          * 
          * @method availableCommands
-         * @return {Promise|CommandInfo[]} A promise to return an array of CommandInfo
+         * @return {Promise|CommandInfo[]} A promise to return an array of {{#crossLink "CommandInfo"}}{{/crossLink}} objects
          */
 
     }, {
-        key: 'availableCommands',
+        key: "availableCommands",
         value: function () {
             var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
                 return _regenerator2.default.wrap(function _callee$(_context) {
@@ -1966,10 +2069,10 @@ var Commands = function (_EndPoint) {
                                 return this.request("GET", "/availableCommands");
 
                             case 4:
-                                return _context.abrupt('return', _context.sent.data);
+                                return _context.abrupt("return", _context.sent.data);
 
                             case 5:
-                            case 'end':
+                            case "end":
                                 return _context.stop();
                         }
                     }
@@ -1998,7 +2101,7 @@ var Commands = function (_EndPoint) {
          */
 
     }, {
-        key: 'invoke',
+        key: "invoke",
         value: function () {
             var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(id) {
                 return _regenerator2.default.wrap(function _callee2$(_context2) {
@@ -2011,10 +2114,10 @@ var Commands = function (_EndPoint) {
                                 });
 
                             case 2:
-                                return _context2.abrupt('return', _context2.sent);
+                                return _context2.abrupt("return", _context2.sent);
 
                             case 3:
-                            case 'end':
+                            case "end":
                                 return _context2.stop();
                         }
                     }
@@ -2029,12 +2132,16 @@ var Commands = function (_EndPoint) {
         }()
     }]);
     return Commands;
-}(EndPoint);
+}(_EndPoint3.default);
 
-module.exports = Commands;
+exports.default = Commands;
 
-},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122}],6:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29}],6:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -2060,10 +2167,17 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _debug2 = require('debug');
+
+var _debug3 = _interopRequireDefault(_debug2);
+
+var _events = require('events');
+
+var _events2 = _interopRequireDefault(_events);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var debug = require('debug')('Cantabile');
-var EventEmitter = require('events');
+var debug = (0, _debug3.default)('Cantabile');
 
 /**
  * Common functionality for all end point handlers
@@ -2330,12 +2444,16 @@ var EndPoint = function (_EventEmitter) {
 		}
 	}]);
 	return EndPoint;
-}(EventEmitter);
+}(_events2.default);
 
-module.exports = EndPoint;
+exports.default = EndPoint;
 
 },{"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],7:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -2353,21 +2471,23 @@ var _createClass2 = require('babel-runtime/helpers/createClass');
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _EndPoint = require('./EndPoint');
 
-var debug = require('debug')('Cantabile');
-var EndPoint = require('./EndPoint');
-var fetch = require('node-fetch');
+var _EndPoint2 = _interopRequireDefault(_EndPoint);
+
+var _nodeFetch = require('node-fetch');
+
+var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Provides access to Cantabile's engine object for start/stop control
- * 
+ *
  * Access this object via the {{#crossLink "Cantabile/engine:property"}}{{/crossLink}} property.
  *
  * @class Engine
- * @extends EndPoint
  */
-
 var Engine = function () {
 	function Engine(owner) {
 		(0, _classCallCheck3.default)(this, Engine);
@@ -2377,11 +2497,11 @@ var Engine = function () {
 
 	/**
   * Returns a promise to provide the started state of Cantabile's audio engine.
-  * 
+  *
   * This API is only available via  AJAX, and not WebSocket
   *
   * @method isStarted
-  * @type {Promise|Boolean} 
+  * @return {Promise|Boolean}
   */
 
 
@@ -2395,7 +2515,7 @@ var Engine = function () {
 						switch (_context.prev = _context.next) {
 							case 0:
 								_context.next = 2;
-								return fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/")).then(function (r) {
+								return (0, _nodeFetch2.default)(_EndPoint2.default.joinPath(this.owner.hostUrl, "api/engine/")).then(function (r) {
 									return r.json();
 								});
 
@@ -2420,11 +2540,11 @@ var Engine = function () {
 
 		/**
    * Starts Cantabile's audio engine
-   * 
+   *
    * This API is only available via  AJAX, and not WebSocket
    *
    * @method start
-   * @type {Promise} 
+   * @return {Promise}
    */
 
 	}, {
@@ -2436,7 +2556,7 @@ var Engine = function () {
 						switch (_context2.prev = _context2.next) {
 							case 0:
 								_context2.next = 2;
-								return fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/start"), { method: "POST" });
+								return (0, _nodeFetch2.default)(_EndPoint2.default.joinPath(this.owner.hostUrl, "api/engine/start"), { method: "POST" });
 
 							case 2:
 							case 'end':
@@ -2455,11 +2575,11 @@ var Engine = function () {
 
 		/**
    * Stops Cantabile's audio engine
-   * 
+   *
    * This API is only available via  AJAX, and not WebSocket
    *
-   * @method start
-   * @type {Promise} 
+   * @method stop
+   * @return {Promise}
    */
 
 	}, {
@@ -2471,7 +2591,7 @@ var Engine = function () {
 						switch (_context3.prev = _context3.next) {
 							case 0:
 								_context3.next = 2;
-								return fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/stop"), { method: "POST" });
+								return (0, _nodeFetch2.default)(_EndPoint2.default.joinPath(this.owner.hostUrl, "api/engine/stop"), { method: "POST" });
 
 							case 2:
 							case 'end':
@@ -2490,11 +2610,11 @@ var Engine = function () {
 
 		/**
    * Restarts Cantabile's audio engine
-   * 
+   *
    * This API is only available via  AJAX, and not WebSocket
    *
    * @method restart
-   * @type {Promise} 
+   * @return {Promise}
    */
 
 	}, {
@@ -2506,7 +2626,7 @@ var Engine = function () {
 						switch (_context4.prev = _context4.next) {
 							case 0:
 								_context4.next = 2;
-								return fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/restart"), { method: "POST" });
+								return (0, _nodeFetch2.default)(_EndPoint2.default.joinPath(this.owner.hostUrl, "api/engine/restart"), { method: "POST" });
 
 							case 2:
 							case 'end':
@@ -2525,11 +2645,11 @@ var Engine = function () {
 
 		/**
   * Toggles the audio engine between started and stopped
-  * 
+  *
   * This API is only available via  AJAX, and not WebSocket
   *
-  * @method restart
-  * @type {Promise} 
+  * @method startStop
+  * @return {Promise}
   */
 
 	}, {
@@ -2541,7 +2661,7 @@ var Engine = function () {
 						switch (_context5.prev = _context5.next) {
 							case 0:
 								_context5.next = 2;
-								return fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/startStop"), { method: "POST" });
+								return (0, _nodeFetch2.default)(_EndPoint2.default.joinPath(this.owner.hostUrl, "api/engine/startStop"), { method: "POST" });
 
 							case 2:
 							case 'end':
@@ -2561,10 +2681,14 @@ var Engine = function () {
 	return Engine;
 }();
 
-module.exports = Engine;
+exports.default = Engine;
 
-},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/regenerator":29,"debug":122,"node-fetch":127}],8:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/regenerator":29,"node-fetch":127}],8:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -2582,10 +2706,11 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _EndPoint2 = require('./EndPoint');
 
-var debug = require('debug')('Cantabile');
-var EndPoint = require('./EndPoint');
+var _EndPoint3 = _interopRequireDefault(_EndPoint2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Provides access to information about the currently active set of key ranges
@@ -2595,7 +2720,6 @@ var EndPoint = require('./EndPoint');
  * @class KeyRanges
  * @extends EndPoint
  */
-
 var KeyRanges = function (_EndPoint) {
 	(0, _inherits3.default)(KeyRanges, _EndPoint);
 
@@ -2621,7 +2745,7 @@ var KeyRanges = function (_EndPoint) {
 		}
 
 		/**
-   * An array of key ranges
+   * An array of {{#crossLink "KeyRange"}}{{/crossLink}} items
    * @property items
    * @type {KeyRange[]}
    */
@@ -2639,12 +2763,16 @@ var KeyRanges = function (_EndPoint) {
 		}
 	}]);
 	return KeyRanges;
-}(EndPoint);
+}(_EndPoint3.default);
 
-module.exports = KeyRanges;
+exports.default = KeyRanges;
 
-},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122}],9:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],9:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -2670,11 +2798,21 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _debug2 = require('debug');
+
+var _debug3 = _interopRequireDefault(_debug2);
+
+var _EndPoint2 = require('./EndPoint');
+
+var _EndPoint3 = _interopRequireDefault(_EndPoint2);
+
+var _events = require('events');
+
+var _events2 = _interopRequireDefault(_events);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var debug = require('debug')('Cantabile');
-var EndPoint = require('./EndPoint');
-var EventEmitter = require('events');
+var debug = (0, _debug3.default)('Cantabile');
 
 /**
  * Represents a monitored controller
@@ -2765,7 +2903,7 @@ var ControllerWatcher = function (_EventEmitter) {
 			if (this._listener) this._listener(this._value, this);
 
 			/**
-    * Fired after a new show note has been added
+    * Fired when the controller value has changed
     *
     * @event controllerChanged
     * @param {Number} value The new value of the controller
@@ -2819,7 +2957,7 @@ var ControllerWatcher = function (_EventEmitter) {
 		}
 	}]);
 	return ControllerWatcher;
-}(EventEmitter);
+}(_events2.default);
 
 /**
  * Provides access to controllers managed by Cantabile's on-screen keyboard device
@@ -2862,7 +3000,7 @@ var OnscreenKeyboard = function (_EndPoint) {
   * @param {Number} channel 		The MIDI channel number of the controller
   * @param {String} kind 		The MIDI controller kind
   * @param {Number} controller	The number of the controller
-  * @return {Promise|String} A promise to provide the controller value
+  * @return {Promise|Number} A promise to provide the controller value
   */
 
 
@@ -2957,8 +3095,8 @@ var OnscreenKeyboard = function (_EndPoint) {
    * @param {Function} [callback] Optional callback function to be called when the controller value changes.
    * 
    * The callback function has the form function(value, source) where value is the controller value and source
-   * is the ControllerWatcher instance.
-   * 
+   * is the {{#crossLink "ControllerWatcher"}}{{/crossLink}} instance.
+   *
    * @return {ControllerWatcher}
    */
 
@@ -3038,12 +3176,16 @@ var OnscreenKeyboard = function (_EndPoint) {
 		}
 	}]);
 	return OnscreenKeyboard;
-}(EndPoint);
+}(_EndPoint3.default);
 
-module.exports = OnscreenKeyboard;
+exports.default = OnscreenKeyboard;
 
 },{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],10:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -3069,10 +3211,17 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _debug2 = require('debug');
+
+var _debug3 = _interopRequireDefault(_debug2);
+
+var _EndPoint2 = require('./EndPoint');
+
+var _EndPoint3 = _interopRequireDefault(_EndPoint2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var debug = require('debug')('Cantabile');
-var EndPoint = require('./EndPoint');
+var debug = (0, _debug3.default)('Cantabile');
 
 /**
  * Used to access and control Cantabile's set list functionality.
@@ -3113,7 +3262,7 @@ var SetList = function (_EndPoint) {
 		}
 
 		/**
-   * An array of items in the set list
+   * An array of {{#crossLink "SetListItem"}}{{/crossLink}} items in the set list
    * @property items
    * @type {SetListItem[]}
    */
@@ -3199,6 +3348,7 @@ var SetList = function (_EndPoint) {
 
 		/**
    * Gets a list of available set lists in the user's set list folder
+   * @method available
    * @returns {String[]} An array of set list names (relative to user's set list folder, extension removed)
    */
 
@@ -3233,6 +3383,7 @@ var SetList = function (_EndPoint) {
 
 		/**
    * Loads the specified set list from the user's set list folder
+   * @method loadSetList
    * @param {String} name Name of the set to load (relative to user's set list folder, without extension)
    * @param {Boolean} loadFirst True to load the first song in the set list (default = true)
    */
@@ -3431,7 +3582,8 @@ var SetList = function (_EndPoint) {
 		}
 
 		/**
-   * The index of the currently loaded song (or -1 if the current song isn't in the set list)
+   * The index of the currently loaded song (or -1 if the current song isn't in the set list).
+   * See also {{#crossLink "SetList/currentSong:property"}}{{/crossLink}}.
    * @property currentSongIndex
    * @type {Number}
    */
@@ -3445,7 +3597,8 @@ var SetList = function (_EndPoint) {
 		}
 
 		/**
-   * The currently loaded item (or null if the current song isn't in the set list)
+   * The currently loaded {{#crossLink "SetListItem"}}{{/crossLink}} (or null if the current song isn't in the set list).
+   * See also {{#crossLink "SetList/currentSongIndex:property"}}{{/crossLink}}.
    * @property currentSong
    * @type {SetListItem}
    */
@@ -3457,12 +3610,16 @@ var SetList = function (_EndPoint) {
 		}
 	}]);
 	return SetList;
-}(EndPoint);
+}(_EndPoint3.default);
 
-module.exports = SetList;
+exports.default = SetList;
 
 },{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122}],11:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -3480,10 +3637,11 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _EndPoint2 = require('./EndPoint');
 
-var debug = require('debug')('Cantabile');
-var EndPoint = require('./EndPoint');
+var _EndPoint3 = _interopRequireDefault(_EndPoint2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Used to access the current set of show notes
@@ -3493,7 +3651,6 @@ var EndPoint = require('./EndPoint');
  * @class ShowNotes
  * @extends EndPoint
  */
-
 var ShowNotes = function (_EndPoint) {
 	(0, _inherits3.default)(ShowNotes, _EndPoint);
 
@@ -3516,7 +3673,7 @@ var ShowNotes = function (_EndPoint) {
 		}
 
 		/**
-   * An array of show note items
+   * An array of {{#crossLink "ShowNote"}}{{/crossLink}} items
    * @property items
    * @type {ShowNote[]}
    */
@@ -3607,12 +3764,16 @@ var ShowNotes = function (_EndPoint) {
 		}
 	}]);
 	return ShowNotes;
-}(EndPoint);
+}(_EndPoint3.default);
 
-module.exports = ShowNotes;
+exports.default = ShowNotes;
 
-},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122}],12:[function(require,module,exports){
+},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],12:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -3630,9 +3791,11 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _EndPoint2 = require('./EndPoint');
 
-var EndPoint = require('./EndPoint');
+var _EndPoint3 = _interopRequireDefault(_EndPoint2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Interface to the current song
@@ -3642,16 +3805,15 @@ var EndPoint = require('./EndPoint');
  * @class Song
  * @extends EndPoint
  */
+var Song = function (_EndPoint) {
+	(0, _inherits3.default)(Song, _EndPoint);
 
-var SongStates = function (_EndPoint) {
-	(0, _inherits3.default)(SongStates, _EndPoint);
-
-	function SongStates(owner) {
-		(0, _classCallCheck3.default)(this, SongStates);
-		return (0, _possibleConstructorReturn3.default)(this, (SongStates.__proto__ || Object.getPrototypeOf(SongStates)).call(this, owner, "/api/song"));
+	function Song(owner) {
+		(0, _classCallCheck3.default)(this, Song);
+		return (0, _possibleConstructorReturn3.default)(this, (Song.__proto__ || Object.getPrototypeOf(Song)).call(this, owner, "/api/song"));
 	}
 
-	(0, _createClass3.default)(SongStates, [{
+	(0, _createClass3.default)(Song, [{
 		key: '_onOpen',
 		value: function _onOpen() {
 			/**
@@ -3719,7 +3881,7 @@ var SongStates = function (_EndPoint) {
 
 		/**
    * The set list program number of the song (or -1 if not in set list, or not set)
-   * @property name
+   * @property pr
    * @type {Number}
    */
 
@@ -3741,29 +3903,35 @@ var SongStates = function (_EndPoint) {
 			return this._data ? this._data.currentState : null;
 		}
 	}]);
-	return SongStates;
-}(EndPoint);
+	return Song;
+}(_EndPoint3.default);
 
-module.exports = SongStates;
+exports.default = Song;
 
 },{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],13:[function(require,module,exports){
-'use strict';
+"use strict";
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = require('babel-runtime/helpers/inherits');
+var _inherits2 = require("babel-runtime/helpers/inherits");
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _States2 = require("./States");
 
-var States = require('./States');
+var _States3 = _interopRequireDefault(_States2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Interface to the states of the current song
@@ -3773,7 +3941,6 @@ var States = require('./States');
  * @class SongStates
  * @extends States
  */
-
 var SongStates = function (_States) {
   (0, _inherits3.default)(SongStates, _States);
 
@@ -3783,12 +3950,16 @@ var SongStates = function (_States) {
   }
 
   return SongStates;
-}(States);
+}(_States3.default);
 
-module.exports = SongStates;
+exports.default = SongStates;
 
 },{"./States":14,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],14:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -3806,10 +3977,17 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _debug2 = require('debug');
+
+var _debug3 = _interopRequireDefault(_debug2);
+
+var _EndPoint2 = require('./EndPoint');
+
+var _EndPoint3 = _interopRequireDefault(_EndPoint2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var debug = require('debug')('Cantabile');
-var EndPoint = require('./EndPoint');
+var debug = (0, _debug3.default)('Cantabile');
 
 /**
  * Base states functionality for State and racks
@@ -3846,7 +4024,7 @@ var States = function (_EndPoint) {
 		}
 
 		/**
-   * An array of states
+   * An array of {{#crossLink "State"}}{{/crossLink}} items
    * @property items
    * @type {State[]}
    */
@@ -4075,7 +4253,8 @@ var States = function (_EndPoint) {
 		}
 
 		/**
-   * The index of the currently loaded State (or -1 if no active state)
+   * The index of the currently loaded State (or -1 if no active state).
+   * See also {{#crossLink "States/currentState:property"}}{{/crossLink}}.
    * @property currentStateIndex
    * @type {Number}
    */
@@ -4089,7 +4268,8 @@ var States = function (_EndPoint) {
 		}
 
 		/**
-   * The currently loaded item (or null if no active state)
+   * The currently loaded {{#crossLink "State"}}{{/crossLink}} (or null if no active state).
+   * See also {{#crossLink "States/currentStateIndex:property"}}{{/crossLink}}.
    * @property currentState
    * @type {State}
    */
@@ -4101,12 +4281,16 @@ var States = function (_EndPoint) {
 		}
 	}]);
 	return States;
-}(EndPoint);
+}(_EndPoint3.default);
 
-module.exports = States;
+exports.default = States;
 
 },{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122}],15:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -4124,9 +4308,11 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _EndPoint2 = require('./EndPoint');
 
-var EndPoint = require('./EndPoint');
+var _EndPoint3 = _interopRequireDefault(_EndPoint2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Interface to the master transport
@@ -4136,7 +4322,6 @@ var EndPoint = require('./EndPoint');
  * @class Transport
  * @extends EndPoint
  */
-
 var Transport = function (_EndPoint) {
     (0, _inherits3.default)(Transport, _EndPoint);
 
@@ -4163,7 +4348,10 @@ var Transport = function (_EndPoint) {
         }
 
         /**
-         * Gets or sets the current transport state.  Supported values include "playing", "paused" or "stopped"
+         * Gets or sets the current transport state.  Supported values include "playing", "paused" or "stopped".
+         * Setting this property calls {{#crossLink "Transport/play:method"}}{{/crossLink}},
+         * {{#crossLink "Transport/pause:method"}}{{/crossLink}}, or
+         * {{#crossLink "Transport/stop:method"}}{{/crossLink}} accordingly.
          * @property state
          * @type {String}
          */
@@ -4242,7 +4430,7 @@ var Transport = function (_EndPoint) {
 
         /**
          * Toggles pause and play states (unless stopped)
-         * @method togglePlayPause
+         * @method togglePause
          */
 
     }, {
@@ -4339,7 +4527,7 @@ var Transport = function (_EndPoint) {
         }
 
         /**
-         * Gets the current time signture numerator
+         * Gets the current time signature numerator
          * @property timeSignatureNum
          * @type {Number}
          */
@@ -4351,7 +4539,7 @@ var Transport = function (_EndPoint) {
         }
 
         /**
-         * Gets the current time signture denominator
+         * Gets the current time signature denominator
          * @property timeSignatureDen
          * @type {Number}
          */
@@ -4363,7 +4551,7 @@ var Transport = function (_EndPoint) {
         }
 
         /**
-         * Gets the current time signture as a string (eg: "3/4")
+         * Gets the current time signature as a string (eg: "3/4")
          * @property timeSignature
          * @type {String}
          */
@@ -4387,7 +4575,8 @@ var Transport = function (_EndPoint) {
         }
 
         /**
-         * Gets or sets the current loopMode ("auto", "break", "loopOnce" or "loop")
+         * Gets or sets the current loopMode ("auto", "break", "loopOnce" or "loop").
+         * Changes fire the {{#crossLink "Transport/loopStateChanged:event"}}{{/crossLink}} event.
          * @property loopMode
          * @type {String}
          */
@@ -4428,12 +4617,16 @@ var Transport = function (_EndPoint) {
         }
     }]);
     return Transport;
-}(EndPoint);
+}(_EndPoint3.default);
 
-module.exports = Transport;
+exports.default = Transport;
 
 },{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],16:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -4459,11 +4652,21 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _debug2 = require('debug');
+
+var _debug3 = _interopRequireDefault(_debug2);
+
+var _EndPoint2 = require('./EndPoint');
+
+var _EndPoint3 = _interopRequireDefault(_EndPoint2);
+
+var _events = require('events');
+
+var _events2 = _interopRequireDefault(_events);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var debug = require('debug')('Cantabile');
-var EndPoint = require('./EndPoint');
-var EventEmitter = require('events');
+var debug = (0, _debug3.default)('Cantabile');
 
 /**
  * Represents a monitored pattern string.
@@ -4551,10 +4754,10 @@ var PatternWatcher = function (_EventEmitter) {
 			if (this._listener) this._listener(this.resolved, this);
 
 			/**
-    * Fired after a new show note has been added
+    * Fired when the resolved display string has changed
     *
     * @event changed
-    * @param {String} resolved The new display string
+    * @param {String} resolved The new resolved display string
     * @param {PatternWatcher} source This object
     */
 			this.emit('changed', this.resolved, this);
@@ -4579,7 +4782,7 @@ var PatternWatcher = function (_EventEmitter) {
 		}
 	}]);
 	return PatternWatcher;
-}(EventEmitter);
+}(_events2.default);
 
 /**
  * Provides access to Cantabile's internal variables by allowing a pattern string to be
@@ -4710,8 +4913,8 @@ var Variables = function (_EndPoint) {
    * @param {Function} [callback] Optional callback function to be called when the resolved display string changes.
    * 
    * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
-   * is the PatternWatcher instance.
-   * 
+   * is the {{#crossLink "PatternWatcher"}}{{/crossLink}} instance.
+   *
    * @return {PatternWatcher}
    */
 
@@ -4755,9 +4958,9 @@ var Variables = function (_EndPoint) {
 		}
 	}]);
 	return Variables;
-}(EndPoint);
+}(_EndPoint3.default);
 
-module.exports = Variables;
+exports.default = Variables;
 
 },{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],17:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/create"), __esModule: true };

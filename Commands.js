@@ -1,4 +1,4 @@
-import EndPoint from './EndPoint';
+import EndPoint from './EndPoint.js';
 
 
 /**

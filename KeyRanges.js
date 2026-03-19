@@ -1,4 +1,4 @@
-import EndPoint from './EndPoint';
+import EndPoint from './EndPoint.js';
 
 /**
  * Provides access to information about the currently active set of key ranges

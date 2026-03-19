@@ -1,5 +1,5 @@
 import _debug from 'debug';
-import EndPoint from './EndPoint';
+import EndPoint from './EndPoint.js';
 
 const debug = _debug('Cantabile');
 
