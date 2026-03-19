@@ -107,9 +107,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
-
-const EndPoint = require(&#x27;./EndPoint&#x27;);
+import EndPoint from &#x27;./EndPoint.js&#x27;;
 
 /**
  * Interface to the application object
@@ -194,8 +192,8 @@ class Application extends EndPoint
 	 get build() { return this._data ? this._data.build : null; }
 
 	/**
-	 * An array of color entries for the color index table
-	 * @property build
+	 * An array of {{#crossLink &quot;ColorEntry&quot;}}{{/crossLink}} items for the color index table
+	 * @property colors
 	 * @type {ColorEntry[]}
 	 */
 	 get colors() { return this._data ? this._data.colors : null; }
@@ -239,7 +237,7 @@ class Application extends EndPoint
 }
 
 
-module.exports = Application;
+export default Application;
     </pre>
 </div>
                     </div>

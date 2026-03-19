@@ -107,9 +107,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
-
-const States = require(&#x27;./States&#x27;);
+import States from &#x27;./States.js&#x27;;
 
 /**
  * Interface to the states of the current song
@@ -128,7 +126,7 @@ class SongStates extends States
 }
 
 
-module.exports = SongStates;
+export default SongStates;
     </pre>
 </div>
                     </div>

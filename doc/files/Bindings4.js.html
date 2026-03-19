@@ -107,16 +107,16 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
+import _debug from &#x27;debug&#x27;;
+import EndPoint from &#x27;./EndPoint.js&#x27;;
+import EventEmitter from &#x27;events&#x27;;
 
-const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
-const EndPoint = require(&#x27;./EndPoint&#x27;);
-const EventEmitter = require(&#x27;events&#x27;);
+const debug = _debug(&#x27;Cantabile&#x27;);
 
 /**
  * Represents an active connection watching a source binding point for changes/invocations
 
- * Returned from the {{#crossLink &quot;Bindings/watch:method&quot;}}{{/crossLink}} method.
+ * Returned from the {{#crossLink &quot;Bindings4/watch:method&quot;}}{{/crossLink}} method.
  * 
  * @class Binding4Watcher
  * @extends EventEmitter
@@ -289,7 +289,7 @@ class Bindings4 extends EndPoint
      *     console.log(await C.bindings4.availableBindingPoints());
      * 
      * @method availableBindingPoints
-     * @return {Promise|BindingPointEntry4[]} A promise to return an array of BindingPointInfo
+     * @return {Promise|BindingPointEntry4[]} A promise to return an array of {{#crossLink &quot;BindingPointEntry4&quot;}}{{/crossLink}} objects
      */
     async availableBindingPoints()
     {
@@ -307,7 +307,7 @@ class Bindings4 extends EndPoint
      *     console.log(await C.bindings4.bindingPointInfo(&quot;setList&quot;, &quot;loadSongByProgram&quot;, false, {}, {}));
      * 
      * @method bindingPointInfo
-     * @return {Promise|BindingPointInfo4[]} A promise to return an array of BindingPointInfo
+     * @return {Promise|BindingPointInfo4} A promise to return a {{#crossLink &quot;BindingPointInfo4&quot;}}{{/crossLink}} object
      */
 	 async bindingPointInfo(bindableId, bindingPointId, source, bindableParams, bindingPointParams)
 	{
@@ -408,7 +408,7 @@ class Bindings4 extends EndPoint
      * @param {Object} [bindingPointParams] Parameters for the binding point object
 	 * @return {Object} The current value of the binding source
      */
-    async query(bindableId, bindingPointId, indicies)
+    async query(bindableId, bindingPointId, bindableParams, bindingPointParams)
     {
         return (await this.request(&quot;POST&quot;, &quot;/query&quot;, {
             bindableId, bindingPointId, bindableParams, bindingPointParams
@@ -529,7 +529,7 @@ class Bindings4 extends EndPoint
 
 
 
-module.exports = Bindings4;
+export default Bindings4;
     </pre>
 </div>
                     </div>

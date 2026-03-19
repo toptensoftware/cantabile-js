@@ -107,10 +107,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
-
-const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
-const EndPoint = require(&#x27;./EndPoint&#x27;);
+import EndPoint from &#x27;./EndPoint.js&#x27;;
 
 
 /**
@@ -150,7 +147,7 @@ class Commands extends EndPoint
      *     console.log(await C.commands.availableCommands());
      * 
      * @method availableCommands
-     * @return {Promise|CommandInfo[]} A promise to return an array of CommandInfo
+     * @return {Promise|CommandInfo[]} A promise to return an array of {{#crossLink &quot;CommandInfo&quot;}}{{/crossLink}} objects
      */
     async availableCommands()
     {
@@ -181,7 +178,7 @@ class Commands extends EndPoint
 
 
 
-module.exports = Commands;
+export default Commands;
     </pre>
 </div>
                     </div>

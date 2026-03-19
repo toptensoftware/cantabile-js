@@ -107,10 +107,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
-
-const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
-const EndPoint = require(&#x27;./EndPoint&#x27;);
+import EndPoint from &#x27;./EndPoint.js&#x27;;
 
 /**
  * Provides access to information about the currently active set of key ranges
@@ -143,7 +140,7 @@ class KeyRanges extends EndPoint
 	}
 
 	/**
-	 * An array of key ranges
+	 * An array of {{#crossLink &quot;KeyRange&quot;}}{{/crossLink}} items
 	 * @property items
 	 * @type {KeyRange[]}
 	 */
@@ -158,7 +155,7 @@ class KeyRanges extends EndPoint
 
 
 
-module.exports = KeyRanges;
+export default KeyRanges;
     </pre>
 </div>
                     </div>

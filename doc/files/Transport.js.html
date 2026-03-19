@@ -107,9 +107,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
-
-const EndPoint = require(&#x27;./EndPoint&#x27;);
+import EndPoint from &#x27;./EndPoint.js&#x27;;
 
 /**
  * Interface to the master transport
@@ -143,7 +141,10 @@ class Transport extends EndPoint
 	}
 
 	/**
-	 * Gets or sets the current transport state.  Supported values include &quot;playing&quot;, &quot;paused&quot; or &quot;stopped&quot;
+	 * Gets or sets the current transport state.  Supported values include &quot;playing&quot;, &quot;paused&quot; or &quot;stopped&quot;.
+	 * Setting this property calls {{#crossLink &quot;Transport/play:method&quot;}}{{/crossLink}},
+	 * {{#crossLink &quot;Transport/pause:method&quot;}}{{/crossLink}}, or
+	 * {{#crossLink &quot;Transport/stop:method&quot;}}{{/crossLink}} accordingly.
 	 * @property state
 	 * @type {String}
 	 */
@@ -161,21 +162,21 @@ class Transport extends EndPoint
     }
 
 	/**
-	 * Gets the current time signture numerator
+	 * Gets the current time signature numerator
 	 * @property timeSignatureNum
 	 * @type {Number}
 	 */
     get timeSignatureNum() { return this._data ? this._data.timeSigNum : 0 }
 
 	/**
-	 * Gets the current time signture denominator
+	 * Gets the current time signature denominator
 	 * @property timeSignatureDen
 	 * @type {Number}
 	 */
     get timeSignatureDen() { return this._data ? this._data.timeSigDen : 0 }
 
 	/**
-	 * Gets the current time signture as a string (eg: &quot;3/4&quot;)
+	 * Gets the current time signature as a string (eg: &quot;3/4&quot;)
 	 * @property timeSignature
 	 * @type {String}
 	 */
@@ -189,7 +190,8 @@ class Transport extends EndPoint
     get tempo() { return this._data ? this._data.tempo : 0 }
 
 	/**
-	 * Gets or sets the current loopMode (&quot;auto&quot;, &quot;break&quot;, &quot;loopOnce&quot; or &quot;loop&quot;)
+	 * Gets or sets the current loopMode (&quot;auto&quot;, &quot;break&quot;, &quot;loopOnce&quot; or &quot;loop&quot;).
+	 * Changes fire the {{#crossLink &quot;Transport/loopStateChanged:event&quot;}}{{/crossLink}} event.
 	 * @property loopMode
 	 * @type {String}
 	 */
@@ -291,7 +293,7 @@ class Transport extends EndPoint
 
 	/**
 	 * Toggles pause and play states (unless stopped)
-	 * @method togglePlayPause
+	 * @method togglePause
 	 */
     togglePause()
     {
@@ -374,7 +376,7 @@ class Transport extends EndPoint
 }
 
 
-module.exports = Transport;
+export default Transport;
     </pre>
 </div>
                     </div>

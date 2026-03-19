@@ -286,7 +286,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "Application.js",
-            "line": 5,
+            "line": 3,
             "description": "Interface to the application object\n\nAccess this object via the {{#crossLink \"Cantabile/application:property\"}}{{/crossLink}} property.",
             "extends": "EndPoint"
         },
@@ -374,7 +374,7 @@
             "extension_for": [],
             "file": "Bindings4.js",
             "line": 7,
-            "description": "Represents an active connection watching a source binding point for changes/invocations\n\nReturned from the {{#crossLink \"Bindings/watch:method\"}}{{/crossLink}} method.",
+            "description": "Represents an active connection watching a source binding point for changes/invocations\n\nReturned from the {{#crossLink \"Bindings4/watch:method\"}}{{/crossLink}} method.",
             "extends": "EventEmitter"
         },
         "Bindings4": {
@@ -399,7 +399,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "CantabileApi.js",
-            "line": 7,
+            "line": 20,
             "description": "Represents a connection to Cantabile.",
             "extends": "EventEmitter",
             "is_constructor": 1,
@@ -445,7 +445,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "Commands.js",
-            "line": 7,
+            "line": 4,
             "description": "Provides access to Cantabile's UI commands\n\nAccess this object via the {{#crossLink \"Cantabile/commands:property\"}}{{/crossLink}} property.",
             "extends": "EndPoint"
         },
@@ -471,9 +471,8 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "Engine.js",
-            "line": 7,
-            "description": "Provides access to Cantabile's engine object for start/stop control\n\nAccess this object via the {{#crossLink \"Cantabile/engine:property\"}}{{/crossLink}} property.",
-            "extends": "EndPoint"
+            "line": 4,
+            "description": "Provides access to Cantabile's engine object for start/stop control\n\nAccess this object via the {{#crossLink \"Cantabile/engine:property\"}}{{/crossLink}} property."
         },
         "KeyRange": {
             "name": "KeyRange",
@@ -496,7 +495,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "KeyRanges.js",
-            "line": 6,
+            "line": 3,
             "description": "Provides access to information about the currently active set of key ranges\n\nAccess this object via the {{#crossLink \"Cantabile/keyRanges:property\"}}{{/crossLink}} property.",
             "extends": "EndPoint"
         },
@@ -584,7 +583,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "ShowNotes.js",
-            "line": 6,
+            "line": 3,
             "description": "Used to access the current set of show notes\n\nAccess this object via the {{#crossLink \"Cantabile/showNotes:property\"}}{{/crossLink}} property.",
             "extends": "EndPoint"
         },
@@ -597,7 +596,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "Song.js",
-            "line": 5,
+            "line": 3,
             "description": "Interface to the current song\n\nAccess this object via the {{#crossLink \"Cantabile/song:property\"}}{{/crossLink}} property.",
             "extends": "EndPoint"
         },
@@ -610,7 +609,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "SongStates.js",
-            "line": 5,
+            "line": 3,
             "description": "Interface to the states of the current song\n\nAccess this object via the {{#crossLink \"Cantabile/songStates:property\"}}{{/crossLink}} property.",
             "extends": "States"
         },
@@ -648,7 +647,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "Transport.js",
-            "line": 5,
+            "line": 3,
             "description": "Interface to the master transport\n\nAccess this object via the {{#crossLink \"Cantabile/transport:property\"}}{{/crossLink}} property.",
             "extends": "EndPoint"
         },
@@ -701,7 +700,7 @@
         },
         {
             "file": "Application.js",
-            "line": 22,
+            "line": 20,
             "description": "Fired when any of the application properties change",
             "itemtype": "event",
             "name": "changed",
@@ -709,7 +708,7 @@
         },
         {
             "file": "Application.js",
-            "line": 28,
+            "line": 26,
             "description": "Fired when the application object has initially loaded",
             "itemtype": "event",
             "name": "open",
@@ -717,7 +716,7 @@
         },
         {
             "file": "Application.js",
-            "line": 45,
+            "line": 43,
             "description": "The application's company name",
             "itemtype": "property",
             "name": "companyName",
@@ -726,7 +725,7 @@
         },
         {
             "file": "Application.js",
-            "line": 52,
+            "line": 50,
             "description": "The application name",
             "itemtype": "property",
             "name": "name",
@@ -735,7 +734,7 @@
         },
         {
             "file": "Application.js",
-            "line": 59,
+            "line": 57,
             "description": "The application version string",
             "itemtype": "property",
             "name": "version",
@@ -744,7 +743,7 @@
         },
         {
             "file": "Application.js",
-            "line": 66,
+            "line": 64,
             "description": "The application edition string",
             "itemtype": "property",
             "name": "edition",
@@ -753,7 +752,7 @@
         },
         {
             "file": "Application.js",
-            "line": 73,
+            "line": 71,
             "description": "The application's copyright message",
             "itemtype": "property",
             "name": "copyright",
@@ -762,7 +761,7 @@
         },
         {
             "file": "Application.js",
-            "line": 80,
+            "line": 78,
             "description": "The application's build number",
             "itemtype": "property",
             "name": "build",
@@ -771,16 +770,16 @@
         },
         {
             "file": "Application.js",
-            "line": 87,
-            "description": "An array of color entries for the color index table",
+            "line": 85,
+            "description": "An array of {{#crossLink \"ColorEntry\"}}{{/crossLink}} items for the color index table",
             "itemtype": "property",
-            "name": "build",
+            "name": "colors",
             "type": "{ColorEntry[]}",
             "class": "Application"
         },
         {
             "file": "Application.js",
-            "line": 94,
+            "line": 92,
             "description": "The application's busy status",
             "itemtype": "property",
             "name": "busy",
@@ -789,7 +788,7 @@
         },
         {
             "file": "Application.js",
-            "line": 102,
+            "line": 100,
             "description": "The base program number (0 or 1)",
             "itemtype": "property",
             "name": "baseProgramNumber",
@@ -798,7 +797,7 @@
         },
         {
             "file": "Application.js",
-            "line": 109,
+            "line": 107,
             "description": "The preferred banked program display format - \"SeparateBanks\",\"CombinedBanks\",\"Plain\" or \"ZeroPadded\"",
             "itemtype": "property",
             "name": "bankedProgramNumberFormat",
@@ -807,7 +806,7 @@
         },
         {
             "file": "Application.js",
-            "line": 118,
+            "line": 116,
             "description": "Fired when the application busy state changes",
             "itemtype": "event",
             "name": "busyChanged",
@@ -897,7 +896,7 @@
             "line": 13,
             "description": "The display name of the binding point",
             "itemtype": "property",
-            "name": "name",
+            "name": "displayName",
             "type": "{String}",
             "class": "BindingPointInfo"
         },
@@ -925,7 +924,7 @@
         {
             "file": "BindingPointInfo.js",
             "line": 38,
-            "description": "The binding point kind - the type of data send/expected by this binding piont\n\n* \"midi\"\n* \"command\"\n* \"switch\"\n* \"float\"\n* \"gainLevel\"\n* \"integer\"\n* \"index\"\n* \"pitchBend\"\n* \"programNumber\"\n* \"bankedProgramNumber\"\n* \"variant\"\n* \"object\"",
+            "description": "The binding point kind - the type of data send/expected by this binding point\n\n* \"midi\"\n* \"command\"\n* \"switch\"\n* \"float\"\n* \"gainLevel\"\n* \"integer\"\n* \"index\"\n* \"pitchBend\"\n* \"programNumber\"\n* \"bankedProgramNumber\"\n* \"variant\"\n* \"object\"",
             "itemtype": "property",
             "name": "kind",
             "type": "{String}",
@@ -934,7 +933,7 @@
         {
             "file": "BindingPointInfo.js",
             "line": 59,
-            "description": "The binding point parameter kind - the kind of parameter expected by this binding point\n\n* \"none\"\n* \"triggerNumber\"\n* \"popup\"\n* \"keystoke\"\n* \"script\"",
+            "description": "The binding point parameter kind - the kind of parameter expected by this binding point\n\n* \"none\"\n* \"triggerNumber\"\n* \"popup\"\n* \"keystroke\"\n* \"script\"",
             "itemtype": "property",
             "name": "parameterKind",
             "type": "{String}",
@@ -970,7 +969,7 @@
         {
             "file": "BindingPointInfo4.js",
             "line": 33,
-            "description": "The kind of value accepted/sent by this binding point\n\n* \"Float\" - a floating point value\n* \"Integer\" - an integer value\n* \"Index\" - an index displayed either 0 or 1 based\n* \"ProgramNumber\" - a program number displayed either 0 or 1 based\n* \"BankedProgramNumber\" - a banked program number displayed in one of several banked program number formats\n* \"GainLevel\" - a gain level displayed by convertin from scalar value to decibels\n* \"PitchBend\" - a pitch bend value from 0 to 16384 but displayed as -8192 to 8191\n\nThis property is only present if 'kind' is \"Value\"",
+            "description": "The kind of value accepted/sent by this binding point\n\n* \"Float\" - a floating point value\n* \"Integer\" - an integer value\n* \"Index\" - an index displayed either 0 or 1 based\n* \"ProgramNumber\" - a program number displayed either 0 or 1 based\n* \"BankedProgramNumber\" - a banked program number displayed in one of several banked program number formats\n* \"GainLevel\" - a gain level displayed by converting from scalar value to decibels\n* \"PitchBend\" - a pitch bend value from 0 to 16384 but displayed as -8192 to 8191\n\nThis property is only present if 'kind' is \"Value\"",
             "itemtype": "property",
             "name": "valueFormat",
             "type": "{String}",
@@ -1000,7 +999,7 @@
             "description": "Information about the bindable object parameters supported by this binding point",
             "itemtype": "property",
             "name": "bindableParams",
-            "type": "{BindingParam[]}",
+            "type": "{BindingParam[]} Array of {{#crossLink \"BindingParam\"}}{{/crossLink}} objects",
             "class": "BindingPointInfo4"
         },
         {
@@ -1009,7 +1008,7 @@
             "description": "Information about the binding point parameters supported by this binding point",
             "itemtype": "property",
             "name": "bindingPointParams",
-            "type": "{BindingParam[]}",
+            "type": "{BindingParam[]} Array of {{#crossLink \"BindingParam\"}}{{/crossLink}} objects",
             "class": "BindingPointInfo4"
         },
         {
@@ -1086,7 +1085,7 @@
             "itemtype": "method",
             "name": "availableBindingPoints",
             "return": {
-                "description": "A promise to return an array of BindingPointInfo",
+                "description": "A promise to return an array of {{#crossLink \"BindingPointInfo\"}}{{/crossLink}} objects",
                 "type": "Promise|BindingPointInfo[]"
             },
             "class": "Bindings"
@@ -1196,7 +1195,7 @@
                 },
                 {
                     "name": "callback",
-                    "description": "Optional callback function to be called when the source binding triggers\n\nThe callback function has the form function(resolved, source) where resolved is the resolved display string and source\nis the BindingWatcher instance.",
+                    "description": "Optional callback function to be called when the source binding triggers\n\nThe callback function has the form function(value, source) where value is the binding point value and source\nis the BindingWatcher instance.",
                     "type": "Function",
                     "optional": true
                 }
@@ -1290,7 +1289,7 @@
             "itemtype": "method",
             "name": "availableBindingPoints",
             "return": {
-                "description": "A promise to return an array of BindingPointInfo",
+                "description": "A promise to return an array of {{#crossLink \"BindingPointEntry4\"}}{{/crossLink}} objects",
                 "type": "Promise|BindingPointEntry4[]"
             },
             "class": "Bindings4"
@@ -1305,8 +1304,8 @@
             "itemtype": "method",
             "name": "bindingPointInfo",
             "return": {
-                "description": "A promise to return an array of BindingPointInfo",
-                "type": "Promise|BindingPointInfo4[]"
+                "description": "A promise to return a {{#crossLink \"BindingPointInfo4\"}}{{/crossLink}} object",
+                "type": "Promise|BindingPointInfo4"
             },
             "class": "Bindings4"
         },
@@ -1449,8 +1448,8 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 33,
-            "description": "Gets the setList object",
+            "line": 46,
+            "description": "Gets the {{#crossLink \"SetList\"}}{{/crossLink}} object",
             "itemtype": "property",
             "name": "setList",
             "type": "{SetList}",
@@ -1458,8 +1457,8 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 41,
-            "description": "Gets the states of the current song",
+            "line": 54,
+            "description": "Gets the {{#crossLink \"SongStates\"}}{{/crossLink}} for the current song",
             "itemtype": "property",
             "name": "songStates",
             "type": "{SongStates}",
@@ -1467,8 +1466,8 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 49,
-            "description": "Gets the currently active key ranges",
+            "line": 62,
+            "description": "Gets the currently active {{#crossLink \"KeyRanges\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "keyRanges",
             "type": "{KeyRanges}",
@@ -1476,8 +1475,8 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 57,
-            "description": "Gets the current set of show notes",
+            "line": 70,
+            "description": "Gets the current {{#crossLink \"ShowNotes\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "showNotes",
             "type": "{ShowNotes}",
@@ -1485,8 +1484,8 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 65,
-            "description": "Provides access to variable expansion facilities",
+            "line": 78,
+            "description": "Provides access to {{#crossLink \"Variables\"}}{{/crossLink}} expansion facilities",
             "itemtype": "property",
             "name": "variables",
             "type": "{Variables}",
@@ -1494,8 +1493,8 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 73,
-            "description": "Provides access to controllers managed by Cantabile's onscreen keyboard device",
+            "line": 86,
+            "description": "Provides access to controllers managed by Cantabile's {{#crossLink \"OnscreenKeyboard\"}}{{/crossLink}} device",
             "itemtype": "property",
             "name": "onscreenKeyboard",
             "type": "{OnscreenKeyboard}",
@@ -1503,8 +1502,8 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 81,
-            "description": "Provides access to global binding points",
+            "line": 94,
+            "description": "Provides access to global {{#crossLink \"Bindings\"}}{{/crossLink}} points",
             "itemtype": "property",
             "name": "bindings",
             "type": "{Bindings}",
@@ -1512,8 +1511,8 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 89,
-            "description": "Provides access to global binding v4 points",
+            "line": 102,
+            "description": "Provides access to global {{#crossLink \"Bindings4\"}}{{/crossLink}} points",
             "itemtype": "property",
             "name": "bindings4",
             "type": "{Bindings4}",
@@ -1521,8 +1520,8 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 97,
-            "description": "Provides access to global commands",
+            "line": 110,
+            "description": "Provides access to global {{#crossLink \"Commands\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "commands",
             "type": "{Commands}",
@@ -1530,8 +1529,8 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 105,
-            "description": "Provides access to information about the current song",
+            "line": 118,
+            "description": "Provides access to {{#crossLink \"Song\"}}{{/crossLink}} information about the current song",
             "itemtype": "property",
             "name": "song",
             "type": "{Song}",
@@ -1539,17 +1538,17 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 113,
-            "description": "Provides access to master transport controls",
+            "line": 126,
+            "description": "Provides access to master {{#crossLink \"Transport\"}}{{/crossLink}} controls",
             "itemtype": "property",
             "name": "transport",
-            "type": "{Song}",
+            "type": "{Transport}",
             "class": "Cantabile"
         },
         {
             "file": "CantabileApi.js",
-            "line": 121,
-            "description": "Provides access to the application object",
+            "line": 134,
+            "description": "Provides access to the {{#crossLink \"Application\"}}{{/crossLink}} object",
             "itemtype": "property",
             "name": "application",
             "type": "{Application}",
@@ -1557,8 +1556,8 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 129,
-            "description": "Provides access to the engine object",
+            "line": 142,
+            "description": "Provides access to the {{#crossLink \"Engine\"}}{{/crossLink}} object",
             "itemtype": "property",
             "name": "engine",
             "type": "{Engine}",
@@ -1566,7 +1565,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 138,
+            "line": 151,
             "description": "The current connection state, either \"connecting\", \"connected\" or \"disconnected\"",
             "itemtype": "property",
             "name": "state",
@@ -1575,7 +1574,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 149,
+            "line": 162,
             "description": "Initiate connection and retry if fails",
             "itemtype": "method",
             "name": "connect",
@@ -1583,7 +1582,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 159,
+            "line": 172,
             "description": "Disconnect and stop retries",
             "itemtype": "method",
             "name": "disconnect",
@@ -1591,7 +1590,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 169,
+            "line": 182,
             "description": "Stringify an object as a JSON message and send it to the server",
             "itemtype": "method",
             "name": "send",
@@ -1606,7 +1605,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 181,
+            "line": 194,
             "description": "Stringify an object as a JSON message, send it to the server and returns \na promise which will resolve to the result.",
             "itemtype": "method",
             "name": "request",
@@ -1625,7 +1624,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 208,
+            "line": 221,
             "description": "Returns a promise that will be resolved when connected",
             "example": [
                 "\n\n    let C = new CantabileApi();\n    await C.untilConnected();"
@@ -1640,7 +1639,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 262,
+            "line": 275,
             "description": "The current host",
             "itemtype": "property",
             "name": "host",
@@ -1649,25 +1648,25 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 324,
+            "line": 337,
             "description": "The base socket url",
             "itemtype": "property",
-            "name": "host",
+            "name": "socketUrl",
             "type": "{String}",
             "class": "Cantabile"
         },
         {
             "file": "CantabileApi.js",
-            "line": 335,
+            "line": 348,
             "description": "The base host url",
             "itemtype": "property",
-            "name": "host",
+            "name": "hostUrl",
             "type": "{String}",
             "class": "Cantabile"
         },
         {
             "file": "CantabileApi.js",
-            "line": 506,
+            "line": 519,
             "description": "Fired when the {{#crossLink \"Cantabile/state:property\"}}{{/crossLink}} property value changes",
             "itemtype": "event",
             "name": "stateChanged",
@@ -1682,7 +1681,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 514,
+            "line": 527,
             "description": "Fired when entering the connected state",
             "itemtype": "event",
             "name": "connected",
@@ -1690,7 +1689,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 521,
+            "line": 534,
             "description": "Fired when entering the connecting state",
             "itemtype": "event",
             "name": "connecting",
@@ -1698,7 +1697,7 @@
         },
         {
             "file": "CantabileApi.js",
-            "line": 528,
+            "line": 541,
             "description": "Fired when entering the disconnected state",
             "itemtype": "event",
             "name": "disconnected",
@@ -1742,7 +1741,7 @@
         },
         {
             "file": "Commands.js",
-            "line": 31,
+            "line": 28,
             "description": "Retrieves a list of available commands\n\nIf Cantabile is running on your local machine you can view this list\ndirectly at <http://localhost:35007/api/commands/availableCommands>",
             "example": [
                 "\n\n    let C = new CantabileApi();\n    C.connect();\n    console.log(await C.commands.availableCommands());"
@@ -1750,14 +1749,14 @@
             "itemtype": "method",
             "name": "availableCommands",
             "return": {
-                "description": "A promise to return an array of CommandInfo",
+                "description": "A promise to return an array of {{#crossLink \"CommandInfo\"}}{{/crossLink}} objects",
                 "type": "Promise|CommandInfo[]"
             },
             "class": "Commands"
         },
         {
             "file": "Commands.js",
-            "line": 52,
+            "line": 49,
             "description": "Invokes a command",
             "example": [
                 "\n\nShow the file open dialog\n\n    C.commands.invoke(\"file.open\");"
@@ -1810,47 +1809,62 @@
         },
         {
             "file": "Engine.js",
-            "line": 22,
+            "line": 18,
             "description": "Returns a promise to provide the started state of Cantabile's audio engine.\n\nThis API is only available via  AJAX, and not WebSocket",
             "itemtype": "method",
             "name": "isStarted",
-            "type": "{Promise|Boolean}",
+            "return": {
+                "description": "",
+                "type": "Promise|Boolean"
+            },
             "class": "Engine"
         },
         {
             "file": "Engine.js",
-            "line": 36,
+            "line": 32,
             "description": "Starts Cantabile's audio engine\n\nThis API is only available via  AJAX, and not WebSocket",
             "itemtype": "method",
             "name": "start",
-            "type": "{Promise}",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
             "class": "Engine"
         },
         {
             "file": "Engine.js",
-            "line": 49,
+            "line": 45,
             "description": "Stops Cantabile's audio engine\n\nThis API is only available via  AJAX, and not WebSocket",
             "itemtype": "method",
-            "name": "start",
-            "type": "{Promise}",
+            "name": "stop",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
             "class": "Engine"
         },
         {
             "file": "Engine.js",
-            "line": 62,
+            "line": 58,
             "description": "Restarts Cantabile's audio engine\n\nThis API is only available via  AJAX, and not WebSocket",
             "itemtype": "method",
             "name": "restart",
-            "type": "{Promise}",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
             "class": "Engine"
         },
         {
             "file": "Engine.js",
-            "line": 75,
+            "line": 71,
             "description": "Toggles the audio engine between started and stopped\n\nThis API is only available via  AJAX, and not WebSocket",
             "itemtype": "method",
-            "name": "restart",
-            "type": "{Promise}",
+            "name": "startStop",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
             "class": "Engine"
         },
         {
@@ -1900,7 +1914,7 @@
         },
         {
             "file": "KeyRanges.js",
-            "line": 23,
+            "line": 20,
             "description": "Fired when the active set of key ranges has changed",
             "itemtype": "event",
             "name": "changed",
@@ -1908,8 +1922,8 @@
         },
         {
             "file": "KeyRanges.js",
-            "line": 36,
-            "description": "An array of key ranges",
+            "line": 33,
+            "description": "An array of {{#crossLink \"KeyRange\"}}{{/crossLink}} items",
             "itemtype": "property",
             "name": "items",
             "type": "{KeyRange[]}",
@@ -1998,7 +2012,7 @@
         {
             "file": "OnscreenKeyboard.js",
             "line": 112,
-            "description": "Fired after a new show note has been added",
+            "description": "Fired when the controller value has changed",
             "itemtype": "event",
             "name": "controllerChanged",
             "params": [
@@ -2044,7 +2058,7 @@
             ],
             "return": {
                 "description": "A promise to provide the controller value",
-                "type": "Promise|String"
+                "type": "Promise|Number"
             },
             "class": "OnscreenKeyboard"
         },
@@ -2076,7 +2090,7 @@
                 },
                 {
                     "name": "callback",
-                    "description": "Optional callback function to be called when the controller value changes.\n\nThe callback function has the form function(value, source) where value is the controller value and source\nis the ControllerWatcher instance.",
+                    "description": "Optional callback function to be called when the controller value changes.\n\nThe callback function has the form function(value, source) where value is the controller value and source\nis the {{#crossLink \"ControllerWatcher\"}}{{/crossLink}} instance.",
                     "type": "Function",
                     "optional": true
                 }
@@ -2109,7 +2123,7 @@
         {
             "file": "SetList.js",
             "line": 38,
-            "description": "An array of items in the set list",
+            "description": "An array of {{#crossLink \"SetListItem\"}}{{/crossLink}} items in the set list",
             "itemtype": "property",
             "name": "items",
             "type": "{SetListItem[]}",
@@ -2136,7 +2150,7 @@
         {
             "file": "SetList.js",
             "line": 59,
-            "description": "The index of the currently loaded song (or -1 if the current song isn't in the set list)",
+            "description": "The index of the currently loaded song (or -1 if the current song isn't in the set list).\nSee also {{#crossLink \"SetList/currentSong:property\"}}{{/crossLink}}.",
             "itemtype": "property",
             "name": "currentSongIndex",
             "type": "{Number}",
@@ -2144,8 +2158,8 @@
         },
         {
             "file": "SetList.js",
-            "line": 73,
-            "description": "The currently loaded item (or null if the current song isn't in the set list)",
+            "line": 74,
+            "description": "The currently loaded {{#crossLink \"SetListItem\"}}{{/crossLink}} (or null if the current song isn't in the set list).\nSee also {{#crossLink \"SetList/currentSongIndex:property\"}}{{/crossLink}}.",
             "itemtype": "property",
             "name": "currentSong",
             "type": "{SetListItem}",
@@ -2153,7 +2167,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 80,
+            "line": 82,
             "description": "Load the song at a given index position",
             "itemtype": "method",
             "name": "loadSongByIndex",
@@ -2175,7 +2189,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 94,
+            "line": 96,
             "description": "Load the song with a given program number",
             "itemtype": "method",
             "name": "loadSongByProgram",
@@ -2197,7 +2211,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 108,
+            "line": 110,
             "description": "Load the first song in the set list",
             "itemtype": "method",
             "name": "loadFirstSong",
@@ -2214,7 +2228,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 120,
+            "line": 122,
             "description": "Load the last song in the set list",
             "itemtype": "method",
             "name": "loadLastSong",
@@ -2231,7 +2245,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 132,
+            "line": 134,
             "description": "Load the next or previous song in the set list",
             "itemtype": "method",
             "name": "loadNextSong",
@@ -2260,7 +2274,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 148,
+            "line": 150,
             "description": "Gets a list of available set lists in the user's set list folder",
             "itemtype": "method",
             "name": "available",
@@ -2272,7 +2286,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 158,
+            "line": 160,
             "description": "Loads the specified set list from the user's set list folder",
             "itemtype": "method",
             "name": "loadSetList",
@@ -2292,7 +2306,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 201,
+            "line": 203,
             "description": "Fired after a new item has been added to the set list",
             "itemtype": "event",
             "name": "itemAdded",
@@ -2307,7 +2321,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 208,
+            "line": 210,
             "description": "Fired when anything about the contents of the set list changes",
             "itemtype": "event",
             "name": "changed",
@@ -2315,7 +2329,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 221,
+            "line": 223,
             "description": "Fired after an item has been removed from the set list",
             "itemtype": "event",
             "name": "itemRemoved",
@@ -2330,7 +2344,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 237,
+            "line": 239,
             "description": "Fired when an item in the set list has been moved",
             "itemtype": "event",
             "name": "itemMoved",
@@ -2350,7 +2364,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 256,
+            "line": 258,
             "description": "Fired when something about an item has changed",
             "itemtype": "event",
             "name": "itemChanged",
@@ -2365,7 +2379,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 272,
+            "line": 274,
             "description": "Fired when the entire set list has changed (eg: after a sort operation, or loading a new set list)",
             "itemtype": "event",
             "name": "reload",
@@ -2373,7 +2387,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 284,
+            "line": 286,
             "description": "Fired when the pre-loaded state of the list has changed",
             "itemtype": "event",
             "name": "preLoadedChanged",
@@ -2381,7 +2395,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 297,
+            "line": 299,
             "description": "Fired when the currently loaded song changes",
             "itemtype": "event",
             "name": "currentSongChanged",
@@ -2389,7 +2403,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 308,
+            "line": 310,
             "description": "Fired when the part of the currently loaded song changes",
             "itemtype": "event",
             "name": "currentSongPartChanged",
@@ -2409,7 +2423,7 @@
         },
         {
             "file": "SetList.js",
-            "line": 324,
+            "line": 326,
             "description": "Fired when the name of the currently loaded set list changes",
             "itemtype": "event",
             "name": "nameChanged",
@@ -2597,8 +2611,8 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 33,
-            "description": "An array of show note items",
+            "line": 30,
+            "description": "An array of {{#crossLink \"ShowNote\"}}{{/crossLink}} items",
             "itemtype": "property",
             "name": "items",
             "type": "{ShowNote[]}",
@@ -2606,7 +2620,7 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 46,
+            "line": 43,
             "description": "Fired after a new show note has been added",
             "itemtype": "event",
             "name": "itemAdded",
@@ -2621,7 +2635,7 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 53,
+            "line": 50,
             "description": "Fired when anything about the current set of show notes changes",
             "itemtype": "event",
             "name": "changed",
@@ -2629,7 +2643,7 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 66,
+            "line": 63,
             "description": "Fired after a show note has been removed",
             "itemtype": "event",
             "name": "itemRemoved",
@@ -2644,7 +2658,7 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 82,
+            "line": 79,
             "description": "Fired when an show note has been moved",
             "itemtype": "event",
             "name": "itemMoved",
@@ -2664,7 +2678,7 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 98,
+            "line": 95,
             "description": "Fired when something about an show note has changed",
             "itemtype": "event",
             "name": "itemChanged",
@@ -2679,7 +2693,7 @@
         },
         {
             "file": "ShowNotes.js",
-            "line": 112,
+            "line": 109,
             "description": "Fired when the entire set of show notes has changed (eg: after  loading a new song)",
             "itemtype": "event",
             "name": "reload",
@@ -2687,7 +2701,7 @@
         },
         {
             "file": "Song.js",
-            "line": 22,
+            "line": 20,
             "description": "Fired when anything about the current song changes",
             "itemtype": "event",
             "name": "changed",
@@ -2695,7 +2709,7 @@
         },
         {
             "file": "Song.js",
-            "line": 29,
+            "line": 27,
             "description": "Fired when the name of the current song changes",
             "itemtype": "event",
             "name": "nameChanged",
@@ -2703,7 +2717,7 @@
         },
         {
             "file": "Song.js",
-            "line": 36,
+            "line": 34,
             "description": "Fired when the current song state changes",
             "itemtype": "event",
             "name": "currentStateChanged",
@@ -2711,7 +2725,7 @@
         },
         {
             "file": "Song.js",
-            "line": 51,
+            "line": 49,
             "description": "The name of the current song",
             "itemtype": "property",
             "name": "name",
@@ -2720,16 +2734,16 @@
         },
         {
             "file": "Song.js",
-            "line": 58,
+            "line": 56,
             "description": "The set list program number of the song (or -1 if not in set list, or not set)",
             "itemtype": "property",
-            "name": "name",
+            "name": "pr",
             "type": "{Number}",
             "class": "Song"
         },
         {
             "file": "Song.js",
-            "line": 65,
+            "line": 63,
             "description": "The name of the current song state",
             "itemtype": "property",
             "name": "currentState",
@@ -2766,7 +2780,7 @@
         {
             "file": "States.js",
             "line": 34,
-            "description": "An array of states",
+            "description": "An array of {{#crossLink \"State\"}}{{/crossLink}} items",
             "itemtype": "property",
             "name": "items",
             "type": "{State[]}",
@@ -2784,7 +2798,7 @@
         {
             "file": "States.js",
             "line": 48,
-            "description": "The index of the currently loaded State (or -1 if no active state)",
+            "description": "The index of the currently loaded State (or -1 if no active state).\nSee also {{#crossLink \"States/currentState:property\"}}{{/crossLink}}.",
             "itemtype": "property",
             "name": "currentStateIndex",
             "type": "{Number}",
@@ -2792,8 +2806,8 @@
         },
         {
             "file": "States.js",
-            "line": 62,
-            "description": "The currently loaded item (or null if no active state)",
+            "line": 63,
+            "description": "The currently loaded {{#crossLink \"State\"}}{{/crossLink}} (or null if no active state).\nSee also {{#crossLink \"States/currentStateIndex:property\"}}{{/crossLink}}.",
             "itemtype": "property",
             "name": "currentState",
             "type": "{State}",
@@ -2801,7 +2815,7 @@
         },
         {
             "file": "States.js",
-            "line": 69,
+            "line": 71,
             "description": "Load the State at a given index position",
             "itemtype": "method",
             "name": "loadStateByIndex",
@@ -2823,7 +2837,7 @@
         },
         {
             "file": "States.js",
-            "line": 83,
+            "line": 85,
             "description": "Load the State with a given program number",
             "itemtype": "method",
             "name": "loadStateByProgram",
@@ -2845,7 +2859,7 @@
         },
         {
             "file": "States.js",
-            "line": 97,
+            "line": 99,
             "description": "Load the first state",
             "itemtype": "method",
             "name": "loadFirstState",
@@ -2862,7 +2876,7 @@
         },
         {
             "file": "States.js",
-            "line": 109,
+            "line": 111,
             "description": "Load the last state",
             "itemtype": "method",
             "name": "loadLastState",
@@ -2879,7 +2893,7 @@
         },
         {
             "file": "States.js",
-            "line": 121,
+            "line": 123,
             "description": "Load the next or previous state",
             "itemtype": "method",
             "name": "loadNextState",
@@ -2908,7 +2922,7 @@
         },
         {
             "file": "States.js",
-            "line": 165,
+            "line": 167,
             "description": "Fired after a new state has been added",
             "itemtype": "event",
             "name": "itemAdded",
@@ -2923,7 +2937,7 @@
         },
         {
             "file": "States.js",
-            "line": 172,
+            "line": 174,
             "description": "Fired when anything about the contents of state list changes",
             "itemtype": "event",
             "name": "changed",
@@ -2931,7 +2945,7 @@
         },
         {
             "file": "States.js",
-            "line": 185,
+            "line": 187,
             "description": "Fired after a state has been removed",
             "itemtype": "event",
             "name": "itemRemoved",
@@ -2946,7 +2960,7 @@
         },
         {
             "file": "States.js",
-            "line": 201,
+            "line": 203,
             "description": "Fired when an item has been moved",
             "itemtype": "event",
             "name": "itemMoved",
@@ -2966,7 +2980,7 @@
         },
         {
             "file": "States.js",
-            "line": 220,
+            "line": 222,
             "description": "Fired when something about an state has changed",
             "itemtype": "event",
             "name": "itemChanged",
@@ -2981,7 +2995,7 @@
         },
         {
             "file": "States.js",
-            "line": 236,
+            "line": 238,
             "description": "Fired when the entire set of states has changed (eg: after a sort operation, or loading a new song/rack)",
             "itemtype": "event",
             "name": "reload",
@@ -2989,7 +3003,7 @@
         },
         {
             "file": "States.js",
-            "line": 249,
+            "line": 251,
             "description": "Fired when the current state changes",
             "itemtype": "event",
             "name": "currentStateChanged",
@@ -2997,7 +3011,7 @@
         },
         {
             "file": "States.js",
-            "line": 263,
+            "line": 265,
             "description": "Fired when the name of the containing song or rack changes",
             "itemtype": "event",
             "name": "nameChanged",
@@ -3005,8 +3019,8 @@
         },
         {
             "file": "Transport.js",
-            "line": 36,
-            "description": "Gets or sets the current transport state.  Supported values include \"playing\", \"paused\" or \"stopped\"",
+            "line": 34,
+            "description": "Gets or sets the current transport state.  Supported values include \"playing\", \"paused\" or \"stopped\".\nSetting this property calls {{#crossLink \"Transport/play:method\"}}{{/crossLink}},\n{{#crossLink \"Transport/pause:method\"}}{{/crossLink}}, or\n{{#crossLink \"Transport/stop:method\"}}{{/crossLink}} accordingly.",
             "itemtype": "property",
             "name": "state",
             "type": "{String}",
@@ -3014,8 +3028,8 @@
         },
         {
             "file": "Transport.js",
-            "line": 54,
-            "description": "Gets the current time signture numerator",
+            "line": 55,
+            "description": "Gets the current time signature numerator",
             "itemtype": "property",
             "name": "timeSignatureNum",
             "type": "{Number}",
@@ -3023,8 +3037,8 @@
         },
         {
             "file": "Transport.js",
-            "line": 61,
-            "description": "Gets the current time signture denominator",
+            "line": 62,
+            "description": "Gets the current time signature denominator",
             "itemtype": "property",
             "name": "timeSignatureDen",
             "type": "{Number}",
@@ -3032,8 +3046,8 @@
         },
         {
             "file": "Transport.js",
-            "line": 68,
-            "description": "Gets the current time signture as a string (eg: \"3/4\")",
+            "line": 69,
+            "description": "Gets the current time signature as a string (eg: \"3/4\")",
             "itemtype": "property",
             "name": "timeSignature",
             "type": "{String}",
@@ -3041,7 +3055,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 75,
+            "line": 76,
             "description": "Gets the current tempo",
             "itemtype": "property",
             "name": "tempo",
@@ -3050,8 +3064,8 @@
         },
         {
             "file": "Transport.js",
-            "line": 82,
-            "description": "Gets or sets the current loopMode (\"auto\", \"break\", \"loopOnce\" or \"loop\")",
+            "line": 83,
+            "description": "Gets or sets the current loopMode (\"auto\", \"break\", \"loopOnce\" or \"loop\").\nChanges fire the {{#crossLink \"Transport/loopStateChanged:event\"}}{{/crossLink}} event.",
             "itemtype": "property",
             "name": "loopMode",
             "type": "{String}",
@@ -3059,7 +3073,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 97,
+            "line": 99,
             "description": "Gets the current loopCount",
             "itemtype": "property",
             "name": "loopCount",
@@ -3068,7 +3082,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 104,
+            "line": 106,
             "description": "Gets the current loopIteration",
             "itemtype": "property",
             "name": "loopIteration",
@@ -3077,7 +3091,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 113,
+            "line": 115,
             "description": "Fired when the current transport state has changed",
             "itemtype": "event",
             "name": "stateChanged",
@@ -3085,7 +3099,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 125,
+            "line": 127,
             "description": "Fired when the current time signature has changed",
             "itemtype": "event",
             "name": "timeSignatureChanged",
@@ -3093,7 +3107,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 138,
+            "line": 140,
             "description": "Fired when the current tempo has changed",
             "itemtype": "event",
             "name": "tempoChanged",
@@ -3101,7 +3115,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 150,
+            "line": 152,
             "description": "Fired when the current loop mode, loop iteration or loop count has changed",
             "itemtype": "event",
             "name": "loopStateChanged",
@@ -3109,7 +3123,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 161,
+            "line": 163,
             "description": "Starts transport playback",
             "itemtype": "method",
             "name": "play",
@@ -3117,7 +3131,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 171,
+            "line": 173,
             "description": "Toggles between play and pause states",
             "itemtype": "method",
             "name": "togglePlayPause",
@@ -3125,15 +3139,15 @@
         },
         {
             "file": "Transport.js",
-            "line": 183,
+            "line": 185,
             "description": "Toggles pause and play states (unless stopped)",
             "itemtype": "method",
-            "name": "togglePlayPause",
+            "name": "togglePause",
             "class": "Transport"
         },
         {
             "file": "Transport.js",
-            "line": 195,
+            "line": 197,
             "description": "Toggles play and stopped states",
             "itemtype": "method",
             "name": "togglePlay",
@@ -3141,7 +3155,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 207,
+            "line": 209,
             "description": "Toggles between play and stop states",
             "itemtype": "method",
             "name": "togglePlayStop",
@@ -3149,7 +3163,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 219,
+            "line": 221,
             "description": "Pauses the master transport",
             "itemtype": "method",
             "name": "pause",
@@ -3157,7 +3171,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 229,
+            "line": 231,
             "description": "Stops the master transport",
             "itemtype": "method",
             "name": "stop",
@@ -3165,7 +3179,7 @@
         },
         {
             "file": "Transport.js",
-            "line": 239,
+            "line": 241,
             "description": "Cycles between the various loop modes",
             "itemtype": "method",
             "name": "cycleLoopMode",
@@ -3200,13 +3214,13 @@
         {
             "file": "Variables.js",
             "line": 93,
-            "description": "Fired after a new show note has been added",
+            "description": "Fired when the resolved display string has changed",
             "itemtype": "event",
             "name": "changed",
             "params": [
                 {
                     "name": "resolved",
-                    "description": "The new display string",
+                    "description": "The new resolved display string",
                     "type": "String"
                 },
                 {
@@ -3251,7 +3265,7 @@
                 },
                 {
                     "name": "callback",
-                    "description": "Optional callback function to be called when the resolved display string changes.\n\nThe callback function has the form function(resolved, source) where resolved is the resolved display string and source\nis the PatternWatcher instance.",
+                    "description": "Optional callback function to be called when the resolved display string changes.\n\nThe callback function has the form function(resolved, source) where resolved is the resolved display string and source\nis the {{#crossLink \"PatternWatcher\"}}{{/crossLink}} instance.",
                     "type": "Function",
                     "optional": true
                 }
@@ -3266,7 +3280,7 @@
     "warnings": [
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " SetList.js:148"
+            "line": " SetList.js:150"
         },
         {
             "message": "Missing item type\nBootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",

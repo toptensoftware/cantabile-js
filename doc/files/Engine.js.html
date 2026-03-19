@@ -107,19 +107,15 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
-
-const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
-const EndPoint = require(&#x27;./EndPoint&#x27;);
-const fetch = require(&#x27;node-fetch&#x27;);
+import EndPoint from &#x27;./EndPoint.js&#x27;;
+import fetch from &#x27;node-fetch&#x27;;
 
 /**
  * Provides access to Cantabile&#x27;s engine object for start/stop control
- * 
+ *
  * Access this object via the {{#crossLink &quot;Cantabile/engine:property&quot;}}{{/crossLink}} property.
  *
  * @class Engine
- * @extends EndPoint
  */
 class Engine
 {
@@ -130,11 +126,11 @@ class Engine
 
 	/**
 	 * Returns a promise to provide the started state of Cantabile&#x27;s audio engine.
-	 * 
+	 *
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method isStarted
-	 * @type {Promise|Boolean} 
+	 * @return {Promise|Boolean}
 	 */
 	 async isStarted()
 	{
@@ -144,11 +140,11 @@ class Engine
 
 	/**
 	 * Starts Cantabile&#x27;s audio engine
-	 * 
+	 *
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method start
-	 * @type {Promise} 
+	 * @return {Promise}
 	 */
 	async start()
 	{
@@ -157,11 +153,11 @@ class Engine
 
 	/**
 	 * Stops Cantabile&#x27;s audio engine
-	 * 
+	 *
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
-	 * @method start
-	 * @type {Promise} 
+	 * @method stop
+	 * @return {Promise}
 	 */
 	async stop()
 	{
@@ -170,35 +166,36 @@ class Engine
 
 	/**
 	 * Restarts Cantabile&#x27;s audio engine
-	 * 
+	 *
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method restart
-	 * @type {Promise} 
+	 * @return {Promise}
 	 */
 	 async restart()
 	 {
 		 await fetch(EndPoint.joinPath(this.owner.hostUrl, &quot;api/engine/restart&quot;), { method: &quot;POST&quot; });
 	 }
- 
+
  	/**
 	 * Toggles the audio engine between started and stopped
-	 * 
+	 *
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
-	 * @method restart
-	 * @type {Promise} 
+	 * @method startStop
+	 * @return {Promise}
 	 */
 	  async startStop()
 	  {
 		  await fetch(EndPoint.joinPath(this.owner.hostUrl, &quot;api/engine/startStop&quot;), { method: &quot;POST&quot; });
 	  }
-  
+
   }
 
 
 
-module.exports = Engine;
+export default Engine;
+
     </pre>
 </div>
                     </div>

@@ -107,10 +107,10 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
+import _debug from &#x27;debug&#x27;;
+import EndPoint from &#x27;./EndPoint.js&#x27;;
 
-const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
-const EndPoint = require(&#x27;./EndPoint&#x27;);
+const debug = _debug(&#x27;Cantabile&#x27;);
 
 /**
  * Used to access and control Cantabile&#x27;s set list functionality.
@@ -145,7 +145,7 @@ class SetList extends EndPoint
 	}
 
 	/**
-	 * An array of items in the set list
+	 * An array of {{#crossLink &quot;SetListItem&quot;}}{{/crossLink}} items in the set list
 	 * @property items
 	 * @type {SetListItem[]}
 	 */
@@ -166,7 +166,8 @@ class SetList extends EndPoint
 	get preLoaded() { return this._data ? this._data.preLoaded : false; }
 
 	/**
-	 * The index of the currently loaded song (or -1 if the current song isn&#x27;t in the set list)
+	 * The index of the currently loaded song (or -1 if the current song isn&#x27;t in the set list).
+	 * See also {{#crossLink &quot;SetList/currentSong:property&quot;}}{{/crossLink}}.
 	 * @property currentSongIndex
 	 * @type {Number}
 	 */
@@ -180,7 +181,8 @@ class SetList extends EndPoint
 	}
 
 	/**
-	 * The currently loaded item (or null if the current song isn&#x27;t in the set list)
+	 * The currently loaded {{#crossLink &quot;SetListItem&quot;}}{{/crossLink}} (or null if the current song isn&#x27;t in the set list).
+	 * See also {{#crossLink &quot;SetList/currentSongIndex:property&quot;}}{{/crossLink}}.
 	 * @property currentSong
 	 * @type {SetListItem}
 	 */
@@ -440,7 +442,7 @@ class SetList extends EndPoint
 
 
 
-module.exports = SetList;
+export default SetList;
     </pre>
 </div>
                     </div>

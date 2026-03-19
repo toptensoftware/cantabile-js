@@ -107,11 +107,24 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
+import WebSocket from &#x27;isomorphic-ws&#x27;;
+import _debug from &#x27;debug&#x27;;
+import EventEmitter from &#x27;events&#x27;;
+import SetList from &#x27;./SetList.js&#x27;;
+import SongStates from &#x27;./SongStates.js&#x27;;
+import KeyRanges from &#x27;./KeyRanges.js&#x27;;
+import ShowNotes from &#x27;./ShowNotes.js&#x27;;
+import Variables from &#x27;./Variables.js&#x27;;
+import OnscreenKeyboard from &#x27;./OnscreenKeyboard.js&#x27;;
+import Bindings from &#x27;./Bindings.js&#x27;;
+import Bindings4 from &#x27;./Bindings4.js&#x27;;
+import Commands from &#x27;./Commands.js&#x27;;
+import Song from &#x27;./Song.js&#x27;;
+import Transport from &#x27;./Transport.js&#x27;;
+import Application from &#x27;./Application.js&#x27;;
+import Engine from &#x27;./Engine.js&#x27;;
 
-const WebSocket = require(&#x27;isomorphic-ws&#x27;);
-const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
-const EventEmitter = require(&#x27;events&#x27;);
+const debug = _debug(&#x27;Cantabile&#x27;);
 
 /**
 * Represents a connection to Cantabile.
@@ -140,108 +153,108 @@ class Cantabile extends EventEmitter
 		this._setState(&quot;disconnected&quot;);
 
 		/**
-		 * Gets the setList object
+		 * Gets the {{#crossLink &quot;SetList&quot;}}{{/crossLink}} object
 		 *
 		 * @property setList
-		 * @type {SetList} 
+		 * @type {SetList}
 		 */
-		this.setList = new (require(&#x27;./SetList&#x27;))(this);
+		this.setList = new SetList(this);
 
 		/**
-		 * Gets the states of the current song
+		 * Gets the {{#crossLink &quot;SongStates&quot;}}{{/crossLink}} for the current song
 		 *
 		 * @property songStates
-		 * @type {SongStates} 
+		 * @type {SongStates}
 		 */
-		this.songStates = new (require(&#x27;./SongStates&#x27;))(this);
+		this.songStates = new SongStates(this);
 
 		/**
-		 * Gets the currently active key ranges
+		 * Gets the currently active {{#crossLink &quot;KeyRanges&quot;}}{{/crossLink}}
 		 *
 		 * @property keyRanges
-		 * @type {KeyRanges} 
+		 * @type {KeyRanges}
 		 */
-		this.keyRanges = new (require(&#x27;./KeyRanges&#x27;))(this);
+		this.keyRanges = new KeyRanges(this);
 
 		/**
-		 * Gets the current set of show notes
+		 * Gets the current {{#crossLink &quot;ShowNotes&quot;}}{{/crossLink}}
 		 *
 		 * @property showNotes
-		 * @type {ShowNotes} 
+		 * @type {ShowNotes}
 		 */
-		this.showNotes = new (require(&#x27;./ShowNotes&#x27;))(this);
+		this.showNotes = new ShowNotes(this);
 
 		/**
-		 * Provides access to variable expansion facilities
+		 * Provides access to {{#crossLink &quot;Variables&quot;}}{{/crossLink}} expansion facilities
 		 *
 		 * @property variables
-		 * @type {Variables} 
+		 * @type {Variables}
 		 */
-		 this.variables = new (require(&#x27;./Variables&#x27;))(this);
+		 this.variables = new Variables(this);
 
 		/**
-		 * Provides access to controllers managed by Cantabile&#x27;s onscreen keyboard device
+		 * Provides access to controllers managed by Cantabile&#x27;s {{#crossLink &quot;OnscreenKeyboard&quot;}}{{/crossLink}} device
 		 *
 		 * @property onscreenKeyboard
-		 * @type {OnscreenKeyboard} 
+		 * @type {OnscreenKeyboard}
 		 */
-		 this.onscreenKeyboard = new (require(&#x27;./OnscreenKeyboard&#x27;))(this);
+		 this.onscreenKeyboard = new OnscreenKeyboard(this);
 
 		 /**
-		 * Provides access to global binding points
+		 * Provides access to global {{#crossLink &quot;Bindings&quot;}}{{/crossLink}} points
 		 *
 		 * @property bindings
-		 * @type {Bindings} 
+		 * @type {Bindings}
 		 */
-		  this.bindings = new (require(&#x27;./Bindings&#x27;))(this);
+		  this.bindings = new Bindings(this);
 
 		 /**
-		 * Provides access to global binding v4 points
+		 * Provides access to global {{#crossLink &quot;Bindings4&quot;}}{{/crossLink}} points
 		 *
 		 * @property bindings4
-		 * @type {Bindings4} 
+		 * @type {Bindings4}
 		 */
-		  this.bindings4 = new (require(&#x27;./Bindings4&#x27;))(this);
+		  this.bindings4 = new Bindings4(this);
 
 		  /**
-		 * Provides access to global commands
+		 * Provides access to global {{#crossLink &quot;Commands&quot;}}{{/crossLink}}
 		 *
 		 * @property commands
-		 * @type {Commands} 
+		 * @type {Commands}
 		 */
-		 this.commands = new (require(&#x27;./Commands&#x27;))(this);
+		 this.commands = new Commands(this);
 
 		 /**
-		 * Provides access to information about the current song
+		 * Provides access to {{#crossLink &quot;Song&quot;}}{{/crossLink}} information about the current song
 		 *
 		 * @property song
-		 * @type {Song} 
+		 * @type {Song}
 		 */
-		this.song = new (require(&#x27;./Song&#x27;))(this);
+		this.song = new Song(this);
 
 		/**
-		 * Provides access to master transport controls
+		 * Provides access to master {{#crossLink &quot;Transport&quot;}}{{/crossLink}} controls
 		 *
 		 * @property transport
-		 * @type {Song} 
+		 * @type {Transport}
 		 */
-		this.transport = new (require(&#x27;./Transport&#x27;))(this);
+		this.transport = new Transport(this);
 
 		/**
-		 * Provides access to the application object
+		 * Provides access to the {{#crossLink &quot;Application&quot;}}{{/crossLink}} object
 		 *
 		 * @property application
-		 * @type {Application} 
+		 * @type {Application}
 		 */
-		this.application = new (require(&#x27;./Application&#x27;))(this);
+		this.application = new Application(this);
 
 		/**
-		 * Provides access to the engine object
+		 * Provides access to the {{#crossLink &quot;Engine&quot;}}{{/crossLink}} object
 		 *
-		 * @property engine 
-		 * @type {Engine} 
+		 * @property engine
+		 * @type {Engine}
 		 */
-		 this.engine = new (require(&#x27;./Engine&#x27;))(this);
+		 this.engine = new Engine(this);
 		}
 
 	/**
@@ -433,8 +446,8 @@ class Cantabile extends EventEmitter
 	/**
 	 * The base socket url
 	 *
-	 * @property host
-	 * @type {String} 
+	 * @property socketUrl
+	 * @type {String}
 	 */
 	 get socketUrl()
 	{
@@ -444,8 +457,8 @@ class Cantabile extends EventEmitter
 	/**
 	 * The base host url
 	 *
-	 * @property host
-	 * @type {String} 
+	 * @property hostUrl
+	 * @type {String}
 	 */
 	 get hostUrl()
 	{
@@ -644,7 +657,7 @@ const eventDiconnected = &quot;disconnected&quot;;
 
 
 
-module.exports = Cantabile;
+export default Cantabile;
     </pre>
 </div>
                     </div>

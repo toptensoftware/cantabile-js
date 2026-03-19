@@ -107,10 +107,10 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
+import _debug from &#x27;debug&#x27;;
+import EndPoint from &#x27;./EndPoint.js&#x27;;
 
-const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
-const EndPoint = require(&#x27;./EndPoint&#x27;);
+const debug = _debug(&#x27;Cantabile&#x27;);
 
 /**
  * Base states functionality for State and racks
@@ -141,7 +141,7 @@ class States extends EndPoint
 	}
 
 	/**
-	 * An array of states
+	 * An array of {{#crossLink &quot;State&quot;}}{{/crossLink}} items
 	 * @property items
 	 * @type {State[]}
 	 */
@@ -155,7 +155,8 @@ class States extends EndPoint
 	get name() { return this._data ? this._data.name : null; }
 
 	/**
-	 * The index of the currently loaded State (or -1 if no active state)
+	 * The index of the currently loaded State (or -1 if no active state).
+	 * See also {{#crossLink &quot;States/currentState:property&quot;}}{{/crossLink}}.
 	 * @property currentStateIndex
 	 * @type {Number}
 	 */
@@ -169,7 +170,8 @@ class States extends EndPoint
 	}
 
 	/**
-	 * The currently loaded item (or null if no active state)
+	 * The currently loaded {{#crossLink &quot;State&quot;}}{{/crossLink}} (or null if no active state).
+	 * See also {{#crossLink &quot;States/currentStateIndex:property&quot;}}{{/crossLink}}.
 	 * @property currentState
 	 * @type {State}
 	 */
@@ -379,7 +381,7 @@ class States extends EndPoint
 
 
 
-module.exports = States;
+export default States;
     </pre>
 </div>
                     </div>

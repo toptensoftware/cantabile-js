@@ -107,10 +107,10 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
+import _debug from &#x27;debug&#x27;;
+import EventEmitter from &#x27;events&#x27;;
 
-const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
-const EventEmitter = require(&#x27;events&#x27;);
+const debug = _debug(&#x27;Cantabile&#x27;);
 
 
 /**
@@ -353,7 +353,7 @@ class EndPoint extends EventEmitter
 
 }
 
-module.exports = EndPoint;
+export default EndPoint;
     </pre>
 </div>
                     </div>

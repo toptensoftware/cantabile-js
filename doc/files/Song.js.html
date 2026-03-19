@@ -107,9 +107,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
-
-const EndPoint = require(&#x27;./EndPoint&#x27;);
+import EndPoint from &#x27;./EndPoint.js&#x27;;
 
 /**
  * Interface to the current song
@@ -119,7 +117,7 @@ const EndPoint = require(&#x27;./EndPoint&#x27;);
  * @class Song
  * @extends EndPoint
  */
-class SongStates extends EndPoint
+class Song extends EndPoint
 {
 	constructor(owner)
 	{
@@ -166,7 +164,7 @@ class SongStates extends EndPoint
 
 	/**
 	 * The set list program number of the song (or -1 if not in set list, or not set)
-	 * @property name
+	 * @property pr
 	 * @type {Number}
 	 */
 	get pr() { return this._data ? this._data.pr : null; }
@@ -203,7 +201,7 @@ class SongStates extends EndPoint
 }
 
 
-module.exports = SongStates;
+export default Song;
     </pre>
 </div>
                     </div>

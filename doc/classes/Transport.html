@@ -135,8 +135,8 @@
 				<li><a href="#method-pause"><span class="im">pause</span>()</a></li>
 				<li><a href="#method-play"><span class="im">play</span>()</a></li>
 				<li><a href="#method-stop"><span class="im">stop</span>()</a></li>
+				<li><a href="#method-togglePause"><span class="im">togglePause</span>()</a></li>
 				<li><a href="#method-togglePlay"><span class="im">togglePlay</span>()</a></li>
-				<li><a href="#method-togglePlayPause"><span class="im">togglePlayPause</span>()</a></li>
 				<li><a href="#method-togglePlayPause"><span class="im">togglePlayPause</span>()</a></li>
 				<li><a href="#method-togglePlayStop"><span class="im">togglePlayStop</span>()</a></li>
 				<li><a href="#method-untilOpen"><span class="im">untilOpen</span>()</a></li>
@@ -223,7 +223,7 @@ automatically closed when the last event listener is removed.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l239"><code>Transport.js:239</code></a>
+		<a href="../files/Transport.js.html#l241"><code>Transport.js:241</code></a>
 		</p>
 
 
@@ -282,7 +282,7 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l219"><code>Transport.js:219</code></a>
+		<a href="../files/Transport.js.html#l221"><code>Transport.js:221</code></a>
 		</p>
 
 
@@ -310,7 +310,7 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l161"><code>Transport.js:161</code></a>
+		<a href="../files/Transport.js.html#l163"><code>Transport.js:163</code></a>
 		</p>
 
 
@@ -338,7 +338,7 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l229"><code>Transport.js:229</code></a>
+		<a href="../files/Transport.js.html#l231"><code>Transport.js:231</code></a>
 		</p>
 
 
@@ -346,6 +346,34 @@ automatically opened when the first event listener is attached.</p>
 	</div>
 
 	<div class="description"><p>Stops the master transport</p>
+</div>
+
+
+
+</div>
+<div id="method-togglePause" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>togglePause</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Transport.js.html#l185"><code>Transport.js:185</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Toggles pause and play states (unless stopped)</p>
 </div>
 
 
@@ -366,7 +394,7 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l195"><code>Transport.js:195</code></a>
+		<a href="../files/Transport.js.html#l197"><code>Transport.js:197</code></a>
 		</p>
 
 
@@ -394,7 +422,7 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l171"><code>Transport.js:171</code></a>
+		<a href="../files/Transport.js.html#l173"><code>Transport.js:173</code></a>
 		</p>
 
 
@@ -402,34 +430,6 @@ automatically opened when the first event listener is attached.</p>
 	</div>
 
 	<div class="description"><p>Toggles between play and pause states</p>
-</div>
-
-
-
-</div>
-<div id="method-togglePlayPause" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>togglePlayPause</code></span>
-
-		<span class="paren">()</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/Transport.js.html#l183"><code>Transport.js:183</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Toggles pause and play states (unless stopped)</p>
 </div>
 
 
@@ -450,7 +450,7 @@ automatically opened when the first event listener is attached.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Transport.js.html#l207"><code>Transport.js:207</code></a>
+		<a href="../files/Transport.js.html#l209"><code>Transport.js:209</code></a>
 		</p>
 
 
@@ -529,7 +529,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l97"><code>Transport.js:97</code></a>
+        <a href="../files/Transport.js.html#l99"><code>Transport.js:99</code></a>
         </p>
 
 
@@ -554,7 +554,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l104"><code>Transport.js:104</code></a>
+        <a href="../files/Transport.js.html#l106"><code>Transport.js:106</code></a>
         </p>
 
 
@@ -579,14 +579,15 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l82"><code>Transport.js:82</code></a>
+        <a href="../files/Transport.js.html#l83"><code>Transport.js:83</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Gets or sets the current loopMode ("auto", "break", "loopOnce" or "loop")</p>
+        <p>Gets or sets the current loopMode ("auto", "break", "loopOnce" or "loop").
+Changes fire the <a href="../classes/Transport.html#event_loopStateChanged" class="crosslink">loopStateChanged</a> event.</p>
 
     </div>
 
@@ -604,14 +605,17 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l36"><code>Transport.js:36</code></a>
+        <a href="../files/Transport.js.html#l34"><code>Transport.js:34</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Gets or sets the current transport state.  Supported values include "playing", "paused" or "stopped"</p>
+        <p>Gets or sets the current transport state.  Supported values include "playing", "paused" or "stopped".
+Setting this property calls <a href="../classes/Transport.html#method_play" class="crosslink">play</a>,
+<a href="../classes/Transport.html#method_pause" class="crosslink">pause</a>, or
+<a href="../classes/Transport.html#method_stop" class="crosslink">stop</a> accordingly.</p>
 
     </div>
 
@@ -629,7 +633,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l75"><code>Transport.js:75</code></a>
+        <a href="../files/Transport.js.html#l76"><code>Transport.js:76</code></a>
         </p>
 
 
@@ -654,14 +658,14 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l68"><code>Transport.js:68</code></a>
+        <a href="../files/Transport.js.html#l69"><code>Transport.js:69</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Gets the current time signture as a string (eg: "3/4")</p>
+        <p>Gets the current time signature as a string (eg: "3/4")</p>
 
     </div>
 
@@ -679,14 +683,14 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l61"><code>Transport.js:61</code></a>
+        <a href="../files/Transport.js.html#l62"><code>Transport.js:62</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Gets the current time signture denominator</p>
+        <p>Gets the current time signature denominator</p>
 
     </div>
 
@@ -704,14 +708,14 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l54"><code>Transport.js:54</code></a>
+        <a href="../files/Transport.js.html#l55"><code>Transport.js:55</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Gets the current time signture numerator</p>
+        <p>Gets the current time signature numerator</p>
 
     </div>
 
@@ -737,7 +741,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l150"><code>Transport.js:150</code></a>
+        <a href="../files/Transport.js.html#l152"><code>Transport.js:152</code></a>
         </p>
 
 
@@ -762,7 +766,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l113"><code>Transport.js:113</code></a>
+        <a href="../files/Transport.js.html#l115"><code>Transport.js:115</code></a>
         </p>
 
 
@@ -787,7 +791,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l138"><code>Transport.js:138</code></a>
+        <a href="../files/Transport.js.html#l140"><code>Transport.js:140</code></a>
         </p>
 
 
@@ -812,7 +816,7 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/Transport.js.html#l125"><code>Transport.js:125</code></a>
+        <a href="../files/Transport.js.html#l127"><code>Transport.js:127</code></a>
         </p>
 
 

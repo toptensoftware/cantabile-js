@@ -107,11 +107,11 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
+import _debug from &#x27;debug&#x27;;
+import EndPoint from &#x27;./EndPoint.js&#x27;;
+import EventEmitter from &#x27;events&#x27;;
 
-const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
-const EndPoint = require(&#x27;./EndPoint&#x27;);
-const EventEmitter = require(&#x27;events&#x27;);
+const debug = _debug(&#x27;Cantabile&#x27;);
 
 /**
  * Represents an active connection watching a source binding point for changes/invocations
@@ -279,7 +279,7 @@ class Bindings extends EndPoint
      *     console.log(await C.bindings.availableBindingPoints());
      * 
      * @method availableBindingPoints
-     * @return {Promise|BindingPointInfo[]} A promise to return an array of BindingPointInfo
+     * @return {Promise|BindingPointInfo[]} A promise to return an array of {{#crossLink &quot;BindingPointInfo&quot;}}{{/crossLink}} objects
      */
     async availableBindingPoints()
     {
@@ -447,7 +447,7 @@ class Bindings extends EndPoint
      * @param {Object} [condition] The condition for triggering the binding
 	 * @param {Function} [callback] Optional callback function to be called when the source binding triggers
 	 * 
-	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
+	 * The callback function has the form function(value, source) where value is the binding point value and source
 	 * is the BindingWatcher instance.
 	 * 
 	 * @return {BindingWatcher}
@@ -496,7 +496,7 @@ class Bindings extends EndPoint
 
 
 
-module.exports = Bindings;
+export default Bindings;
     </pre>
 </div>
                     </div>

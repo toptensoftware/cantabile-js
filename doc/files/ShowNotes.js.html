@@ -107,10 +107,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
-
-const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
-const EndPoint = require(&#x27;./EndPoint&#x27;);
+import EndPoint from &#x27;./EndPoint.js&#x27;;
 
 /**
  * Used to access the current set of show notes
@@ -140,7 +137,7 @@ class ShowNotes extends EndPoint
 	}
 
 	/**
-	 * An array of show note items
+	 * An array of {{#crossLink &quot;ShowNote&quot;}}{{/crossLink}} items
 	 * @property items
 	 * @type {ShowNote[]}
 	 */
@@ -228,7 +225,7 @@ class ShowNotes extends EndPoint
 
 
 
-module.exports = ShowNotes;
+export default ShowNotes;
     </pre>
 </div>
                     </div>

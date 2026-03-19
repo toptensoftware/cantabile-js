@@ -107,11 +107,11 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
+import _debug from &#x27;debug&#x27;;
+import EndPoint from &#x27;./EndPoint.js&#x27;;
+import EventEmitter from &#x27;events&#x27;;
 
-const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
-const EndPoint = require(&#x27;./EndPoint&#x27;);
-const EventEmitter = require(&#x27;events&#x27;);
+const debug = _debug(&#x27;Cantabile&#x27;);
 
 /**
  * Represents a monitored controller
@@ -219,7 +219,7 @@ class ControllerWatcher extends EventEmitter
 			this._listener(this._value, this);
 
 		/**
-		 * Fired after a new show note has been added
+		 * Fired when the controller value has changed
 		 *
 		 * @event controllerChanged
 		 * @param {Number} value The new value of the controller
@@ -267,7 +267,7 @@ class OnscreenKeyboard extends EndPoint
 	 * @param {Number} channel 		The MIDI channel number of the controller
 	 * @param {String} kind 		The MIDI controller kind
 	 * @param {Number} controller	The number of the controller
-	 * @return {Promise|String} A promise to provide the controller value
+	 * @return {Promise|Number} A promise to provide the controller value
 	 */
 	async queryController(channel, kind, controller)
 	{
@@ -336,8 +336,8 @@ class OnscreenKeyboard extends EndPoint
 	 * @param {Function} [callback] Optional callback function to be called when the controller value changes.
 	 * 
 	 * The callback function has the form function(value, source) where value is the controller value and source
-	 * is the ControllerWatcher instance.
-	 * 
+	 * is the {{#crossLink &quot;ControllerWatcher&quot;}}{{/crossLink}} instance.
+	 *
 	 * @return {ControllerWatcher}
 	 */
 	watch(channel, kind, controller, listener)
@@ -417,7 +417,7 @@ class OnscreenKeyboard extends EndPoint
 
 
 
-module.exports = OnscreenKeyboard;
+export default OnscreenKeyboard;
     </pre>
 </div>
                     </div>

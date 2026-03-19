@@ -106,11 +106,6 @@
 </div>
 
 
-	<div class="well well-small">
-        <div class="extends">
-            Extends <a href="../classes/EndPoint.html" class="crosslink">EndPoint</a>
-        </div>
-    </div>
 
 
 
@@ -129,14 +124,11 @@
 		<li>
 			<strong>Methods</strong>
 			<ul>
-				<li><a href="#method-close"><span class="im">close</span>()</a></li>
 				<li><a href="#method-isStarted"><span class="im">isStarted</span>()</a></li>
-				<li><a href="#method-open"><span class="im">open</span>()</a></li>
-				<li><a href="#method-restart"><span class="im">restart</span>()</a></li>
 				<li><a href="#method-restart"><span class="im">restart</span>()</a></li>
 				<li><a href="#method-start"><span class="im">start</span>()</a></li>
-				<li><a href="#method-start"><span class="im">start</span>()</a></li>
-				<li><a href="#method-untilOpen"><span class="im">untilOpen</span>()</a></li>
+				<li><a href="#method-startStop"><span class="im">startStop</span>()</a></li>
+				<li><a href="#method-stop"><span class="im">stop</span>()</a></li>
 			</ul>
 		</li>
 
@@ -153,41 +145,14 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
-<div id="method-close" class="method item inherited">
-	<div class="method-signature">
-	<span class="name"><code>close</code></span>
-
-		<span class="paren">()</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/EndPoint.html#method_close">EndPoint</a>:
-		<a href="../files/EndPoint.js.html#l55"><code>EndPoint.js:55</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Closes the end point and stops listening for events.</p>
-<p>This method no longer needs to be explicitly called as end points are now
-automatically closed when the last event listener is removed.</p>
-</div>
-
-
-
-</div>
 <div id="method-isStarted" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>isStarted</code></span>
 
 		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise  |  Boolean</span>
+		</span>
 	</div>
 
 
@@ -198,7 +163,7 @@ automatically closed when the last event listener is removed.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/Engine.js.html#l22"><code>Engine.js:22</code></a>
+		<a href="../files/Engine.js.html#l18"><code>Engine.js:18</code></a>
 		</p>
 
 
@@ -210,158 +175,18 @@ automatically closed when the last event listener is removed.</p>
 </div>
 
 
+		<div class="returns">
+			<h4>Returns:</h4>
 
-</div>
-<div id="method-open" class="method item inherited">
-	<div class="method-signature">
-	<span class="name"><code>open</code></span>
-
-		<span class="paren">()</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/EndPoint.html#method_open">EndPoint</a>:
-		<a href="../files/EndPoint.js.html#l35"><code>EndPoint.js:35</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Opens this end point and starts listening for events.</p>
-<p>This method no longer needs to be explicitly called as end points are now
-automatically opened when the first event listener is attached.</p>
-<p>Use this method to keep the end point open even when no event listeners are attached.</p>
-</div>
-
-
+			<div class="returns-description">
+						<span class="type">Promise  |  Boolean</span>
+			</div>
+		</div>
 
 </div>
 <div id="method-restart" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>restart</code></span>
-
-		<span class="paren">()</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/Engine.js.html#l62"><code>Engine.js:62</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Restarts Cantabile's audio engine</p>
-<p>This API is only available via  AJAX, and not WebSocket</p>
-</div>
-
-
-
-</div>
-<div id="method-restart" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>restart</code></span>
-
-		<span class="paren">()</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/Engine.js.html#l75"><code>Engine.js:75</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Toggles the audio engine between started and stopped</p>
-<p>This API is only available via  AJAX, and not WebSocket</p>
-</div>
-
-
-
-</div>
-<div id="method-start" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>start</code></span>
-
-		<span class="paren">()</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/Engine.js.html#l36"><code>Engine.js:36</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Starts Cantabile's audio engine</p>
-<p>This API is only available via  AJAX, and not WebSocket</p>
-</div>
-
-
-
-</div>
-<div id="method-start" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>start</code></span>
-
-		<span class="paren">()</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/Engine.js.html#l49"><code>Engine.js:49</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Stops Cantabile's audio engine</p>
-<p>This API is only available via  AJAX, and not WebSocket</p>
-</div>
-
-
-
-</div>
-<div id="method-untilOpen" class="method item inherited">
-	<div class="method-signature">
-	<span class="name"><code>untilOpen</code></span>
 
 		<span class="paren">()</span>
 		<span class="returns-inline">
@@ -375,16 +200,17 @@ automatically opened when the first event listener is attached.</p>
 
 
 	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/EndPoint.html#method_untilOpen">EndPoint</a>:
-		<a href="../files/EndPoint.js.html#l142"><code>EndPoint.js:142</code></a>
+				<p>
+				Defined in
+		<a href="../files/Engine.js.html#l58"><code>Engine.js:58</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Returns a promise that will be resolved when this end point is opened</p>
+	<div class="description"><p>Restarts Cantabile's audio engine</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
 </div>
 
 
@@ -396,16 +222,123 @@ automatically opened when the first event listener is attached.</p>
 			</div>
 		</div>
 
-		<div class="example">
-			<h4>Example:</h4>
+</div>
+<div id="method-start" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>start</code></span>
 
-			<div class="example-content">
-				<pre class="code prettyprint"><code>let C = new CantabileApi();
-   C.application.open();
-await C.application.untilOpen();</code></pre>
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise</span>
+		</span>
+	</div>
 
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Engine.js.html#l32"><code>Engine.js:32</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Starts Cantabile's audio engine</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise</span>
 			</div>
 		</div>
+
+</div>
+<div id="method-startStop" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>startStop</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Engine.js.html#l71"><code>Engine.js:71</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Toggles the audio engine between started and stopped</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise</span>
+			</div>
+		</div>
+
+</div>
+<div id="method-stop" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>stop</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/Engine.js.html#l45"><code>Engine.js:45</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Stops Cantabile's audio engine</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise</span>
+			</div>
+		</div>
+
 </div>
         </div>
     </div>

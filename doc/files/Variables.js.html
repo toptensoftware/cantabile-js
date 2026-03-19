@@ -107,11 +107,11 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;;
+import _debug from &#x27;debug&#x27;;
+import EndPoint from &#x27;./EndPoint.js&#x27;;
+import EventEmitter from &#x27;events&#x27;;
 
-const debug = require(&#x27;debug&#x27;)(&#x27;Cantabile&#x27;);
-const EndPoint = require(&#x27;./EndPoint&#x27;);
-const EventEmitter = require(&#x27;events&#x27;);
+const debug = _debug(&#x27;Cantabile&#x27;);
 
 /**
  * Represents a monitored pattern string.
@@ -200,10 +200,10 @@ class PatternWatcher extends EventEmitter
 			this._listener(this.resolved, this);
 
 		/**
-		 * Fired after a new show note has been added
+		 * Fired when the resolved display string has changed
 		 *
 		 * @event changed
-		 * @param {String} resolved The new display string
+		 * @param {String} resolved The new resolved display string
 		 * @param {PatternWatcher} source This object
 		 */
 		this.emit(&#x27;changed&#x27;, this.resolved, this);
@@ -310,8 +310,8 @@ class Variables extends EndPoint
 	 * @param {Function} [callback] Optional callback function to be called when the resolved display string changes.
 	 * 
 	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
-	 * is the PatternWatcher instance.
-	 * 
+	 * is the {{#crossLink &quot;PatternWatcher&quot;}}{{/crossLink}} instance.
+	 *
 	 * @return {PatternWatcher}
 	 */
 	watch(pattern, listener)
@@ -357,7 +357,7 @@ class Variables extends EndPoint
 
 
 
-module.exports = Variables;
+export default Variables;
     </pre>
 </div>
                     </div>
