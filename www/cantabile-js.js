@@ -21,7 +21,7 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _EndPoint2 = require('./EndPoint');
+var _EndPoint2 = require('./EndPoint.js');
 
 var _EndPoint3 = _interopRequireDefault(_EndPoint2);
 
@@ -207,7 +207,7 @@ var Application = function (_EndPoint) {
 
 exports.default = Application;
 
-},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],2:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -242,7 +242,7 @@ var _debug2 = require('debug');
 
 var _debug3 = _interopRequireDefault(_debug2);
 
-var _EndPoint2 = require('./EndPoint');
+var _EndPoint2 = require('./EndPoint.js');
 
 var _EndPoint3 = _interopRequireDefault(_EndPoint2);
 
@@ -749,7 +749,7 @@ var Bindings = function (_EndPoint) {
 
 exports.default = Bindings;
 
-},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],3:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -784,7 +784,7 @@ var _debug2 = require('debug');
 
 var _debug3 = _interopRequireDefault(_debug2);
 
-var _EndPoint2 = require('./EndPoint');
+var _EndPoint2 = require('./EndPoint.js');
 
 var _EndPoint3 = _interopRequireDefault(_EndPoint2);
 
@@ -1357,7 +1357,7 @@ var Bindings4 = function (_EndPoint) {
 
 exports.default = Bindings4;
 
-},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],4:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],4:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -1393,55 +1393,55 @@ var _events = require('events');
 
 var _events2 = _interopRequireDefault(_events);
 
-var _SetList = require('./SetList');
+var _SetList = require('./SetList.js');
 
 var _SetList2 = _interopRequireDefault(_SetList);
 
-var _SongStates = require('./SongStates');
+var _SongStates = require('./SongStates.js');
 
 var _SongStates2 = _interopRequireDefault(_SongStates);
 
-var _KeyRanges = require('./KeyRanges');
+var _KeyRanges = require('./KeyRanges.js');
 
 var _KeyRanges2 = _interopRequireDefault(_KeyRanges);
 
-var _ShowNotes = require('./ShowNotes');
+var _ShowNotes = require('./ShowNotes.js');
 
 var _ShowNotes2 = _interopRequireDefault(_ShowNotes);
 
-var _Variables = require('./Variables');
+var _Variables = require('./Variables.js');
 
 var _Variables2 = _interopRequireDefault(_Variables);
 
-var _OnscreenKeyboard = require('./OnscreenKeyboard');
+var _OnscreenKeyboard = require('./OnscreenKeyboard.js');
 
 var _OnscreenKeyboard2 = _interopRequireDefault(_OnscreenKeyboard);
 
-var _Bindings = require('./Bindings');
+var _Bindings = require('./Bindings.js');
 
 var _Bindings2 = _interopRequireDefault(_Bindings);
 
-var _Bindings3 = require('./Bindings4');
+var _Bindings3 = require('./Bindings4.js');
 
 var _Bindings4 = _interopRequireDefault(_Bindings3);
 
-var _Commands = require('./Commands');
+var _Commands = require('./Commands.js');
 
 var _Commands2 = _interopRequireDefault(_Commands);
 
-var _Song = require('./Song');
+var _Song = require('./Song.js');
 
 var _Song2 = _interopRequireDefault(_Song);
 
-var _Transport = require('./Transport');
+var _Transport = require('./Transport.js');
 
 var _Transport2 = _interopRequireDefault(_Transport);
 
-var _Application = require('./Application');
+var _Application = require('./Application.js');
 
 var _Application2 = _interopRequireDefault(_Application);
 
-var _Engine = require('./Engine');
+var _Engine = require('./Engine.js');
 
 var _Engine2 = _interopRequireDefault(_Engine);
 
@@ -1977,7 +1977,7 @@ var eventDiconnected = "disconnected";
 exports.default = Cantabile;
 
 }).call(this)}).call(this,require('_process'))
-},{"./Application":1,"./Bindings":2,"./Bindings4":3,"./Commands":5,"./Engine":7,"./KeyRanges":8,"./OnscreenKeyboard":9,"./SetList":10,"./ShowNotes":11,"./Song":12,"./SongStates":13,"./Transport":15,"./Variables":16,"_process":128,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122,"events":124,"isomorphic-ws":125}],5:[function(require,module,exports){
+},{"./Application.js":1,"./Bindings.js":2,"./Bindings4.js":3,"./Commands.js":5,"./Engine.js":7,"./KeyRanges.js":8,"./OnscreenKeyboard.js":9,"./SetList.js":10,"./ShowNotes.js":11,"./Song.js":12,"./SongStates.js":13,"./Transport.js":15,"./Variables.js":16,"_process":128,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122,"events":124,"isomorphic-ws":125}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2008,7 +2008,7 @@ var _inherits2 = require("babel-runtime/helpers/inherits");
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _EndPoint2 = require("./EndPoint");
+var _EndPoint2 = require("./EndPoint.js");
 
 var _EndPoint3 = _interopRequireDefault(_EndPoint2);
 
@@ -2136,7 +2136,7 @@ var Commands = function (_EndPoint) {
 
 exports.default = Commands;
 
-},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29}],6:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2471,7 +2471,7 @@ var _createClass2 = require('babel-runtime/helpers/createClass');
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EndPoint = require('./EndPoint');
+var _EndPoint = require('./EndPoint.js');
 
 var _EndPoint2 = _interopRequireDefault(_EndPoint);
 
@@ -2683,7 +2683,7 @@ var Engine = function () {
 
 exports.default = Engine;
 
-},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/regenerator":29,"node-fetch":127}],8:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/regenerator":29,"node-fetch":127}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2706,7 +2706,7 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _EndPoint2 = require('./EndPoint');
+var _EndPoint2 = require('./EndPoint.js');
 
 var _EndPoint3 = _interopRequireDefault(_EndPoint2);
 
@@ -2767,7 +2767,7 @@ var KeyRanges = function (_EndPoint) {
 
 exports.default = KeyRanges;
 
-},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],9:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2802,7 +2802,7 @@ var _debug2 = require('debug');
 
 var _debug3 = _interopRequireDefault(_debug2);
 
-var _EndPoint2 = require('./EndPoint');
+var _EndPoint2 = require('./EndPoint.js');
 
 var _EndPoint3 = _interopRequireDefault(_EndPoint2);
 
@@ -3180,7 +3180,7 @@ var OnscreenKeyboard = function (_EndPoint) {
 
 exports.default = OnscreenKeyboard;
 
-},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],10:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3215,7 +3215,7 @@ var _debug2 = require('debug');
 
 var _debug3 = _interopRequireDefault(_debug2);
 
-var _EndPoint2 = require('./EndPoint');
+var _EndPoint2 = require('./EndPoint.js');
 
 var _EndPoint3 = _interopRequireDefault(_EndPoint2);
 
@@ -3614,7 +3614,7 @@ var SetList = function (_EndPoint) {
 
 exports.default = SetList;
 
-},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122}],11:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3637,7 +3637,7 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _EndPoint2 = require('./EndPoint');
+var _EndPoint2 = require('./EndPoint.js');
 
 var _EndPoint3 = _interopRequireDefault(_EndPoint2);
 
@@ -3768,7 +3768,7 @@ var ShowNotes = function (_EndPoint) {
 
 exports.default = ShowNotes;
 
-},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],12:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3791,7 +3791,7 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _EndPoint2 = require('./EndPoint');
+var _EndPoint2 = require('./EndPoint.js');
 
 var _EndPoint3 = _interopRequireDefault(_EndPoint2);
 
@@ -3908,7 +3908,7 @@ var Song = function (_EndPoint) {
 
 exports.default = Song;
 
-},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],13:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],13:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3927,7 +3927,7 @@ var _inherits2 = require("babel-runtime/helpers/inherits");
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _States2 = require("./States");
+var _States2 = require("./States.js");
 
 var _States3 = _interopRequireDefault(_States2);
 
@@ -3954,7 +3954,7 @@ var SongStates = function (_States) {
 
 exports.default = SongStates;
 
-},{"./States":14,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],14:[function(require,module,exports){
+},{"./States.js":14,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3981,7 +3981,7 @@ var _debug2 = require('debug');
 
 var _debug3 = _interopRequireDefault(_debug2);
 
-var _EndPoint2 = require('./EndPoint');
+var _EndPoint2 = require('./EndPoint.js');
 
 var _EndPoint3 = _interopRequireDefault(_EndPoint2);
 
@@ -4285,7 +4285,7 @@ var States = function (_EndPoint) {
 
 exports.default = States;
 
-},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122}],15:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"debug":122}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4308,7 +4308,7 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _EndPoint2 = require('./EndPoint');
+var _EndPoint2 = require('./EndPoint.js');
 
 var _EndPoint3 = _interopRequireDefault(_EndPoint2);
 
@@ -4621,7 +4621,7 @@ var Transport = function (_EndPoint) {
 
 exports.default = Transport;
 
-},{"./EndPoint":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],16:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4656,7 +4656,7 @@ var _debug2 = require('debug');
 
 var _debug3 = _interopRequireDefault(_debug2);
 
-var _EndPoint2 = require('./EndPoint');
+var _EndPoint2 = require('./EndPoint.js');
 
 var _EndPoint3 = _interopRequireDefault(_EndPoint2);
 
@@ -4962,7 +4962,7 @@ var Variables = function (_EndPoint) {
 
 exports.default = Variables;
 
-},{"./EndPoint":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],17:[function(require,module,exports){
+},{"./EndPoint.js":6,"babel-runtime/helpers/asyncToGenerator":23,"babel-runtime/helpers/classCallCheck":24,"babel-runtime/helpers/createClass":25,"babel-runtime/helpers/inherits":26,"babel-runtime/helpers/possibleConstructorReturn":27,"babel-runtime/regenerator":29,"debug":122,"events":124}],17:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/create"), __esModule: true };
 },{"core-js/library/fn/object/create":30}],18:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/define-property"), __esModule: true };
