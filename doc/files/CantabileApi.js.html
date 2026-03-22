@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>CantabileApi.js - Cantabile JavaScript API</title>
+    <title>CantabileAPI.js - Cantabile JavaScript API</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -102,7 +102,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>CantabileApi.js <small>File</small></h1>
+    <h1>CantabileAPI.js <small>File</small></h1>
 </div>
 
 <div class="file">
@@ -136,13 +136,14 @@ const debug = _debug(&#x27;Cantabile&#x27;);
 * When running in a browser, the defaults to &#x60;${window.location.host}&#x60;.  In other environments it defaults to 
 &#x60;localhost:35007&#x60;.  
 */
-class Cantabile extends EventEmitter
+export class Cantabile extends EventEmitter
 {
 	constructor(host)
 	{
 		super();
 
-		this.setMaxListeners(30);
+		if (this.setMaxListeners)
+			this.setMaxListeners(30);
 
 		this.host = host;
 
@@ -655,9 +656,6 @@ const eventConnecting = &quot;connecting&quot;;
 const eventDiconnected = &quot;disconnected&quot;;
 
 
-
-
-export default Cantabile;
     </pre>
 </div>
                     </div>

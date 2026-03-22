@@ -139,7 +139,10 @@
 			<strong>Properties</strong>
 			<ul>
 				<li><a href="#prop-currentState"><span class="ip">currentState</span></a></li>
+				<li><a href="#prop-currentState"><span class="ip">currentState</span></a></li>
 				<li><a href="#prop-name"><span class="ip">name</span></a></li>
+				<li><a href="#prop-name"><span class="ip">name</span></a></li>
+				<li><a href="#prop-pr"><span class="ip">pr</span></a></li>
 				<li><a href="#prop-pr"><span class="ip">pr</span></a></li>
 			</ul>
 		</li>
@@ -149,7 +152,10 @@
             <strong>Events</strong>
             <ul>
                 <li><a href="#event-changed"><span class="im">changed</span></a></li>
+                <li><a href="#event-changed"><span class="im">changed</span></a></li>
                 <li><a href="#event-currentStateChanged"><span class="im">currentStateChanged</span></a></li>
+                <li><a href="#event-currentStateChanged"><span class="im">currentStateChanged</span></a></li>
+                <li><a href="#event-nameChanged"><span class="im">nameChanged</span></a></li>
                 <li><a href="#event-nameChanged"><span class="im">nameChanged</span></a></li>
             </ul>
         </li>
@@ -177,9 +183,12 @@
 
 
 	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/EndPoint.html#method_close">EndPoint</a>:
-		<a href="../files/EndPoint.js.html#l55"><code>EndPoint.js:55</code></a>
+			<p>Inherited from
+			<a href="../classes/EndPoint.html#method_close">
+				EndPoint
+			</a>
+			but overwritten in
+		<a href="../files/dist_cantabile.js.html#l1028"><code>dist\cantabile.js:1028</code></a>
 		</p>
 
 
@@ -207,9 +216,12 @@ automatically closed when the last event listener is removed.</p>
 
 
 	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/EndPoint.html#method_open">EndPoint</a>:
-		<a href="../files/EndPoint.js.html#l35"><code>EndPoint.js:35</code></a>
+			<p>Inherited from
+			<a href="../classes/EndPoint.html#method_open">
+				EndPoint
+			</a>
+			but overwritten in
+		<a href="../files/dist_cantabile.js.html#l1008"><code>dist\cantabile.js:1008</code></a>
 		</p>
 
 
@@ -241,9 +253,12 @@ automatically opened when the first event listener is attached.</p>
 
 
 	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/EndPoint.html#method_untilOpen">EndPoint</a>:
-		<a href="../files/EndPoint.js.html#l142"><code>EndPoint.js:142</code></a>
+			<p>Inherited from
+			<a href="../classes/EndPoint.html#method_untilOpen">
+				EndPoint
+			</a>
+			but overwritten in
+		<a href="../files/dist_cantabile.js.html#l1115"><code>dist\cantabile.js:1115</code></a>
 		</p>
 
 
@@ -291,6 +306,31 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l3466"><code>dist\cantabile.js:3466</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The name of the current song state</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-currentState" class="property item">
+    <h3 class="name"><code>currentState</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/Song.js.html#l63"><code>Song.js:63</code></a>
         </p>
 
@@ -316,6 +356,31 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l3452"><code>dist\cantabile.js:3452</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The name of the current song</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-name" class="property item">
+    <h3 class="name"><code>name</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/Song.js.html#l49"><code>Song.js:49</code></a>
         </p>
 
@@ -324,6 +389,31 @@ await C.application.untilOpen();</code></pre>
 
     <div class="description">
         <p>The name of the current song</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-pr" class="property item">
+    <h3 class="name"><code>pr</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/dist_cantabile.js.html#l3459"><code>dist\cantabile.js:3459</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The set list program number of the song (or -1 if not in set list, or not set)</p>
 
     </div>
 
@@ -374,6 +464,31 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l3423"><code>dist\cantabile.js:3423</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when anything about the current song changes</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-changed" class="events item">
+    <h3 class="name"><code>changed</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/Song.js.html#l20"><code>Song.js:20</code></a>
         </p>
 
@@ -399,6 +514,31 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l3437"><code>dist\cantabile.js:3437</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the current song state changes</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-currentStateChanged" class="events item">
+    <h3 class="name"><code>currentStateChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/Song.js.html#l34"><code>Song.js:34</code></a>
         </p>
 
@@ -407,6 +547,31 @@ await C.application.untilOpen();</code></pre>
 
     <div class="description">
         <p>Fired when the current song state changes</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-nameChanged" class="events item">
+    <h3 class="name"><code>nameChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/dist_cantabile.js.html#l3430"><code>dist\cantabile.js:3430</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the name of the current song changes</p>
 
     </div>
 

@@ -129,9 +129,14 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-connect"><span class="im">connect</span>()</a></li>
+				<li><a href="#method-connect"><span class="im">connect</span>()</a></li>
+				<li><a href="#method-disconnect"><span class="im">disconnect</span>()</a></li>
 				<li><a href="#method-disconnect"><span class="im">disconnect</span>()</a></li>
 				<li><a href="#method-request"><span class="im">request</span>(<span class="ia">obj</span>)</a></li>
+				<li><a href="#method-request"><span class="im">request</span>(<span class="ia">obj</span>)</a></li>
 				<li><a href="#method-send"><span class="im">send</span>(<span class="ia">obj</span>)</a></li>
+				<li><a href="#method-send"><span class="im">send</span>(<span class="ia">obj</span>)</a></li>
+				<li><a href="#method-untilConnected"><span class="im">untilConnected</span>()</a></li>
 				<li><a href="#method-untilConnected"><span class="im">untilConnected</span>()</a></li>
 			</ul>
 		</li>
@@ -140,21 +145,38 @@
 			<strong>Properties</strong>
 			<ul>
 				<li><a href="#prop-application"><span class="ip">application</span></a></li>
+				<li><a href="#prop-application"><span class="ip">application</span></a></li>
+				<li><a href="#prop-bindings"><span class="ip">bindings</span></a></li>
 				<li><a href="#prop-bindings"><span class="ip">bindings</span></a></li>
 				<li><a href="#prop-bindings4"><span class="ip">bindings4</span></a></li>
+				<li><a href="#prop-bindings4"><span class="ip">bindings4</span></a></li>
+				<li><a href="#prop-commands"><span class="ip">commands</span></a></li>
 				<li><a href="#prop-commands"><span class="ip">commands</span></a></li>
 				<li><a href="#prop-engine"><span class="ip">engine</span></a></li>
+				<li><a href="#prop-engine"><span class="ip">engine</span></a></li>
+				<li><a href="#prop-host"><span class="ip">host</span></a></li>
 				<li><a href="#prop-host"><span class="ip">host</span></a></li>
 				<li><a href="#prop-hostUrl"><span class="ip">hostUrl</span></a></li>
+				<li><a href="#prop-hostUrl"><span class="ip">hostUrl</span></a></li>
+				<li><a href="#prop-keyRanges"><span class="ip">keyRanges</span></a></li>
 				<li><a href="#prop-keyRanges"><span class="ip">keyRanges</span></a></li>
 				<li><a href="#prop-onscreenKeyboard"><span class="ip">onscreenKeyboard</span></a></li>
+				<li><a href="#prop-onscreenKeyboard"><span class="ip">onscreenKeyboard</span></a></li>
+				<li><a href="#prop-setList"><span class="ip">setList</span></a></li>
 				<li><a href="#prop-setList"><span class="ip">setList</span></a></li>
 				<li><a href="#prop-showNotes"><span class="ip">showNotes</span></a></li>
+				<li><a href="#prop-showNotes"><span class="ip">showNotes</span></a></li>
+				<li><a href="#prop-socketUrl"><span class="ip">socketUrl</span></a></li>
 				<li><a href="#prop-socketUrl"><span class="ip">socketUrl</span></a></li>
 				<li><a href="#prop-song"><span class="ip">song</span></a></li>
+				<li><a href="#prop-song"><span class="ip">song</span></a></li>
+				<li><a href="#prop-songStates"><span class="ip">songStates</span></a></li>
 				<li><a href="#prop-songStates"><span class="ip">songStates</span></a></li>
 				<li><a href="#prop-state"><span class="ip">state</span></a></li>
+				<li><a href="#prop-state"><span class="ip">state</span></a></li>
 				<li><a href="#prop-transport"><span class="ip">transport</span></a></li>
+				<li><a href="#prop-transport"><span class="ip">transport</span></a></li>
+				<li><a href="#prop-variables"><span class="ip">variables</span></a></li>
 				<li><a href="#prop-variables"><span class="ip">variables</span></a></li>
 			</ul>
 		</li>
@@ -200,7 +222,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/CantabileApi.js.html#l20"><code>CantabileApi.js:20</code></a>
+		<a href="../files/CantabileAPI.js.html#l20"><code>CantabileAPI.js:20</code></a>
 		</p>
 
 
@@ -250,7 +272,35 @@ When running in a browser, the defaults to <code>${window.location.host}</code>.
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/CantabileApi.js.html#l162"><code>CantabileApi.js:162</code></a>
+		<a href="../files/dist_cantabile.js.html#l4119"><code>dist\cantabile.js:4119</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Initiate connection and retry if fails</p>
+</div>
+
+
+
+</div>
+<div id="method-connect" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>connect</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/CantabileAPI.js.html#l163"><code>CantabileAPI.js:163</code></a>
 		</p>
 
 
@@ -278,7 +328,35 @@ When running in a browser, the defaults to <code>${window.location.host}</code>.
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/CantabileApi.js.html#l172"><code>CantabileApi.js:172</code></a>
+		<a href="../files/dist_cantabile.js.html#l4129"><code>dist\cantabile.js:4129</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Disconnect and stop retries</p>
+</div>
+
+
+
+</div>
+<div id="method-disconnect" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>disconnect</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/CantabileAPI.js.html#l173"><code>CantabileAPI.js:173</code></a>
 		</p>
 
 
@@ -315,7 +393,67 @@ When running in a browser, the defaults to <code>${window.location.host}</code>.
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/CantabileApi.js.html#l194"><code>CantabileApi.js:194</code></a>
+		<a href="../files/dist_cantabile.js.html#l4151"><code>dist\cantabile.js:4151</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Stringify an object as a JSON message, send it to the server and returns
+a promise which will resolve to the result.</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">obj</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><p>The object to send</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise  |  Object</span>
+			</div>
+		</div>
+
+</div>
+<div id="method-request" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>request</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>obj</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Promise  |  Object</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/CantabileAPI.js.html#l195"><code>CantabileAPI.js:195</code></a>
 		</p>
 
 
@@ -372,7 +510,56 @@ a promise which will resolve to the result.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/CantabileApi.js.html#l182"><code>CantabileApi.js:182</code></a>
+		<a href="../files/dist_cantabile.js.html#l4139"><code>dist\cantabile.js:4139</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Stringify an object as a JSON message and send it to the server</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">obj</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><p>The object to send</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-send" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>send</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>obj</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/CantabileAPI.js.html#l183"><code>CantabileAPI.js:183</code></a>
 		</p>
 
 
@@ -418,7 +605,54 @@ a promise which will resolve to the result.</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/CantabileApi.js.html#l221"><code>CantabileApi.js:221</code></a>
+		<a href="../files/dist_cantabile.js.html#l4178"><code>dist\cantabile.js:4178</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Returns a promise that will be resolved when connected</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>let C = new CantabileApi();
+await C.untilConnected();</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-untilConnected" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>untilConnected</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/CantabileAPI.js.html#l222"><code>CantabileAPI.js:222</code></a>
 		</p>
 
 
@@ -465,7 +699,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l134"><code>CantabileApi.js:134</code></a>
+        <a href="../files/dist_cantabile.js.html#l4091"><code>dist\cantabile.js:4091</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides access to the <a href="../classes/Application.html" class="crosslink">Application</a> object</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-application" class="property item">
+    <h3 class="name"><code>application</code></h3>
+    <span class="type"><a href="../classes/Application.html" class="crosslink">Application</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l135"><code>CantabileAPI.js:135</code></a>
         </p>
 
 
@@ -490,7 +749,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l94"><code>CantabileApi.js:94</code></a>
+        <a href="../files/dist_cantabile.js.html#l4051"><code>dist\cantabile.js:4051</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides access to global <a href="../classes/Bindings.html" class="crosslink">Bindings</a> points</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-bindings" class="property item">
+    <h3 class="name"><code>bindings</code></h3>
+    <span class="type"><a href="../classes/Bindings.html" class="crosslink">Bindings</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l95"><code>CantabileAPI.js:95</code></a>
         </p>
 
 
@@ -515,7 +799,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l102"><code>CantabileApi.js:102</code></a>
+        <a href="../files/dist_cantabile.js.html#l4059"><code>dist\cantabile.js:4059</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides access to global <a href="../classes/Bindings4.html" class="crosslink">Bindings4</a> points</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-bindings4" class="property item">
+    <h3 class="name"><code>bindings4</code></h3>
+    <span class="type"><a href="../classes/Bindings4.html" class="crosslink">Bindings4</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l103"><code>CantabileAPI.js:103</code></a>
         </p>
 
 
@@ -540,7 +849,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l110"><code>CantabileApi.js:110</code></a>
+        <a href="../files/dist_cantabile.js.html#l4067"><code>dist\cantabile.js:4067</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides access to global <a href="../classes/Commands.html" class="crosslink">Commands</a></p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-commands" class="property item">
+    <h3 class="name"><code>commands</code></h3>
+    <span class="type"><a href="../classes/Commands.html" class="crosslink">Commands</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l111"><code>CantabileAPI.js:111</code></a>
         </p>
 
 
@@ -565,7 +899,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l142"><code>CantabileApi.js:142</code></a>
+        <a href="../files/dist_cantabile.js.html#l4099"><code>dist\cantabile.js:4099</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides access to the <a href="../classes/Engine.html" class="crosslink">Engine</a> object</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-engine" class="property item">
+    <h3 class="name"><code>engine</code></h3>
+    <span class="type"><a href="../classes/Engine.html" class="crosslink">Engine</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l143"><code>CantabileAPI.js:143</code></a>
         </p>
 
 
@@ -590,7 +949,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l275"><code>CantabileApi.js:275</code></a>
+        <a href="../files/dist_cantabile.js.html#l4232"><code>dist\cantabile.js:4232</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The current host</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-host" class="property item">
+    <h3 class="name"><code>host</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l276"><code>CantabileAPI.js:276</code></a>
         </p>
 
 
@@ -615,7 +999,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l348"><code>CantabileApi.js:348</code></a>
+        <a href="../files/dist_cantabile.js.html#l4305"><code>dist\cantabile.js:4305</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The base host url</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-hostUrl" class="property item">
+    <h3 class="name"><code>hostUrl</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l349"><code>CantabileAPI.js:349</code></a>
         </p>
 
 
@@ -640,7 +1049,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l62"><code>CantabileApi.js:62</code></a>
+        <a href="../files/dist_cantabile.js.html#l4019"><code>dist\cantabile.js:4019</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the currently active <a href="../classes/KeyRanges.html" class="crosslink">KeyRanges</a></p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-keyRanges" class="property item">
+    <h3 class="name"><code>keyRanges</code></h3>
+    <span class="type"><a href="../classes/KeyRanges.html" class="crosslink">KeyRanges</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l63"><code>CantabileAPI.js:63</code></a>
         </p>
 
 
@@ -665,7 +1099,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l86"><code>CantabileApi.js:86</code></a>
+        <a href="../files/dist_cantabile.js.html#l4043"><code>dist\cantabile.js:4043</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides access to controllers managed by Cantabile's <a href="../classes/OnscreenKeyboard.html" class="crosslink">OnscreenKeyboard</a> device</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-onscreenKeyboard" class="property item">
+    <h3 class="name"><code>onscreenKeyboard</code></h3>
+    <span class="type"><a href="../classes/OnscreenKeyboard.html" class="crosslink">OnscreenKeyboard</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l87"><code>CantabileAPI.js:87</code></a>
         </p>
 
 
@@ -690,7 +1149,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l46"><code>CantabileApi.js:46</code></a>
+        <a href="../files/dist_cantabile.js.html#l4003"><code>dist\cantabile.js:4003</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the <a href="../classes/SetList.html" class="crosslink">SetList</a> object</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-setList" class="property item">
+    <h3 class="name"><code>setList</code></h3>
+    <span class="type"><a href="../classes/SetList.html" class="crosslink">SetList</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l47"><code>CantabileAPI.js:47</code></a>
         </p>
 
 
@@ -715,7 +1199,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l70"><code>CantabileApi.js:70</code></a>
+        <a href="../files/dist_cantabile.js.html#l4027"><code>dist\cantabile.js:4027</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the current <a href="../classes/ShowNotes.html" class="crosslink">ShowNotes</a></p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-showNotes" class="property item">
+    <h3 class="name"><code>showNotes</code></h3>
+    <span class="type"><a href="../classes/ShowNotes.html" class="crosslink">ShowNotes</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l71"><code>CantabileAPI.js:71</code></a>
         </p>
 
 
@@ -740,7 +1249,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l337"><code>CantabileApi.js:337</code></a>
+        <a href="../files/dist_cantabile.js.html#l4294"><code>dist\cantabile.js:4294</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The base socket url</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-socketUrl" class="property item">
+    <h3 class="name"><code>socketUrl</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l338"><code>CantabileAPI.js:338</code></a>
         </p>
 
 
@@ -765,7 +1299,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l118"><code>CantabileApi.js:118</code></a>
+        <a href="../files/dist_cantabile.js.html#l4075"><code>dist\cantabile.js:4075</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides access to <a href="../classes/Song.html" class="crosslink">Song</a> information about the current song</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-song" class="property item">
+    <h3 class="name"><code>song</code></h3>
+    <span class="type"><a href="../classes/Song.html" class="crosslink">Song</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l119"><code>CantabileAPI.js:119</code></a>
         </p>
 
 
@@ -790,7 +1349,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l54"><code>CantabileApi.js:54</code></a>
+        <a href="../files/dist_cantabile.js.html#l4011"><code>dist\cantabile.js:4011</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets the <a href="../classes/SongStates.html" class="crosslink">SongStates</a> for the current song</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-songStates" class="property item">
+    <h3 class="name"><code>songStates</code></h3>
+    <span class="type"><a href="../classes/SongStates.html" class="crosslink">SongStates</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l55"><code>CantabileAPI.js:55</code></a>
         </p>
 
 
@@ -815,7 +1399,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l151"><code>CantabileApi.js:151</code></a>
+        <a href="../files/dist_cantabile.js.html#l4108"><code>dist\cantabile.js:4108</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The current connection state, either "connecting", "connected" or "disconnected"</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-state" class="property item">
+    <h3 class="name"><code>state</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l152"><code>CantabileAPI.js:152</code></a>
         </p>
 
 
@@ -840,7 +1449,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l126"><code>CantabileApi.js:126</code></a>
+        <a href="../files/dist_cantabile.js.html#l4083"><code>dist\cantabile.js:4083</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides access to master <a href="../classes/Transport.html" class="crosslink">Transport</a> controls</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-transport" class="property item">
+    <h3 class="name"><code>transport</code></h3>
+    <span class="type"><a href="../classes/Transport.html" class="crosslink">Transport</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l127"><code>CantabileAPI.js:127</code></a>
         </p>
 
 
@@ -865,7 +1499,32 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l78"><code>CantabileApi.js:78</code></a>
+        <a href="../files/dist_cantabile.js.html#l4035"><code>dist\cantabile.js:4035</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Provides access to <a href="../classes/Variables.html" class="crosslink">Variables</a> expansion facilities</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-variables" class="property item">
+    <h3 class="name"><code>variables</code></h3>
+    <span class="type"><a href="../classes/Variables.html" class="crosslink">Variables</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/CantabileAPI.js.html#l79"><code>CantabileAPI.js:79</code></a>
         </p>
 
 
@@ -898,7 +1557,7 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l527"><code>CantabileApi.js:527</code></a>
+        <a href="../files/CantabileAPI.js.html#l528"><code>CantabileAPI.js:528</code></a>
         </p>
 
 
@@ -923,7 +1582,7 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l534"><code>CantabileApi.js:534</code></a>
+        <a href="../files/CantabileAPI.js.html#l535"><code>CantabileAPI.js:535</code></a>
         </p>
 
 
@@ -948,7 +1607,7 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l541"><code>CantabileApi.js:541</code></a>
+        <a href="../files/CantabileAPI.js.html#l542"><code>CantabileAPI.js:542</code></a>
         </p>
 
 
@@ -973,7 +1632,7 @@ await C.untilConnected();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/CantabileApi.js.html#l519"><code>CantabileApi.js:519</code></a>
+        <a href="../files/CantabileAPI.js.html#l520"><code>CantabileAPI.js:520</code></a>
         </p>
 
 

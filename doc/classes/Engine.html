@@ -125,9 +125,14 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-isStarted"><span class="im">isStarted</span>()</a></li>
+				<li><a href="#method-isStarted"><span class="im">isStarted</span>()</a></li>
+				<li><a href="#method-restart"><span class="im">restart</span>()</a></li>
 				<li><a href="#method-restart"><span class="im">restart</span>()</a></li>
 				<li><a href="#method-start"><span class="im">start</span>()</a></li>
+				<li><a href="#method-start"><span class="im">start</span>()</a></li>
 				<li><a href="#method-startStop"><span class="im">startStop</span>()</a></li>
+				<li><a href="#method-startStop"><span class="im">startStop</span>()</a></li>
+				<li><a href="#method-stop"><span class="im">stop</span>()</a></li>
 				<li><a href="#method-stop"><span class="im">stop</span>()</a></li>
 			</ul>
 		</li>
@@ -145,6 +150,45 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
+<div id="method-isStarted" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>isStarted</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise  |  Boolean</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/dist_cantabile.js.html#l3906"><code>dist\cantabile.js:3906</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Returns a promise to provide the started state of Cantabile's audio engine.</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise  |  Boolean</span>
+			</div>
+		</div>
+
+</div>
 <div id="method-isStarted" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>isStarted</code></span>
@@ -202,6 +246,45 @@
 	<div class="meta">
 				<p>
 				Defined in
+		<a href="../files/dist_cantabile.js.html#l3946"><code>dist\cantabile.js:3946</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Restarts Cantabile's audio engine</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise</span>
+			</div>
+		</div>
+
+</div>
+<div id="method-restart" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>restart</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
 		<a href="../files/Engine.js.html#l58"><code>Engine.js:58</code></a>
 		</p>
 
@@ -210,6 +293,45 @@
 	</div>
 
 	<div class="description"><p>Restarts Cantabile's audio engine</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise</span>
+			</div>
+		</div>
+
+</div>
+<div id="method-start" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>start</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/dist_cantabile.js.html#l3920"><code>dist\cantabile.js:3920</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Starts Cantabile's audio engine</p>
 <p>This API is only available via  AJAX, and not WebSocket</p>
 </div>
 
@@ -280,6 +402,45 @@
 	<div class="meta">
 				<p>
 				Defined in
+		<a href="../files/dist_cantabile.js.html#l3959"><code>dist\cantabile.js:3959</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Toggles the audio engine between started and stopped</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise</span>
+			</div>
+		</div>
+
+</div>
+<div id="method-startStop" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>startStop</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
 		<a href="../files/Engine.js.html#l71"><code>Engine.js:71</code></a>
 		</p>
 
@@ -288,6 +449,45 @@
 	</div>
 
 	<div class="description"><p>Toggles the audio engine between started and stopped</p>
+<p>This API is only available via  AJAX, and not WebSocket</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Promise</span>
+			</div>
+		</div>
+
+</div>
+<div id="method-stop" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>stop</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Promise</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/dist_cantabile.js.html#l3933"><code>dist\cantabile.js:3933</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Stops Cantabile's audio engine</p>
 <p>This API is only available via  AJAX, and not WebSocket</p>
 </div>
 

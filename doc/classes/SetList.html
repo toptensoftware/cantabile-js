@@ -130,12 +130,19 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-available"><span class="im">available</span>()</a></li>
+				<li><a href="#method-available"><span class="im">available</span>()</a></li>
 				<li><a href="#method-close"><span class="im">close</span>()</a></li>
 				<li><a href="#method-loadFirstSong"><span class="im">loadFirstSong</span>(<span class="ia">delayed</span>)</a></li>
+				<li><a href="#method-loadFirstSong"><span class="im">loadFirstSong</span>(<span class="ia">delayed</span>)</a></li>
+				<li><a href="#method-loadLastSong"><span class="im">loadLastSong</span>(<span class="ia">delayed</span>)</a></li>
 				<li><a href="#method-loadLastSong"><span class="im">loadLastSong</span>(<span class="ia">delayed</span>)</a></li>
 				<li><a href="#method-loadNextSong"><span class="im">loadNextSong</span>(<span class="ia">direction</span><span class="ia">delayed</span><span class="ia">wrap</span>)</a></li>
+				<li><a href="#method-loadNextSong"><span class="im">loadNextSong</span>(<span class="ia">direction</span><span class="ia">delayed</span><span class="ia">wrap</span>)</a></li>
+				<li><a href="#method-loadSetList"><span class="im">loadSetList</span>(<span class="ia">name</span><span class="ia">loadFirst</span>)</a></li>
 				<li><a href="#method-loadSetList"><span class="im">loadSetList</span>(<span class="ia">name</span><span class="ia">loadFirst</span>)</a></li>
 				<li><a href="#method-loadSongByIndex"><span class="im">loadSongByIndex</span>(<span class="ia">index</span><span class="ia">delayed</span>)</a></li>
+				<li><a href="#method-loadSongByIndex"><span class="im">loadSongByIndex</span>(<span class="ia">index</span><span class="ia">delayed</span>)</a></li>
+				<li><a href="#method-loadSongByProgram"><span class="im">loadSongByProgram</span>(<span class="ia">index</span><span class="ia">delayed</span>)</a></li>
 				<li><a href="#method-loadSongByProgram"><span class="im">loadSongByProgram</span>(<span class="ia">index</span><span class="ia">delayed</span>)</a></li>
 				<li><a href="#method-open"><span class="im">open</span>()</a></li>
 				<li><a href="#method-untilOpen"><span class="im">untilOpen</span>()</a></li>
@@ -146,9 +153,14 @@
 			<strong>Properties</strong>
 			<ul>
 				<li><a href="#prop-currentSong"><span class="ip">currentSong</span></a></li>
+				<li><a href="#prop-currentSong"><span class="ip">currentSong</span></a></li>
+				<li><a href="#prop-currentSongIndex"><span class="ip">currentSongIndex</span></a></li>
 				<li><a href="#prop-currentSongIndex"><span class="ip">currentSongIndex</span></a></li>
 				<li><a href="#prop-items"><span class="ip">items</span></a></li>
+				<li><a href="#prop-items"><span class="ip">items</span></a></li>
 				<li><a href="#prop-name"><span class="ip">name</span></a></li>
+				<li><a href="#prop-name"><span class="ip">name</span></a></li>
+				<li><a href="#prop-preLoaded"><span class="ip">preLoaded</span></a></li>
 				<li><a href="#prop-preLoaded"><span class="ip">preLoaded</span></a></li>
 			</ul>
 		</li>
@@ -158,14 +170,24 @@
             <strong>Events</strong>
             <ul>
                 <li><a href="#event-changed"><span class="im">changed</span></a></li>
+                <li><a href="#event-changed"><span class="im">changed</span></a></li>
+                <li><a href="#event-currentSongChanged"><span class="im">currentSongChanged</span></a></li>
                 <li><a href="#event-currentSongChanged"><span class="im">currentSongChanged</span></a></li>
                 <li><a href="#event-currentSongPartChanged"><span class="im">currentSongPartChanged</span></a></li>
+                <li><a href="#event-currentSongPartChanged"><span class="im">currentSongPartChanged</span></a></li>
+                <li><a href="#event-itemAdded"><span class="im">itemAdded</span></a></li>
                 <li><a href="#event-itemAdded"><span class="im">itemAdded</span></a></li>
                 <li><a href="#event-itemChanged"><span class="im">itemChanged</span></a></li>
+                <li><a href="#event-itemChanged"><span class="im">itemChanged</span></a></li>
+                <li><a href="#event-itemMoved"><span class="im">itemMoved</span></a></li>
                 <li><a href="#event-itemMoved"><span class="im">itemMoved</span></a></li>
                 <li><a href="#event-itemRemoved"><span class="im">itemRemoved</span></a></li>
+                <li><a href="#event-itemRemoved"><span class="im">itemRemoved</span></a></li>
+                <li><a href="#event-nameChanged"><span class="im">nameChanged</span></a></li>
                 <li><a href="#event-nameChanged"><span class="im">nameChanged</span></a></li>
                 <li><a href="#event-preLoadedChanged"><span class="im">preLoadedChanged</span></a></li>
+                <li><a href="#event-preLoadedChanged"><span class="im">preLoadedChanged</span></a></li>
+                <li><a href="#event-reload"><span class="im">reload</span></a></li>
                 <li><a href="#event-reload"><span class="im">reload</span></a></li>
             </ul>
         </li>
@@ -180,6 +202,46 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
+<div id="method-available" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>available</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">String[]</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/dist_cantabile.js.html#l1366"><code>dist\cantabile.js:1366</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Gets a list of available set lists in the user's set list folder</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">String[]</span>:
+					<p>An array of set list names (relative to user's set list folder, extension removed)</p>
+
+			</div>
+		</div>
+
+</div>
 <div id="method-available" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>available</code></span>
@@ -233,9 +295,12 @@
 
 
 	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/EndPoint.html#method_close">EndPoint</a>:
-		<a href="../files/EndPoint.js.html#l55"><code>EndPoint.js:55</code></a>
+			<p>Inherited from
+			<a href="../classes/EndPoint.html#method_close">
+				EndPoint
+			</a>
+			but overwritten in
+		<a href="../files/dist_cantabile.js.html#l1028"><code>dist\cantabile.js:1028</code></a>
 		</p>
 
 
@@ -247,6 +312,56 @@
 automatically closed when the last event listener is removed.</p>
 </div>
 
+
+
+</div>
+<div id="method-loadFirstSong" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>loadFirstSong</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code class="optional">delayed=false</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/dist_cantabile.js.html#l1326"><code>dist\cantabile.js:1326</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Load the first song in the set list</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name optional">[delayed=false]</code>
+						<span class="type">Boolean</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>Whether to perform a delayed or immediate load</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
 
 
 </div>
@@ -321,6 +436,56 @@ automatically closed when the last event listener is removed.</p>
 	<div class="meta">
 				<p>
 				Defined in
+		<a href="../files/dist_cantabile.js.html#l1338"><code>dist\cantabile.js:1338</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Load the last song in the set list</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name optional">[delayed=false]</code>
+						<span class="type">Boolean</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>Whether to perform a delayed or immediate load</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-loadLastSong" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>loadLastSong</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code class="optional">delayed=false</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
 		<a href="../files/SetList.js.html#l122"><code>SetList.js:122</code></a>
 		</p>
 
@@ -342,6 +507,81 @@ automatically closed when the last event listener is removed.</p>
 
 
 					<div class="param-description"><p>Whether to perform a delayed or immediate load</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-loadNextSong" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>loadNextSong</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>direction</code>
+				</li>
+				<li class="arg">
+						<code class="optional">delayed=false</code>
+				</li>
+				<li class="arg">
+						<code class="optional">wrap=false</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/dist_cantabile.js.html#l1350"><code>dist\cantabile.js:1350</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Load the next or previous song in the set list</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">direction</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><p>Direction to move (1 = next, -1 = previous)</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[delayed=false]</code>
+						<span class="type">Boolean</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>Whether to perform a delayed or immediate load</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[wrap=false]</code>
+						<span class="type">Boolean</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>Whether to wrap around at the start/end of the list</p>
 </div>
 
 				</li>
@@ -449,6 +689,67 @@ automatically closed when the last event listener is removed.</p>
 	<div class="meta">
 				<p>
 				Defined in
+		<a href="../files/dist_cantabile.js.html#l1376"><code>dist\cantabile.js:1376</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Loads the specified set list from the user's set list folder</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">name</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><p>Name of the set to load (relative to user's set list folder, without extension)</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">loadFirst</code>
+						<span class="type">Boolean</span>
+
+
+					<div class="param-description"><p>True to load the first song in the set list (default = true)</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-loadSetList" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>loadSetList</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>name</code>
+				</li>
+				<li class="arg">
+						<code>loadFirst</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
 		<a href="../files/SetList.js.html#l160"><code>SetList.js:160</code></a>
 		</p>
 
@@ -478,6 +779,68 @@ automatically closed when the last event listener is removed.</p>
 
 
 					<div class="param-description"><p>True to load the first song in the set list (default = true)</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-loadSongByIndex" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>loadSongByIndex</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>index</code>
+				</li>
+				<li class="arg">
+						<code class="optional">delayed=false</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/dist_cantabile.js.html#l1298"><code>dist\cantabile.js:1298</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Load the song at a given index position</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">index</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><p>The zero based index of the song to load</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[delayed=false]</code>
+						<span class="type">Boolean</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>Whether to perform a delayed or immediate load</p>
 </div>
 
 				</li>
@@ -572,6 +935,68 @@ automatically closed when the last event listener is removed.</p>
 	<div class="meta">
 				<p>
 				Defined in
+		<a href="../files/dist_cantabile.js.html#l1312"><code>dist\cantabile.js:1312</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Load the song with a given program number</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">index</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><p>The zero based program number of the song to load</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[delayed=false]</code>
+						<span class="type">Boolean</span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>Whether to perform a delayed or immediate load</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+<div id="method-loadSongByProgram" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>loadSongByProgram</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>index</code>
+				</li>
+				<li class="arg">
+						<code class="optional">delayed=false</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
 		<a href="../files/SetList.js.html#l96"><code>SetList.js:96</code></a>
 		</p>
 
@@ -623,9 +1048,12 @@ automatically closed when the last event listener is removed.</p>
 
 
 	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/EndPoint.html#method_open">EndPoint</a>:
-		<a href="../files/EndPoint.js.html#l35"><code>EndPoint.js:35</code></a>
+			<p>Inherited from
+			<a href="../classes/EndPoint.html#method_open">
+				EndPoint
+			</a>
+			but overwritten in
+		<a href="../files/dist_cantabile.js.html#l1008"><code>dist\cantabile.js:1008</code></a>
 		</p>
 
 
@@ -657,9 +1085,12 @@ automatically opened when the first event listener is attached.</p>
 
 
 	<div class="meta">
-				<p>Inherited from
-				<a href="../classes/EndPoint.html#method_untilOpen">EndPoint</a>:
-		<a href="../files/EndPoint.js.html#l142"><code>EndPoint.js:142</code></a>
+			<p>Inherited from
+			<a href="../classes/EndPoint.html#method_untilOpen">
+				EndPoint
+			</a>
+			but overwritten in
+		<a href="../files/dist_cantabile.js.html#l1115"><code>dist\cantabile.js:1115</code></a>
 		</p>
 
 
@@ -707,6 +1138,32 @@ await C.application.untilOpen();</code></pre>
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l1290"><code>dist\cantabile.js:1290</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The currently loaded <a href="../classes/SetListItem.html" class="crosslink">SetListItem</a> (or null if the current song isn't in the set list).
+See also <a href="../classes/SetList.html#property_currentSongIndex" class="crosslink">currentSongIndex</a>.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-currentSong" class="property item">
+    <h3 class="name"><code>currentSong</code></h3>
+    <span class="type"><a href="../classes/SetListItem.html" class="crosslink">SetListItem</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/SetList.js.html#l74"><code>SetList.js:74</code></a>
         </p>
 
@@ -716,6 +1173,32 @@ await C.application.untilOpen();</code></pre>
     <div class="description">
         <p>The currently loaded <a href="../classes/SetListItem.html" class="crosslink">SetListItem</a> (or null if the current song isn't in the set list).
 See also <a href="../classes/SetList.html#property_currentSongIndex" class="crosslink">currentSongIndex</a>.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-currentSongIndex" class="property item">
+    <h3 class="name"><code>currentSongIndex</code></h3>
+    <span class="type">Number</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/dist_cantabile.js.html#l1275"><code>dist\cantabile.js:1275</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The index of the currently loaded song (or -1 if the current song isn't in the set list).
+See also <a href="../classes/SetList.html#property_currentSong" class="crosslink">currentSong</a>.</p>
 
     </div>
 
@@ -759,6 +1242,31 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l1254"><code>dist\cantabile.js:1254</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>An array of <a href="../classes/SetListItem.html" class="crosslink">SetListItem</a> items in the set list</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-items" class="property item">
+    <h3 class="name"><code>items</code></h3>
+    <span class="type"><a href="../classes/SetListItem.html" class="crosslink">SetListItem[]</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/SetList.js.html#l38"><code>SetList.js:38</code></a>
         </p>
 
@@ -784,6 +1292,31 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l1261"><code>dist\cantabile.js:1261</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The display name of the current set list (ie: its file name with path and extension removed)</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-name" class="property item">
+    <h3 class="name"><code>name</code></h3>
+    <span class="type">String</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/SetList.js.html#l45"><code>SetList.js:45</code></a>
         </p>
 
@@ -792,6 +1325,31 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
 
     <div class="description">
         <p>The display name of the current set list (ie: its file name with path and extension removed)</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-preLoaded" class="property item">
+    <h3 class="name"><code>preLoaded</code></h3>
+    <span class="type">Boolean</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/dist_cantabile.js.html#l1268"><code>dist\cantabile.js:1268</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Indicates if the set list is currently pre-loaded</p>
 
     </div>
 
@@ -842,6 +1400,31 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l1426"><code>dist\cantabile.js:1426</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when anything about the contents of the set list changes</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-changed" class="events item">
+    <h3 class="name"><code>changed</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/SetList.js.html#l210"><code>SetList.js:210</code></a>
         </p>
 
@@ -850,6 +1433,31 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
 
     <div class="description">
         <p>Fired when anything about the contents of the set list changes</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-currentSongChanged" class="events item">
+    <h3 class="name"><code>currentSongChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/dist_cantabile.js.html#l1515"><code>dist\cantabile.js:1515</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the currently loaded song changes</p>
 
     </div>
 
@@ -878,6 +1486,59 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
 
     </div>
 
+
+
+</div>
+<div id="event-currentSongPartChanged" class="events item">
+    <h3 class="name"><code>currentSongPartChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/dist_cantabile.js.html#l1526"><code>dist\cantabile.js:1526</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the part of the currently loaded song changes</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">part</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <p>The zero-based current song part index (can be -1)</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">partCount</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <p>The number of parts in the current song</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
 
 
 </div>
@@ -945,6 +1606,48 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l1419"><code>dist\cantabile.js:1419</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired after a new item has been added to the set list</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">index</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <p>The zero based index of the newly added item</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+</div>
+<div id="event-itemAdded" class="events item">
+    <h3 class="name"><code>itemAdded</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/SetList.js.html#l203"><code>SetList.js:203</code></a>
         </p>
 
@@ -987,6 +1690,48 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l1474"><code>dist\cantabile.js:1474</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when something about an item has changed</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">index</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <p>The zero based index of the item that changed</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+</div>
+<div id="event-itemChanged" class="events item">
+    <h3 class="name"><code>itemChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/SetList.js.html#l258"><code>SetList.js:258</code></a>
         </p>
 
@@ -1009,6 +1754,59 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
 
                     <div class="param-description">
                         <p>The zero based index of the item that changed</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+</div>
+<div id="event-itemMoved" class="events item">
+    <h3 class="name"><code>itemMoved</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/dist_cantabile.js.html#l1455"><code>dist\cantabile.js:1455</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when an item in the set list has been moved</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">from</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <p>The zero based index of the item before being moved</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">to</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <p>The zero based index of the item's new position</p>
 
                     </div>
 
@@ -1082,6 +1880,48 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l1439"><code>dist\cantabile.js:1439</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired after an item has been removed from the set list</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">index</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <p>The zero based index of the removed item</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+</div>
+<div id="event-itemRemoved" class="events item">
+    <h3 class="name"><code>itemRemoved</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/SetList.js.html#l223"><code>SetList.js:223</code></a>
         </p>
 
@@ -1124,6 +1964,31 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l1542"><code>dist\cantabile.js:1542</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the name of the currently loaded set list changes</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-nameChanged" class="events item">
+    <h3 class="name"><code>nameChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/SetList.js.html#l326"><code>SetList.js:326</code></a>
         </p>
 
@@ -1149,6 +2014,31 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
     <div class="meta">
                 <p>
                 Defined in
+        <a href="../files/dist_cantabile.js.html#l1502"><code>dist\cantabile.js:1502</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the pre-loaded state of the list has changed</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-preLoadedChanged" class="events item">
+    <h3 class="name"><code>preLoadedChanged</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
         <a href="../files/SetList.js.html#l286"><code>SetList.js:286</code></a>
         </p>
 
@@ -1157,6 +2047,31 @@ See also <a href="../classes/SetList.html#property_currentSong" class="crosslink
 
     <div class="description">
         <p>Fired when the pre-loaded state of the list has changed</p>
+
+    </div>
+
+
+
+</div>
+<div id="event-reload" class="events item">
+    <h3 class="name"><code>reload</code></h3>
+    <span class="type"></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/dist_cantabile.js.html#l1490"><code>dist\cantabile.js:1490</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Fired when the entire set list has changed (eg: after a sort operation, or loading a new set list)</p>
 
     </div>
 

@@ -6,6 +6,13 @@
         "logo": "logo.png"
     },
     "files": {
+        "dist\\cantabile.js": {
+            "name": "dist\\cantabile.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "doc\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js": {
             "name": "doc\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
             "modules": {},
@@ -92,8 +99,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "CantabileApi.js": {
-            "name": "CantabileApi.js",
+        "CantabileAPI.js": {
+            "name": "CantabileAPI.js",
             "modules": {},
             "classes": {
                 "Cantabile": 1
@@ -277,66 +284,135 @@
     },
     "modules": {},
     "classes": {
-        "Application": {
-            "name": "Application",
-            "shortname": "Application",
+        "EndPoint": {
+            "name": "EndPoint",
+            "shortname": "EndPoint",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "Application.js",
-            "line": 3,
-            "description": "Interface to the application object\n\nAccess this object via the {{#crossLink \"Cantabile/application:property\"}}{{/crossLink}} property.",
+            "file": "EndPoint.js",
+            "line": 7,
+            "description": "Common functionality for all end point handlers",
+            "extends": "EventEmitter"
+        },
+        "SetList": {
+            "name": "SetList",
+            "shortname": "SetList",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "SetList.js",
+            "line": 6,
+            "description": "Used to access and control Cantabile's set list functionality.\n\nAccess this object via the {{#crossLink \"Cantabile/setList:property\"}}{{/crossLink}} property.",
             "extends": "EndPoint"
         },
-        "BindingParam": {
-            "name": "BindingParam",
-            "shortname": "BindingParam",
+        "States": {
+            "name": "States",
+            "shortname": "States",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "BindingParam.js",
-            "line": 1,
-            "description": "An anonymous type that describes a binding point parameter"
+            "file": "States.js",
+            "line": 6,
+            "description": "Base states functionality for State and racks",
+            "extends": "EndPoint"
         },
-        "BindingPointEntry4": {
-            "name": "BindingPointEntry4",
-            "shortname": "BindingPointEntry4",
+        "SongStates": {
+            "name": "SongStates",
+            "shortname": "SongStates",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "BindingPointEntry4.js",
-            "line": 1,
-            "description": "An anonymous type that describes a binding point entry as returned from {{#crossLink \"Bindings4/availableBindingPoints:method\"}}{{/crosslink}}"
+            "file": "SongStates.js",
+            "line": 3,
+            "description": "Interface to the states of the current song\n\nAccess this object via the {{#crossLink \"Cantabile/songStates:property\"}}{{/crossLink}} property.",
+            "extends": "States"
         },
-        "BindingPointInfo": {
-            "name": "BindingPointInfo",
-            "shortname": "BindingPointInfo",
+        "KeyRanges": {
+            "name": "KeyRanges",
+            "shortname": "KeyRanges",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "BindingPointInfo.js",
-            "line": 1,
-            "description": "An anonymous type that describes a binding point"
+            "file": "KeyRanges.js",
+            "line": 3,
+            "description": "Provides access to information about the currently active set of key ranges\n\nAccess this object via the {{#crossLink \"Cantabile/keyRanges:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
         },
-        "BindingPointInfo4": {
-            "name": "BindingPointInfo4",
-            "shortname": "BindingPointInfo4",
+        "ShowNotes": {
+            "name": "ShowNotes",
+            "shortname": "ShowNotes",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "BindingPointInfo4.js",
-            "line": 1,
-            "description": "An anonymous type that describes a binding point"
+            "file": "ShowNotes.js",
+            "line": 3,
+            "description": "Used to access the current set of show notes\n\nAccess this object via the {{#crossLink \"Cantabile/showNotes:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
+        "PatternWatcher": {
+            "name": "PatternWatcher",
+            "shortname": "PatternWatcher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Variables.js",
+            "line": 7,
+            "description": "Represents a monitored pattern string.\n\nReturned from the {{#crossLink \"Variables/watch:method\"}}{{/crossLink}} method.",
+            "extends": "EventEmitter"
+        },
+        "Variables": {
+            "name": "Variables",
+            "shortname": "Variables",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Variables.js",
+            "line": 106,
+            "description": "Provides access to Cantabile's internal variables by allowing a pattern string to be\nexpanded into a final display string.\n\nAccess this object via the {{#crossLink \"Cantabile/variables:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
+        "ControllerWatcher": {
+            "name": "ControllerWatcher",
+            "shortname": "ControllerWatcher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "OnscreenKeyboard.js",
+            "line": 7,
+            "description": "Represents a monitored controller\n\nReturned from the {{#crossLink \"OnscreenKeyboard/watch:method\"}}{{/crossLink}} method.",
+            "extends": "EventEmitter"
+        },
+        "OnscreenKeyboard": {
+            "name": "OnscreenKeyboard",
+            "shortname": "OnscreenKeyboard",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "OnscreenKeyboard.js",
+            "line": 125,
+            "description": "Provides access to controllers managed by Cantabile's on-screen keyboard device\n\nAccess this object via the {{#crossLink \"Cantabile/onscreenKeyboard:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
         },
         "BindingWatcher": {
             "name": "BindingWatcher",
@@ -390,6 +466,70 @@
             "description": "Provides access to Cantabile's binding points.\n\nAccess this object via the {{#crossLink \"Cantabile/bindings4:property\"}}{{/crossLink}} property.",
             "extends": "EndPoint"
         },
+        "Commands": {
+            "name": "Commands",
+            "shortname": "Commands",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Commands.js",
+            "line": 4,
+            "description": "Provides access to Cantabile's UI commands\n\nAccess this object via the {{#crossLink \"Cantabile/commands:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
+        "Song": {
+            "name": "Song",
+            "shortname": "Song",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Song.js",
+            "line": 3,
+            "description": "Interface to the current song\n\nAccess this object via the {{#crossLink \"Cantabile/song:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
+        "Transport": {
+            "name": "Transport",
+            "shortname": "Transport",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Transport.js",
+            "line": 3,
+            "description": "Interface to the master transport\n\nAccess this object via the {{#crossLink \"Cantabile/transport:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
+        "Application": {
+            "name": "Application",
+            "shortname": "Application",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Application.js",
+            "line": 3,
+            "description": "Interface to the application object\n\nAccess this object via the {{#crossLink \"Cantabile/application:property\"}}{{/crossLink}} property.",
+            "extends": "EndPoint"
+        },
+        "Engine": {
+            "name": "Engine",
+            "shortname": "Engine",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Engine.js",
+            "line": 4,
+            "description": "Provides access to Cantabile's engine object for start/stop control\n\nAccess this object via the {{#crossLink \"Cantabile/engine:property\"}}{{/crossLink}} property."
+        },
         "Cantabile": {
             "name": "Cantabile",
             "shortname": "Cantabile",
@@ -398,7 +538,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "CantabileApi.js",
+            "file": "CantabileAPI.js",
             "line": 20,
             "description": "Represents a connection to Cantabile.",
             "extends": "EventEmitter",
@@ -411,6 +551,54 @@
                     "optional": true
                 }
             ]
+        },
+        "BindingParam": {
+            "name": "BindingParam",
+            "shortname": "BindingParam",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "BindingParam.js",
+            "line": 1,
+            "description": "An anonymous type that describes a binding point parameter"
+        },
+        "BindingPointEntry4": {
+            "name": "BindingPointEntry4",
+            "shortname": "BindingPointEntry4",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "BindingPointEntry4.js",
+            "line": 1,
+            "description": "An anonymous type that describes a binding point entry as returned from {{#crossLink \"Bindings4/availableBindingPoints:method\"}}{{/crosslink}}"
+        },
+        "BindingPointInfo": {
+            "name": "BindingPointInfo",
+            "shortname": "BindingPointInfo",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "BindingPointInfo.js",
+            "line": 1,
+            "description": "An anonymous type that describes a binding point"
+        },
+        "BindingPointInfo4": {
+            "name": "BindingPointInfo4",
+            "shortname": "BindingPointInfo4",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "BindingPointInfo4.js",
+            "line": 1,
+            "description": "An anonymous type that describes a binding point"
         },
         "ColorEntry": {
             "name": "ColorEntry",
@@ -436,44 +624,6 @@
             "line": 1,
             "description": "An anonymous type that describes a command"
         },
-        "Commands": {
-            "name": "Commands",
-            "shortname": "Commands",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "Commands.js",
-            "line": 4,
-            "description": "Provides access to Cantabile's UI commands\n\nAccess this object via the {{#crossLink \"Cantabile/commands:property\"}}{{/crossLink}} property.",
-            "extends": "EndPoint"
-        },
-        "EndPoint": {
-            "name": "EndPoint",
-            "shortname": "EndPoint",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "EndPoint.js",
-            "line": 7,
-            "description": "Common functionality for all end point handlers",
-            "extends": "EventEmitter"
-        },
-        "Engine": {
-            "name": "Engine",
-            "shortname": "Engine",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "Engine.js",
-            "line": 4,
-            "description": "Provides access to Cantabile's engine object for start/stop control\n\nAccess this object via the {{#crossLink \"Cantabile/engine:property\"}}{{/crossLink}} property."
-        },
         "KeyRange": {
             "name": "KeyRange",
             "shortname": "KeyRange",
@@ -486,19 +636,6 @@
             "line": 1,
             "description": "An anonymous type representing an active key range"
         },
-        "KeyRanges": {
-            "name": "KeyRanges",
-            "shortname": "KeyRanges",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "KeyRanges.js",
-            "line": 3,
-            "description": "Provides access to information about the currently active set of key ranges\n\nAccess this object via the {{#crossLink \"Cantabile/keyRanges:property\"}}{{/crossLink}} property.",
-            "extends": "EndPoint"
-        },
         "MidiControllerEvent": {
             "name": "MidiControllerEvent",
             "shortname": "MidiControllerEvent",
@@ -510,45 +647,6 @@
             "file": "MidiControllerEvent.js",
             "line": 1,
             "description": "An anonymous type representing a complex MIDI controller event.  \n\nMidiController events can be passed to anywhere that expects MIDI Data (eg: a target MIDI binding point), or can be \nused as a condition on a MIDI source binding point."
-        },
-        "ControllerWatcher": {
-            "name": "ControllerWatcher",
-            "shortname": "ControllerWatcher",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "OnscreenKeyboard.js",
-            "line": 7,
-            "description": "Represents a monitored controller\n\nReturned from the {{#crossLink \"OnscreenKeyboard/watch:method\"}}{{/crossLink}} method.",
-            "extends": "EventEmitter"
-        },
-        "OnscreenKeyboard": {
-            "name": "OnscreenKeyboard",
-            "shortname": "OnscreenKeyboard",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "OnscreenKeyboard.js",
-            "line": 125,
-            "description": "Provides access to controllers managed by Cantabile's on-screen keyboard device\n\nAccess this object via the {{#crossLink \"Cantabile/onscreenKeyboard:property\"}}{{/crossLink}} property.",
-            "extends": "EndPoint"
-        },
-        "SetList": {
-            "name": "SetList",
-            "shortname": "SetList",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "SetList.js",
-            "line": 6,
-            "description": "Used to access and control Cantabile's set list functionality.\n\nAccess this object via the {{#crossLink \"Cantabile/setList:property\"}}{{/crossLink}} property.",
-            "extends": "EndPoint"
         },
         "SetListItem": {
             "name": "SetListItem",
@@ -574,45 +672,6 @@
             "line": 1,
             "description": "An anonymous type representing a show note"
         },
-        "ShowNotes": {
-            "name": "ShowNotes",
-            "shortname": "ShowNotes",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "ShowNotes.js",
-            "line": 3,
-            "description": "Used to access the current set of show notes\n\nAccess this object via the {{#crossLink \"Cantabile/showNotes:property\"}}{{/crossLink}} property.",
-            "extends": "EndPoint"
-        },
-        "Song": {
-            "name": "Song",
-            "shortname": "Song",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "Song.js",
-            "line": 3,
-            "description": "Interface to the current song\n\nAccess this object via the {{#crossLink \"Cantabile/song:property\"}}{{/crossLink}} property.",
-            "extends": "EndPoint"
-        },
-        "SongStates": {
-            "name": "SongStates",
-            "shortname": "SongStates",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "SongStates.js",
-            "line": 3,
-            "description": "Interface to the states of the current song\n\nAccess this object via the {{#crossLink \"Cantabile/songStates:property\"}}{{/crossLink}} property.",
-            "extends": "States"
-        },
         "State": {
             "name": "State",
             "shortname": "State",
@@ -624,62 +683,2608 @@
             "file": "State.js",
             "line": 1,
             "description": "An anonymous type representing a state"
-        },
-        "States": {
-            "name": "States",
-            "shortname": "States",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "States.js",
-            "line": 6,
-            "description": "Base states functionality for State and racks",
-            "extends": "EndPoint"
-        },
-        "Transport": {
-            "name": "Transport",
-            "shortname": "Transport",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "Transport.js",
-            "line": 3,
-            "description": "Interface to the master transport\n\nAccess this object via the {{#crossLink \"Cantabile/transport:property\"}}{{/crossLink}} property.",
-            "extends": "EndPoint"
-        },
-        "PatternWatcher": {
-            "name": "PatternWatcher",
-            "shortname": "PatternWatcher",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "Variables.js",
-            "line": 7,
-            "description": "Represents a monitored pattern string.\n\nReturned from the {{#crossLink \"Variables/watch:method\"}}{{/crossLink}} method.",
-            "extends": "EventEmitter"
-        },
-        "Variables": {
-            "name": "Variables",
-            "shortname": "Variables",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "Variables.js",
-            "line": 106,
-            "description": "Provides access to Cantabile's internal variables by allowing a pattern string to be\nexpanded into a final display string.\n\nAccess this object via the {{#crossLink \"Cantabile/variables:property\"}}{{/crossLink}} property.",
-            "extends": "EndPoint"
         }
     },
     "elements": {},
     "classitems": [
+        {
+            "file": "dist\\cantabile.js",
+            "line": 9,
+            "description": "Helpers.",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 26,
+            "description": "Parse or format the given `val`.\n\nOptions:\n\n - `long` verbose formatting [false]",
+            "params": [
+                {
+                    "name": "val",
+                    "description": "",
+                    "type": "String|Number"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "throws": {
+                "description": "throw an error if val is not a non-empty string or a number",
+                "type": "Error"
+            },
+            "return": {
+                "description": "",
+                "type": "String|Number"
+            },
+            "api": "public",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 54,
+            "description": "Parse the given `str` and return milliseconds.",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "api": "private",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 119,
+            "description": "Short format for `ms`.",
+            "params": [
+                {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "api": "private",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 144,
+            "description": "Long format for `ms`.",
+            "params": [
+                {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "api": "private",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 169,
+            "description": "Pluralization helper.",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 187,
+            "description": "This is the common logic for both the Node.js and web browser\nimplementations of `debug()`.",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 202,
+            "description": "Active `debug` instances.",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 207,
+            "description": "The currently active debug mode names, and names to skip.",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 213,
+            "description": "Map of special \"%n\" handling functions, for the debug \"format\" argument.\n\nValid key names are a single, lower or upper-case letter, i.e. \"n\" and \"N\".",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 220,
+            "description": "Selects a color for a debug namespace",
+            "params": [
+                {
+                    "name": "namespace",
+                    "description": "The namespace string for the for the debug instance to be colored",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "An ANSI color code for the given namespace",
+                "type": "Number|String"
+            },
+            "api": "private",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 239,
+            "description": "Create a debugger with the given `namespace`.",
+            "params": [
+                {
+                    "name": "namespace",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Function"
+            },
+            "api": "public",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 333,
+            "description": "Enables a debug mode by namespaces. This can include modes\nseparated by a colon and wildcards.",
+            "params": [
+                {
+                    "name": "namespaces",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 370,
+            "description": "Disable debug output.",
+            "api": "public",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 380,
+            "description": "Returns true if the given mode name is enabled, false otherwise.",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "api": "public",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 411,
+            "description": "Coerce `val`.",
+            "params": [
+                {
+                    "name": "val",
+                    "description": "",
+                    "type": "Mixed"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Mixed"
+            },
+            "api": "private",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 447,
+            "description": "This is the web browser implementation of `debug()`.",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 456,
+            "description": "Colors.",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 461,
+            "description": "Currently only WebKit-based Web Inspectors, Firefox >= v31,\nand the Firebug extension (any Firefox version) are known\nto support \"%c\" CSS customizations.\n\nTODO: add a `localStorage` variable to explicitly enable/disable colors",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 491,
+            "description": "Colorize log arguments if enabled.",
+            "api": "public",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 527,
+            "description": "Invokes `console.log()` when available.\nNo-op when `console.log` is not a \"function\".",
+            "api": "public",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 542,
+            "description": "Save `namespaces`.",
+            "params": [
+                {
+                    "name": "namespaces",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "private",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 561,
+            "description": "Load `namespaces`.",
+            "return": {
+                "description": "returns the previously persisted debug modes",
+                "type": "String"
+            },
+            "api": "private",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 585,
+            "description": "Localstorage attempts to return the localstorage.\n\nThis is necessary because safari throws\nwhen a user disables cookies/localstorage\nand you attempt to access it.",
+            "return": {
+                "description": "",
+                "type": "LocalStorage"
+            },
+            "api": "private",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 609,
+            "description": "Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 639,
+            "description": "Constructor to create a storage for our `EE` objects.\nAn `Events` instance is a plain object whose properties are event names.",
+            "is_constructor": 1,
+            "access": "private",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 665,
+            "description": "Representation of a single event listener.",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "The listener function.",
+                    "type": "Function"
+                },
+                {
+                    "name": "context",
+                    "description": "The context to invoke the listener with.",
+                    "type": "*"
+                },
+                {
+                    "name": "once",
+                    "description": "Specify if the listener is a one-time listener.",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "is_constructor": 1,
+            "access": "private",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 680,
+            "description": "Add a listener for a given event.",
+            "params": [
+                {
+                    "name": "emitter",
+                    "description": "Reference to the `EventEmitter` instance.",
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "event",
+                    "description": "The event name.",
+                    "type": "(String|Symbol)"
+                },
+                {
+                    "name": "fn",
+                    "description": "The listener function.",
+                    "type": "Function"
+                },
+                {
+                    "name": "context",
+                    "description": "The context to invoke the listener with.",
+                    "type": "*"
+                },
+                {
+                    "name": "once",
+                    "description": "Specify if the listener is a one-time listener.",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "EventEmitter"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 706,
+            "description": "Clear event by name.",
+            "params": [
+                {
+                    "name": "emitter",
+                    "description": "Reference to the `EventEmitter` instance.",
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "evt",
+                    "description": "The Event name.",
+                    "type": "(String|Symbol)"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 718,
+            "description": "Minimal `EventEmitter` interface that is molded against the Node.js\n`EventEmitter` interface.",
+            "is_constructor": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 730,
+            "description": "Return an array listing the events for which the emitter has registered\nlisteners.",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 755,
+            "description": "Return the listeners registered for a given event.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event name.",
+                    "type": "(String|Symbol)"
+                }
+            ],
+            "return": {
+                "description": "The registered listeners.",
+                "type": "Array"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 776,
+            "description": "Return the number of listeners listening to a given event.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event name.",
+                    "type": "(String|Symbol)"
+                }
+            ],
+            "return": {
+                "description": "The number of listeners.",
+                "type": "Number"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 792,
+            "description": "Calls each of the listeners registered for a given event.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event name.",
+                    "type": "(String|Symbol)"
+                }
+            ],
+            "return": {
+                "description": "`true` if the event had listeners, else `false`.",
+                "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 851,
+            "description": "Add a listener for a given event.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event name.",
+                    "type": "(String|Symbol)"
+                },
+                {
+                    "name": "fn",
+                    "description": "The listener function.",
+                    "type": "Function"
+                },
+                {
+                    "name": "context",
+                    "description": "The context to invoke the listener with.",
+                    "type": "*",
+                    "optional": true,
+                    "optdefault": "this"
+                }
+            ],
+            "return": {
+                "description": "`this`.",
+                "type": "EventEmitter"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 864,
+            "description": "Add a one-time listener for a given event.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event name.",
+                    "type": "(String|Symbol)"
+                },
+                {
+                    "name": "fn",
+                    "description": "The listener function.",
+                    "type": "Function"
+                },
+                {
+                    "name": "context",
+                    "description": "The context to invoke the listener with.",
+                    "type": "*",
+                    "optional": true,
+                    "optdefault": "this"
+                }
+            ],
+            "return": {
+                "description": "`this`.",
+                "type": "EventEmitter"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 877,
+            "description": "Remove the listeners of a given event.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event name.",
+                    "type": "(String|Symbol)"
+                },
+                {
+                    "name": "fn",
+                    "description": "Only remove the listeners that match this function.",
+                    "type": "Function"
+                },
+                {
+                    "name": "context",
+                    "description": "Only remove the listeners that have this context.",
+                    "type": "*"
+                },
+                {
+                    "name": "once",
+                    "description": "Only remove one-time listeners.",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "`this`.",
+                "type": "EventEmitter"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 927,
+            "description": "Remove all listeners, or those of the specified event.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event name.",
+                    "type": "(String|Symbol)",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "`this`.",
+                "type": "EventEmitter"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1008,
+            "description": "Opens this end point and starts listening for events. \n\nThis method no longer needs to be explicitly called as end points are now\nautomatically opened when the first event listener is attached.\n\nUse this method to keep the end point open even when no event listeners are attached.",
+            "itemtype": "method",
+            "name": "open",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1028,
+            "description": "Closes the end point and stops listening for events.\n\nThis method no longer needs to be explicitly called as end points are now\nautomatically closed when the last event listener is removed.",
+            "itemtype": "method",
+            "name": "close",
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1115,
+            "description": "Returns a promise that will be resolved when this end point is opened",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n\t   C.application.open();\n    await C.application.untilOpen();"
+            ],
+            "itemtype": "method",
+            "name": "untilOpen",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "EndPoint"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1254,
+            "description": "An array of {{#crossLink \"SetListItem\"}}{{/crossLink}} items in the set list",
+            "itemtype": "property",
+            "name": "items",
+            "type": "{SetListItem[]}",
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1261,
+            "description": "The display name of the current set list (ie: its file name with path and extension removed)",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1268,
+            "description": "Indicates if the set list is currently pre-loaded",
+            "itemtype": "property",
+            "name": "preLoaded",
+            "type": "{Boolean}",
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1275,
+            "description": "The index of the currently loaded song (or -1 if the current song isn't in the set list).\nSee also {{#crossLink \"SetList/currentSong:property\"}}{{/crossLink}}.",
+            "itemtype": "property",
+            "name": "currentSongIndex",
+            "type": "{Number}",
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1290,
+            "description": "The currently loaded {{#crossLink \"SetListItem\"}}{{/crossLink}} (or null if the current song isn't in the set list).\nSee also {{#crossLink \"SetList/currentSongIndex:property\"}}{{/crossLink}}.",
+            "itemtype": "property",
+            "name": "currentSong",
+            "type": "{SetListItem}",
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1298,
+            "description": "Load the song at a given index position",
+            "itemtype": "method",
+            "name": "loadSongByIndex",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the song to load",
+                    "type": "Number"
+                },
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1312,
+            "description": "Load the song with a given program number",
+            "itemtype": "method",
+            "name": "loadSongByProgram",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based program number of the song to load",
+                    "type": "Number"
+                },
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1326,
+            "description": "Load the first song in the set list",
+            "itemtype": "method",
+            "name": "loadFirstSong",
+            "params": [
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1338,
+            "description": "Load the last song in the set list",
+            "itemtype": "method",
+            "name": "loadLastSong",
+            "params": [
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1350,
+            "description": "Load the next or previous song in the set list",
+            "itemtype": "method",
+            "name": "loadNextSong",
+            "params": [
+                {
+                    "name": "direction",
+                    "description": "Direction to move (1 = next, -1 = previous)",
+                    "type": "Number"
+                },
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                },
+                {
+                    "name": "wrap",
+                    "description": "Whether to wrap around at the start/end of the list",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1366,
+            "description": "Gets a list of available set lists in the user's set list folder",
+            "itemtype": "method",
+            "name": "available",
+            "return": {
+                "description": "An array of set list names (relative to user's set list folder, extension removed)",
+                "type": "String[]"
+            },
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1376,
+            "description": "Loads the specified set list from the user's set list folder",
+            "itemtype": "method",
+            "name": "loadSetList",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of the set to load (relative to user's set list folder, without extension)",
+                    "type": "String"
+                },
+                {
+                    "name": "loadFirst",
+                    "description": "True to load the first song in the set list (default = true)",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1419,
+            "description": "Fired after a new item has been added to the set list",
+            "itemtype": "event",
+            "name": "itemAdded",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the newly added item",
+                    "type": "Number"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1426,
+            "description": "Fired when anything about the contents of the set list changes",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1439,
+            "description": "Fired after an item has been removed from the set list",
+            "itemtype": "event",
+            "name": "itemRemoved",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the removed item",
+                    "type": "Number"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1455,
+            "description": "Fired when an item in the set list has been moved",
+            "itemtype": "event",
+            "name": "itemMoved",
+            "params": [
+                {
+                    "name": "from",
+                    "description": "The zero based index of the item before being moved",
+                    "type": "Number"
+                },
+                {
+                    "name": "to",
+                    "description": "The zero based index of the item's new position",
+                    "type": "Number"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1474,
+            "description": "Fired when something about an item has changed",
+            "itemtype": "event",
+            "name": "itemChanged",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the item that changed",
+                    "type": "Number"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1490,
+            "description": "Fired when the entire set list has changed (eg: after a sort operation, or loading a new set list)",
+            "itemtype": "event",
+            "name": "reload",
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1502,
+            "description": "Fired when the pre-loaded state of the list has changed",
+            "itemtype": "event",
+            "name": "preLoadedChanged",
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1515,
+            "description": "Fired when the currently loaded song changes",
+            "itemtype": "event",
+            "name": "currentSongChanged",
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1526,
+            "description": "Fired when the part of the currently loaded song changes",
+            "itemtype": "event",
+            "name": "currentSongPartChanged",
+            "params": [
+                {
+                    "name": "part",
+                    "description": "The zero-based current song part index (can be -1)",
+                    "type": "Number"
+                },
+                {
+                    "name": "partCount",
+                    "description": "The number of parts in the current song",
+                    "type": "Number"
+                }
+            ],
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1542,
+            "description": "Fired when the name of the currently loaded set list changes",
+            "itemtype": "event",
+            "name": "nameChanged",
+            "class": "SetList"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1580,
+            "description": "An array of {{#crossLink \"State\"}}{{/crossLink}} items",
+            "itemtype": "property",
+            "name": "items",
+            "type": "{State[]}",
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1587,
+            "description": "The display name of the containing song or rack",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1594,
+            "description": "The index of the currently loaded State (or -1 if no active state).\nSee also {{#crossLink \"States/currentState:property\"}}{{/crossLink}}.",
+            "itemtype": "property",
+            "name": "currentStateIndex",
+            "type": "{Number}",
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1609,
+            "description": "The currently loaded {{#crossLink \"State\"}}{{/crossLink}} (or null if no active state).\nSee also {{#crossLink \"States/currentStateIndex:property\"}}{{/crossLink}}.",
+            "itemtype": "property",
+            "name": "currentState",
+            "type": "{State}",
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1617,
+            "description": "Load the State at a given index position",
+            "itemtype": "method",
+            "name": "loadStateByIndex",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the State to load",
+                    "type": "Number"
+                },
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1631,
+            "description": "Load the State with a given program number",
+            "itemtype": "method",
+            "name": "loadStateByProgram",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based program number of the State to load",
+                    "type": "Number"
+                },
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1645,
+            "description": "Load the first state",
+            "itemtype": "method",
+            "name": "loadFirstState",
+            "params": [
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1657,
+            "description": "Load the last state",
+            "itemtype": "method",
+            "name": "loadLastState",
+            "params": [
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1669,
+            "description": "Load the next or previous state",
+            "itemtype": "method",
+            "name": "loadNextState",
+            "params": [
+                {
+                    "name": "direction",
+                    "description": "Direction to move (1 = next, -1 = previous)",
+                    "type": "Number"
+                },
+                {
+                    "name": "delayed",
+                    "description": "Whether to perform a delayed or immediate load",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                },
+                {
+                    "name": "wrap",
+                    "description": "Whether to wrap around at the start/end",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1713,
+            "description": "Fired after a new state has been added",
+            "itemtype": "event",
+            "name": "itemAdded",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the newly added item",
+                    "type": "Number"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1720,
+            "description": "Fired when anything about the contents of state list changes",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1733,
+            "description": "Fired after a state has been removed",
+            "itemtype": "event",
+            "name": "itemRemoved",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the removed item",
+                    "type": "Number"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1749,
+            "description": "Fired when an item has been moved",
+            "itemtype": "event",
+            "name": "itemMoved",
+            "params": [
+                {
+                    "name": "from",
+                    "description": "The zero based index of the item before being moved",
+                    "type": "Number"
+                },
+                {
+                    "name": "to",
+                    "description": "The zero based index of the item's new position",
+                    "type": "Number"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1768,
+            "description": "Fired when something about an state has changed",
+            "itemtype": "event",
+            "name": "itemChanged",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the item that changed",
+                    "type": "Number"
+                }
+            ],
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1784,
+            "description": "Fired when the entire set of states has changed (eg: after a sort operation, or loading a new song/rack)",
+            "itemtype": "event",
+            "name": "reload",
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1797,
+            "description": "Fired when the current state changes",
+            "itemtype": "event",
+            "name": "currentStateChanged",
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1811,
+            "description": "Fired when the name of the containing song or rack changes",
+            "itemtype": "event",
+            "name": "nameChanged",
+            "class": "States"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1852,
+            "description": "Fired when the active set of key ranges has changed",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "KeyRanges"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1865,
+            "description": "An array of {{#crossLink \"KeyRange\"}}{{/crossLink}} items",
+            "itemtype": "property",
+            "name": "items",
+            "type": "{KeyRange[]}",
+            "class": "KeyRanges"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1906,
+            "description": "An array of {{#crossLink \"ShowNote\"}}{{/crossLink}} items",
+            "itemtype": "property",
+            "name": "items",
+            "type": "{ShowNote[]}",
+            "class": "ShowNotes"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1919,
+            "description": "Fired after a new show note has been added",
+            "itemtype": "event",
+            "name": "itemAdded",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the newly added item",
+                    "type": "Number"
+                }
+            ],
+            "class": "ShowNotes"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1926,
+            "description": "Fired when anything about the current set of show notes changes",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "ShowNotes"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1939,
+            "description": "Fired after a show note has been removed",
+            "itemtype": "event",
+            "name": "itemRemoved",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the removed item",
+                    "type": "Number"
+                }
+            ],
+            "class": "ShowNotes"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1955,
+            "description": "Fired when an show note has been moved",
+            "itemtype": "event",
+            "name": "itemMoved",
+            "params": [
+                {
+                    "name": "from",
+                    "description": "The zero based index of the item before being moved",
+                    "type": "Number"
+                },
+                {
+                    "name": "to",
+                    "description": "The zero based index of the item's new position",
+                    "type": "Number"
+                }
+            ],
+            "class": "ShowNotes"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1971,
+            "description": "Fired when something about an show note has changed",
+            "itemtype": "event",
+            "name": "itemChanged",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The zero based index of the item that changed",
+                    "type": "Number"
+                }
+            ],
+            "class": "ShowNotes"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 1985,
+            "description": "Fired when the entire set of show notes has changed (eg: after  loading a new song)",
+            "itemtype": "event",
+            "name": "reload",
+            "class": "ShowNotes"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2015,
+            "description": "Returns the pattern string being watched",
+            "itemtype": "property",
+            "name": "pattern",
+            "type": "{String}",
+            "class": "PatternWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2023,
+            "description": "Returns the current resolved display string",
+            "itemtype": "property",
+            "name": "resolved",
+            "type": "{String}",
+            "class": "PatternWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2058,
+            "description": "Stops monitoring this pattern string for changes",
+            "itemtype": "method",
+            "name": "unwatch",
+            "class": "PatternWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2081,
+            "description": "Fired when the resolved display string has changed",
+            "itemtype": "event",
+            "name": "changed",
+            "params": [
+                {
+                    "name": "resolved",
+                    "description": "The new resolved display string",
+                    "type": "String"
+                },
+                {
+                    "name": "source",
+                    "description": "This object",
+                    "type": "PatternWatcher"
+                }
+            ],
+            "class": "PatternWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2113,
+            "description": "Resolves a variable pattern string into a final display string",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n    console.log(await C.variables.resolve(\"Song: $(SongTitle)\"));",
+                "\n\n    let C = new CantabileApi();\n    C.variables.resolve(\"Song: $(SongTitle)\").then(r => console.log(r)));"
+            ],
+            "itemtype": "method",
+            "name": "resolve",
+            "return": {
+                "description": "A promise to provide the resolved string",
+                "type": "Promise|String"
+            },
+            "class": "Variables"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2154,
+            "description": "Starts watching a pattern string for changes",
+            "example": [
+                "\n\nUsing a callback function:\n\n    let C = new CantabileApi();\n    \n    // Watch a string pattern using a callback function\n    C.variables.watch(\"Song: $(SongTitle)\", function(resolved) {\n        console.log(resolved);\n    })\n    \n\t   // The \"variables\" end point must be opened before callbacks will happen\n    C.variables.open();",
+                "\n\nUsing the PatternWatcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.variables.watch(\"Song: $(SongTitle)\");\n    watcher.on('changed', function(resolved) {\n        console.log(resolved);\n    });\n    \n\t   // The \"variables\" end point must be opened before callbacks will happen\n    C.variables.open();\n    \n    /// later, stop listening\n    watcher.unwatch();"
+            ],
+            "itemtype": "method",
+            "name": "watch",
+            "params": [
+                {
+                    "name": "pattern",
+                    "description": "The string pattern to watch",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "Optional callback function to be called when the resolved display string changes.\n\nThe callback function has the form function(resolved, source) where resolved is the resolved display string and source\nis the {{#crossLink \"PatternWatcher\"}}{{/crossLink}} instance.",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "PatternWatcher"
+            },
+            "class": "Variables"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2260,
+            "description": "Returns the MIDI channel number of controller being watched",
+            "itemtype": "property",
+            "name": "channel",
+            "type": "{Number}",
+            "class": "ControllerWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2268,
+            "description": "Returns the kind of controller being watched",
+            "itemtype": "property",
+            "name": "kind",
+            "type": "{String}",
+            "class": "ControllerWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2276,
+            "description": "Returns the number of the controller being watched",
+            "itemtype": "property",
+            "name": "controller",
+            "type": "{Number}",
+            "class": "ControllerWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2284,
+            "description": "Returns the current value of the controller",
+            "itemtype": "property",
+            "name": "value",
+            "type": "{Number}",
+            "class": "ControllerWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2321,
+            "description": "Stops monitoring this controller for changes",
+            "itemtype": "method",
+            "name": "unwatch",
+            "class": "ControllerWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2344,
+            "description": "Fired when the controller value has changed",
+            "itemtype": "event",
+            "name": "controllerChanged",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "The new value of the controller",
+                    "type": "Number"
+                },
+                {
+                    "name": "source",
+                    "description": "This object",
+                    "type": "ControllerWatcher"
+                }
+            ],
+            "class": "ControllerWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2375,
+            "description": "Queries the on-screen keyboard for the current value of a controller",
+            "example": [
+                "\n\n\t   // Get the value of cc 64 on channel 1\n    let C = new CantabileApi();\n    console.log(await C.onscreenKeyboard.queryController(1, \"controller\", 64));",
+                "\n\n    let C = new CantabileApi();\n    C.onscreenKeyboard.queryController(1, \"controller\", 64).then(r => console.log(r)));"
+            ],
+            "itemtype": "method",
+            "name": "queryController",
+            "params": [
+                {
+                    "name": "channel",
+                    "description": "The MIDI channel number of the controller",
+                    "type": "Number"
+                },
+                {
+                    "name": "kind",
+                    "description": "The MIDI controller kind",
+                    "type": "String"
+                },
+                {
+                    "name": "controller",
+                    "description": "The number of the controller",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "A promise to provide the controller value",
+                "type": "Promise|Number"
+            },
+            "class": "OnscreenKeyboard"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2422,
+            "description": "Starts watching a controller for changes",
+            "example": [
+                "\n\nUsing a callback function:\n\n    let C = new CantabileApi();\n    \n    // Watch a controller using a callback function\n    C.onscreenKeyboard.watchController(1, \"controller\", 64, function(value) {\n        console.log(value);\n    })\n    \n\t   // The \"onscreenKeyboard\" end point must be opened before callbacks will happen\n    C.onscreenKeyboard.open();",
+                "\n\nUsing the ControllerWatcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.onscreenKeyboard.watchController(1, \"controller\", 64);\n    watcher.on('changed', function(value) {\n        console.log(value);\n    });\n    \n    // The \"onscreenKeyboard\" end point must be opened before callbacks will happen\n    C.onscreenKeyboard.open();\n    \n    /// later, stop listening\n    watcher.unwatch();"
+            ],
+            "itemtype": "method",
+            "name": "watch",
+            "params": [
+                {
+                    "name": "channel",
+                    "description": "The MIDI channel number of the controller",
+                    "type": "Number"
+                },
+                {
+                    "name": "kind",
+                    "description": "The MIDI controller kind",
+                    "type": "String"
+                },
+                {
+                    "name": "controller",
+                    "description": "The number of the controller",
+                    "type": "Number"
+                },
+                {
+                    "name": "callback",
+                    "description": "Optional callback function to be called when the controller value changes.\n\nThe callback function has the form function(value, source) where value is the controller value and source\nis the {{#crossLink \"ControllerWatcher\"}}{{/crossLink}} instance.",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "ControllerWatcher"
+            },
+            "class": "OnscreenKeyboard"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2480,
+            "description": "Inject MIDI from the on-screen keyboard device",
+            "itemtype": "method",
+            "name": "injectMidi",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "An array of bytes or a MidiControllerEvent",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n\nUsing a callback function:\n\n    // Send a note on event\n    C.onscreenKeyboard.inject([0x90, 64, 64]);",
+                "\n\nUsing the MidiControllerEvent\n\n    // Send Midi CC 23 = 127\n    let watcher = C.onscreenKeyboard.inject({\n         channel: 0,\n         kind: \"controller\",\n         controller: 23,\n         value: 127,\n    });\n"
+            ],
+            "class": "OnscreenKeyboard"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2564,
+            "description": "Returns the name of the binding point being listened to",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "BindingWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2572,
+            "description": "Returns the indicies of the binding point being listened to",
+            "itemtype": "property",
+            "name": "indicies",
+            "type": "{Number[]}",
+            "class": "BindingWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2580,
+            "description": "Returns the condition of the binding point being listened to",
+            "itemtype": "property",
+            "name": "condition",
+            "type": "{Object}",
+            "class": "BindingWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2588,
+            "description": "Returns the last received value for the source binding point",
+            "itemtype": "property",
+            "name": "value",
+            "type": "{Object}",
+            "class": "BindingWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2628,
+            "description": "Stops monitoring this binding source",
+            "itemtype": "method",
+            "name": "unwatch",
+            "class": "BindingWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2651,
+            "description": "Fired when the source binding point is triggered",
+            "itemtype": "event",
+            "name": "invoked",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "The value supplied from the source binding",
+                    "type": "Object"
+                },
+                {
+                    "name": "source",
+                    "description": "This object",
+                    "type": "BindingWatcher"
+                }
+            ],
+            "class": "BindingWatcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2696,
+            "description": "Retrieves a list of available binding points\n\nIf Cantabile is running on your local machine you can view this list\ndirectly at <http://localhost:35007/api/bindings/availableBindingPoints>",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n    C.connect();\n    console.log(await C.bindings.availableBindingPoints());"
+            ],
+            "itemtype": "method",
+            "name": "availableBindingPoints",
+            "return": {
+                "description": "A promise to return an array of {{#crossLink \"BindingPointInfo\"}}{{/crossLink}} objects",
+                "type": "Promise|BindingPointInfo[]"
+            },
+            "class": "Bindings"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2717,
+            "description": "Invokes a target binding point\n\nIf Cantabile is running on your local machine a full list of available binding\npoints is [available here](http://localhost:35007/api/bindings/availableBindingPoints)",
+            "example": [
+                "\n\nSet the master output level gain\n\n    C.bindings.invoke(\"global.masterLevels.outputGain\", 0.5);",
+                "\n\nSuspend the 2nd plugin in the song\n\n    C.bindings.invoke(\"global.indexedPlugin.suspend\", true, [\n\t        0,     // Rack index (zero = song)\n         1      // Plugin index (zero based, 1 = the second plugin)\n\t\t]);",
+                "\n\nSending a MIDI Controller Event\n\n    C.bindings.invoke(\"midiInputPort.Main Keyboard\", new {\n        kind: \"FineController\",\n        controller: 10,\n        value: 1000,\n\t   });",
+                "\n\nSending MIDI Data directly\n\n    C.bindings.invoke(\"midiInputPort.Main Keyboard\", [ 0xb0, 23, 99 ]);",
+                "\n\nSending MIDI Sysex Data directly\n\n    C.bindings.invoke(\"midiInputPort.Main Keyboard\", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);",
+                "\n\nSome binding points expect a \"parameter\" value.  Parameter values are similar to the `value` parameter\nin that they specify a value to invoke on the target of the binding.  The difference is related to the\nway they're managed internally for user created bindings.  The `value` comes from the source of the binding \nwhereas a `parameter` value is stored with the binding itself.\n\neg: Load the song with program number 12\n\n    C.bindings.invoke(\"global.setList.loadSpecificSongByProgramInstant\", null, null, 12);"
+            ],
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the binding point to invoke",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "The value to pass to the binding point",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "indicies",
+                    "description": "The integer indicies of the target binding point",
+                    "type": "Number[]",
+                    "optional": true
+                },
+                {
+                    "name": "parameter",
+                    "description": "The parameter value to invoke the target with",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "invoke",
+            "return": {
+                "description": "A promise that resolves once the target binding point has been invoked",
+                "type": "Promise"
+            },
+            "class": "Bindings"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2789,
+            "description": "Queries a source binding point for it's current value.\n\nIf Cantabile is running on your local machine a full list of available binding\npoints is [available here](http://localhost:35007/api/bindings/availableBindingPoints)",
+            "example": [
+                "\n\n    console.log(\"Current Output Gain:\", await C.bindings.query(\"global.masterLevels.outputGain\"));"
+            ],
+            "itemtype": "method",
+            "name": "query",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the binding point to query",
+                    "type": "String"
+                },
+                {
+                    "name": "indicies",
+                    "description": "The integer indicies of the binding point",
+                    "type": "Number[]",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "The current value of the binding source",
+                "type": "Object"
+            },
+            "class": "Bindings"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2812,
+            "description": "Starts watching a source binding point for changes (or invocations)\n\nIf Cantabile is running on your local machine a full list of available binding\npoints is [available here](http://localhost:35007/api/bindings/availableBindingPoints)",
+            "example": [
+                "\n\nUsing a callback function:\n\n    let C = new CantabileApi();\n    \n    // Watch a source binding point using a callback function\n    C.bindings.watch(\"global.masterLevels.outputGain\", null, null, function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    })\n    \n\t   // The \"bindings\" end point must be opened before callbacks will happen\n    C.bindings.open();",
+                "\n\nUsing the BindingWatcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.bindings.watch(\"global.masterLevels.outputGain\");\n    watcher.on('invoked', function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    });\n    \n\t   // The \"bindings\" end point must be opened before callbacks will happen\n    C.bindings.open();\n    \n    /// later, stop listening\n    watcher.unwatch();",
+                "\n\nWatching for a MIDI event:\n\n    C.bindings.watch(\"midiInputPort.Onscreen Keyboard\", null, {\n        channel: 0,\n        kind: \"ProgramChange\",\n        controller: -1,\n    }, function(value) {\n        console.log(\"Program Change: \", value);\n    })",
+                "\n\nWatching for a keystroke:\n\n    C.bindings.watch(\"global.pckeyboard.keyPress\", null, \"Ctrl+Alt+M\", function() {\n        console.log(\"Key press!\");\n    })"
+            ],
+            "itemtype": "method",
+            "name": "watch",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the binding point to query",
+                    "type": "String"
+                },
+                {
+                    "name": "indicies",
+                    "description": "The integer indicies of the binding point",
+                    "type": "Number[]",
+                    "optional": true
+                },
+                {
+                    "name": "condition",
+                    "description": "The condition for triggering the binding",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "callback",
+                    "description": "Optional callback function to be called when the source binding triggers\n\nThe callback function has the form function(value, source) where value is the binding point value and source\nis the BindingWatcher instance.",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "BindingWatcher"
+            },
+            "class": "Bindings"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2948,
+            "description": "Returns the id of the bindable object being listened to",
+            "itemtype": "property",
+            "name": "bindableId",
+            "type": "{String}",
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2956,
+            "description": "Returns the id of the binding point being listened to",
+            "itemtype": "property",
+            "name": "bindingPointId",
+            "type": "{String}",
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2964,
+            "description": "Returns the parameters of the bindable object",
+            "itemtype": "property",
+            "name": "bindableParams",
+            "type": "{Object}",
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2972,
+            "description": "Returns the parameters of the binding point object",
+            "itemtype": "property",
+            "name": "bindingPointParams",
+            "type": "{Object}",
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 2980,
+            "description": "Returns the last received value for the source binding point",
+            "itemtype": "property",
+            "name": "value",
+            "type": "{Object}",
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3021,
+            "description": "Stops monitoring this binding source",
+            "itemtype": "method",
+            "name": "unwatch",
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3044,
+            "description": "Fired when the source binding point is triggered",
+            "itemtype": "event",
+            "name": "invoked",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "The value supplied from the source binding",
+                    "type": "Object"
+                },
+                {
+                    "name": "source",
+                    "description": "This object",
+                    "type": "Binding4Watcher"
+                }
+            ],
+            "class": "Binding4Watcher"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3089,
+            "description": "Retrieves a list of available binding points\n\nIf Cantabile is running on your local machine you can view this list\ndirectly at <http://localhost:35007/api/bindings/availableBindingPoints>",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n    C.connect();\n    console.log(await C.bindings4.availableBindingPoints());"
+            ],
+            "itemtype": "method",
+            "name": "availableBindingPoints",
+            "return": {
+                "description": "A promise to return an array of {{#crossLink \"BindingPointEntry4\"}}{{/crossLink}} objects",
+                "type": "Promise|BindingPointEntry4[]"
+            },
+            "class": "Bindings4"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3110,
+            "description": "Retrieves additional information about a specific binding point",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n    C.connect();\n    console.log(await C.bindings4.bindingPointInfo(\"setList\", \"loadSongByProgram\", false, {}, {}));"
+            ],
+            "itemtype": "method",
+            "name": "bindingPointInfo",
+            "return": {
+                "description": "A promise to return a {{#crossLink \"BindingPointInfo4\"}}{{/crossLink}} object",
+                "type": "Promise|BindingPointInfo4"
+            },
+            "class": "Bindings4"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3134,
+            "description": "Invokes a target binding point\n\nIf Cantabile is running on your local machine a full list of available binding\npoints is [available here](http://localhost:35007/api/bindings/availableBindingPoints)",
+            "example": [
+                "\n\nSet the master output level gain\n\n    C.bindings4.invoke(\"masterLevels\", \"outputGain\", 0.5);",
+                "\n\nSuspend the 2nd plugin in the song\n\n    C.bindings4.invoke(\"indexedPlugin\", \"suspend\", true, { \n\t\trackIndex: 0,\n     pluginIndex: 1,\n\t\t}\n   );",
+                "\n\nSending a MIDI Controller Event\n\n    C.bindings4.invoke(\"midiPorts\", \"out.Main Keyboard\", 65, {\n        kind: \"Controller\",\n        controller: 10,\n\t\t   channel: 0\n\t   });",
+                "\n\nSending MIDI Data directly\n\n    C.bindings4.invoke(\"midiPorts\", \"out.Main Keyboard\", [ 0xb0, 23, 99 ]);",
+                "\n\nSending MIDI Sysex Data directly\n\n    C.bindings4.invoke(\"midiPorts\", \"out.Main Keyboard\", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);",
+                "\n\nSome binding points expect parameters.  Parameter values are similar to the `value` parameter\nin that they specify a value to invoke on the target of the binding.  The difference is related to the\nway they're managed internally for user created bindings.  The `value` comes from the source of the binding \nwhereas parameters are stored with the binding itself.\n\neg: Load the song with program number 12\n\n    C.bindings4.invoke(\"setList\", \"loadSongWithProgram\", null, null, {\n\t\t\tprogram: 12\n    });"
+            ],
+            "params": [
+                {
+                    "name": "bindableId",
+                    "description": "The id of the bindable object",
+                    "type": "String"
+                },
+                {
+                    "name": "bindingPointId",
+                    "description": "The id of the binding point to invoke",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "The value to pass to the binding point",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "bindableParams",
+                    "description": "Parameters for the bindable object",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "bindingPointParams",
+                    "description": "Parameters for the binding point object",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "invoke",
+            "return": {
+                "description": "A promise that resolves once the target binding point has been invoked",
+                "type": "Promise"
+            },
+            "class": "Bindings4"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3207,
+            "description": "Queries a source binding point for it's current value.",
+            "example": [
+                "\n\n    console.log(\"Current Output Gain:\", await C.bindings4.query(\"masterLevels\", \"outputGain\"));"
+            ],
+            "itemtype": "method",
+            "name": "query",
+            "params": [
+                {
+                    "name": "bindableId",
+                    "description": "The id of the bindable object",
+                    "type": "String"
+                },
+                {
+                    "name": "bindingPointId",
+                    "description": "The id of the binding point to query",
+                    "type": "String"
+                },
+                {
+                    "name": "bindableParams",
+                    "description": "Parameters for the bindable object",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "bindingPointParams",
+                    "description": "Parameters for the binding point object",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "The current value of the binding source",
+                "type": "Object"
+            },
+            "class": "Bindings4"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3228,
+            "description": "Starts watching a source binding point for changes (or invocations)",
+            "example": [
+                "\n\nUsing a callback function:\n\n    let C = new CantabileApi();\n    \n    // Watch a source binding point using a callback function\n    C.bindings4.watch(\"masterLevels\", \"outputGain\", null, null, function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    })\n    \n\t   // The \"bindings\" end point must be opened before callbacks will happen\n    C.bindings4.open();",
+                "\n\nUsing the Binding4Watcher class and events:\n\n    let C = new CantabileApi();\n    let watcher = C.bindings4.watch(\"masterLevels\", \"outputGain\");\n    watcher.on('invoked', function(value) {\n        console.log(\"Master output gain changed to:\", value);\n    });\n    \n\t   // The \"bindings\" end point must be opened before callbacks will happen\n    C.bindings4.open();\n    \n    /// later, stop listening\n    watcher.unwatch();",
+                "\n\nWatching for a MIDI event:\n\n    C.bindings4.watch(\"midiPorts\", \"in.Onscreen Keyboard\", null, {\n        channel: 0,\n        kind: \"ProgramChange\",\n        controller: -1,\n    }, function(value) {\n        console.log(\"Program Change: \", value);\n    })",
+                "\n\nWatching for a keystroke:\n\n    C.bindings4.watch(\"pckeyboard\", \"keyPress\", null, {\n\t\t\tkey: \"Ctrl+Alt+M\"\n\t   }, function() {\n        console.log(\"Key press!\");\n    })"
+            ],
+            "itemtype": "method",
+            "name": "watch",
+            "params": [
+                {
+                    "name": "bindableId",
+                    "description": "The id of the bindable object",
+                    "type": "String"
+                },
+                {
+                    "name": "bindingPointId",
+                    "description": "The id of the binding point to query",
+                    "type": "String"
+                },
+                {
+                    "name": "bindableParams",
+                    "description": "Parameters for the bindable object",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "bindingPointParams",
+                    "description": "Parameters for the binding point object",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "callback",
+                    "description": "Optional callback function to be called when the source binding triggers\n\nThe callback function has the form function(value, source) where value is the new binding point value and source\nis the Binding4Watcher instance.",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Binding4Watcher"
+            },
+            "class": "Bindings4"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3364,
+            "description": "Retrieves a list of available commands\n\nIf Cantabile is running on your local machine you can view this list\ndirectly at <http://localhost:35007/api/commands/availableCommands>",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n    C.connect();\n    console.log(await C.commands.availableCommands());"
+            ],
+            "itemtype": "method",
+            "name": "availableCommands",
+            "return": {
+                "description": "A promise to return an array of {{#crossLink \"CommandInfo\"}}{{/crossLink}} objects",
+                "type": "Promise|CommandInfo[]"
+            },
+            "class": "Commands"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3385,
+            "description": "Invokes a command",
+            "example": [
+                "\n\nShow the file open dialog\n\n    C.commands.invoke(\"file.open\");"
+            ],
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The id of the command to invoke",
+                    "type": "String"
+                }
+            ],
+            "itemtype": "method",
+            "name": "invoke",
+            "return": {
+                "description": "A promise that resolves once the target command has been invoked",
+                "type": "Promise"
+            },
+            "class": "Commands"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3423,
+            "description": "Fired when anything about the current song changes",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "Song"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3430,
+            "description": "Fired when the name of the current song changes",
+            "itemtype": "event",
+            "name": "nameChanged",
+            "class": "Song"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3437,
+            "description": "Fired when the current song state changes",
+            "itemtype": "event",
+            "name": "currentStateChanged",
+            "class": "Song"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3452,
+            "description": "The name of the current song",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "Song"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3459,
+            "description": "The set list program number of the song (or -1 if not in set list, or not set)",
+            "itemtype": "property",
+            "name": "pr",
+            "type": "{Number}",
+            "class": "Song"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3466,
+            "description": "The name of the current song state",
+            "itemtype": "property",
+            "name": "currentState",
+            "type": "{String}",
+            "class": "Song"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3528,
+            "description": "Gets or sets the current transport state.  Supported values include \"playing\", \"paused\" or \"stopped\".\nSetting this property calls {{#crossLink \"Transport/play:method\"}}{{/crossLink}},\n{{#crossLink \"Transport/pause:method\"}}{{/crossLink}}, or\n{{#crossLink \"Transport/stop:method\"}}{{/crossLink}} accordingly.",
+            "itemtype": "property",
+            "name": "state",
+            "type": "{String}",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3549,
+            "description": "Gets the current time signature numerator",
+            "itemtype": "property",
+            "name": "timeSignatureNum",
+            "type": "{Number}",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3556,
+            "description": "Gets the current time signature denominator",
+            "itemtype": "property",
+            "name": "timeSignatureDen",
+            "type": "{Number}",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3563,
+            "description": "Gets the current time signature as a string (eg: \"3/4\")",
+            "itemtype": "property",
+            "name": "timeSignature",
+            "type": "{String}",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3570,
+            "description": "Gets the current tempo",
+            "itemtype": "property",
+            "name": "tempo",
+            "type": "{Number}",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3577,
+            "description": "Gets or sets the current loopMode (\"auto\", \"break\", \"loopOnce\" or \"loop\").\nChanges fire the {{#crossLink \"Transport/loopStateChanged:event\"}}{{/crossLink}} event.",
+            "itemtype": "property",
+            "name": "loopMode",
+            "type": "{String}",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3593,
+            "description": "Gets the current loopCount",
+            "itemtype": "property",
+            "name": "loopCount",
+            "type": "{Number}",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3600,
+            "description": "Gets the current loopIteration",
+            "itemtype": "property",
+            "name": "loopIteration",
+            "type": "{Number}",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3609,
+            "description": "Fired when the current transport state has changed",
+            "itemtype": "event",
+            "name": "stateChanged",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3621,
+            "description": "Fired when the current time signature has changed",
+            "itemtype": "event",
+            "name": "timeSignatureChanged",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3634,
+            "description": "Fired when the current tempo has changed",
+            "itemtype": "event",
+            "name": "tempoChanged",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3646,
+            "description": "Fired when the current loop mode, loop iteration or loop count has changed",
+            "itemtype": "event",
+            "name": "loopStateChanged",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3657,
+            "description": "Starts transport playback",
+            "itemtype": "method",
+            "name": "play",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3667,
+            "description": "Toggles between play and pause states",
+            "itemtype": "method",
+            "name": "togglePlayPause",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3679,
+            "description": "Toggles pause and play states (unless stopped)",
+            "itemtype": "method",
+            "name": "togglePause",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3691,
+            "description": "Toggles play and stopped states",
+            "itemtype": "method",
+            "name": "togglePlay",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3703,
+            "description": "Toggles between play and stop states",
+            "itemtype": "method",
+            "name": "togglePlayStop",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3715,
+            "description": "Pauses the master transport",
+            "itemtype": "method",
+            "name": "pause",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3725,
+            "description": "Stops the master transport",
+            "itemtype": "method",
+            "name": "stop",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3735,
+            "description": "Cycles between the various loop modes",
+            "itemtype": "method",
+            "name": "cycleLoopMode",
+            "class": "Transport"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3780,
+            "description": "Fired when any of the application properties change",
+            "itemtype": "event",
+            "name": "changed",
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3786,
+            "description": "Fired when the application object has initially loaded",
+            "itemtype": "event",
+            "name": "open",
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3803,
+            "description": "The application's company name",
+            "itemtype": "property",
+            "name": "companyName",
+            "type": "{String}",
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3810,
+            "description": "The application name",
+            "itemtype": "property",
+            "name": "name",
+            "type": "{String}",
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3817,
+            "description": "The application version string",
+            "itemtype": "property",
+            "name": "version",
+            "type": "{String}",
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3824,
+            "description": "The application edition string",
+            "itemtype": "property",
+            "name": "edition",
+            "type": "{String}",
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3831,
+            "description": "The application's copyright message",
+            "itemtype": "property",
+            "name": "copyright",
+            "type": "{String}",
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3838,
+            "description": "The application's build number",
+            "itemtype": "property",
+            "name": "build",
+            "type": "{Number}",
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3845,
+            "description": "An array of {{#crossLink \"ColorEntry\"}}{{/crossLink}} items for the color index table",
+            "itemtype": "property",
+            "name": "colors",
+            "type": "{ColorEntry[]}",
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3852,
+            "description": "The application's busy status",
+            "itemtype": "property",
+            "name": "busy",
+            "type": "{Boolean}",
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3860,
+            "description": "The base program number (0 or 1)",
+            "itemtype": "property",
+            "name": "baseProgramNumber",
+            "type": "{Number}",
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3867,
+            "description": "The preferred banked program display format - \"SeparateBanks\",\"CombinedBanks\",\"Plain\" or \"ZeroPadded\"",
+            "itemtype": "property",
+            "name": "bankedProgramNumberFormat",
+            "type": "{String}",
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3876,
+            "description": "Fired when the application busy state changes",
+            "itemtype": "event",
+            "name": "busyChanged",
+            "params": [
+                {
+                    "name": "busy",
+                    "description": "True if the app is currently busy",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Application"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3906,
+            "description": "Returns a promise to provide the started state of Cantabile's audio engine.\n\nThis API is only available via  AJAX, and not WebSocket",
+            "itemtype": "method",
+            "name": "isStarted",
+            "return": {
+                "description": "",
+                "type": "Promise|Boolean"
+            },
+            "class": "Engine"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3920,
+            "description": "Starts Cantabile's audio engine\n\nThis API is only available via  AJAX, and not WebSocket",
+            "itemtype": "method",
+            "name": "start",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Engine"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3933,
+            "description": "Stops Cantabile's audio engine\n\nThis API is only available via  AJAX, and not WebSocket",
+            "itemtype": "method",
+            "name": "stop",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Engine"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3946,
+            "description": "Restarts Cantabile's audio engine\n\nThis API is only available via  AJAX, and not WebSocket",
+            "itemtype": "method",
+            "name": "restart",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Engine"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3959,
+            "description": "Toggles the audio engine between started and stopped\n\nThis API is only available via  AJAX, and not WebSocket",
+            "itemtype": "method",
+            "name": "startStop",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Engine"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4003,
+            "description": "Gets the {{#crossLink \"SetList\"}}{{/crossLink}} object",
+            "itemtype": "property",
+            "name": "setList",
+            "type": "{SetList}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4011,
+            "description": "Gets the {{#crossLink \"SongStates\"}}{{/crossLink}} for the current song",
+            "itemtype": "property",
+            "name": "songStates",
+            "type": "{SongStates}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4019,
+            "description": "Gets the currently active {{#crossLink \"KeyRanges\"}}{{/crossLink}}",
+            "itemtype": "property",
+            "name": "keyRanges",
+            "type": "{KeyRanges}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4027,
+            "description": "Gets the current {{#crossLink \"ShowNotes\"}}{{/crossLink}}",
+            "itemtype": "property",
+            "name": "showNotes",
+            "type": "{ShowNotes}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4035,
+            "description": "Provides access to {{#crossLink \"Variables\"}}{{/crossLink}} expansion facilities",
+            "itemtype": "property",
+            "name": "variables",
+            "type": "{Variables}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4043,
+            "description": "Provides access to controllers managed by Cantabile's {{#crossLink \"OnscreenKeyboard\"}}{{/crossLink}} device",
+            "itemtype": "property",
+            "name": "onscreenKeyboard",
+            "type": "{OnscreenKeyboard}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4051,
+            "description": "Provides access to global {{#crossLink \"Bindings\"}}{{/crossLink}} points",
+            "itemtype": "property",
+            "name": "bindings",
+            "type": "{Bindings}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4059,
+            "description": "Provides access to global {{#crossLink \"Bindings4\"}}{{/crossLink}} points",
+            "itemtype": "property",
+            "name": "bindings4",
+            "type": "{Bindings4}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4067,
+            "description": "Provides access to global {{#crossLink \"Commands\"}}{{/crossLink}}",
+            "itemtype": "property",
+            "name": "commands",
+            "type": "{Commands}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4075,
+            "description": "Provides access to {{#crossLink \"Song\"}}{{/crossLink}} information about the current song",
+            "itemtype": "property",
+            "name": "song",
+            "type": "{Song}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4083,
+            "description": "Provides access to master {{#crossLink \"Transport\"}}{{/crossLink}} controls",
+            "itemtype": "property",
+            "name": "transport",
+            "type": "{Transport}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4091,
+            "description": "Provides access to the {{#crossLink \"Application\"}}{{/crossLink}} object",
+            "itemtype": "property",
+            "name": "application",
+            "type": "{Application}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4099,
+            "description": "Provides access to the {{#crossLink \"Engine\"}}{{/crossLink}} object",
+            "itemtype": "property",
+            "name": "engine",
+            "type": "{Engine}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4108,
+            "description": "The current connection state, either \"connecting\", \"connected\" or \"disconnected\"",
+            "itemtype": "property",
+            "name": "state",
+            "type": "{String}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4119,
+            "description": "Initiate connection and retry if fails",
+            "itemtype": "method",
+            "name": "connect",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4129,
+            "description": "Disconnect and stop retries",
+            "itemtype": "method",
+            "name": "disconnect",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4139,
+            "description": "Stringify an object as a JSON message and send it to the server",
+            "itemtype": "method",
+            "name": "send",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "The object to send",
+                    "type": "Object"
+                }
+            ],
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4151,
+            "description": "Stringify an object as a JSON message, send it to the server and returns \na promise which will resolve to the result.",
+            "itemtype": "method",
+            "name": "request",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "The object to send",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise|object"
+            },
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4178,
+            "description": "Returns a promise that will be resolved when connected",
+            "example": [
+                "\n\n    let C = new CantabileApi();\n    await C.untilConnected();"
+            ],
+            "itemtype": "method",
+            "name": "untilConnected",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4232,
+            "description": "The current host",
+            "itemtype": "property",
+            "name": "host",
+            "type": "{String}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4294,
+            "description": "The base socket url",
+            "itemtype": "property",
+            "name": "socketUrl",
+            "type": "{String}",
+            "class": "Cantabile"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 4305,
+            "description": "The base host url",
+            "itemtype": "property",
+            "name": "hostUrl",
+            "type": "{String}",
+            "class": "Cantabile"
+        },
         {
             "file": "doc\\assets\\vendor\\bootstrap\\js\\bootstrap.min.js",
             "line": 1,
@@ -1447,8 +4052,8 @@
             "class": "Bindings4"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 46,
+            "file": "CantabileAPI.js",
+            "line": 47,
             "description": "Gets the {{#crossLink \"SetList\"}}{{/crossLink}} object",
             "itemtype": "property",
             "name": "setList",
@@ -1456,8 +4061,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 54,
+            "file": "CantabileAPI.js",
+            "line": 55,
             "description": "Gets the {{#crossLink \"SongStates\"}}{{/crossLink}} for the current song",
             "itemtype": "property",
             "name": "songStates",
@@ -1465,8 +4070,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 62,
+            "file": "CantabileAPI.js",
+            "line": 63,
             "description": "Gets the currently active {{#crossLink \"KeyRanges\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "keyRanges",
@@ -1474,8 +4079,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 70,
+            "file": "CantabileAPI.js",
+            "line": 71,
             "description": "Gets the current {{#crossLink \"ShowNotes\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "showNotes",
@@ -1483,8 +4088,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 78,
+            "file": "CantabileAPI.js",
+            "line": 79,
             "description": "Provides access to {{#crossLink \"Variables\"}}{{/crossLink}} expansion facilities",
             "itemtype": "property",
             "name": "variables",
@@ -1492,8 +4097,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 86,
+            "file": "CantabileAPI.js",
+            "line": 87,
             "description": "Provides access to controllers managed by Cantabile's {{#crossLink \"OnscreenKeyboard\"}}{{/crossLink}} device",
             "itemtype": "property",
             "name": "onscreenKeyboard",
@@ -1501,8 +4106,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 94,
+            "file": "CantabileAPI.js",
+            "line": 95,
             "description": "Provides access to global {{#crossLink \"Bindings\"}}{{/crossLink}} points",
             "itemtype": "property",
             "name": "bindings",
@@ -1510,8 +4115,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 102,
+            "file": "CantabileAPI.js",
+            "line": 103,
             "description": "Provides access to global {{#crossLink \"Bindings4\"}}{{/crossLink}} points",
             "itemtype": "property",
             "name": "bindings4",
@@ -1519,8 +4124,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 110,
+            "file": "CantabileAPI.js",
+            "line": 111,
             "description": "Provides access to global {{#crossLink \"Commands\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "commands",
@@ -1528,8 +4133,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 118,
+            "file": "CantabileAPI.js",
+            "line": 119,
             "description": "Provides access to {{#crossLink \"Song\"}}{{/crossLink}} information about the current song",
             "itemtype": "property",
             "name": "song",
@@ -1537,8 +4142,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 126,
+            "file": "CantabileAPI.js",
+            "line": 127,
             "description": "Provides access to master {{#crossLink \"Transport\"}}{{/crossLink}} controls",
             "itemtype": "property",
             "name": "transport",
@@ -1546,8 +4151,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 134,
+            "file": "CantabileAPI.js",
+            "line": 135,
             "description": "Provides access to the {{#crossLink \"Application\"}}{{/crossLink}} object",
             "itemtype": "property",
             "name": "application",
@@ -1555,8 +4160,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 142,
+            "file": "CantabileAPI.js",
+            "line": 143,
             "description": "Provides access to the {{#crossLink \"Engine\"}}{{/crossLink}} object",
             "itemtype": "property",
             "name": "engine",
@@ -1564,8 +4169,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 151,
+            "file": "CantabileAPI.js",
+            "line": 152,
             "description": "The current connection state, either \"connecting\", \"connected\" or \"disconnected\"",
             "itemtype": "property",
             "name": "state",
@@ -1573,24 +4178,24 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 162,
+            "file": "CantabileAPI.js",
+            "line": 163,
             "description": "Initiate connection and retry if fails",
             "itemtype": "method",
             "name": "connect",
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 172,
+            "file": "CantabileAPI.js",
+            "line": 173,
             "description": "Disconnect and stop retries",
             "itemtype": "method",
             "name": "disconnect",
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 182,
+            "file": "CantabileAPI.js",
+            "line": 183,
             "description": "Stringify an object as a JSON message and send it to the server",
             "itemtype": "method",
             "name": "send",
@@ -1604,8 +4209,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 194,
+            "file": "CantabileAPI.js",
+            "line": 195,
             "description": "Stringify an object as a JSON message, send it to the server and returns \na promise which will resolve to the result.",
             "itemtype": "method",
             "name": "request",
@@ -1623,8 +4228,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 221,
+            "file": "CantabileAPI.js",
+            "line": 222,
             "description": "Returns a promise that will be resolved when connected",
             "example": [
                 "\n\n    let C = new CantabileApi();\n    await C.untilConnected();"
@@ -1638,8 +4243,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 275,
+            "file": "CantabileAPI.js",
+            "line": 276,
             "description": "The current host",
             "itemtype": "property",
             "name": "host",
@@ -1647,8 +4252,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 337,
+            "file": "CantabileAPI.js",
+            "line": 338,
             "description": "The base socket url",
             "itemtype": "property",
             "name": "socketUrl",
@@ -1656,8 +4261,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 348,
+            "file": "CantabileAPI.js",
+            "line": 349,
             "description": "The base host url",
             "itemtype": "property",
             "name": "hostUrl",
@@ -1665,8 +4270,8 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 519,
+            "file": "CantabileAPI.js",
+            "line": 520,
             "description": "Fired when the {{#crossLink \"Cantabile/state:property\"}}{{/crossLink}} property value changes",
             "itemtype": "event",
             "name": "stateChanged",
@@ -1680,24 +4285,24 @@
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 527,
+            "file": "CantabileAPI.js",
+            "line": 528,
             "description": "Fired when entering the connected state",
             "itemtype": "event",
             "name": "connected",
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 534,
+            "file": "CantabileAPI.js",
+            "line": 535,
             "description": "Fired when entering the connecting state",
             "itemtype": "event",
             "name": "connecting",
             "class": "Cantabile"
         },
         {
-            "file": "CantabileApi.js",
-            "line": 541,
+            "file": "CantabileAPI.js",
+            "line": 542,
             "description": "Fired when entering the disconnected state",
             "itemtype": "event",
             "name": "disconnected",
@@ -3279,8 +5884,260 @@
     ],
     "warnings": [
         {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:26"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:54"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:119"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:144"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:220"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:239"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:333"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:370"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:380"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:411"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:491"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:527"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:542"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:561"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " dist\\cantabile.js:585"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " dist\\cantabile.js:680"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " dist\\cantabile.js:730"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " dist\\cantabile.js:755"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " dist\\cantabile.js:776"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " dist\\cantabile.js:792"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " dist\\cantabile.js:851"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " dist\\cantabile.js:864"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " dist\\cantabile.js:877"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " dist\\cantabile.js:927"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " dist\\cantabile.js:1366"
+        },
+        {
             "message": "replacing incorrect tag: returns with return",
             "line": " SetList.js:150"
+        },
+        {
+            "message": "Missing item type\nHelpers.",
+            "line": " dist\\cantabile.js:9"
+        },
+        {
+            "message": "Missing item type\nParse or format the given `val`.\n\nOptions:\n\n - `long` verbose formatting [false]",
+            "line": " dist\\cantabile.js:26"
+        },
+        {
+            "message": "Missing item type\nParse the given `str` and return milliseconds.",
+            "line": " dist\\cantabile.js:54"
+        },
+        {
+            "message": "Missing item type\nShort format for `ms`.",
+            "line": " dist\\cantabile.js:119"
+        },
+        {
+            "message": "Missing item type\nLong format for `ms`.",
+            "line": " dist\\cantabile.js:144"
+        },
+        {
+            "message": "Missing item type\nPluralization helper.",
+            "line": " dist\\cantabile.js:169"
+        },
+        {
+            "message": "Missing item type\nThis is the common logic for both the Node.js and web browser\nimplementations of `debug()`.",
+            "line": " dist\\cantabile.js:187"
+        },
+        {
+            "message": "Missing item type\nActive `debug` instances.",
+            "line": " dist\\cantabile.js:202"
+        },
+        {
+            "message": "Missing item type\nThe currently active debug mode names, and names to skip.",
+            "line": " dist\\cantabile.js:207"
+        },
+        {
+            "message": "Missing item type\nMap of special \"%n\" handling functions, for the debug \"format\" argument.\n\nValid key names are a single, lower or upper-case letter, i.e. \"n\" and \"N\".",
+            "line": " dist\\cantabile.js:213"
+        },
+        {
+            "message": "Missing item type\nSelects a color for a debug namespace",
+            "line": " dist\\cantabile.js:220"
+        },
+        {
+            "message": "Missing item type\nCreate a debugger with the given `namespace`.",
+            "line": " dist\\cantabile.js:239"
+        },
+        {
+            "message": "Missing item type\nEnables a debug mode by namespaces. This can include modes\nseparated by a colon and wildcards.",
+            "line": " dist\\cantabile.js:333"
+        },
+        {
+            "message": "Missing item type\nDisable debug output.",
+            "line": " dist\\cantabile.js:370"
+        },
+        {
+            "message": "Missing item type\nReturns true if the given mode name is enabled, false otherwise.",
+            "line": " dist\\cantabile.js:380"
+        },
+        {
+            "message": "Missing item type\nCoerce `val`.",
+            "line": " dist\\cantabile.js:411"
+        },
+        {
+            "message": "Missing item type\nThis is the web browser implementation of `debug()`.",
+            "line": " dist\\cantabile.js:447"
+        },
+        {
+            "message": "Missing item type\nColors.",
+            "line": " dist\\cantabile.js:456"
+        },
+        {
+            "message": "Missing item type\nCurrently only WebKit-based Web Inspectors, Firefox >= v31,\nand the Firebug extension (any Firefox version) are known\nto support \"%c\" CSS customizations.\n\nTODO: add a `localStorage` variable to explicitly enable/disable colors",
+            "line": " dist\\cantabile.js:461"
+        },
+        {
+            "message": "Missing item type\nColorize log arguments if enabled.",
+            "line": " dist\\cantabile.js:491"
+        },
+        {
+            "message": "Missing item type\nInvokes `console.log()` when available.\nNo-op when `console.log` is not a \"function\".",
+            "line": " dist\\cantabile.js:527"
+        },
+        {
+            "message": "Missing item type\nSave `namespaces`.",
+            "line": " dist\\cantabile.js:542"
+        },
+        {
+            "message": "Missing item type\nLoad `namespaces`.",
+            "line": " dist\\cantabile.js:561"
+        },
+        {
+            "message": "Missing item type\nLocalstorage attempts to return the localstorage.\n\nThis is necessary because safari throws\nwhen a user disables cookies/localstorage\nand you attempt to access it.",
+            "line": " dist\\cantabile.js:585"
+        },
+        {
+            "message": "Missing item type\nMap %j to `JSON.stringify()`, since no Web Inspectors do that by default.",
+            "line": " dist\\cantabile.js:609"
+        },
+        {
+            "message": "Missing item type\nConstructor to create a storage for our `EE` objects.\nAn `Events` instance is a plain object whose properties are event names.",
+            "line": " dist\\cantabile.js:639"
+        },
+        {
+            "message": "Missing item type\nRepresentation of a single event listener.",
+            "line": " dist\\cantabile.js:665"
+        },
+        {
+            "message": "Missing item type\nAdd a listener for a given event.",
+            "line": " dist\\cantabile.js:680"
+        },
+        {
+            "message": "Missing item type\nClear event by name.",
+            "line": " dist\\cantabile.js:706"
+        },
+        {
+            "message": "Missing item type\nMinimal `EventEmitter` interface that is molded against the Node.js\n`EventEmitter` interface.",
+            "line": " dist\\cantabile.js:718"
+        },
+        {
+            "message": "Missing item type\nReturn an array listing the events for which the emitter has registered\nlisteners.",
+            "line": " dist\\cantabile.js:730"
+        },
+        {
+            "message": "Missing item type\nReturn the listeners registered for a given event.",
+            "line": " dist\\cantabile.js:755"
+        },
+        {
+            "message": "Missing item type\nReturn the number of listeners listening to a given event.",
+            "line": " dist\\cantabile.js:776"
+        },
+        {
+            "message": "Missing item type\nCalls each of the listeners registered for a given event.",
+            "line": " dist\\cantabile.js:792"
+        },
+        {
+            "message": "Missing item type\nAdd a listener for a given event.",
+            "line": " dist\\cantabile.js:851"
+        },
+        {
+            "message": "Missing item type\nAdd a one-time listener for a given event.",
+            "line": " dist\\cantabile.js:864"
+        },
+        {
+            "message": "Missing item type\nRemove the listeners of a given event.",
+            "line": " dist\\cantabile.js:877"
+        },
+        {
+            "message": "Missing item type\nRemove all listeners, or those of the specified event.",
+            "line": " dist\\cantabile.js:927"
         },
         {
             "message": "Missing item type\nBootstrap.js by @fat & @mdo\nplugins: bootstrap-transition.js, bootstrap-modal.js, bootstrap-dropdown.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-affix.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-collapse.js, bootstrap-carousel.js, bootstrap-typeahead.js\nCopyright 2012 Twitter, Inc.\nhttp://www.apache.org/licenses/LICENSE-2.0.txt",
