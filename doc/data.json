@@ -2720,7 +2720,39 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3528,
+            "line": 3473,
+            "description": "Gets a list of available songs in the user's songs folder",
+            "itemtype": "method",
+            "name": "available",
+            "return": {
+                "description": "An array of song names (relative to user's song folder, extension removed)",
+                "type": "String[]"
+            },
+            "class": "Song"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3483,
+            "description": "Loads the specified song from the user's song folder",
+            "itemtype": "method",
+            "name": "loadSong",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of the song to load (relative to user's song folder, without extension)",
+                    "type": "String"
+                },
+                {
+                    "name": "state",
+                    "description": "Optional name of state to load, or null.",
+                    "type": "String"
+                }
+            ],
+            "class": "Song"
+        },
+        {
+            "file": "dist\\cantabile.js",
+            "line": 3554,
             "description": "Gets or sets the current transport state.  Supported values include \"playing\", \"paused\" or \"stopped\".\nSetting this property calls {{#crossLink \"Transport/play:method\"}}{{/crossLink}},\n{{#crossLink \"Transport/pause:method\"}}{{/crossLink}}, or\n{{#crossLink \"Transport/stop:method\"}}{{/crossLink}} accordingly.",
             "itemtype": "property",
             "name": "state",
@@ -2729,7 +2761,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3549,
+            "line": 3575,
             "description": "Gets the current time signature numerator",
             "itemtype": "property",
             "name": "timeSignatureNum",
@@ -2738,7 +2770,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3556,
+            "line": 3582,
             "description": "Gets the current time signature denominator",
             "itemtype": "property",
             "name": "timeSignatureDen",
@@ -2747,7 +2779,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3563,
+            "line": 3589,
             "description": "Gets the current time signature as a string (eg: \"3/4\")",
             "itemtype": "property",
             "name": "timeSignature",
@@ -2756,7 +2788,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3570,
+            "line": 3596,
             "description": "Gets the current tempo",
             "itemtype": "property",
             "name": "tempo",
@@ -2765,7 +2797,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3577,
+            "line": 3603,
             "description": "Gets or sets the current loopMode (\"auto\", \"break\", \"loopOnce\" or \"loop\").\nChanges fire the {{#crossLink \"Transport/loopStateChanged:event\"}}{{/crossLink}} event.",
             "itemtype": "property",
             "name": "loopMode",
@@ -2774,7 +2806,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3593,
+            "line": 3619,
             "description": "Gets the current loopCount",
             "itemtype": "property",
             "name": "loopCount",
@@ -2783,7 +2815,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3600,
+            "line": 3626,
             "description": "Gets the current loopIteration",
             "itemtype": "property",
             "name": "loopIteration",
@@ -2792,7 +2824,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3609,
+            "line": 3635,
             "description": "Fired when the current transport state has changed",
             "itemtype": "event",
             "name": "stateChanged",
@@ -2800,7 +2832,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3621,
+            "line": 3647,
             "description": "Fired when the current time signature has changed",
             "itemtype": "event",
             "name": "timeSignatureChanged",
@@ -2808,7 +2840,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3634,
+            "line": 3660,
             "description": "Fired when the current tempo has changed",
             "itemtype": "event",
             "name": "tempoChanged",
@@ -2816,7 +2848,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3646,
+            "line": 3672,
             "description": "Fired when the current loop mode, loop iteration or loop count has changed",
             "itemtype": "event",
             "name": "loopStateChanged",
@@ -2824,7 +2856,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3657,
+            "line": 3683,
             "description": "Starts transport playback",
             "itemtype": "method",
             "name": "play",
@@ -2832,7 +2864,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3667,
+            "line": 3693,
             "description": "Toggles between play and pause states",
             "itemtype": "method",
             "name": "togglePlayPause",
@@ -2840,7 +2872,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3679,
+            "line": 3705,
             "description": "Toggles pause and play states (unless stopped)",
             "itemtype": "method",
             "name": "togglePause",
@@ -2848,7 +2880,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3691,
+            "line": 3717,
             "description": "Toggles play and stopped states",
             "itemtype": "method",
             "name": "togglePlay",
@@ -2856,7 +2888,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3703,
+            "line": 3729,
             "description": "Toggles between play and stop states",
             "itemtype": "method",
             "name": "togglePlayStop",
@@ -2864,7 +2896,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3715,
+            "line": 3741,
             "description": "Pauses the master transport",
             "itemtype": "method",
             "name": "pause",
@@ -2872,7 +2904,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3725,
+            "line": 3751,
             "description": "Stops the master transport",
             "itemtype": "method",
             "name": "stop",
@@ -2880,7 +2912,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3735,
+            "line": 3761,
             "description": "Cycles between the various loop modes",
             "itemtype": "method",
             "name": "cycleLoopMode",
@@ -2888,7 +2920,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3780,
+            "line": 3806,
             "description": "Fired when any of the application properties change",
             "itemtype": "event",
             "name": "changed",
@@ -2896,7 +2928,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3786,
+            "line": 3812,
             "description": "Fired when the application object has initially loaded",
             "itemtype": "event",
             "name": "open",
@@ -2904,7 +2936,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3803,
+            "line": 3829,
             "description": "The application's company name",
             "itemtype": "property",
             "name": "companyName",
@@ -2913,7 +2945,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3810,
+            "line": 3836,
             "description": "The application name",
             "itemtype": "property",
             "name": "name",
@@ -2922,7 +2954,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3817,
+            "line": 3843,
             "description": "The application version string",
             "itemtype": "property",
             "name": "version",
@@ -2931,7 +2963,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3824,
+            "line": 3850,
             "description": "The application edition string",
             "itemtype": "property",
             "name": "edition",
@@ -2940,7 +2972,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3831,
+            "line": 3857,
             "description": "The application's copyright message",
             "itemtype": "property",
             "name": "copyright",
@@ -2949,7 +2981,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3838,
+            "line": 3864,
             "description": "The application's build number",
             "itemtype": "property",
             "name": "build",
@@ -2958,7 +2990,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3845,
+            "line": 3871,
             "description": "An array of {{#crossLink \"ColorEntry\"}}{{/crossLink}} items for the color index table",
             "itemtype": "property",
             "name": "colors",
@@ -2967,7 +2999,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3852,
+            "line": 3878,
             "description": "The application's busy status",
             "itemtype": "property",
             "name": "busy",
@@ -2976,7 +3008,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3860,
+            "line": 3886,
             "description": "The base program number (0 or 1)",
             "itemtype": "property",
             "name": "baseProgramNumber",
@@ -2985,7 +3017,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3867,
+            "line": 3893,
             "description": "The preferred banked program display format - \"SeparateBanks\",\"CombinedBanks\",\"Plain\" or \"ZeroPadded\"",
             "itemtype": "property",
             "name": "bankedProgramNumberFormat",
@@ -2994,7 +3026,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3876,
+            "line": 3902,
             "description": "Fired when the application busy state changes",
             "itemtype": "event",
             "name": "busyChanged",
@@ -3009,7 +3041,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3906,
+            "line": 3932,
             "description": "Returns a promise to provide the started state of Cantabile's audio engine.\n\nThis API is only available via  AJAX, and not WebSocket",
             "itemtype": "method",
             "name": "isStarted",
@@ -3021,7 +3053,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3920,
+            "line": 3946,
             "description": "Starts Cantabile's audio engine\n\nThis API is only available via  AJAX, and not WebSocket",
             "itemtype": "method",
             "name": "start",
@@ -3033,7 +3065,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3933,
+            "line": 3959,
             "description": "Stops Cantabile's audio engine\n\nThis API is only available via  AJAX, and not WebSocket",
             "itemtype": "method",
             "name": "stop",
@@ -3045,7 +3077,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3946,
+            "line": 3972,
             "description": "Restarts Cantabile's audio engine\n\nThis API is only available via  AJAX, and not WebSocket",
             "itemtype": "method",
             "name": "restart",
@@ -3057,7 +3089,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 3959,
+            "line": 3985,
             "description": "Toggles the audio engine between started and stopped\n\nThis API is only available via  AJAX, and not WebSocket",
             "itemtype": "method",
             "name": "startStop",
@@ -3069,7 +3101,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4003,
+            "line": 4029,
             "description": "Gets the {{#crossLink \"SetList\"}}{{/crossLink}} object",
             "itemtype": "property",
             "name": "setList",
@@ -3078,7 +3110,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4011,
+            "line": 4037,
             "description": "Gets the {{#crossLink \"SongStates\"}}{{/crossLink}} for the current song",
             "itemtype": "property",
             "name": "songStates",
@@ -3087,7 +3119,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4019,
+            "line": 4045,
             "description": "Gets the currently active {{#crossLink \"KeyRanges\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "keyRanges",
@@ -3096,7 +3128,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4027,
+            "line": 4053,
             "description": "Gets the current {{#crossLink \"ShowNotes\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "showNotes",
@@ -3105,7 +3137,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4035,
+            "line": 4061,
             "description": "Provides access to {{#crossLink \"Variables\"}}{{/crossLink}} expansion facilities",
             "itemtype": "property",
             "name": "variables",
@@ -3114,7 +3146,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4043,
+            "line": 4069,
             "description": "Provides access to controllers managed by Cantabile's {{#crossLink \"OnscreenKeyboard\"}}{{/crossLink}} device",
             "itemtype": "property",
             "name": "onscreenKeyboard",
@@ -3123,7 +3155,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4051,
+            "line": 4077,
             "description": "Provides access to global {{#crossLink \"Bindings\"}}{{/crossLink}} points",
             "itemtype": "property",
             "name": "bindings",
@@ -3132,7 +3164,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4059,
+            "line": 4085,
             "description": "Provides access to global {{#crossLink \"Bindings4\"}}{{/crossLink}} points",
             "itemtype": "property",
             "name": "bindings4",
@@ -3141,7 +3173,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4067,
+            "line": 4093,
             "description": "Provides access to global {{#crossLink \"Commands\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "commands",
@@ -3150,7 +3182,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4075,
+            "line": 4101,
             "description": "Provides access to {{#crossLink \"Song\"}}{{/crossLink}} information about the current song",
             "itemtype": "property",
             "name": "song",
@@ -3159,7 +3191,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4083,
+            "line": 4109,
             "description": "Provides access to master {{#crossLink \"Transport\"}}{{/crossLink}} controls",
             "itemtype": "property",
             "name": "transport",
@@ -3168,7 +3200,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4091,
+            "line": 4117,
             "description": "Provides access to the {{#crossLink \"Application\"}}{{/crossLink}} object",
             "itemtype": "property",
             "name": "application",
@@ -3177,7 +3209,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4099,
+            "line": 4125,
             "description": "Provides access to the {{#crossLink \"Engine\"}}{{/crossLink}} object",
             "itemtype": "property",
             "name": "engine",
@@ -3186,7 +3218,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4108,
+            "line": 4134,
             "description": "The current connection state, either \"connecting\", \"connected\" or \"disconnected\"",
             "itemtype": "property",
             "name": "state",
@@ -3195,7 +3227,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4119,
+            "line": 4145,
             "description": "Initiate connection and retry if fails",
             "itemtype": "method",
             "name": "connect",
@@ -3203,7 +3235,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4129,
+            "line": 4155,
             "description": "Disconnect and stop retries",
             "itemtype": "method",
             "name": "disconnect",
@@ -3211,7 +3243,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4139,
+            "line": 4165,
             "description": "Stringify an object as a JSON message and send it to the server",
             "itemtype": "method",
             "name": "send",
@@ -3226,7 +3258,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4151,
+            "line": 4177,
             "description": "Stringify an object as a JSON message, send it to the server and returns \na promise which will resolve to the result.",
             "itemtype": "method",
             "name": "request",
@@ -3245,7 +3277,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4178,
+            "line": 4204,
             "description": "Returns a promise that will be resolved when connected",
             "example": [
                 "\n\n    let C = new CantabileApi();\n    await C.untilConnected();"
@@ -3260,7 +3292,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4232,
+            "line": 4258,
             "description": "The current host",
             "itemtype": "property",
             "name": "host",
@@ -3269,7 +3301,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4294,
+            "line": 4320,
             "description": "The base socket url",
             "itemtype": "property",
             "name": "socketUrl",
@@ -3278,7 +3310,7 @@
         },
         {
             "file": "dist\\cantabile.js",
-            "line": 4305,
+            "line": 4331,
             "description": "The base host url",
             "itemtype": "property",
             "name": "hostUrl",
@@ -5356,6 +5388,38 @@
             "class": "Song"
         },
         {
+            "file": "Song.js",
+            "line": 70,
+            "description": "Gets a list of available songs in the user's songs folder",
+            "itemtype": "method",
+            "name": "available",
+            "return": {
+                "description": "An array of song names (relative to user's song folder, extension removed)",
+                "type": "String[]"
+            },
+            "class": "Song"
+        },
+        {
+            "file": "Song.js",
+            "line": 80,
+            "description": "Loads the specified song from the user's song folder",
+            "itemtype": "method",
+            "name": "loadSong",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of the song to load (relative to user's song folder, without extension)",
+                    "type": "String"
+                },
+                {
+                    "name": "state",
+                    "description": "Optional name of state to load, or null.",
+                    "type": "String"
+                }
+            ],
+            "class": "Song"
+        },
+        {
             "file": "State.js",
             "line": 7,
             "description": "The name of the state",
@@ -5985,7 +6049,15 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
+            "line": " dist\\cantabile.js:3473"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
             "line": " SetList.js:150"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Song.js:70"
         },
         {
             "message": "Missing item type\nHelpers.",

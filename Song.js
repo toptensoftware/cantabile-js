@@ -67,6 +67,32 @@ class Song extends EndPoint
 	 */
 	get currentState() { return this._data ? this._data.currentState : null; }
 
+	/**
+	 * Gets a list of available songs in the user's songs folder
+	 * @method available
+	 * @returns {String[]} An array of song names (relative to user's song folder, extension removed)
+	 */
+	async available()
+	{
+		return (await this.get("/available")).data.songs;
+	}
+
+	/**
+	 * Loads the specified song from the user's song folder
+	 * @method loadSong
+	 * @param {String} name Name of the song to load (relative to user's song folder, without extension)
+	 * @param {String} state Optional name of state to load, or null.
+	 */
+	loadSetList(name, state)
+	{
+		this.post("/loadSong", {
+			name, 
+			state
+		});
+	}
+
+
+
 	_onEvent_songChanged(data)
 	{
 		this._data = data;
