@@ -3486,7 +3486,7 @@ class Song extends EndPoint
 	 * @param {String} name Name of the song to load (relative to user's song folder, without extension)
 	 * @param {String} state Optional name of state to load, or null.
 	 */
-	loadSetList(name, state)
+	loadSong(name, state)
 	{
 		this.post("/loadSong", {
 			name, 
