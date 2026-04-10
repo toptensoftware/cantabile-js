@@ -150,7 +150,7 @@ class SetList extends EndPoint
 	/**
 	 * Gets a list of available set lists in the user's set list folder
 	 * @method available
-	 * @returns {String[]} An array of set list names (relative to user's set list folder, extension removed)
+	 * @return {String[]} An array of set list names (relative to user's set list folder, extension removed)
 	 */
 	async available()
 	{

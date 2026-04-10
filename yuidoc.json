@@ -6,7 +6,7 @@
     "options": {
         "outdir": "./doc/",
         "themedir" : "yuidoc-lucid-theme",
-        "exclude": "www",
-		"helpers" : ["yuidoc-lucid-theme/helpers/helpers.js"]
+        "exclude": "www,dist",
+	    "helpers" : ["yuidoc-lucid-theme/helpers/helpers.js"]
     }
 }

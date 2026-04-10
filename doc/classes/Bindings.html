@@ -130,15 +130,11 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-availableBindingPoints"><span class="im">availableBindingPoints</span>()</a></li>
-				<li><a href="#method-availableBindingPoints"><span class="im">availableBindingPoints</span>()</a></li>
 				<li><a href="#method-close"><span class="im">close</span>()</a></li>
-				<li><a href="#method-invoke"><span class="im">invoke</span>(<span class="ia">name</span><span class="ia">value</span><span class="ia">indicies</span><span class="ia">parameter</span>)</a></li>
 				<li><a href="#method-invoke"><span class="im">invoke</span>(<span class="ia">name</span><span class="ia">value</span><span class="ia">indicies</span><span class="ia">parameter</span>)</a></li>
 				<li><a href="#method-open"><span class="im">open</span>()</a></li>
 				<li><a href="#method-query"><span class="im">query</span>(<span class="ia">name</span><span class="ia">indicies</span>)</a></li>
-				<li><a href="#method-query"><span class="im">query</span>(<span class="ia">name</span><span class="ia">indicies</span>)</a></li>
 				<li><a href="#method-untilOpen"><span class="im">untilOpen</span>()</a></li>
-				<li><a href="#method-watch"><span class="im">watch</span>(<span class="ia">name</span><span class="ia">indicies</span><span class="ia">condition</span><span class="ia">callback</span>)</a></li>
 				<li><a href="#method-watch"><span class="im">watch</span>(<span class="ia">name</span><span class="ia">indicies</span><span class="ia">condition</span><span class="ia">callback</span>)</a></li>
 			</ul>
 		</li>
@@ -156,58 +152,6 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
-<div id="method-availableBindingPoints" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>availableBindingPoints</code></span>
-
-		<span class="paren">()</span>
-		<span class="returns-inline">
-			<span class="type">Promise  |  <a href="../classes/BindingPointInfo.html" class="crosslink">BindingPointInfo[][]</a></span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/dist_cantabile.js.html#l2696"><code>dist\cantabile.js:2696</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Retrieves a list of available binding points</p>
-<p>If Cantabile is running on your local machine you can view this list
-directly at <a href="http://localhost:35007/api/bindings/availableBindingPoints">http://localhost:35007/api/bindings/availableBindingPoints</a></p>
-</div>
-
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type">Promise  |  <a href="../classes/BindingPointInfo.html" class="crosslink">BindingPointInfo[][]</a></span>:
-					<p>A promise to return an array of <a href="../classes/BindingPointInfo.html" class="crosslink">BindingPointInfo</a> objects</p>
-
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<pre class="code prettyprint"><code>let C = new CantabileApi();
-C.connect();
-console.log(await C.bindings.availableBindingPoints());</code></pre>
-
-			</div>
-		</div>
-</div>
 <div id="method-availableBindingPoints" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>availableBindingPoints</code></span>
@@ -273,157 +217,22 @@ console.log(await C.bindings.availableBindingPoints());</code></pre>
 
 
 	<div class="meta">
-			<p>Inherited from
-			<a href="../classes/EndPoint.html#method_close">
-				EndPoint
-			</a>
-			but overwritten in
-		<a href="../files/dist_cantabile.js.html#l1028"><code>dist\cantabile.js:1028</code></a>
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_close">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l55"><code>EndPoint.js:55</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Closes the end point and stops listening for events.</p>
-<p>This method no longer needs to be explicitly called as end points are now
-automatically closed when the last event listener is removed.</p>
-</div>
+	<div class="description">Closes the end point and stops listening for events.
+
+This method no longer needs to be explicitly called as end points are now
+automatically closed when the last event listener is removed.</div>
 
 
 
-</div>
-<div id="method-invoke" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>invoke</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>name</code>
-				</li>
-				<li class="arg">
-						<code class="optional">value</code>
-				</li>
-				<li class="arg">
-						<code class="optional">indicies</code>
-				</li>
-				<li class="arg">
-						<code class="optional">parameter</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-		<span class="returns-inline">
-			<span class="type">Promise</span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/dist_cantabile.js.html#l2717"><code>dist\cantabile.js:2717</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Invokes a target binding point</p>
-<p>If Cantabile is running on your local machine a full list of available binding
-points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">available here</a></p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">name</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><p>The name of the binding point to invoke</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name optional">[value]</code>
-						<span class="type">Object</span>
-						<span class="flag optional" title="This parameter is optional.">optional</span>
-
-
-					<div class="param-description"><p>The value to pass to the binding point</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name optional">[indicies]</code>
-						<span class="type">Number[]</span>
-						<span class="flag optional" title="This parameter is optional.">optional</span>
-
-
-					<div class="param-description"><p>The integer indicies of the target binding point</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name optional">[parameter]</code>
-						<span class="type">Object</span>
-						<span class="flag optional" title="This parameter is optional.">optional</span>
-
-
-					<div class="param-description"><p>The parameter value to invoke the target with</p>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type">Promise</span>:
-					<p>A promise that resolves once the target binding point has been invoked</p>
-
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<p>Set the master output level gain</p>
-<pre class="code prettyprint"><code>C.bindings.invoke("global.masterLevels.outputGain", 0.5);</code></pre>
-<p>Suspend the 2nd plugin in the song</p>
-<pre class="code prettyprint"><code>C.bindings.invoke("global.indexedPlugin.suspend", true, [
-        0,     // Rack index (zero = song)
-     1      // Plugin index (zero based, 1 = the second plugin)
-    ]);</code></pre>
-<p>Sending a MIDI Controller Event</p>
-<pre class="code prettyprint"><code>C.bindings.invoke("midiInputPort.Main Keyboard", new {
-    kind: "FineController",
-    controller: 10,
-    value: 1000,
-   });</code></pre>
-<p>Sending MIDI Data directly</p>
-<pre class="code prettyprint"><code>C.bindings.invoke("midiInputPort.Main Keyboard", [ 0xb0, 23, 99 ]);</code></pre>
-<p>Sending MIDI Sysex Data directly</p>
-<pre class="code prettyprint"><code>C.bindings.invoke("midiInputPort.Main Keyboard", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);</code></pre>
-<p>Some binding points expect a "parameter" value.  Parameter values are similar to the <code>value</code> parameter
-in that they specify a value to invoke on the target of the binding.  The difference is related to the
-way they're managed internally for user created bindings.  The <code>value</code> comes from the source of the binding
-whereas a <code>parameter</code> value is stored with the binding itself.</p>
-<p>eg: Load the song with program number 12</p>
-<pre class="code prettyprint"><code>C.bindings.invoke("global.setList.loadSpecificSongByProgramInstant", null, null, 12);</code></pre>
-
-			</div>
-		</div>
 </div>
 <div id="method-invoke" class="method item">
 	<div class="method-signature">
@@ -570,110 +379,24 @@ whereas a <code>parameter</code> value is stored with the binding itself.</p>
 
 
 	<div class="meta">
-			<p>Inherited from
-			<a href="../classes/EndPoint.html#method_open">
-				EndPoint
-			</a>
-			but overwritten in
-		<a href="../files/dist_cantabile.js.html#l1008"><code>dist\cantabile.js:1008</code></a>
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_open">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l35"><code>EndPoint.js:35</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Opens this end point and starts listening for events.</p>
-<p>This method no longer needs to be explicitly called as end points are now
-automatically opened when the first event listener is attached.</p>
-<p>Use this method to keep the end point open even when no event listeners are attached.</p>
-</div>
+	<div class="description">Opens this end point and starts listening for events. 
+
+This method no longer needs to be explicitly called as end points are now
+automatically opened when the first event listener is attached.
+
+Use this method to keep the end point open even when no event listeners are attached.</div>
 
 
 
-</div>
-<div id="method-query" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>query</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>name</code>
-				</li>
-				<li class="arg">
-						<code class="optional">indicies</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-		<span class="returns-inline">
-			<span class="type">Object</span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/dist_cantabile.js.html#l2789"><code>dist\cantabile.js:2789</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Queries a source binding point for it's current value.</p>
-<p>If Cantabile is running on your local machine a full list of available binding
-points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">available here</a></p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">name</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><p>The name of the binding point to query</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name optional">[indicies]</code>
-						<span class="type">Number[]</span>
-						<span class="flag optional" title="This parameter is optional.">optional</span>
-
-
-					<div class="param-description"><p>The integer indicies of the binding point</p>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type">Object</span>:
-					<p>The current value of the binding source</p>
-
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<pre class="code prettyprint"><code>console.log("Current Output Gain:", await C.bindings.query("global.masterLevels.outputGain"));</code></pre>
-
-			</div>
-		</div>
 </div>
 <div id="method-query" class="method item">
 	<div class="method-signature">
@@ -775,20 +498,16 @@ points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">a
 
 
 	<div class="meta">
-			<p>Inherited from
-			<a href="../classes/EndPoint.html#method_untilOpen">
-				EndPoint
-			</a>
-			but overwritten in
-		<a href="../files/dist_cantabile.js.html#l1115"><code>dist\cantabile.js:1115</code></a>
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_untilOpen">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l142"><code>EndPoint.js:142</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Returns a promise that will be resolved when this end point is opened</p>
-</div>
+	<div class="description">Returns a promise that will be resolved when this end point is opened</div>
 
 
 		<div class="returns">
@@ -806,149 +525,6 @@ points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">a
 				<pre class="code prettyprint"><code>let C = new CantabileApi();
    C.application.open();
 await C.application.untilOpen();</code></pre>
-
-			</div>
-		</div>
-</div>
-<div id="method-watch" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>watch</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>name</code>
-				</li>
-				<li class="arg">
-						<code class="optional">indicies</code>
-				</li>
-				<li class="arg">
-						<code class="optional">condition</code>
-				</li>
-				<li class="arg">
-						<code class="optional">callback</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-		<span class="returns-inline">
-			<span class="type"><a href="../classes/BindingWatcher.html" class="crosslink">BindingWatcher</a></span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/dist_cantabile.js.html#l2812"><code>dist\cantabile.js:2812</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Starts watching a source binding point for changes (or invocations)</p>
-<p>If Cantabile is running on your local machine a full list of available binding
-points is <a href="http://localhost:35007/api/bindings/availableBindingPoints">available here</a></p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">name</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><p>The name of the binding point to query</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name optional">[indicies]</code>
-						<span class="type">Number[]</span>
-						<span class="flag optional" title="This parameter is optional.">optional</span>
-
-
-					<div class="param-description"><p>The integer indicies of the binding point</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name optional">[condition]</code>
-						<span class="type">Object</span>
-						<span class="flag optional" title="This parameter is optional.">optional</span>
-
-
-					<div class="param-description"><p>The condition for triggering the binding</p>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name optional">[callback]</code>
-						<span class="type">Function</span>
-						<span class="flag optional" title="This parameter is optional.">optional</span>
-
-
-					<div class="param-description"><p>Optional callback function to be called when the source binding triggers</p>
-<p>The callback function has the form function(value, source) where value is the binding point value and source
-is the BindingWatcher instance.</p>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type"><a href="../classes/BindingWatcher.html" class="crosslink">BindingWatcher</a></span>
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<p>Using a callback function:</p>
-<pre class="code prettyprint"><code>let C = new CantabileApi();
-
-// Watch a source binding point using a callback function
-C.bindings.watch("global.masterLevels.outputGain", null, null, function(value) {
-    console.log("Master output gain changed to:", value);
-})
-
-   // The "bindings" end point must be opened before callbacks will happen
-C.bindings.open();</code></pre>
-<p>Using the BindingWatcher class and events:</p>
-<pre class="code prettyprint"><code>let C = new CantabileApi();
-let watcher = C.bindings.watch("global.masterLevels.outputGain");
-watcher.on('invoked', function(value) {
-    console.log("Master output gain changed to:", value);
-});
-
-   // The "bindings" end point must be opened before callbacks will happen
-C.bindings.open();
-
-/// later, stop listening
-watcher.unwatch();</code></pre>
-<p>Watching for a MIDI event:</p>
-<pre class="code prettyprint"><code>C.bindings.watch("midiInputPort.Onscreen Keyboard", null, {
-    channel: 0,
-    kind: "ProgramChange",
-    controller: -1,
-}, function(value) {
-    console.log("Program Change: ", value);
-})</code></pre>
-<p>Watching for a keystroke:</p>
-<pre class="code prettyprint"><code>C.bindings.watch("global.pckeyboard.keyPress", null, "Ctrl+Alt+M", function() {
-    console.log("Key press!");
-})</code></pre>
 
 			</div>
 		</div>

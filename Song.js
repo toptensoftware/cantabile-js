@@ -70,7 +70,7 @@ class Song extends EndPoint
 	/**
 	 * Gets a list of available songs in the user's songs folder
 	 * @method available
-	 * @returns {String[]} An array of song names (relative to user's song folder, extension removed)
+	 * @return {String[]} An array of song names (relative to user's song folder, extension removed)
 	 */
 	async available()
 	{

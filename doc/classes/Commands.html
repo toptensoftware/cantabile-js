@@ -130,9 +130,7 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-availableCommands"><span class="im">availableCommands</span>()</a></li>
-				<li><a href="#method-availableCommands"><span class="im">availableCommands</span>()</a></li>
 				<li><a href="#method-close"><span class="im">close</span>()</a></li>
-				<li><a href="#method-invoke"><span class="im">invoke</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-invoke"><span class="im">invoke</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-open"><span class="im">open</span>()</a></li>
 				<li><a href="#method-untilOpen"><span class="im">untilOpen</span>()</a></li>
@@ -152,58 +150,6 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
-<div id="method-availableCommands" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>availableCommands</code></span>
-
-		<span class="paren">()</span>
-		<span class="returns-inline">
-			<span class="type">Promise  |  <a href="../classes/CommandInfo.html" class="crosslink">CommandInfo[][]</a></span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/dist_cantabile.js.html#l3364"><code>dist\cantabile.js:3364</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Retrieves a list of available commands</p>
-<p>If Cantabile is running on your local machine you can view this list
-directly at <a href="http://localhost:35007/api/commands/availableCommands">http://localhost:35007/api/commands/availableCommands</a></p>
-</div>
-
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type">Promise  |  <a href="../classes/CommandInfo.html" class="crosslink">CommandInfo[][]</a></span>:
-					<p>A promise to return an array of <a href="../classes/CommandInfo.html" class="crosslink">CommandInfo</a> objects</p>
-
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<pre class="code prettyprint"><code>let C = new CantabileApi();
-C.connect();
-console.log(await C.commands.availableCommands());</code></pre>
-
-			</div>
-		</div>
-</div>
 <div id="method-availableCommands" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>availableCommands</code></span>
@@ -269,95 +215,22 @@ console.log(await C.commands.availableCommands());</code></pre>
 
 
 	<div class="meta">
-			<p>Inherited from
-			<a href="../classes/EndPoint.html#method_close">
-				EndPoint
-			</a>
-			but overwritten in
-		<a href="../files/dist_cantabile.js.html#l1028"><code>dist\cantabile.js:1028</code></a>
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_close">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l55"><code>EndPoint.js:55</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Closes the end point and stops listening for events.</p>
-<p>This method no longer needs to be explicitly called as end points are now
-automatically closed when the last event listener is removed.</p>
-</div>
+	<div class="description">Closes the end point and stops listening for events.
+
+This method no longer needs to be explicitly called as end points are now
+automatically closed when the last event listener is removed.</div>
 
 
 
-</div>
-<div id="method-invoke" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>invoke</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>id</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-		<span class="returns-inline">
-			<span class="type">Promise</span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/dist_cantabile.js.html#l3385"><code>dist\cantabile.js:3385</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Invokes a command</p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">id</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><p>The id of the command to invoke</p>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type">Promise</span>:
-					<p>A promise that resolves once the target command has been invoked</p>
-
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<p>Show the file open dialog</p>
-<pre class="code prettyprint"><code>C.commands.invoke("file.open");</code></pre>
-
-			</div>
-		</div>
 </div>
 <div id="method-invoke" class="method item">
 	<div class="method-signature">
@@ -442,23 +315,21 @@ automatically closed when the last event listener is removed.</p>
 
 
 	<div class="meta">
-			<p>Inherited from
-			<a href="../classes/EndPoint.html#method_open">
-				EndPoint
-			</a>
-			but overwritten in
-		<a href="../files/dist_cantabile.js.html#l1008"><code>dist\cantabile.js:1008</code></a>
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_open">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l35"><code>EndPoint.js:35</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Opens this end point and starts listening for events.</p>
-<p>This method no longer needs to be explicitly called as end points are now
-automatically opened when the first event listener is attached.</p>
-<p>Use this method to keep the end point open even when no event listeners are attached.</p>
-</div>
+	<div class="description">Opens this end point and starts listening for events. 
+
+This method no longer needs to be explicitly called as end points are now
+automatically opened when the first event listener is attached.
+
+Use this method to keep the end point open even when no event listeners are attached.</div>
 
 
 
@@ -479,20 +350,16 @@ automatically opened when the first event listener is attached.</p>
 
 
 	<div class="meta">
-			<p>Inherited from
-			<a href="../classes/EndPoint.html#method_untilOpen">
-				EndPoint
-			</a>
-			but overwritten in
-		<a href="../files/dist_cantabile.js.html#l1115"><code>dist\cantabile.js:1115</code></a>
+				<p>Inherited from
+				<a href="../classes/EndPoint.html#method_untilOpen">EndPoint</a>:
+		<a href="../files/EndPoint.js.html#l142"><code>EndPoint.js:142</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Returns a promise that will be resolved when this end point is opened</p>
-</div>
+	<div class="description">Returns a promise that will be resolved when this end point is opened</div>
 
 
 		<div class="returns">
