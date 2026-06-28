@@ -32,11 +32,11 @@ class ShowNotes extends EndPoint
 	 * @property items
 	 * @type {ShowNote[]}
 	 */
-	get items() { return this._data ? this._data.items : null; }
+	get items() { return this.data ? this.data.items : null; }
 
 	_onEvent_itemAdded(data)
 	{
-		this._data.items.splice(data.index, 0, data.item);
+		this.data.items.splice(data.index, 0, data.item);
 		this.emit('itemAdded', data.index);
 		this.emit('changed');
 
@@ -56,7 +56,7 @@ class ShowNotes extends EndPoint
 	}
 	_onEvent_itemRemoved(data)
 	{
-		this._data.items.splice(data.index, 1);		
+		this.data.items.splice(data.index, 1);		
 		this.emit('itemRemoved', data.index);
 		this.emit('changed');
 
@@ -70,9 +70,9 @@ class ShowNotes extends EndPoint
 	}
 	_onEvent_itemMoved(data)
 	{
-		var item = this._data.items[data.from];
-		this._data.items.splice(data.from, 1);		
-		this._data.items.splice(data.to, 0, item);
+		var item = this.data.items[data.from];
+		this.data.items.splice(data.from, 1);		
+		this.data.items.splice(data.to, 0, item);
 		this.emit('itemMoved', data.from, data.to);
 		this.emit('changed');
 
@@ -87,7 +87,7 @@ class ShowNotes extends EndPoint
 
 	_onEvent_itemChanged(data)
 	{
-		this._data.items.splice(data.index, 1, data.item);		// Don't use [] so Vue can handle it
+		this.data.items.splice(data.index, 1, data.item);		// Don't use [] so Vue can handle it
 
 		this.emit('itemChanged', data.index);
 		this.emit('changed');
@@ -102,7 +102,7 @@ class ShowNotes extends EndPoint
 	}
 	_onEvent_itemsReload(data)
 	{
-		this._data.items = data.items;
+		this.data.items = data.items;
 		this.emit('reload');
 		this.emit('changed');
 

@@ -36,14 +36,14 @@ class States extends EndPoint
 	 * @property items
 	 * @type {State[]}
 	 */
-	get items() { return this._data ? this._data.items : null; }
+	get items() { return this.data ? this.data.items : null; }
 
 	/**
 	 * The display name of the containing song or rack
 	 * @property name
 	 * @type {String} 
 	 */
-	get name() { return this._data ? this._data.name : null; }
+	get name() { return this.data ? this.data.name : null; }
 
 	/**
 	 * The index of the currently loaded State (or -1 if no active state).
@@ -55,9 +55,9 @@ class States extends EndPoint
 	{ 
 		if (!this._currentState)
 			return -1;
-		if (!this._data)
+		if (!this.data)
 			return -1;
-		return this._data.items.indexOf(this._currentState); 
+		return this.data.items.indexOf(this._currentState); 
 	}
 
 	/**
@@ -140,9 +140,9 @@ class States extends EndPoint
 	_resolveCurrentState()
 	{
 		// Check have data and current index is in range and record the current State
-		if (this._data && this._data.current>=0 && this._data.current < this._data.items.length)
+		if (this.data && this.data.current>=0 && this.data.current < this.data.items.length)
 		{
-			this._currentState = this._data.items[this._data.current];
+			this._currentState = this.data.items[this.data.current];
 		}
 		else
 		{
@@ -152,7 +152,7 @@ class States extends EndPoint
 
 	_onEvent_songChanged(data)
 	{
-		this._data = data;
+		this.data = data;
 		this._resolveCurrentState();
 		this.emit('reload');
 		this.emit('changed');
@@ -160,7 +160,7 @@ class States extends EndPoint
 
 	_onEvent_itemAdded(data)
 	{
-		this._data.items.splice(data.index, 0, data.item);
+		this.data.items.splice(data.index, 0, data.item);
 		this.emit('itemAdded', data.index);
 		this.emit('changed');
 
@@ -180,7 +180,7 @@ class States extends EndPoint
 	}
 	_onEvent_itemRemoved(data)
 	{
-		this._data.items.splice(data.index, 1);		
+		this.data.items.splice(data.index, 1);		
 		this.emit('itemRemoved', data.index);
 		this.emit('changed');
 
@@ -194,9 +194,9 @@ class States extends EndPoint
 	}
 	_onEvent_itemMoved(data)
 	{
-		var item = this._data.items[data.from];
-		this._data.items.splice(data.from, 1);		
-		this._data.items.splice(data.to, 0, item);
+		var item = this.data.items[data.from];
+		this.data.items.splice(data.from, 1);		
+		this.data.items.splice(data.to, 0, item);
 		this.emit('itemMoved', data.from, data.to);
 		this.emit('changed');
 
@@ -214,7 +214,7 @@ class States extends EndPoint
 		if (this.currentStateIndex == data.index)
 			this._currentState = data.item;
 
-		this._data.items.splice(data.index, 1, data.item);		// Don't use [] so Vue can handle it
+		this.data.items.splice(data.index, 1, data.item);		// Don't use [] so Vue can handle it
 
 		this.emit('itemChanged', data.index);
 		this.emit('changed');
@@ -229,8 +229,8 @@ class States extends EndPoint
 	}
 	_onEvent_itemsReload(data)
 	{
-		this._data.items = data.items;
-		this._data.current = data.current;
+		this.data.items = data.items;
+		this.data.current = data.current;
 		this._resolveCurrentState();
 		this.emit('reload');
 		this.emit('changed');
@@ -244,7 +244,7 @@ class States extends EndPoint
 
 	_onEvent_currentStateChanged(data)
 	{
-		this._data.current = data.current;
+		this.data.current = data.current;
 		this._resolveCurrentState();
 		this.emit('currentStateChanged');
 
@@ -257,8 +257,8 @@ class States extends EndPoint
 
 	_onEvent_nameChanged(data)
 	{
-		if (this._data)
-			this._data.name = data ? data.name : null;
+		if (this.data)
+			this.data.name = data ? data.name : null;
 		this.emit('nameChanged');
 		this.emit('changed');
 

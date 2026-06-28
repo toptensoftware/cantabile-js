@@ -127,12 +127,12 @@ class Variables extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     console.log(await C.variables.resolve("Song: $(SongTitle)"));
 	 * 
 	 * @example
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
 	 *
 	 * @method resolve
@@ -170,7 +170,7 @@ class Variables extends EndPoint
 	 * 
 	 * Using a callback function:
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     
 	 *     // Watch a string pattern using a callback function
 	 *     C.variables.watch("Song: $(SongTitle)", function(resolved) {
@@ -184,7 +184,7 @@ class Variables extends EndPoint
 	 * 
 	 * Using the PatternWatcher class and events:
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     let watcher = C.variables.watch("Song: $(SongTitle)");
 	 *     watcher.on('changed', function(resolved) {
 	 *         console.log(resolved);

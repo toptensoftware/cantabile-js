@@ -165,9 +165,8 @@ class Bindings extends EndPoint
      * 
      * @example
      * 
-     *     let C = new CantabileApi();
-     *     C.connect();
-     *     console.log(await C.Bindings.availableBindingPoints());
+     *     let C = new Cantabile();
+     *     console.log(await C.bindings.getAvailableBindingPoints());
      * 
      * @method getAvailableBindingPoints
      * @returns {Promise<BindingPointEntry[]>} A promise to return an array of {{#crossLink "BindingPointEntry"}}{{/crossLink}} objects
@@ -183,9 +182,8 @@ class Bindings extends EndPoint
 	 * 
      * @example
      * 
-     *     let C = new CantabileApi();
-     *     C.connect();
-     *     console.log(await C.Bindings.bindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
+     *     let C = new Cantabile();
+     *     console.log(await C.bindings.getBindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
      * 
      * @method getBindingPointInfo
 	 * @param {BindingPoint} bindingPoint the binding point to be queried
@@ -212,7 +210,7 @@ class Bindings extends EndPoint
      * 
      * Set the master output level gain
 	 * 
-     *     C.Bindings.invoke({ 
+     *     C.bindings.invoke({ 
 	 * 			bindableId: "masterLevels", 
 	 * 			bindingPointId: "outputGain"
 	 * 	   }, 0.5);
@@ -221,7 +219,7 @@ class Bindings extends EndPoint
      * 
      * Suspend the 2nd plugin in the song
 	 * 
-     *     C.Bindings.invoke({ 
+     *     C.bindings.invoke({ 
 	 * 			bindableId: "indexedPlugin", 
 	 * 			bindableParams: { 
 	 * 				rackIndex: 0, 			// 0 = song, 1 = first rack, 2 = second etc...
@@ -235,7 +233,7 @@ class Bindings extends EndPoint
 	 * 
 	 * Sending a MIDI Controller Event
 	 * 
-	 *     C.Bindings.invoke({
+	 *     C.bindings.invoke({
 	 * 			bindableId: "midiPorts", 
 	 * 			bindingPointId: "out.Main Keyboard",
 	 * 			bindingPointParams: {
@@ -249,7 +247,7 @@ class Bindings extends EndPoint
 	 * 
 	 * Sending MIDI Data directly
 	 * 
-	 *     C.Bindings.invoke({
+	 *     C.bindings.invoke({
 	 * 			bindiableId: "midiPorts", 
 	 *          bindingPointId: "out.Main Keyboard"
 	 * 	   }, [ 0xb0, 23, 99 ]);
@@ -258,7 +256,7 @@ class Bindings extends EndPoint
 	 * 
 	 * Sending MIDI Sysex Data directly
 	 * 
-	 *     C.Bindings.invoke({
+	 *     C.bindings.invoke({
 	 * 			bindiableId: "midiPorts", 
 	 *          bindingPointId: "out.Main Keyboard"
 	 * 	   }, [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
@@ -282,7 +280,7 @@ class Bindings extends EndPoint
      *
      * @example
      * 
-     *     console.log("Current Output Gain:", await C.Bindings.query({ 
+     *     console.log("Current Output Gain:", await C.bindings.query({ 
 	 *         bindableId: "masterLevels", 
 	 *         bindingPointId: "outputGain"
      *     }));
@@ -304,10 +302,10 @@ class Bindings extends EndPoint
 	 * 
 	 * Using a callback function:
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     
 	 *     // Watch a source binding point using a callback function
-	 *     C.Bindings.watch({
+	 *     C.bindings.watch({
 	 *         bindableId: "masterLevels", 
 	 *         bindingPointId: "outputGain",
 	 *     }, (value) => console.log("Master output gain changed to:", value));
@@ -316,8 +314,8 @@ class Bindings extends EndPoint
 	 * 
 	 * Using the BindingWatcher class and events:
 	 * 
-	 *     let C = new CantabileApi();
-	 *     let watcher = C.Bindings.watch({
+	 *     let C = new Cantabile();
+	 *     let watcher = C.bindings.watch({
 	 *         bindableId: "masterLevels", 
 	 *         bindingPointId: "outputGain",
 	 *     });
@@ -332,7 +330,7 @@ class Bindings extends EndPoint
 	 * 
 	 * Watching for a MIDI event:
 	 * 
-     *     C.Bindings.watch({
+     *     C.bindings.watch({
 	 *         bindableId: "midiPorts", 
 	 *         bindingPointId: "in.Onscreen Keyboard", 
 	 *         bindingPointParams: {
@@ -345,7 +343,7 @@ class Bindings extends EndPoint
 
 	 * Watching for a keystroke:
 	 * 
-	 *     C.Bindings.watch({
+	 *     C.bindings.watch({
 	 *         bindableId: "pckeyboard", 
 	 *         bindingPointId: "keyPress", 
 	 *         bindingPointParams:  {

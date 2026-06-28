@@ -33,8 +33,7 @@ class Commands extends EndPoint
      * 
      * @example
      * 
-     *     let C = new CantabileApi();
-     *     C.connect();
+     *     let C = new Cantabile();
      *     console.log(await C.commands.availableCommands());
      * 
      * @method availableCommands

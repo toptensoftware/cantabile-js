@@ -35,11 +35,11 @@ class KeyRanges extends EndPoint
 	 * @property items
 	 * @type {KeyRange[]}
 	 */
-	get items() { return this._data ? this._data.items : null; }
+	get items() { return this.data ? this.data.items : null; }
 
 	_onEvent_keyRangesChanged(data)
 	{
-		this._data = data;
+		this.data = data;
 		this.emit('changed');
 	}
 }

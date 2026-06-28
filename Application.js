@@ -24,12 +24,12 @@ class Application extends EndPoint
 		 */
 
 		/**
-		 * Fired when the application object has initially loaded
+		 * Fired when the application object has initially connected
 		 * 
-		 * @event open
+		 * @event connected
 		 */
 
-		this.emit('open');
+		this.emit('connected');
 		this.emit('busyChanged', this.busy);
 		this.emit('changed');
 	}
@@ -45,71 +45,71 @@ class Application extends EndPoint
 	 * @property companyName
 	 * @type {String}
 	 */
-	get companyName() { return this._data ? this._data.companyName : null; }
+	get companyName() { return this.data ? this.data.companyName : null; }
 
 	/**
 	 * The application name
 	 * @property name
 	 * @type {String}
 	 */
-	get name() { return this._data ? this._data.name : null; }
+	get name() { return this.data ? this.data.name : null; }
 
 	/**
 	 * The application version string
 	 * @property version
 	 * @type {String}
 	 */
-	get version() { return this._data ? this._data.version : null; }
+	get version() { return this.data ? this.data.version : null; }
 
 	/**
 	 * The application edition string
 	 * @property edition
 	 * @type {String}
 	 */
-	get edition() { return this._data ? this._data.edition : null; }
+	get edition() { return this.data ? this.data.edition : null; }
 
 	/**
 	 * The application's copyright message
 	 * @property copyright
 	 * @type {String}
 	 */
-	get copyright() { return this._data ? this._data.copyright : null; }
+	get copyright() { return this.data ? this.data.copyright : null; }
 
 	/**
 	 * The application's build number
 	 * @property build
 	 * @type {Number}
 	 */
-	 get build() { return this._data ? this._data.build : null; }
+	get build() { return this.data ? this.data.build : null; }
 
 	/**
 	 * An array of {{#crossLink "ColorEntry"}}{{/crossLink}} items for the color index table
 	 * @property colors
 	 * @type {ColorEntry[]}
 	 */
-	 get colors() { return this._data ? this._data.colors : null; }
+	get colors() { return this.data ? this.data.colors : null; }
 
 	 /**
 	 * The application's busy status
 	 * @property busy
 	 * @type {Boolean}
 	 */
-	get busy() { return this._data ? this._data.busy : false; }
+	get busy() { return this.data ? this.data.busy : false; }
 
 
-	 /**
+	/**
 	 * The base program number (0 or 1)
 	 * @property baseProgramNumber
 	 * @type {Number}
 	 */
-	 get baseProgramNumber() { return this._data ? this._data.baseProgramNumber : null; }
+	get baseProgramNumber() { return this.data ? this.data.baseProgramNumber : null; }
 
-	 /**
+	/**
 	 * The preferred banked program display format - "SeparateBanks","CombinedBanks","Plain" or "ZeroPadded"
 	 * @property bankedProgramNumberFormat
 	 * @type {String}
 	 */
-	 get bankedProgramNumberFormat() { return this._data ? this._data.bankedProgramNumberFormat : null; }
+	get bankedProgramNumberFormat() { return this.data ? this.data.bankedProgramNumberFormat : null; }
 
 	 _onEvent_busyChanged(data)
 	{
@@ -120,7 +120,7 @@ class Application extends EndPoint
 		 * @param {Boolean} busy True if the app is currently busy
 		 */
 
-		this._data.busy = data.busy;
+		this.data.busy = data.busy;
 		this.emit('busyChanged', this.busy);
 	}
 

@@ -146,12 +146,12 @@ class OnscreenKeyboard extends EndPoint
 	 * @example
 	 * 
 	 * 	   // Get the value of cc 64 on channel 1
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     console.log(await C.onscreenKeyboard.queryController(1, "controller", 64));
 	 * 
 	 * @example
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     C.onscreenKeyboard.queryController(1, "controller", 64).then(r => console.log(r)));
 	 *
 	 * @method queryController
@@ -194,7 +194,7 @@ class OnscreenKeyboard extends EndPoint
 	 * 
 	 * Using a callback function:
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     
 	 *     // Watch a controller using a callback function
 	 *     C.onscreenKeyboard.watchController(1, "controller", 64, function(value) {
@@ -208,7 +208,7 @@ class OnscreenKeyboard extends EndPoint
 	 * 
 	 * Using the ControllerWatcher class and events:
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     let watcher = C.onscreenKeyboard.watchController(1, "controller", 64);
 	 *     watcher.on('changed', function(value) {
 	 *         console.log(value);

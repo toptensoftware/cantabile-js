@@ -39,7 +39,7 @@ class Transport extends EndPoint
 	 * @property state
 	 * @type {String}
 	 */
-    get state() { return this._data ? this._data.state : "stopped"; }
+    get state() { return this.data ? this.data.state : "stopped"; }
     set state(value)
     {
         if (this.state == value)
@@ -57,28 +57,28 @@ class Transport extends EndPoint
 	 * @property timeSignatureNum
 	 * @type {Number}
 	 */
-    get timeSignatureNum() { return this._data ? this._data.timeSigNum : 0 }
+    get timeSignatureNum() { return this.data ? this.data.timeSigNum : 0 }
 
 	/**
 	 * Gets the current time signature denominator
 	 * @property timeSignatureDen
 	 * @type {Number}
 	 */
-    get timeSignatureDen() { return this._data ? this._data.timeSigDen : 0 }
+    get timeSignatureDen() { return this.data ? this.data.timeSigDen : 0 }
 
 	/**
 	 * Gets the current time signature as a string (eg: "3/4")
 	 * @property timeSignature
 	 * @type {String}
 	 */
-    get timeSignature() { return this._data ? this._data.timeSigNum + "/" + this._data.timeSigDen : "-" }
+    get timeSignature() { return this.data ? this.data.timeSigNum + "/" + this.data.timeSigDen : "-" }
 
 	/**
 	 * Gets the current tempo
 	 * @property tempo
 	 * @type {Number}
 	 */
-    get tempo() { return this._data ? this._data.tempo : 0 }
+    get tempo() { return this.data ? this.data.tempo : 0 }
 
 	/**
 	 * Gets or sets the current loopMode ("auto", "break", "loopOnce" or "loop").
@@ -86,7 +86,7 @@ class Transport extends EndPoint
 	 * @property loopMode
 	 * @type {String}
 	 */
-    get loopMode() { return this._data ? this._data.loopMode : "none" }
+    get loopMode() { return this.data ? this.data.loopMode : "none" }
 
     set loopMode(value)
     {
@@ -101,14 +101,14 @@ class Transport extends EndPoint
 	 * @property loopCount
 	 * @type {Number}
 	 */
-    get loopCount() { return this._data ? this._data.loopCount : -1 }
+    get loopCount() { return this.data ? this.data.loopCount : -1 }
 
 	/**
 	 * Gets the current loopIteration
 	 * @property loopIteration
 	 * @type {Number}
 	 */
-    get loopIteration() { return this._data ? this._data.loopIteration : -1 }
+    get loopIteration() { return this.data ? this.data.loopIteration : -1 }
 
     _onEvent_stateChanged(data)
 	{
@@ -118,7 +118,7 @@ class Transport extends EndPoint
 		 * @event stateChanged
 		 */
 
-        this._data.state = data.state;
+        this.data.state = data.state;
 		this.emit('stateChanged');
     }
 
@@ -130,8 +130,8 @@ class Transport extends EndPoint
 		 * @event timeSignatureChanged
 		 */
 
-        this._data.timeSigNum = data.timeSigNum;
-        this._data.timeSigDen = data.timeSigDen;
+        this.data.timeSigNum = data.timeSigNum;
+        this.data.timeSigDen = data.timeSigDen;
         this.emit('timeSignatureChanged');
     }
     
@@ -143,7 +143,7 @@ class Transport extends EndPoint
 		 * @event tempoChanged
 		 */
 
-        this._data.tempo  = data.tempo;
+        this.data.tempo  = data.tempo;
         this.emit('tempoChanged');
     }
     
@@ -155,7 +155,7 @@ class Transport extends EndPoint
 		 * @event loopStateChanged
 		 */
 
-        Object.assign(this._data, data);
+        Object.assign(this.data, data);
 		this.emit('loopStateChanged');
     }
 

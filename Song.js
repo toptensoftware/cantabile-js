@@ -51,21 +51,21 @@ class Song extends EndPoint
 	 * @property name
 	 * @type {String}
 	 */
-	get name() { return this._data ? this._data.name : null; }
+	get name() { return this.data ? this.data.name : null; }
 
 	/**
 	 * The set list program number of the song (or -1 if not in set list, or not set)
 	 * @property pr
 	 * @type {Number}
 	 */
-	get pr() { return this._data ? this._data.pr : null; }
+	get pr() { return this.data ? this.data.pr : null; }
 
 	/**
 	 * The name of the current song state
 	 * @property currentState
 	 * @type {String}
 	 */
-	get currentState() { return this._data ? this._data.currentState : null; }
+	get currentState() { return this.data ? this.data.currentState : null; }
 
 	/**
 	 * Gets a list of available songs in the user's songs folder
@@ -95,7 +95,7 @@ class Song extends EndPoint
 
 	_onEvent_songChanged(data)
 	{
-		this._data = data;
+		this.data = data;
 		this.emit('changed');
 		this.emit('nameChanged');
 		this.emit('currentStateChanged');
@@ -103,14 +103,14 @@ class Song extends EndPoint
 
 	_onEvent_nameChanged(data)
 	{
-		this._data.name = data.name;
+		this.data.name = data.name;
 		this.emit('changed');
 		this.emit('nameChanged');
 	}
 
 	_onEvent_currentStateChanged(data)
 	{
-		this._data.currentState = data.currentState;
+		this.data.currentState = data.currentState;
 		this.emit('changed');
 		this.emit('currentStateChanged');
 	}

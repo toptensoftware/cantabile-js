@@ -28,21 +28,53 @@ const debug = _debug('Cantabile');
 */
 export class Cantabile extends EventEmitter
 {
-	constructor(host)
+	/**
+	 * Creates a new Cantabile network session
+	 * @constructor 
+	 * @param {Object} options configuration options
+	 * @param {string} [host] the host to connect to (defaults to browser url, or localhost:35007)
+	 * @param {boolean} [autoConnect=true] if true automatically initiates connection
+	 * @param {boolean} [autoConnectEndPoints=true] if true automatically connects end point objects when accessed
+	 * @param {number} [maxListeners=30] set the max event listeners for this object (if supported)
+	 */
+	constructor(options)
 	{
 		super();
 
+		// Host string as options
+		if (typeof(options) === 'string')
+		{
+			options = { host: options };
+		}
+
+		// Resolve defaultl options
+		options = Object.assign({
+			maxListeners: 30,
+			autoConnect: true,
+			autoConnectEndPoints: true,
+		}, options);
+
+		// Store options
+		this.#options = options;
+
+		// Setup max listeners
 		if (this.setMaxListeners)
-			this.setMaxListeners(30);
+			this.setMaxListeners(options.maxListeners);
 
-		this.host = host;
+		// Initialize host
+		this.#setHost(options.host);
 
+		// Connection
 		this.shouldConnect = false;
 		this.#prepareConnectPromise();
 		this.#setState("disconnected");
+		this.autoConnectEndPoints = options.autoConnectEndPoints;
 
+		if (autoConnect)
+			this.connect();
 	}
 
+	#options;
 	#host;
 	#socketUrl;
 	#state;
@@ -53,12 +85,76 @@ export class Cantabile extends EventEmitter
 	#connectPromise;
 	#connectPromiseResolve;
 	#connectPromiseReject;
+
+	// Resolve host string to host url and socket url
+	#setHost(value)
+	{
+		if (!value && process.browser)
+			value = window.location.host
+		if (!value)
+			value = "localhost"
+
+		// Crack protocol
+		let secure = false;
+		if (value.startsWith("https://"))
+		{
+			secure = true;
+			value = value.substring(8);
+		}
+		else if (value.startsWith("wss://"))
+		{
+			secure = true;
+			value = value.substring(6);
+		}
+		else if (value.startsWith("http://"))
+		{
+			value = value.substring(7);
+		}
+		else if (value.startsWith("ws://"))
+		{
+			value = value.substring(5);
+		}
+
+		// Remove trailing slashes
+		while (value.endsWith('/'))
+			value = value.substring(0, value.length - 1);
+
+		// Remove socket url
+		if (value.endsWith("/api/socket"))
+			value = value.substring(0, value.length - 11);
+
+		// Ensure port
+		if (value.indexOf(':') < 0)
+		{
+			let slashPos = value.indexOf('/');
+			if (slashPos < 0)
+				value += ":35007";
+			else
+				value = value.substring(0, slashPos) + ':35007' + value.substring(slashPos);
+		}
+
+		// Build final http and ws url
+		this.#host = (secure ? "https://" : "http://") + value;
+		this.#socketUrl = (secure ? "wss://" : "ws://") + value + "/api/socket/";
+	}
+
+	// Create a promise that will be resolved when connection succeeds
 	#prepareConnectPromise()
 	{
 		this.#connectPromise = new Promise((resolve, reject) => {
 			this.#connectPromiseResolve = resolve;
 			this.#connectPromiseReject = reject;
 		});
+	}
+
+	/**
+	 * Gets the resolved options object used to construct this object
+	 * @property options
+	 * @type {Object}
+	 */
+	get options()
+	{
+		return this.#options;
 	}
 
 	/**
@@ -73,8 +169,9 @@ export class Cantabile extends EventEmitter
 	}
 
 	/**
-	 * Initiate connection and retry if fails
+	 * Initiate connection and retry if fails until success
 	 * @method connect
+	 * @returns {Promise} a promise that resolves when connected
 	 */
 	connect()
 	{
@@ -137,7 +234,7 @@ export class Cantabile extends EventEmitter
 	 * 
 	 * @example
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     await C.waitForConnected();
 	 *
 	 * @method waitForConnected
@@ -173,7 +270,7 @@ export class Cantabile extends EventEmitter
 	}
 
 	/**
-	 * The current host
+	 * The host URL
 	 *
 	 * @property host
 	 * @type {String} 
@@ -181,57 +278,6 @@ export class Cantabile extends EventEmitter
     get host()
 	{
 		return this.#host;
-	}
-
-	set host(value)
-	{
-		if (!value && process.browser)
-			value = window.location.host
-		if (!value)
-			value = "localhost"
-
-		// Crack protocol
-		let secure = false;
-		if (value.startsWith("https://"))
-		{
-			secure = true;
-			value = value.substring(8);
-		}
-		else if (value.startsWith("wss://"))
-		{
-			secure = true;
-			value = value.substring(6);
-		}
-		else if (value.startsWith("http://"))
-		{
-			value = value.substring(7);
-		}
-		else if (value.startsWith("ws://"))
-		{
-			value = value.substring(5);
-		}
-
-		// Remove trailing slashes
-		while (value.endsWith('/'))
-			value = value.substring(0, value.length - 1);
-
-		// Remove socket url
-		if (value.endsWith("/api/socket"))
-			value = value.substring(0, value.length - 11);
-
-		// Ensure port
-		if (value.indexOf(':') < 0)
-		{
-			let slashPos = value.indexOf('/');
-			if (slashPos < 0)
-				value += ":35007";
-			else
-				value = value.substring(0, slashPos) + ':35007' + value.substring(slashPos);
-		}
-
-		// Build final http and ws url
-		this.#host = (secure ? "https://" : "http://") + value;
-		this.#socketUrl = (secure ? "wss://" : "ws://") + value + "/api/socket/";
 	}
 
 	/**
@@ -245,25 +291,6 @@ export class Cantabile extends EventEmitter
 		return this.#socketUrl;
 	}
 
-	/**
-	 * The base host url
-	 *
-	 * @property hostUrl
-	 * @type {String}
-	 */
-	get hostUrl()
-	{
-		return this.#host;
-	}
-	set hostUrl(value)
-	{
-		throw new Error("The `hostUrl` property is read-only, use `host` instead");
-	}
-
-	set socketUrl(value)
-	{
-		throw new Error("The `socketUrl` property has been deprecated, use `host` instead");
-	}
 
 
 	// Internal helper to actually perform the connection
@@ -401,137 +428,127 @@ export class Cantabile extends EventEmitter
 		delete this.#endPointEventHandlers[epid];
 	}
 
-	/**
-	 * Creates and connects the {{#crossLink "Song"}}{{/crossLink}} object
-	 *
-	 * @method connectSong
-	 * @returns {Promise<Song>}
-	 */
-	connectSong()
+	#autoConnectEndPoints = true;
+	get autoConnectEndPoints()
 	{
-		return new Song(this).connect();
+		return this.#autoConnectEndPoints;
+	}
+	set autoConnectEndPoints(value)
+	{
+		this.#autoConnectEndPoints = value;
+	}
+
+	#endPoints = new Map();
+	getEndPoint(type)
+	{
+		var ep = this.#endPoints.get(type);
+		if (!ep)
+		{
+			ep = new type(this);
+			this.#endPoints.set(type, ep);
+			
+			if (this.#autoConnectEndPoints)
+				ep.connect();
+		}
+
+		return ep;
 	}
 
 	/**
-	 * Creates and connects the {{#crossLink "SetList"}}{{/crossLink}} object
+	 * Gets the {{#crossLink "Song"}}{{/crossLink}} object
 	 *
-	 * @method connectSetList
-	 * @returns {Promise<SetList>}
+	 * @property song
+	 * @type {Song}
 	 */
-	connectSetList()
-	{
-		return new SetList(this).connect();
-	}
+	get song() { return this.getEndPoint(Song) };
 
 	/**
-	 * Creates and connects the {{#crossLink "SongStates"}}{{/crossLink}} object
+	 * Gets the {{#crossLink "SetList"}}{{/crossLink}} object
 	 *
-	 * @method connectSongStates
-	 * @returns {Promise<SongStates>}
+	 * @property setList
+	 * @type {SetList}
 	 */
-	connectSongStates()
-	{
-		return new SongStates(this).connect();
-	}
+	get setList() { return this.getEndPoint(SetList) };
 
 	/**
-	 * Creates and connects the {{#crossLink "KeyRanges"}}{{/crossLink}} object
+	 * Gets the {{#crossLink "SongStates"}}{{/crossLink}} object
 	 *
-	 * @method connectKeyRanges
-	 * @returns {Promise<KeyRange>}
+	 * @property songStates
+	 * @type {SongStates}
 	 */
-	connectKeyRanges()
-	{
-		return new KeyRanges(this).connect();
-	}
+	get songStates() { return this.getEndPoint(SongStates) };
 
 	/**
-	 * Creates and connects the {{#crossLink "ShowNotes"}}{{/crossLink}} object
+	 * Gets the {{#crossLink "KeyRanges"}}{{/crossLink}} object
 	 *
-	 * @method connectShowNotes
-	 * @returns {Promise<ShowNotes>}
+	 * @property keyRanges
+	 * @type {KeyRanges}
 	 */
-	connectShowNotes()
-	{
-		return new ShowNotes(this).connect();
-	}
+	get keyRanges() { return this.getEndPoint(KeyRanges) };
 
 	/**
-	 * Creates and connects the {{#crossLink "Variables"}}{{/crossLink}} object
+	 * Gets the {{#crossLink "ShowNotes"}}{{/crossLink}} object
 	 *
-	 * @method connectVariables
-	 * @returns {Promise<Variables>}
+	 * @property showNotes
+	 * @type {ShowNotes}
 	 */
-	connectVariables()
-	{
-		return new Variables(this).connect();
-	}
+	get showNotes() { return this.getEndPoint(ShowNotes) };
 
 	/**
-	 * Creates and connects the {{#crossLink "OnscreenKeyboard"}}{{/crossLink}} object
+	 * Gets the {{#crossLink "Variables"}}{{/crossLink}} object
 	 *
-	 * @method connectOnscreenKeyboard
-	 * @returns {Promise<OnscreenKeyboard>}
+	 * @property variables
+	 * @type {Variables}
 	 */
-	connectOnscreenKeyboard()
-	{
-		return new OnscreenKeyboard(this).connect();
-	}
+	get variables() { return this.getEndPoint(Variables) };
 
 	/**
-	 * Creates and connects the {{#crossLink "Bindings"}}{{/crossLink}} object
+	 * Gets the {{#crossLink "OnscreenKeyboard"}}{{/crossLink}} object
 	 *
-	 * @method connectBindings
-	 * @returns {Promise<Bindings>}
+	 * @property onscreenKeyboard
+	 * @type {OnscreenKeyboard}
 	 */
-	connectBindings()
-	{
-		return new Bindings(this).connect();
-	}
+	get onscreenKeyboard() { return this.getEndPoint(OnscreenKeyboard) };
 
 	/**
-	 * Creates and connects the {{#crossLink "Commands"}}{{/crossLink}} object
+	 * Gets the {{#crossLink "Commands"}}{{/crossLink}} object
 	 *
-	 * @method connectCommands
-	 * @returns {Promise<Commands>}
+	 * @property commands
+	 * @type {Commands}
 	 */
-	connectCommands()
-	{
-		return new Commands(this).connect();
-	}
+	get commands() { return this.getEndPoint(Commands) };
 
 	/**
-	 * Creates and connects the {{#crossLink "Transport"}}{{/crossLink}} object
+	 * Gets the {{#crossLink "Transport"}}{{/crossLink}} object
 	 *
-	 * @method connectTransport
-	 * @returns {Promise<Transport>}
+	 * @property transport
+	 * @type {Transport}
 	 */
-	connectTranspoer()
-	{
-		return new Transport(this).connect();
-	}
+	get transport() { return this.getEndPoint(Transport) };
 
 	/**
-	 * Creates and connects the {{#crossLink "Application"}}{{/crossLink}} object
+	 * Gets the {{#crossLink "Application"}}{{/crossLink}} object
 	 *
-	 * @method connectApplication()
+	 * @property application
 	 * @type {Application}
 	 */
-	connectApplication()
-	{
-		return new Application(this).connect();
-	}
+	get application() { return this.getEndPoint(Application) };
 
 	/**
-	 * Creates and connects the {{#crossLink "Engine"}}{{/crossLink}} object
+	 * Gets the {{#crossLink "Engine"}}{{/crossLink}} object
 	 *
-	 * @method createEngine
-	 * @returns {Promise<Engine>}
+	 * @property engine
+	 * @type {Engine}
 	 */
-	connectEngine()
-	{
-		 this.engine = new Engine(this).connect();
-	}
+	get engine() { return this.getEndPoint(Engine) };
+
+	/**
+	 * Gets the {{#crossLink "Bindings"}}{{/crossLink}} object
+	 *
+	 * @property bindings
+	 * @type {Bindings}
+	 */
+	get bindings() { return this.getEndPoint(Bindings) };
 }
 
 /**
