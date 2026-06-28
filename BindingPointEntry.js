@@ -1,7 +1,7 @@
 /**
- * An anonymous type that describes a binding point entry as returned from {{#crossLink "Bindings4/availableBindingPoints:method"}}{{/crosslink}}
+ * An anonymous type that describes a binding point entry as returned from {{#crossLink "Bindings/availableBindingPoints:method"}}{{/crosslink}}
  *
- * @class BindingPointEntry4
+ * @class BindingPointEntry
  */
 
 /** 

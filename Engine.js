@@ -21,7 +21,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method isStarted
-	 * @return {Promise|Boolean}
+	 * @returns {Promise<Boolean>}
 	 */
 	 async isStarted()
 	{
@@ -35,7 +35,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method start
-	 * @return {Promise}
+	 * @returns {Promise}
 	 */
 	async start()
 	{
@@ -48,7 +48,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method stop
-	 * @return {Promise}
+	 * @returns {Promise}
 	 */
 	async stop()
 	{
@@ -61,7 +61,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method restart
-	 * @return {Promise}
+	 * @returns {Promise}
 	 */
 	 async restart()
 	 {
@@ -74,7 +74,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method startStop
-	 * @return {Promise}
+	 * @returns {Promise}
 	 */
 	  async startStop()
 	  {

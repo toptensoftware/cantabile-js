@@ -17,14 +17,14 @@ class States extends EndPoint
 		this._currentState = null;
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		this._resolveCurrentState();
 		this.emit('reload');
 		this.emit('changed');
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		this._resolveCurrentState();
 		this.emit('reload');

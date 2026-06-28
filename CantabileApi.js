@@ -8,7 +8,6 @@ import ShowNotes from './ShowNotes.js';
 import Variables from './Variables.js';
 import OnscreenKeyboard from './OnscreenKeyboard.js';
 import Bindings from './Bindings.js';
-import Bindings4 from './Bindings4.js';
 import Commands from './Commands.js';
 import Song from './Song.js';
 import Transport from './Transport.js';
@@ -39,115 +38,28 @@ export class Cantabile extends EventEmitter
 		this.host = host;
 
 		this.shouldConnect = false;
-		this._nextRid = 1;
-		this._pendingResponseHandlers = {};
-		this._endPointEventHandlers = {};
-		this._setState("disconnected");
+		this.#prepareConnectPromise();
+		this.#setState("disconnected");
 
-		/**
-		 * Gets the {{#crossLink "SetList"}}{{/crossLink}} object
-		 *
-		 * @property setList
-		 * @type {SetList}
-		 */
-		this.setList = new SetList(this);
+	}
 
-		/**
-		 * Gets the {{#crossLink "SongStates"}}{{/crossLink}} for the current song
-		 *
-		 * @property songStates
-		 * @type {SongStates}
-		 */
-		this.songStates = new SongStates(this);
-
-		/**
-		 * Gets the currently active {{#crossLink "KeyRanges"}}{{/crossLink}}
-		 *
-		 * @property keyRanges
-		 * @type {KeyRanges}
-		 */
-		this.keyRanges = new KeyRanges(this);
-
-		/**
-		 * Gets the current {{#crossLink "ShowNotes"}}{{/crossLink}}
-		 *
-		 * @property showNotes
-		 * @type {ShowNotes}
-		 */
-		this.showNotes = new ShowNotes(this);
-
-		/**
-		 * Provides access to {{#crossLink "Variables"}}{{/crossLink}} expansion facilities
-		 *
-		 * @property variables
-		 * @type {Variables}
-		 */
-		 this.variables = new Variables(this);
-
-		/**
-		 * Provides access to controllers managed by Cantabile's {{#crossLink "OnscreenKeyboard"}}{{/crossLink}} device
-		 *
-		 * @property onscreenKeyboard
-		 * @type {OnscreenKeyboard}
-		 */
-		 this.onscreenKeyboard = new OnscreenKeyboard(this);
-
-		 /**
-		 * Provides access to global {{#crossLink "Bindings"}}{{/crossLink}} points
-		 *
-		 * @property bindings
-		 * @type {Bindings}
-		 */
-		  this.bindings = new Bindings(this);
-
-		 /**
-		 * Provides access to global {{#crossLink "Bindings4"}}{{/crossLink}} points
-		 *
-		 * @property bindings4
-		 * @type {Bindings4}
-		 */
-		  this.bindings4 = new Bindings4(this);
-
-		  /**
-		 * Provides access to global {{#crossLink "Commands"}}{{/crossLink}}
-		 *
-		 * @property commands
-		 * @type {Commands}
-		 */
-		 this.commands = new Commands(this);
-
-		 /**
-		 * Provides access to {{#crossLink "Song"}}{{/crossLink}} information about the current song
-		 *
-		 * @property song
-		 * @type {Song}
-		 */
-		this.song = new Song(this);
-
-		/**
-		 * Provides access to master {{#crossLink "Transport"}}{{/crossLink}} controls
-		 *
-		 * @property transport
-		 * @type {Transport}
-		 */
-		this.transport = new Transport(this);
-
-		/**
-		 * Provides access to the {{#crossLink "Application"}}{{/crossLink}} object
-		 *
-		 * @property application
-		 * @type {Application}
-		 */
-		this.application = new Application(this);
-
-		/**
-		 * Provides access to the {{#crossLink "Engine"}}{{/crossLink}} object
-		 *
-		 * @property engine
-		 * @type {Engine}
-		 */
-		 this.engine = new Engine(this);
-		}
+	#host;
+	#socketUrl;
+	#state;
+	#ws;
+	#nextRid = 1;
+	#pendingResponseHandlers = {};
+	#endPointEventHandlers = {};
+	#connectPromise;
+	#connectPromiseResolve;
+	#connectPromiseReject;
+	#prepareConnectPromise()
+	{
+		this.#connectPromise = new Promise((resolve, reject) => {
+			this.#connectPromiseResolve = resolve;
+			this.#connectPromiseReject = reject;
+		});
+	}
 
 	/**
 	 * The current connection state, either "connecting", "connected" or "disconnected"
@@ -157,7 +69,7 @@ export class Cantabile extends EventEmitter
 	 */
 	get state()
 	{
-		return this._state;
+		return this.#state;
 	}
 
 	/**
@@ -167,7 +79,8 @@ export class Cantabile extends EventEmitter
 	connect()
 	{
 		this.shouldConnect = true;
-		this._internalConnect();
+		this.#internalConnect();
+		return this.#connectPromise;
 	}
 
 	/**
@@ -177,7 +90,7 @@ export class Cantabile extends EventEmitter
 	disconnect()
 	{
 		this.shouldConnect = false;
-		this._internalDisconnect();
+		this.#internalDisconnect();
 	}
 
 	/**
@@ -189,7 +102,7 @@ export class Cantabile extends EventEmitter
 	send(obj)
 	{
 		debug('SEND: %j', obj);
-		this._ws.send(JSON.stringify(obj));
+		this.#ws.send(JSON.stringify(obj));
 	}
 
 	/**
@@ -198,17 +111,17 @@ export class Cantabile extends EventEmitter
 	 *
 	 * @method request
 	 * @param {object} obj The object to send
-	 * @return {Promise|object}
+	 * @returns {Promise<object>}
 	 */
 	request(message)
 	{
-		return new Promise(function(resolve, reject) {
+		return new Promise((resolve, reject) => {
 
 			// Tag the message with the request id
-			message.rid = this._nextRid++;
+			message.rid = this.#nextRid++;
 
 			// Store in the response handler map
-			this._pendingResponseHandlers[message.rid] = {
+			this.#pendingResponseHandlers[message.rid] = {
 				message: message,
 				resolve: resolve,
 				reject: reject,
@@ -216,7 +129,7 @@ export class Cantabile extends EventEmitter
 
 			// Send the request
 			this.send(message);
-		}.bind(this));
+		});
 	}
 
 	/**
@@ -225,50 +138,36 @@ export class Cantabile extends EventEmitter
 	 * @example
 	 * 
 	 *     let C = new CantabileApi();
-	 *     await C.untilConnected();
+	 *     await C.waitForConnected();
 	 *
-	 * @method untilConnected
-	 * @return {Promise}
+	 * @method waitForConnected
+	 * @returns {Promise}
 	 */
-	untilConnected()
+	waitForConnected()
 	{
-		if (this._state == "connected")
-		{
-			return Promise.resolve();		
-		}
-		else
-		{
-			return new Promise((resolve, reject) => {
-				if (!this.pendingConnectPromises)
-					 this.pendingConnectPromises = [resolve];
-				else
-					this.pendingConnectPromises.push(resolve);
-			});
-		}
+		return this.#connectPromise;
 	}
 
 	// PRIVATE:
 
 	// Internal helper to change state, log it and fire event
-	_setState(value)
+	#setState(value)
 	{
-		if (this._state != value)
+		if (this.#state != value)
 		{
-			this._state = value;
+			if (this.#state == "connected")
+			{
+				this.#prepareConnectPromise();
+			}
+
+			this.#state = value;
 			this.emit('stateChanged', value);
 			this.emit(value);
 			debug(value);
 
-			if (this._state == "connected")
+			if (this.#state == "connected")
 			{
-				if (this.pendingConnectPromises)
-				{
-					for (let i=0; i<this.pendingConnectPromises.length; i++)
-					{
-						this.pendingConnectPromises[i]();
-					}
-					this.pendingConnectPromises = null;
-				}
+				this.#connectPromiseResolve();
 			}
 		}
 	}
@@ -281,7 +180,7 @@ export class Cantabile extends EventEmitter
 	 */
     get host()
 	{
-		return this._host;
+		return this.#host;
 	}
 
 	set host(value)
@@ -331,8 +230,8 @@ export class Cantabile extends EventEmitter
 		}
 
 		// Build final http and ws url
-		this._host = (secure ? "https://" : "http://") + value;
-		this._socketUrl = (secure ? "wss://" : "ws://") + value + "/api/socket/";
+		this.#host = (secure ? "https://" : "http://") + value;
+		this.#socketUrl = (secure ? "wss://" : "ws://") + value + "/api/socket/";
 	}
 
 	/**
@@ -341,9 +240,9 @@ export class Cantabile extends EventEmitter
 	 * @property socketUrl
 	 * @type {String}
 	 */
-	 get socketUrl()
+	get socketUrl()
 	{
-		return this._socketUrl;
+		return this.#socketUrl;
 	}
 
 	/**
@@ -352,9 +251,9 @@ export class Cantabile extends EventEmitter
 	 * @property hostUrl
 	 * @type {String}
 	 */
-	 get hostUrl()
+	get hostUrl()
 	{
-		return this._host;
+		return this.#host;
 	}
 	set hostUrl(value)
 	{
@@ -368,101 +267,88 @@ export class Cantabile extends EventEmitter
 
 
 	// Internal helper to actually perform the connection
-	_internalConnect()
+	#internalConnect()
 	{
 		if (!this.shouldConnect)
 			return;
 
 		// Already connected?
-		if (this._ws)
+		if (this.#ws)
 			return;
 
-		this._setState("connecting");
+		this.#setState("connecting");
 
 		// Work out socket url
 		let socketUrl = this.socketUrl;
 
 		// Create the socket and hook up handlers
 		debug("Opening web socket '%s'", socketUrl);
-		this._ws =  new WebSocket(socketUrl);
-		this._ws.onerror = this._onSocketError.bind(this);
-		this._ws.onopen = this._onSocketOpen.bind(this);
-		this._ws.onclose = this._onSocketClose.bind(this);
-		this._ws.onmessage = this._onSocketMessage.bind(this);
+		this.#ws =  new WebSocket(socketUrl);
+		this.#ws.onerror = (e) => this.#onSocketError(e);
+		this.#ws.onopen = () => this.#onSocketOpen();
+		this.#ws.onclose = () => this.#onSocketClose();
+		this.#ws.onmessage = (m) => this.#onSocketMessage(m);
 	}
 
 	// Internal helper to disconnect
-	_internalDisconnect()
+	#internalDisconnect()
 	{
 		if (this.state == "connected")
-			this._setState("disconnected");
+			this.#setState("disconnected");
 
 		// Already disconnected?
-		if (!this._ws)
+		if (!this.#ws)
 			return;
 
-		this._ws.close();
-		delete this._ws;
+		this.#ws.close();
+		this.#ws = null;
 	}
 
 	// Internal helper to retry connection every 1 second
-	_internalReconnect()
+	#internalReconnect()
 	{
 		if (this.shouldConnect && !this.timeoutPending)
 		{
 			this.timeoutPending = true;
-			this._setState("connecting");
-			setTimeout(function() {
+			this.#setState("connecting");
+			setTimeout(() => {
 				this.timeoutPending = false;
-				this._internalConnect();
-			}.bind(this), 1000);
+				this.#internalConnect();
+			}, 1000);
 		}
 	}
 
 	// Socket onerror handler
-	_onSocketError(evt)
+	#onSocketError(evt)
 	{
 		// Disconnect
-		this._internalDisconnect();
+		this.#internalDisconnect();
 
 		// Try to reconnect...
-		this._internalReconnect();
+		this.#internalReconnect();
 	}
 
 	// Socket onopen handler
-	_onSocketOpen()
+	#onSocketOpen()
 	{
-		this._setState("connected");
+		this.#setState("connected");
 	}
 
 	// Socket onclose handler
-	_onSocketClose()
+	#onSocketClose()
 	{
-		if (this._ws)
+		if (this.#ws)
 		{
-			this._setState("disconnected");
-			delete this._ws;
-
-			// Reject any pending requests
-			/*
-			var pending = this._pendingResponseHandlers;
-			console.log(pending);
-			this._pendingResponseHandlers = {};
-			for (let key in pending) 
-			{
-				debugger;
-				console.log("===> disconnecting", key);
-			  	pending[key].reject(new Error("Disconnected"));
-			}
-			*/
+			this.#setState("disconnected");
+			this.#ws = null;
 		}
 
 		// Try to reconnect...
-		this._internalReconnect();
+		this.#internalReconnect();
 	}
 
 	// Socket onmessage handler
-	_onSocketMessage(msg)
+	#onSocketMessage(msg)
 	{
 		msg = JSON.parse(msg.data);
 
@@ -472,7 +358,7 @@ export class Cantabile extends EventEmitter
 		if (msg.rid)
 		{
 			// Find the handler
-			let handlerInfo = this._pendingResponseHandlers[msg.rid];
+			let handlerInfo = this.#pendingResponseHandlers[msg.rid];
 			if (!handlerInfo)
 			{
 				debug('ERROR: received response for unknown rid:', msg.rid)
@@ -480,7 +366,7 @@ export class Cantabile extends EventEmitter
 			}
 
 			// Remove from pending map
-			delete this._pendingResponseHandlers[msg.rid];
+			delete this.#pendingResponseHandlers[msg.rid];
 
 			// Resolve reject
 			if (msg.status >= 200 && msg.status < 300)
@@ -492,7 +378,7 @@ export class Cantabile extends EventEmitter
 		// Event message?
 		if (msg.epid && msg.eventName)
 		{
-			var ep = this._endPointEventHandlers[msg.epid];
+			var ep = this.#endPointEventHandlers[msg.epid];
 			if (ep)
 			{
 				ep._dispatchEventMessage(msg.eventName, msg.data);
@@ -507,14 +393,145 @@ export class Cantabile extends EventEmitter
 
 	_registerEndPointEventHandler(epid, endPoint)
 	{
-		this._endPointEventHandlers[epid] = endPoint;
+		this.#endPointEventHandlers[epid] = endPoint;
 	}
 
 	_revokeEndPointEventHandler(epid)
 	{
-		delete this._endPointEventHandlers[epid];
+		delete this.#endPointEventHandlers[epid];
 	}
 
+	/**
+	 * Creates and connects the {{#crossLink "Song"}}{{/crossLink}} object
+	 *
+	 * @method connectSong
+	 * @returns {Promise<Song>}
+	 */
+	connectSong()
+	{
+		return new Song(this).connect();
+	}
+
+	/**
+	 * Creates and connects the {{#crossLink "SetList"}}{{/crossLink}} object
+	 *
+	 * @method connectSetList
+	 * @returns {Promise<SetList>}
+	 */
+	connectSetList()
+	{
+		return new SetList(this).connect();
+	}
+
+	/**
+	 * Creates and connects the {{#crossLink "SongStates"}}{{/crossLink}} object
+	 *
+	 * @method connectSongStates
+	 * @returns {Promise<SongStates>}
+	 */
+	connectSongStates()
+	{
+		return new SongStates(this).connect();
+	}
+
+	/**
+	 * Creates and connects the {{#crossLink "KeyRanges"}}{{/crossLink}} object
+	 *
+	 * @method connectKeyRanges
+	 * @returns {Promise<KeyRange>}
+	 */
+	connectKeyRanges()
+	{
+		return new KeyRanges(this).connect();
+	}
+
+	/**
+	 * Creates and connects the {{#crossLink "ShowNotes"}}{{/crossLink}} object
+	 *
+	 * @method connectShowNotes
+	 * @returns {Promise<ShowNotes>}
+	 */
+	connectShowNotes()
+	{
+		return new ShowNotes(this).connect();
+	}
+
+	/**
+	 * Creates and connects the {{#crossLink "Variables"}}{{/crossLink}} object
+	 *
+	 * @method connectVariables
+	 * @returns {Promise<Variables>}
+	 */
+	connectVariables()
+	{
+		return new Variables(this).connect();
+	}
+
+	/**
+	 * Creates and connects the {{#crossLink "OnscreenKeyboard"}}{{/crossLink}} object
+	 *
+	 * @method connectOnscreenKeyboard
+	 * @returns {Promise<OnscreenKeyboard>}
+	 */
+	connectOnscreenKeyboard()
+	{
+		return new OnscreenKeyboard(this).connect();
+	}
+
+	/**
+	 * Creates and connects the {{#crossLink "Bindings"}}{{/crossLink}} object
+	 *
+	 * @method connectBindings
+	 * @returns {Promise<Bindings>}
+	 */
+	connectBindings()
+	{
+		return new Bindings(this).connect();
+	}
+
+	/**
+	 * Creates and connects the {{#crossLink "Commands"}}{{/crossLink}} object
+	 *
+	 * @method connectCommands
+	 * @returns {Promise<Commands>}
+	 */
+	connectCommands()
+	{
+		return new Commands(this).connect();
+	}
+
+	/**
+	 * Creates and connects the {{#crossLink "Transport"}}{{/crossLink}} object
+	 *
+	 * @method connectTransport
+	 * @returns {Promise<Transport>}
+	 */
+	connectTranspoer()
+	{
+		return new Transport(this).connect();
+	}
+
+	/**
+	 * Creates and connects the {{#crossLink "Application"}}{{/crossLink}} object
+	 *
+	 * @method connectApplication()
+	 * @type {Application}
+	 */
+	connectApplication()
+	{
+		return new Application(this).connect();
+	}
+
+	/**
+	 * Creates and connects the {{#crossLink "Engine"}}{{/crossLink}} object
+	 *
+	 * @method createEngine
+	 * @returns {Promise<Engine>}
+	 */
+	connectEngine()
+	{
+		 this.engine = new Engine(this).connect();
+	}
 }
 
 /**

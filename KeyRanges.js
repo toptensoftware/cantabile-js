@@ -15,7 +15,7 @@ class KeyRanges extends EndPoint
 		super(owner, "/api/keyranges");
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		/**
 		 * Fired when the active set of key ranges has changed
@@ -25,7 +25,7 @@ class KeyRanges extends EndPoint
 		this.emit('changed');
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		this.emit('changed');
 	}

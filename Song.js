@@ -15,7 +15,7 @@ class Song extends EndPoint
 		super(owner, "/api/song");
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		/**
 		 * Fired when anything about the current song changes
@@ -39,7 +39,7 @@ class Song extends EndPoint
 		this.emit('currentStateChanged');
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		this.emit('changed');
 		this.emit('nameChanged');
@@ -70,7 +70,7 @@ class Song extends EndPoint
 	/**
 	 * Gets a list of available songs in the user's songs folder
 	 * @method available
-	 * @return {String[]} An array of song names (relative to user's song folder, extension removed)
+	 * @returns {String[]} An array of song names (relative to user's song folder, extension removed)
 	 */
 	async available()
 	{

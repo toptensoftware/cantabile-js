@@ -158,11 +158,11 @@ class OnscreenKeyboard extends EndPoint
 	 * @param {Number} channel 		The MIDI channel number of the controller
 	 * @param {String} kind 		The MIDI controller kind
 	 * @param {Number} controller	The number of the controller
-	 * @return {Promise|Number} A promise to provide the controller value
+	 * @returns {Promise<Number>} A promise to provide the controller value
 	 */
 	async queryController(channel, kind, controller)
 	{
-		await this.owner.untilConnected();
+		await this.owner.waitForConnected();
 
 		return (await this.post("/queryController", {
 			channel: channel,
@@ -171,7 +171,7 @@ class OnscreenKeyboard extends EndPoint
 		})).data.value;
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		for (let i=0; i<this.watchers.length; i++)
 		{
@@ -179,7 +179,7 @@ class OnscreenKeyboard extends EndPoint
 		}
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		for (let i=0; i<this.watchers.length; i++)
 		{
@@ -229,17 +229,14 @@ class OnscreenKeyboard extends EndPoint
 	 * The callback function has the form function(value, source) where value is the controller value and source
 	 * is the {{#crossLink "ControllerWatcher"}}{{/crossLink}} instance.
 	 *
-	 * @return {ControllerWatcher}
+	 * @returns {ControllerWatcher}
 	 */
 	watch(channel, kind, controller, listener)
 	{
 		let w = new ControllerWatcher(this, channel, kind, controller, listener);
 		this.watchers.push(w);
 
-		if (this.watchers.length == 1)
-			this.open();
-
-		if (this.isOpen)
+		if (this.isConnected)
 			w._start();
 
 		return w;

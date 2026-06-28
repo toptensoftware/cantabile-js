@@ -14,18 +14,17 @@
     "debug": "^3.1.0",
     "eventemitter3": "^3.1.0",
     "isomorphic-ws": "^4.0.1",
-    "node-fetch": "^2.6.7",
-    "ws": "^5.2.0"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.0",
-    "@rollup/plugin-terser": "^0.4.0",
     "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-replace": "^6.0.0",
+    "@rollup/plugin-terser": "^0.4.0",
     "@rollup/plugin-virtual": "^3.0.0",
     "apidoc": "^0.50.1",
     "rollup": "^4.0.0",
-    "yuidocjs": "^0.10.2",
-    "yuidoc-lucid-theme": "^0.1.2"
+    "yuidoc-lucid-theme": "^0.1.2",
+    "yuidocjs": "^0.10.2"
   }
 }

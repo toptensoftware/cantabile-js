@@ -16,54 +16,66 @@ class EndPoint extends EventEmitter
 	constructor(owner, endPoint)
 	{
 		super();
-		this.owner = owner;
-		this.endPoint = endPoint;
-		this.openCount = 0;
-		this.owner.on('connected', this._onConnected.bind(this));
-		this.owner.on('disconnected', this._onDisconnected.bind(this));
+		this.#owner = owner;
+		this.#endPoint = endPoint;
+		this.#owner.on('connected', () => this._onSessionConnected());
+		this.#owner.on('disconnected', () => this._onSessionDisconnected());
+		this.#prepareConnectPromise();
+	}
 
-		this.on('newListener', (event, listener) => {
-			if (event != "newListener" && event != "removeListener")
-				this.open()
-		});
-		this.on('removeListener', (event, listener) => {
-			if (event != "newListener" && event != "removeListener")
-				this.close()
+	#owner;
+	#endPoint;
+	#connectCount = 0;
+	#connectPromise;
+	#connectPromiseResolve;
+	#connectPromiseReject;
+
+	get owner() { return this.#owner; }
+	get endPoint() { return this.#endPoint;}
+
+	#prepareConnectPromise()
+	{
+		this.#connectPromise = new Promise((resolve, reject) => {
+			this.#connectPromiseResolve = resolve;
+			this.#connectPromiseReject = reject;
 		});
 	}
 
 	/**
-	 * Opens this end point and starts listening for events. 
+	 * Connects this end point and starts listening for events. 
 	 * 
 	 * This method no longer needs to be explicitly called as end points are now
 	 * automatically opened when the first event listener is attached.
 	 * 
 	 * Use this method to keep the end point open even when no event listeners are attached.
 	 * 
-	 * @method open
+	 * @method connect
+	 * @returns {Promise} A promise that resolves when connected
 	 */
-	open()
+	connect()
 	{
-		this.openCount++;
+		this.#connectCount++;
 
-		if (this.openCount == 1 && this.owner.state == "connected")
+		if (this.#connectCount == 1 && this.owner.state == "connected")
 		{
-			this._onConnected();
+			this._onSessionConnected();
 		}
+
+		return this.#connectPromise;
 	}
 
 	/**
-	 * Closes the end point and stops listening for events.
+	 * Disconnect this end point and stops listening for events.
 	 * 
 	 * This method no longer needs to be explicitly called as end points are now
 	 * automatically closed when the last event listener is removed.
 	 * @method close
 	 */
-	close()
+	disconnect()
 	{
-		// Reduce the open reference count
-		this.openCount--;
-		if (this.openCount > 0)
+		// Reduce the connected reference count
+		this.#connectCount--;
+		if (this.#connectCount > 0)
 			return;
 
 		// Send the close message
@@ -75,17 +87,20 @@ class EndPoint extends EventEmitter
 		// Remove end point event handler
 		this.owner._revokeEndPointEventHandler(this._epid);
 
-		this._onClose();
+		this._onDisconnected();
 
 		delete this._epid;
 		delete this._data;
+
+		// Prepare the next connection promise
+		this.#prepareConnectPromise();
 	}
 
 	send(method, endPoint, data)
 	{
 		if (this._epid)
 		{
-			// If connection is open, pass the epid and just the sub-url path
+			// If connected, pass the epid and just the sub-url path
 			return this.owner.send({
 				ep: endPoint,
 				epid: this._epid,
@@ -95,7 +110,7 @@ class EndPoint extends EventEmitter
 		}
 		else
 		{
-			// If connection isn't open, need to specify the full end point url
+			// If not connected, need to specify the full end point url
 			return this.owner.send({
 				ep: EndPoint.joinPath(this.endPoint, endPoint),
 				method: method,
@@ -108,7 +123,7 @@ class EndPoint extends EventEmitter
 	{
 		if (this._epid)
 		{
-			// If connection is open, pass the epid and just the sub-url path
+			// If connected, pass the epid and just the sub-url path
 			return this.owner.request({
 				ep: endPoint,
 				epid: this._epid,
@@ -118,7 +133,7 @@ class EndPoint extends EventEmitter
 		}
 		else
 		{
-			// If connection isn't open, need to specify the full end point url
+			// If not connected, need to specify the full end point url
 			return this.owner.request({
 				ep: EndPoint.joinPath(this.endPoint, endPoint),
 				method: method,
@@ -137,7 +152,7 @@ class EndPoint extends EventEmitter
 		return this.request('get', endPoint);
 	}
 
-	get isOpen() { return !!this._epid }
+	get isConnected() { return !!this._epid }
 
 	/**
 	 * Returns a promise that will be resolved when this end point is opened
@@ -146,34 +161,22 @@ class EndPoint extends EventEmitter
 	 * 
 	 *     let C = new CantabileApi();
 	 * 	   C.application.open();
-	 *     await C.application.untilOpen();
+	 *     await C.application.waitForConnected();
 	 *
-	 * @method untilOpen
-	 * @return {Promise}
+	 * @method waitForConnected
+	 * @returns {Promise}
 	 */
-	untilOpen()
+	waitForConnected()
 	{
-		if (this.isOpen)
-		{
-			return Promise.resolve();		
-		}
-		else
-		{
-			return new Promise((resolve, reject) => {
-				if (!this._pendingOpenPromises)
-					 this._pendingOpenPromises = [resolve];
-				else
-					this._pendingOpenPromises.push(resolve);
-			});
-		}
+		return this.#connectPromise;
 	}
 
 
-	async _onConnected()
+	async _onSessionConnected()
 	{
 		try
 		{
-			if (this.openCount == 0)
+			if (this.#connectCount == 0)
 				return;
 				
 			var msg = await this.owner.request(
@@ -186,40 +189,33 @@ class EndPoint extends EventEmitter
 			this._data = msg.data;
 			this.owner._registerEndPointEventHandler(this._epid, this);
 
-			this._onOpen();
+			this._onConnected();
 
-			// Resolve open promises
-			if (this._pendingOpenPromises)
-			{
-				for (let i=0; i<this._pendingOpenPromises.length; i++)
-				{
-					this._pendingOpenPromises[i]();
-				}
-				this._pendingOpenPromises = null;
-			}
+			// Resolve connect promise
+			this.#connectPromiseResolve(this);
 		}
 		catch (err)
 		{
+			this.#connectPromiseReject(err);
 			debug(err);
-			throw err;
-			// What to do?
 		}
 	}
 
-	_onDisconnected()
+	_onSessionDisconnected()
 	{
 		if (this._epid)
 			this.owner._revokeEndPointEventHandler(this._epid);
 		delete this._epid;
 		delete this._data;
-		this._onClose();
+		this._onDisconnected();
+		this.#prepareConnectPromise();
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 	}
 

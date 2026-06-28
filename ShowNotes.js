@@ -15,13 +15,13 @@ class ShowNotes extends EndPoint
 		super(owner, "/api/shownotes");
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		this.emit('reload');
 		this.emit('changed');
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		this.emit('reload');
 		this.emit('changed');

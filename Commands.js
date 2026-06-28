@@ -16,11 +16,11 @@ class Commands extends EndPoint
         super(owner, "/api/commands");
     }
 
-    _onOpen()
+    _onConnected()
     {
     }
 
-    _onClose()
+    _onDisconnected()
     {
     }
 
@@ -38,11 +38,11 @@ class Commands extends EndPoint
      *     console.log(await C.commands.availableCommands());
      * 
      * @method availableCommands
-     * @return {Promise|CommandInfo[]} A promise to return an array of {{#crossLink "CommandInfo"}}{{/crossLink}} objects
+     * @returns {Promise<CommandInfo[]>} A promise to return an array of {{#crossLink "CommandInfo"}}{{/crossLink}} objects
      */
     async availableCommands()
     {
-        await this.owner.untilConnected();
+        await this.owner.waitForConnected();
         return (await this.request("GET", "/availableCommands")).data;
     }
 
@@ -57,7 +57,7 @@ class Commands extends EndPoint
      * 
      * @param {String} id The id of the command to invoke
      * @method invoke
-     * @return {Promise} A promise that resolves once the target command has been invoked
+     * @returns {Promise} A promise that resolves once the target command has been invoked
      */
     async invoke(id)
     {

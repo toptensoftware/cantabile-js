@@ -15,7 +15,7 @@ class Application extends EndPoint
 		super(owner, "/api/application");
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		/**
 		 * Fired when any of the application properties change
@@ -34,7 +34,7 @@ class Application extends EndPoint
 		this.emit('changed');
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		this.emit('busyChanged', this.busy);
 		this.emit('changed');

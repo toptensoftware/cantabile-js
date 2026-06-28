@@ -15,7 +15,7 @@ class Transport extends EndPoint
 		super(owner, "/api/transport");
 	}
 
-	_onOpen()
+	_onConnected()
 	{
         this.emit('stateChanged');
         this.emit('loopStateChanged');
@@ -23,7 +23,7 @@ class Transport extends EndPoint
         this.emit('tempoChanged');
     }
 
-	_onClose()
+	_onDisconnected()
 	{
         this.emit('stateChanged');
         this.emit('loopStateChanged');

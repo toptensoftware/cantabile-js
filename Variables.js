@@ -136,18 +136,18 @@ class Variables extends EndPoint
 	 *     C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
 	 *
 	 * @method resolve
-	 * @return {Promise|String} A promise to provide the resolved string
+	 * @returns {Promise<String>} A promise to provide the resolved string
 	 */
 	async resolve(pattern)
 	{
-		await this.owner.untilConnected();
+		await this.owner.waitForConnected();
 
 		return (await this.post("/resolve", {
 			pattern: pattern
 		})).data.resolved;
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		for (let i=0; i<this.watchers.length; i++)
 		{
@@ -155,7 +155,7 @@ class Variables extends EndPoint
 		}
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		for (let i=0; i<this.watchers.length; i++)
 		{
@@ -203,16 +203,13 @@ class Variables extends EndPoint
 	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
 	 * is the {{#crossLink "PatternWatcher"}}{{/crossLink}} instance.
 	 *
-	 * @return {PatternWatcher}
+	 * @returns {PatternWatcher}
 	 */
 	watch(pattern, listener)
 	{
 		let w = new PatternWatcher(this, pattern, listener);
 		this.watchers.push(w);
-		if (this.watchers.length == 1)
-			this.open();
-
-		if (this.isOpen)
+		if (this.isConnected)
 			w._start();
 
 		return w;
