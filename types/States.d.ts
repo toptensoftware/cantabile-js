@@ -42,10 +42,10 @@ export class States extends EndPoint {
     /**
      * Load the State with a given program number
      * @method loadStateByProgram
-     * @param {Number} index The zero based program number of the State to load
+     * @param {Number} program The zero based program number of the State to load
      * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
      */
-    loadStateByProgram(pr: any, delayed?: boolean): void;
+    loadStateByProgram(program: number, delayed?: boolean): void;
     /**
      * Load the first state
      * @method loadFirstState

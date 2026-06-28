@@ -14,15 +14,17 @@ const debug = _debug('Cantabile');
  */
 export class BindingWatcher extends EventEmitter
 {
+	/** @internal */
 	constructor(owner, bindingPoint, callback)
 	{
 		super();
-		this.owner = owner;
+		this.#owner = owner;
 		this.#bindingPoint = bindingPoint;
         this.#callback = callback;
         this.#value = null;
 	}
 
+	#owner;
 	#bindingPoint;
 	#callback;
 	#value;
@@ -46,8 +48,8 @@ export class BindingWatcher extends EventEmitter
     
 	_start()
 	{
-		this.owner.post("/watch", this.#bindingPoint).then(r => {
-            this.owner._registerWatchId(r.data.watchId, this);
+		this.#owner.post("/watch", this.#bindingPoint).then(r => {
+            this.#owner._registerWatchId(r.data.watchId, this);
 			this.#watchId = r.data.watchId;
 			if (r.data.value !== null && r.data.value !== undefined)
 			{
@@ -59,10 +61,10 @@ export class BindingWatcher extends EventEmitter
 
 	_stop()
 	{
-		if (this.owner._epid && this.#watchId)
+		if (this.#owner._epid && this.#watchId)
 		{
-			this.owner.send("POST", "/unwatch", { watchId: this.#watchId})
-			this.owner._revokeWatchId(this.#watchId);
+			this.#owner.send("POST", "/unwatch", { watchId: this.#watchId})
+			this.#owner._revokeWatchId(this.#watchId);
 			this.#watchId = 0;
 			if (this.#value !== null && this.#value !== undefined)
 			{
@@ -80,7 +82,7 @@ export class BindingWatcher extends EventEmitter
 	unwatch()
 	{
 		this._stop();
-		this.owner._revokeWatcher(this);
+		this.#owner._revokeWatcher(this);
 	}
 
 	_update(data)
@@ -116,13 +118,15 @@ export class BindingWatcher extends EventEmitter
  */
 export class PreparedBindingPoint
 {
+	/** @internal */
 	constructor(owner, bindingPoint)
 	{
-		this.owner = owner;
+		this.#owner = owner;
 		this.#bindingPoint = bindingPoint;
 		this.#prepareConnectPromise();
 	}
 
+	#owner;
 	#bindingPoint;
 	#prepId = 0;
 	#connectPromise;
@@ -141,7 +145,7 @@ export class PreparedBindingPoint
 
 	_start()
 	{
-		this.owner.post("/prepare", this.#bindingPoint)
+		this.#owner.post("/prepare", this.#bindingPoint)
 			.then(r => {
 				this.#prepId = r.data.prepId;
 				this.#connectPromiseResolve();
@@ -153,9 +157,9 @@ export class PreparedBindingPoint
 
 	_stop()
 	{
-		if (this.owner._epid && this.#prepId)
+		if (this.#owner._epid && this.#prepId)
 		{
-			this.owner.send("POST", "/unprepare", { prepId: this.#prepId })
+			this.#owner.send("POST", "/unprepare", { prepId: this.#prepId })
 			this.#prepId = 0;
 			this.#prepareConnectPromise();
 		}
@@ -190,7 +194,7 @@ export class PreparedBindingPoint
 	unprepare()
 	{
 		this._stop();
-		this.owner._revokePrepped(this);
+		this.#owner._revokePrepped(this);
 	}
 
 	/**
@@ -204,7 +208,7 @@ export class PreparedBindingPoint
 		if (this.#prepId == 0)
 			throw new Error("Prepared binding point not (yet?) connected");
 
-        return this.owner.request("POST", "/preparedInvoke", {
+        return this.#owner.request("POST", "/preparedInvoke", {
 			prepId: this.#prepId,
 			value
         });
@@ -251,6 +255,7 @@ function checkBindingPoint(bp)
  */
 export class Bindings extends EndPoint
 {
+	/** @internal */
     constructor(owner)
     {
         super(owner, "/api/Bindings4");

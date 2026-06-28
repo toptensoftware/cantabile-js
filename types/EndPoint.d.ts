@@ -5,7 +5,9 @@
  * @extends EventEmitter
  */
 export class EndPoint extends EventEmitter<any> {
+    /** @internal */
     static joinPath(a: any, b: any): string;
+    /** @internal */
     constructor(owner: any, endPoint: any);
     /**
      * Gets the owning session of this end point
@@ -45,9 +47,13 @@ export class EndPoint extends EventEmitter<any> {
      * @method disconnect
      */
     disconnect(): void;
+    /** @internal */
     send(method: any, endPoint: any, data: any): any;
+    /** @internal */
     request(method: any, endPoint: any, data: any): any;
+    /** @internal */
     post(endPoint: any, data: any): any;
+    /** @internal */
     get(endPoint: any): any;
     /**
      * Checks if this end point is current connected

@@ -7,6 +7,7 @@
  * @extends EndPoint
  */
 export class Application extends EndPoint {
+    /** @internal */
     constructor(owner: any);
     /**
      * The application's company name

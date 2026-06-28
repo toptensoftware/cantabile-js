@@ -6,8 +6,8 @@
  * @class Engine
  */
 export class Engine {
+    /** @internal */
     constructor(owner: any);
-    owner: any;
     /**
      * Returns a promise to provide the started state of Cantabile's audio engine.
      *
@@ -53,5 +53,6 @@ export class Engine {
      * @returns {Promise}
      */
     startStop(): Promise<any>;
+    #private;
 }
 //# sourceMappingURL=Engine.d.ts.map

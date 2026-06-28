@@ -65,7 +65,7 @@ export class Cantabile extends EventEmitter
 		this.#setHost(options.host);
 
 		// Connection
-		this.shouldConnect = false;
+		this.#shouldConnect = false;
 		this.#prepareConnectPromise();
 		this.#setState("disconnected");
 		this.autoConnectEndPoints = options.autoConnectEndPoints;
@@ -85,6 +85,8 @@ export class Cantabile extends EventEmitter
 	#connectPromise;
 	#connectPromiseResolve;
 	#connectPromiseReject;
+	#shouldConnect;
+	#timeoutPending;
 
 	// Resolve host string to host url and socket url
 	#setHost(value)
@@ -175,7 +177,7 @@ export class Cantabile extends EventEmitter
 	 */
 	connect()
 	{
-		this.shouldConnect = true;
+		this.#shouldConnect = true;
 		this.#internalConnect();
 		return this.#connectPromise;
 	}
@@ -186,7 +188,7 @@ export class Cantabile extends EventEmitter
 	 */
 	disconnect()
 	{
-		this.shouldConnect = false;
+		this.#shouldConnect = false;
 		this.#internalDisconnect();
 	}
 
@@ -207,7 +209,7 @@ export class Cantabile extends EventEmitter
 	 * a promise which will resolve to the result.
 	 *
 	 * @method request
-	 * @param {object} obj The object to send
+	 * @param {object} message The message object to send
 	 * @returns {Promise<object>}
 	 */
 	request(message)
@@ -296,7 +298,7 @@ export class Cantabile extends EventEmitter
 	// Internal helper to actually perform the connection
 	#internalConnect()
 	{
-		if (!this.shouldConnect)
+		if (!this.#shouldConnect)
 			return;
 
 		// Already connected?
@@ -334,12 +336,12 @@ export class Cantabile extends EventEmitter
 	// Internal helper to retry connection every 1 second
 	#internalReconnect()
 	{
-		if (this.shouldConnect && !this.timeoutPending)
+		if (this.#shouldConnect && !this.#timeoutPending)
 		{
-			this.timeoutPending = true;
+			this.#timeoutPending = true;
 			this.#setState("connecting");
 			setTimeout(() => {
-				this.timeoutPending = false;
+				this.#timeoutPending = false;
 				this.#internalConnect();
 			}, 1000);
 		}
@@ -429,6 +431,14 @@ export class Cantabile extends EventEmitter
 	}
 
 	#autoConnectEndPoints = true;
+
+	/**
+	 * Controls whether the sub-object end points are automatically
+	 * connected when first accessed.
+	 *
+	 * @property autoConnectEndPoints
+	 * @type {Boolean}
+	 */
 	get autoConnectEndPoints()
 	{
 		return this.#autoConnectEndPoints;
@@ -439,7 +449,7 @@ export class Cantabile extends EventEmitter
 	}
 
 	#endPoints = new Map();
-	getEndPoint(type)
+	#getEndPoint(type)
 	{
 		var ep = this.#endPoints.get(type);
 		if (!ep)
@@ -460,7 +470,7 @@ export class Cantabile extends EventEmitter
 	 * @property song
 	 * @type {Song}
 	 */
-	get song() { return this.getEndPoint(Song) };
+	get song() { return this.#getEndPoint(Song) };
 
 	/**
 	 * Gets the {{#crossLink "SetList"}}{{/crossLink}} object
@@ -468,7 +478,7 @@ export class Cantabile extends EventEmitter
 	 * @property setList
 	 * @type {SetList}
 	 */
-	get setList() { return this.getEndPoint(SetList) };
+	get setList() { return this.#getEndPoint(SetList) };
 
 	/**
 	 * Gets the {{#crossLink "SongStates"}}{{/crossLink}} object
@@ -476,7 +486,7 @@ export class Cantabile extends EventEmitter
 	 * @property songStates
 	 * @type {SongStates}
 	 */
-	get songStates() { return this.getEndPoint(SongStates) };
+	get songStates() { return this.#getEndPoint(SongStates) };
 
 	/**
 	 * Gets the {{#crossLink "KeyRanges"}}{{/crossLink}} object
@@ -484,7 +494,7 @@ export class Cantabile extends EventEmitter
 	 * @property keyRanges
 	 * @type {KeyRanges}
 	 */
-	get keyRanges() { return this.getEndPoint(KeyRanges) };
+	get keyRanges() { return this.#getEndPoint(KeyRanges) };
 
 	/**
 	 * Gets the {{#crossLink "ShowNotes"}}{{/crossLink}} object
@@ -492,7 +502,7 @@ export class Cantabile extends EventEmitter
 	 * @property showNotes
 	 * @type {ShowNotes}
 	 */
-	get showNotes() { return this.getEndPoint(ShowNotes) };
+	get showNotes() { return this.#getEndPoint(ShowNotes) };
 
 	/**
 	 * Gets the {{#crossLink "Variables"}}{{/crossLink}} object
@@ -500,7 +510,7 @@ export class Cantabile extends EventEmitter
 	 * @property variables
 	 * @type {Variables}
 	 */
-	get variables() { return this.getEndPoint(Variables) };
+	get variables() { return this.#getEndPoint(Variables) };
 
 	/**
 	 * Gets the {{#crossLink "OnscreenKeyboard"}}{{/crossLink}} object
@@ -508,7 +518,7 @@ export class Cantabile extends EventEmitter
 	 * @property onscreenKeyboard
 	 * @type {OnscreenKeyboard}
 	 */
-	get onscreenKeyboard() { return this.getEndPoint(OnscreenKeyboard) };
+	get onscreenKeyboard() { return this.#getEndPoint(OnscreenKeyboard) };
 
 	/**
 	 * Gets the {{#crossLink "Commands"}}{{/crossLink}} object
@@ -516,7 +526,7 @@ export class Cantabile extends EventEmitter
 	 * @property commands
 	 * @type {Commands}
 	 */
-	get commands() { return this.getEndPoint(Commands) };
+	get commands() { return this.#getEndPoint(Commands) };
 
 	/**
 	 * Gets the {{#crossLink "Transport"}}{{/crossLink}} object
@@ -524,7 +534,7 @@ export class Cantabile extends EventEmitter
 	 * @property transport
 	 * @type {Transport}
 	 */
-	get transport() { return this.getEndPoint(Transport) };
+	get transport() { return this.#getEndPoint(Transport) };
 
 	/**
 	 * Gets the {{#crossLink "Application"}}{{/crossLink}} object
@@ -532,7 +542,7 @@ export class Cantabile extends EventEmitter
 	 * @property application
 	 * @type {Application}
 	 */
-	get application() { return this.getEndPoint(Application) };
+	get application() { return this.#getEndPoint(Application) };
 
 	/**
 	 * Gets the {{#crossLink "Engine"}}{{/crossLink}} object
@@ -540,7 +550,7 @@ export class Cantabile extends EventEmitter
 	 * @property engine
 	 * @type {Engine}
 	 */
-	get engine() { return this.getEndPoint(Engine) };
+	get engine() { return this.#getEndPoint(Engine) };
 
 	/**
 	 * Gets the {{#crossLink "Bindings"}}{{/crossLink}} object
@@ -548,7 +558,7 @@ export class Cantabile extends EventEmitter
 	 * @property bindings
 	 * @type {Bindings}
 	 */
-	get bindings() { return this.getEndPoint(Bindings) };
+	get bindings() { return this.#getEndPoint(Bindings) };
 }
 
 /**

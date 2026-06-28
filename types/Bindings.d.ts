@@ -7,8 +7,8 @@
  * @extends EventEmitter
  */
 export class BindingWatcher extends EventEmitter<any> {
+    /** @internal */
     constructor(owner: any, bindingPoint: any, callback: any);
-    owner: any;
     /**
      * Returns the binding point being listened to
      *
@@ -42,8 +42,8 @@ export class BindingWatcher extends EventEmitter<any> {
  * @class PreparedBindingPoint
  */
 export class PreparedBindingPoint {
+    /** @internal */
     constructor(owner: any, bindingPoint: any);
-    owner: any;
     _start(): void;
     _stop(): void;
     /**
@@ -91,6 +91,7 @@ export class PreparedBindingPoint {
  * @extends EndPoint
  */
 export class Bindings extends EndPoint {
+    /** @internal */
     constructor(owner: any);
     /**
      * Retrieves a list of available binding points
@@ -120,7 +121,7 @@ export class Bindings extends EndPoint {
      * @param {Boolean} source whether to return information about the source or target version of the binding point
      * @returns {Promise<BindingPointInfo>} A promise to return a {{#crossLink "BindingPointInfo"}}{{/crossLink}} object
      */
-    getBindingPointInfo(bindablePoint: any, source: boolean): Promise<BindingPointInfo>;
+    getBindingPointInfo(bindingPoint: BindingPoint, source: boolean): Promise<BindingPointInfo>;
     /**
      * Invokes a target binding point
      *
@@ -183,11 +184,11 @@ export class Bindings extends EndPoint {
      * 	   }, [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
      *
      * @method invoke
-     * @param {BindingPoint} bindablePoint The binding point to invoke
+     * @param {BindingPoint} bindingPoint The binding point to invoke
      * @param {Object} value The value to pass to the binding point
      * @returns {Promise} A promise that resolves once the target binding point has been invoked
      */
-    invoke(bindingPoint: any, value: Object): Promise<any>;
+    invoke(bindingPoint: BindingPoint, value: Object): Promise<any>;
     /**
      * Queries a source binding point for it's current value.
      *

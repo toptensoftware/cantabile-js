@@ -85,13 +85,13 @@ export class States extends EndPoint
 	/**
 	 * Load the State with a given program number
 	 * @method loadStateByProgram
-	 * @param {Number} index The zero based program number of the State to load
+	 * @param {Number} program The zero based program number of the State to load
 	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
 	 */
-	loadStateByProgram(pr, delayed)
+	loadStateByProgram(program, delayed)
 	{
 		this.post("/loadStateByProgram", {
-			pr: pr,
+			pr: program,
 			delayed: delayed,
 		})
 	}

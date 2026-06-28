@@ -7,6 +7,7 @@
  * @extends EndPoint
  */
 export class KeyRanges extends EndPoint {
+    /** @internal */
     constructor(owner: any);
     /**
      * An array of {{#crossLink "KeyRange"}}{{/crossLink}} items

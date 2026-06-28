@@ -7,6 +7,7 @@
  * @extends EndPoint
  */
 export class ShowNotes extends EndPoint {
+    /** @internal */
     constructor(owner: any);
     /**
      * An array of {{#crossLink "ShowNote"}}{{/crossLink}} items

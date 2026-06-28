@@ -7,6 +7,7 @@
  * @extends EndPoint
  */
 export class Commands extends EndPoint {
+    /** @internal */
     constructor(owner: any);
     /**
      * Retrieves a list of available commands

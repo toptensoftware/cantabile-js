@@ -7,6 +7,7 @@
  * @extends States
  */
 export class SongStates extends States {
+    /** @internal */
     constructor(owner: any);
 }
 import { States } from './States.js';

@@ -14,16 +14,24 @@ const debug = _debug('Cantabile');
  */
 export class ControllerWatcher extends EventEmitter
 {
+	/** @internal */
 	constructor(owner, channel, kind, controller, listener)
 	{
 		super();
-		this.owner = owner;
-		this._channel = channel;	
-		this._kind = kind;
-		this._controller = controller;
-		this._value = null;
-		this._listener = listener;
+		this.#owner = owner;
+		this.#channel = channel;	
+		this.#kind = kind;
+		this.#controller = controller;
+		this.#value = null;
+		this.#listener = listener;
 	}
+
+	#owner;
+	#channel;
+	#kind;
+	#controller;
+	#value;
+	#listener;
 
 	/**
 	 * Returns the MIDI channel number of controller being watched
@@ -31,7 +39,7 @@ export class ControllerWatcher extends EventEmitter
 	 * @property channel
 	 * @type {Number} 
 	 */
-	 get channel() { return this._channel; }
+	 get channel() { return this.#channel; }
 
 	/**
 	 * Returns the kind of controller being watched
@@ -39,7 +47,7 @@ export class ControllerWatcher extends EventEmitter
 	 * @property kind
 	 * @type {String} 
 	 */
-	 get kind() { return this._kind; }
+	 get kind() { return this.#kind; }
 
 	/**
 	 * Returns the number of the controller being watched
@@ -47,7 +55,7 @@ export class ControllerWatcher extends EventEmitter
 	 * @property controller
 	 * @type {Number} 
 	 */
-	 get controller() { return this._controller; }
+	 get controller() { return this.#controller; }
 
 	 /**
 	 * Returns the current value of the controller
@@ -55,33 +63,33 @@ export class ControllerWatcher extends EventEmitter
 	 * @property value
 	 * @type {Number} 
 	 */
-	get value() { return this._value; }
+	get value() { return this.#value; }
 
 	_start()
 	{
-		this.owner.post("/watchController", {
-			channel: this._channel,
-			kind: this._kind,
-			controller: this._controller,
+		this.#owner.post("/watchController", {
+			channel: this.#channel,
+			kind: this.#kind,
+			controller: this.#controller,
 		}).then(r => {
 			if (r.data.id)
 			{
-				this.owner._registerWatcher(r.data.id, this);
+				this.#owner._registerWatcher(r.data.id, this);
 				this._id = r.data.id;
 			}
-			this._value = r.data.value;
+			this.#value = r.data.value;
 			this._fireChanged();
 		});
 	}
 
 	_stop()
 	{
-		if (this.owner._epid && this._id)
+		if (this.#owner._epid && this._id)
 		{
-			this.owner.send("POST", "/unwatch", { id: this._id})
-			this.owner._revokeWatcher(this._id);
+			this.#owner.send("POST", "/unwatch", { id: this._id})
+			this.#owner._revokeWatcher(this._id);
 			this._id = 0;
-			this._value = null;
+			this.#value = null;
 			this._fireChanged();
 		}
 	}
@@ -94,20 +102,20 @@ export class ControllerWatcher extends EventEmitter
 	unwatch()
 	{
 		this._stop();
-		this.owner._revokeWatcher(this);
+		this.#owner._revokeWatcher(this);
 	}
 
 	_update(data)
 	{
-		this._value = data.value;
+		this.#value = data.value;
 		this._fireChanged();
 	}
 
 	_fireChanged()
 	{
 		// Function listener?
-		if (this._listener)
-			this._listener(this._value, this);
+		if (this.#listener)
+			this.#listener(this.#value, this);
 
 		/**
 		 * Fired when the controller value has changed
@@ -116,7 +124,7 @@ export class ControllerWatcher extends EventEmitter
 		 * @param {Number} value The new value of the controller
 		 * @param {ControllerWatcher} source This object
 		 */
-		this.emit('controllerChanged', this._value, this);
+		this.emit('controllerChanged', this.#value, this);
 	}
 }
 
@@ -132,13 +140,14 @@ export class ControllerWatcher extends EventEmitter
  */
 export class OnscreenKeyboard extends EndPoint
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/onscreenKeyboard");
-		this.watchers = [];
-		this.ids = {};
 	}
 
+	#watchers = [];
+	#ids = {};
 
 	/**
 	 * Queries the on-screen keyboard for the current value of a controller
@@ -173,17 +182,17 @@ export class OnscreenKeyboard extends EndPoint
 
 	_onConnected()
 	{
-		for (let i=0; i<this.watchers.length; i++)
+		for (let i=0; i<this.#watchers.length; i++)
 		{
-			this.watchers[i]._start();
+			this.#watchers[i]._start();
 		}
 	}
 
 	_onDisconnected()
 	{
-		for (let i=0; i<this.watchers.length; i++)
+		for (let i=0; i<this.#watchers.length; i++)
 		{
-			this.watchers[i]._stop();
+			this.#watchers[i]._stop();
 		}
 	}
 
@@ -231,10 +240,10 @@ export class OnscreenKeyboard extends EndPoint
 	 *
 	 * @returns {ControllerWatcher}
 	 */
-	watch(channel, kind, controller, listener)
+	watch(channel, kind, controller, callback)
 	{
-		let w = new ControllerWatcher(this, channel, kind, controller, listener);
-		this.watchers.push(w);
+		let w = new ControllerWatcher(this, channel, kind, controller, callback);
+		this.#watchers.push(w);
 
 		if (this.isConnected)
 			w._start();
@@ -277,23 +286,23 @@ export class OnscreenKeyboard extends EndPoint
 
 	_registerWatcher(id, watcher)
 	{
-		this.ids[id] = watcher;
+		this.#ids[id] = watcher;
 	}
 
 	_revokeWatcher(id)
 	{
-		delete this.ids[id];
+		delete this.#ids[id];
 	}
 
 	_revokeWatcher(w)
 	{
-		this.watchers = this.watchers.filter(x=>x != w);
+		this.#watchers = this.#watchers.filter(x=>x != w);
 	}
 
 	_onEvent_controllerChanged(data)
 	{
 		// Get the watcher
-		let w = this.ids[data.id];
+		let w = this.#ids[data.id];
 		if (w)
 		{
 			w._update(data);

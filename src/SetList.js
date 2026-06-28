@@ -13,6 +13,7 @@ const debug = _debug('Cantabile');
  */
 export class SetList extends EndPoint
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/setlist");
@@ -96,13 +97,13 @@ export class SetList extends EndPoint
 	/**
 	 * Load the song with a given program number
 	 * @method loadSongByProgram
-	 * @param {Number} index The zero based program number of the song to load
+	 * @param {Number} program The zero based program number of the song to load
 	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
 	 */
-	loadSongByProgram(pr, delayed)
+	loadSongByProgram(program, delayed)
 	{
 		this.post("/loadSongByProgram", {
-			pr: pr,
+			pr: program,
 			delayed: delayed,
 		})
 	}

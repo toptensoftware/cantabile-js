@@ -7,13 +7,8 @@
  * @extends EventEmitter
  */
 export class ControllerWatcher extends EventEmitter<any> {
+    /** @internal */
     constructor(owner: any, channel: any, kind: any, controller: any, listener: any);
-    owner: any;
-    _channel: any;
-    _kind: any;
-    _controller: any;
-    _value: any;
-    _listener: any;
     /**
      * Returns the MIDI channel number of controller being watched
      *
@@ -53,6 +48,7 @@ export class ControllerWatcher extends EventEmitter<any> {
     unwatch(): void;
     _update(data: any): void;
     _fireChanged(): void;
+    #private;
 }
 /**
  * Provides access to controllers managed by Cantabile's on-screen keyboard device
@@ -63,9 +59,8 @@ export class ControllerWatcher extends EventEmitter<any> {
  * @extends EndPoint
  */
 export class OnscreenKeyboard extends EndPoint {
+    /** @internal */
     constructor(owner: any);
-    watchers: any[];
-    ids: {};
     /**
      * Queries the on-screen keyboard for the current value of a controller
      *
@@ -131,7 +126,7 @@ export class OnscreenKeyboard extends EndPoint {
      *
      * @returns {ControllerWatcher}
      */
-    watch(channel: number, kind: string, controller: number, listener: any): ControllerWatcher;
+    watch(channel: number, kind: string, controller: number, callback?: Function): ControllerWatcher;
     /**
      * Inject MIDI from the on-screen keyboard device
      *
@@ -162,6 +157,7 @@ export class OnscreenKeyboard extends EndPoint {
     _registerWatcher(id: any, watcher: any): void;
     _revokeWatcher(id: any): void;
     _onEvent_controllerChanged(data: any): void;
+    #private;
 }
 import EventEmitter from 'events';
 import { EndPoint } from './EndPoint.js';

@@ -298,8 +298,6 @@ export interface MidiControllerEvent
  * @extends EventEmitter
  */
 export class PatternWatcher extends EventEmitter<any> {
-    constructor(owner: any, pattern: any, listener: any);
-    owner: any;
     /**
      * Returns the pattern string being watched
      *
@@ -331,9 +329,6 @@ export class PatternWatcher extends EventEmitter<any> {
  * @extends EndPoint
  */
 export class Variables extends EndPoint {
-    constructor(owner: any);
-    watchers: any[];
-    patternIds: {};
     /**
      * Resolves a variable pattern string into a final display string
      *
@@ -348,9 +343,10 @@ export class Variables extends EndPoint {
      *     C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
      *
      * @method resolve
+     * @param {string} pattern The string variable pattern to resolve
      * @returns {Promise<String>} A promise to provide the resolved string
      */
-    resolve(pattern: any): Promise<string>;
+    resolve(pattern: string): Promise<string>;
     /**
      * Starts watching a pattern string for changes
      *
@@ -393,7 +389,7 @@ export class Variables extends EndPoint {
      *
      * @returns {PatternWatcher}
      */
-    watch(pattern: string, listener: any): PatternWatcher;
+    watch(pattern: string, callback?: Function): PatternWatcher;
 }
 /**
  * Interface to the master transport
@@ -404,7 +400,6 @@ export class Variables extends EndPoint {
  * @extends EndPoint
  */
 export class Transport extends EndPoint {
-    constructor(owner: any);
     set state(value: string);
     /**
      * Gets or sets the current transport state.  Supported values include "playing", "paused" or "stopped".
@@ -543,10 +538,10 @@ export class States extends EndPoint {
     /**
      * Load the State with a given program number
      * @method loadStateByProgram
-     * @param {Number} index The zero based program number of the State to load
+     * @param {Number} program The zero based program number of the State to load
      * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
      */
-    loadStateByProgram(pr: any, delayed?: boolean): void;
+    loadStateByProgram(program: number, delayed?: boolean): void;
     /**
      * Load the first state
      * @method loadFirstState
@@ -577,7 +572,6 @@ export class States extends EndPoint {
  * @extends States
  */
 export class SongStates extends States {
-    constructor(owner: any);
 }
 /**
  * Interface to the current song
@@ -588,7 +582,6 @@ export class SongStates extends States {
  * @extends EndPoint
  */
 export class Song extends EndPoint {
-    constructor(owner: any);
     /**
      * The name of the current song
      * @property name
@@ -630,7 +623,6 @@ export class Song extends EndPoint {
  * @extends EndPoint
  */
 export class ShowNotes extends EndPoint {
-    constructor(owner: any);
     /**
      * An array of {{#crossLink "ShowNote"}}{{/crossLink}} items
      * @property items
@@ -647,7 +639,6 @@ export class ShowNotes extends EndPoint {
  * @extends EndPoint
  */
 export class SetList extends EndPoint {
-    constructor(owner: any);
     /**
      * An array of {{#crossLink "SetListItem"}}{{/crossLink}} items in the set list
      * @property items
@@ -690,10 +681,10 @@ export class SetList extends EndPoint {
     /**
      * Load the song with a given program number
      * @method loadSongByProgram
-     * @param {Number} index The zero based program number of the song to load
+     * @param {Number} program The zero based program number of the song to load
      * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
      */
-    loadSongByProgram(pr: any, delayed?: boolean): void;
+    loadSongByProgram(program: number, delayed?: boolean): void;
     /**
      * Load the first song in the set list
      * @method loadFirstSong
@@ -737,8 +728,6 @@ export class SetList extends EndPoint {
  * @extends EventEmitter
  */
 export class ControllerWatcher extends EventEmitter<any> {
-    constructor(owner: any, channel: any, kind: any, controller: any, listener: any);
-    owner: any;
     /**
      * Returns the MIDI channel number of controller being watched
      *
@@ -783,9 +772,6 @@ export class ControllerWatcher extends EventEmitter<any> {
  * @extends EndPoint
  */
 export class OnscreenKeyboard extends EndPoint {
-    constructor(owner: any);
-    watchers: any[];
-    ids: {};
     /**
      * Queries the on-screen keyboard for the current value of a controller
      *
@@ -851,7 +837,7 @@ export class OnscreenKeyboard extends EndPoint {
      *
      * @returns {ControllerWatcher}
      */
-    watch(channel: number, kind: string, controller: number, listener: any): ControllerWatcher;
+    watch(channel: number, kind: string, controller: number, callback?: Function): ControllerWatcher;
     /**
      * Inject MIDI from the on-screen keyboard device
      *
@@ -889,7 +875,6 @@ export class OnscreenKeyboard extends EndPoint {
  * @extends EndPoint
  */
 export class KeyRanges extends EndPoint {
-    constructor(owner: any);
     /**
      * An array of {{#crossLink "KeyRange"}}{{/crossLink}} items
      * @property items
@@ -905,8 +890,6 @@ export class KeyRanges extends EndPoint {
  * @class Engine
  */
 export class Engine {
-    constructor(owner: any);
-    owner: any;
     /**
      * Returns a promise to provide the started state of Cantabile's audio engine.
      *
@@ -960,8 +943,6 @@ export class Engine {
  * @extends EventEmitter
  */
 export class EndPoint extends EventEmitter<any> {
-    static joinPath(a: any, b: any): string;
-    constructor(owner: any, endPoint: any);
     /**
      * Gets the owning session of this end point
      * @property owner
@@ -999,10 +980,6 @@ export class EndPoint extends EventEmitter<any> {
      * @method disconnect
      */
     disconnect(): void;
-    send(method: any, endPoint: any, data: any): any;
-    request(method: any, endPoint: any, data: any): any;
-    post(endPoint: any, data: any): any;
-    get(endPoint: any): any;
     /**
      * Checks if this end point is current connected
      * @property isConnected
@@ -1037,7 +1014,6 @@ export class EndPoint extends EventEmitter<any> {
  * @extends EndPoint
  */
 export class Commands extends EndPoint {
-    constructor(owner: any);
     /**
      * Retrieves a list of available commands
      *
@@ -1094,8 +1070,14 @@ export class Cantabile extends EventEmitter<any> {
         autoConnectEndPoints?: boolean | undefined;
         maxListeners?: number | undefined;
     });
-    shouldConnect: boolean;
     set autoConnectEndPoints(value: boolean);
+    /**
+     * Controls whether the sub-object end points are automatically
+     * connected when first accessed.
+     *
+     * @property autoConnectEndPoints
+     * @type {Boolean}
+     */
     get autoConnectEndPoints(): boolean;
     /**
      * Gets the resolved options object used to construct this object
@@ -1133,10 +1115,10 @@ export class Cantabile extends EventEmitter<any> {
      * a promise which will resolve to the result.
      *
      * @method request
-     * @param {object} obj The object to send
+     * @param {object} message The message object to send
      * @returns {Promise<object>}
      */
-    request(message: any): Promise<object>;
+    request(message: object): Promise<object>;
     /**
      * Returns a promise that will be resolved when connected
      *
@@ -1163,8 +1145,6 @@ export class Cantabile extends EventEmitter<any> {
      * @type {String}
      */
     get socketUrl(): string;
-    timeoutPending: boolean | undefined;
-    getEndPoint(type: any): any;
     /**
      * Gets the {{#crossLink "Song"}}{{/crossLink}} object
      *
@@ -1259,8 +1239,6 @@ export class Cantabile extends EventEmitter<any> {
  * @extends EventEmitter
  */
 export class BindingWatcher extends EventEmitter<any> {
-    constructor(owner: any, bindingPoint: any, callback: any);
-    owner: any;
     /**
      * Returns the binding point being listened to
      *
@@ -1290,8 +1268,6 @@ export class BindingWatcher extends EventEmitter<any> {
  * @class PreparedBindingPoint
  */
 export class PreparedBindingPoint {
-    constructor(owner: any, bindingPoint: any);
-    owner: any;
     /**
      * Returns a promise that will resolve once this prepared binding has connected
      * @method waitForConnected
@@ -1336,7 +1312,6 @@ export class PreparedBindingPoint {
  * @extends EndPoint
  */
 export class Bindings extends EndPoint {
-    constructor(owner: any);
     /**
      * Retrieves a list of available binding points
      *
@@ -1365,7 +1340,7 @@ export class Bindings extends EndPoint {
      * @param {Boolean} source whether to return information about the source or target version of the binding point
      * @returns {Promise<BindingPointInfo>} A promise to return a {{#crossLink "BindingPointInfo"}}{{/crossLink}} object
      */
-    getBindingPointInfo(bindablePoint: any, source: boolean): Promise<BindingPointInfo>;
+    getBindingPointInfo(bindingPoint: BindingPoint, source: boolean): Promise<BindingPointInfo>;
     /**
      * Invokes a target binding point
      *
@@ -1428,11 +1403,11 @@ export class Bindings extends EndPoint {
      * 	   }, [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
      *
      * @method invoke
-     * @param {BindingPoint} bindablePoint The binding point to invoke
+     * @param {BindingPoint} bindingPoint The binding point to invoke
      * @param {Object} value The value to pass to the binding point
      * @returns {Promise} A promise that resolves once the target binding point has been invoked
      */
-    invoke(bindingPoint: any, value: Object): Promise<any>;
+    invoke(bindingPoint: BindingPoint, value: Object): Promise<any>;
     /**
      * Queries a source binding point for it's current value.
      *
@@ -1533,7 +1508,6 @@ export class Bindings extends EndPoint {
  * @extends EndPoint
  */
 export class Application extends EndPoint {
-    constructor(owner: any);
     /**
      * The application's company name
      * @property companyName
@@ -1597,5 +1571,6 @@ export class Application extends EndPoint {
 }
 
 }
+import EventEmitter from "events";
 
 //# sourceMappingURL=types.d.ts.map

@@ -14,15 +14,22 @@ const debug = _debug('Cantabile');
  */
 export class PatternWatcher extends EventEmitter
 {
-	constructor(owner, pattern, listener)
+	/** @internal */
+	constructor(owner, pattern, callback)
 	{
 		super();
-		this.owner = owner;
-		this._pattern = pattern;	
-		this._patternId = 0;
-		this._resolved = "";
-		this._listener = listener;
+		this.#owner = owner;
+		this.#pattern = pattern;	
+		this.#patternId = 0;
+		this.#resolved = "";
+		this.#callback = callback;
 	}
+
+	#owner;
+	#pattern;
+	#patternId;
+	#resolved;
+	#callback;
 
 	/**
 	 * Returns the pattern string being watched
@@ -30,7 +37,7 @@ export class PatternWatcher extends EventEmitter
 	 * @property pattern
 	 * @type {String} 
 	 */
-	get pattern() { return this._pattern; }
+	get pattern() { return this.#pattern; }
 
 	/**
 	 * Returns the current resolved display string
@@ -38,31 +45,31 @@ export class PatternWatcher extends EventEmitter
 	 * @property resolved
 	 * @type {String} 
 	 */
-	get resolved() { return this._resolved; }
+	get resolved() { return this.#resolved; }
 
 	_start()
 	{
-		this.owner.post("/watch", {
-			pattern: this._pattern,
+		this.#owner.post("/watch", {
+			pattern: this.#pattern,
 		}).then(r => {
 			if (r.data.patternId)
 			{
-				this.owner._registerPatternId(r.data.patternId, this);
-				this._patternId = r.data.patternId;
+				this.#owner._registerPatternId(r.data.patternId, this);
+				this.#patternId = r.data.patternId;
 			}
-			this._resolved = r.data.resolved;
+			this.#resolved = r.data.resolved;
 			this._fireChanged();
 		});
 	}
 
 	_stop()
 	{
-		if (this.owner._epid && this._patternId)
+		if (this.#owner._epid && this.#patternId)
 		{
-			this.owner.send("POST", "/unwatch", { patternId: this._patternId})
-			this.owner._revokePatternId(this._patternId);
-			this._patternId = 0;
-			this._resolved = "";
+			this.#owner.send("POST", "/unwatch", { patternId: this.#patternId})
+			this.#owner._revokePatternId(this.#patternId);
+			this.#patternId = 0;
+			this.#resolved = "";
 			this._fireChanged();
 		}
 	}
@@ -75,20 +82,20 @@ export class PatternWatcher extends EventEmitter
 	unwatch()
 	{
 		this._stop();
-		this.owner._revokeWatcher(this);
+		this.#owner._revokeWatcher(this);
 	}
 
 	_update(data)
 	{
-		this._resolved = data.resolved;
+		this.#resolved = data.resolved;
 		this._fireChanged();
 	}
 
 	_fireChanged()
 	{
-		// Function listener?
-		if (this._listener)
-			this._listener(this.resolved, this);
+		// Callback?
+		if (this.#callback)
+			this.#callback(this.resolved, this);
 
 		/**
 		 * Fired when the resolved display string has changed
@@ -114,13 +121,14 @@ export class PatternWatcher extends EventEmitter
  */
 export class Variables extends EndPoint
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/variables");
-		this.watchers = [];
-		this.patternIds = {};
 	}
 
+	#watchers = [];
+	#patternIds = {};
 
 	/**
 	 * Resolves a variable pattern string into a final display string
@@ -136,6 +144,7 @@ export class Variables extends EndPoint
 	 *     C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
 	 *
 	 * @method resolve
+	 * @param {string} pattern The string variable pattern to resolve
 	 * @returns {Promise<String>} A promise to provide the resolved string
 	 */
 	async resolve(pattern)
@@ -149,17 +158,17 @@ export class Variables extends EndPoint
 
 	_onConnected()
 	{
-		for (let i=0; i<this.watchers.length; i++)
+		for (let i=0; i<this.#watchers.length; i++)
 		{
-			this.watchers[i]._start();
+			this.#watchers[i]._start();
 		}
 	}
 
 	_onDisconnected()
 	{
-		for (let i=0; i<this.watchers.length; i++)
+		for (let i=0; i<this.#watchers.length; i++)
 		{
-			this.watchers[i]._stop();
+			this.#watchers[i]._stop();
 		}
 	}
 
@@ -205,10 +214,10 @@ export class Variables extends EndPoint
 	 *
 	 * @returns {PatternWatcher}
 	 */
-	watch(pattern, listener)
+	watch(pattern, callback)
 	{
-		let w = new PatternWatcher(this, pattern, listener);
-		this.watchers.push(w);
+		let w = new PatternWatcher(this, pattern, callback);
+		this.#watchers.push(w);
 		if (this.isConnected)
 			w._start();
 
@@ -217,23 +226,23 @@ export class Variables extends EndPoint
 
 	_registerPatternId(patternId, watcher)
 	{
-		this.patternIds[patternId] = watcher;
+		this.#patternIds[patternId] = watcher;
 	}
 
 	_revokePatternId(patternId)
 	{
-		delete this.patternIds[patternId];
+		delete this.#patternIds[patternId];
 	}
 
 	_revokeWatcher(w)
 	{
-		this.watchers = this.watchers.filter(x=>x != w);
+		this.#watchers = this.#watchers.filter(x=>x != w);
 	}
 
 	_onEvent_patternChanged(data)
 	{
 		// Get the watcher
-		let w = this.patternIds[data.patternId];
+		let w = this.#patternIds[data.patternId];
 		if (w)
 		{
 			w._update(data);

@@ -7,6 +7,7 @@
  * @extends EndPoint
  */
 export class Transport extends EndPoint {
+    /** @internal */
     constructor(owner: any);
     set state(value: string);
     /**

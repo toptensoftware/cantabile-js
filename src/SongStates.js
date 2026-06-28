@@ -10,6 +10,7 @@ import { States } from './States.js';
  */
 export class SongStates extends States
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/songStates");

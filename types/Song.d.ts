@@ -7,6 +7,7 @@
  * @extends EndPoint
  */
 export class Song extends EndPoint {
+    /** @internal */
     constructor(owner: any);
     /**
      * The name of the current song

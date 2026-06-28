@@ -10,6 +10,7 @@ import { EndPoint } from './EndPoint.js';
  */
 export class Transport extends EndPoint
 {
+    /** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/transport");

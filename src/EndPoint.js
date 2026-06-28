@@ -13,6 +13,7 @@ const debug = _debug('Cantabile');
 export class EndPoint extends EventEmitter
 {
 	// Private constructor
+	/** @internal */
 	constructor(owner, endPoint)
 	{
 		super();
@@ -125,6 +126,7 @@ export class EndPoint extends EventEmitter
 		this.#data = null;
 	}
 
+	/** @internal */
 	send(method, endPoint, data)
 	{
 		if (this.#epid)
@@ -148,6 +150,7 @@ export class EndPoint extends EventEmitter
 		}
 	}
 
+	/** @internal */
 	request(method, endPoint, data)
 	{
 		if (this.#epid)
@@ -171,11 +174,13 @@ export class EndPoint extends EventEmitter
 		}
 	}
 
+	/** @internal */
 	post(endPoint, data)
 	{
 		return this.request('post', endPoint, data);
 	}
 
+	/** @internal */
 	get(endPoint)
 	{
 		return this.request('get', endPoint);
@@ -270,6 +275,7 @@ export class EndPoint extends EventEmitter
 	}
 
 	// Helper to correctly join two paths ensuring only a single slash between them
+	/** @internal */
 	static joinPath(a,b)
 	{
 		while (a.endsWith('/'))

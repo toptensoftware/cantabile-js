@@ -11,6 +11,7 @@ import { EndPoint } from './EndPoint.js';
  */
 export class Commands extends EndPoint
 {
+	/** @internal */
     constructor(owner)
     {
         super(owner, "/api/commands");

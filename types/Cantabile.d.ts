@@ -24,8 +24,14 @@ export class Cantabile extends EventEmitter<any> {
         autoConnectEndPoints?: boolean | undefined;
         maxListeners?: number | undefined;
     });
-    shouldConnect: boolean;
     set autoConnectEndPoints(value: boolean);
+    /**
+     * Controls whether the sub-object end points are automatically
+     * connected when first accessed.
+     *
+     * @property autoConnectEndPoints
+     * @type {Boolean}
+     */
     get autoConnectEndPoints(): boolean;
     /**
      * Gets the resolved options object used to construct this object
@@ -63,10 +69,10 @@ export class Cantabile extends EventEmitter<any> {
      * a promise which will resolve to the result.
      *
      * @method request
-     * @param {object} obj The object to send
+     * @param {object} message The message object to send
      * @returns {Promise<object>}
      */
-    request(message: any): Promise<object>;
+    request(message: object): Promise<object>;
     /**
      * Returns a promise that will be resolved when connected
      *
@@ -93,10 +99,8 @@ export class Cantabile extends EventEmitter<any> {
      * @type {String}
      */
     get socketUrl(): string;
-    timeoutPending: boolean | undefined;
     _registerEndPointEventHandler(epid: any, endPoint: any): void;
     _revokeEndPointEventHandler(epid: any): void;
-    getEndPoint(type: any): any;
     /**
      * Gets the {{#crossLink "Song"}}{{/crossLink}} object
      *

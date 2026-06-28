@@ -10,11 +10,11 @@
                     "kind": "interface",
                     "name": "SetListItem",
                     "namepath": "module:@toptensoftware/cantabile-js.SetListItem",
-                    "definition": "export interface SetListItem\r{\r    readonly kind: string;\r    readonly name: string;\r    readonly pr: number;\r    readonly color: number;\r}",
+                    "definition": "export interface SetListItem\n{\n    readonly kind: string;\n    readonly name: string;\n    readonly pr: number;\n    readonly color: number;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nRepresents an item in a list\r"
+                            "text": "\nRepresents an item in a list\n"
                         }
                     ],
                     "links": [],
@@ -77,11 +77,11 @@
                     "kind": "interface",
                     "name": "BindingPoint",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingPoint",
-                    "definition": "export interface BindingPoint\r{\r    bindableId: string;\r    bindableParams?: object;\r    bindingPointId: string;\r    bindingPointParams?: object;\r}",
+                    "definition": "export interface BindingPoint\n{\n    bindableId: string;\n    bindableParams?: object;\n    bindingPointId: string;\n    bindingPointParams?: object;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nDescribes a binding point\r"
+                            "text": "\nDescribes a binding point\n"
                         }
                     ],
                     "links": [],
@@ -144,11 +144,11 @@
                     "kind": "interface",
                     "name": "BindingPointEntry",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingPointEntry",
-                    "definition": "export interface BindingPointEntry\r{\r    bindableId: string;\r    bindingPointId: string; \r    displayName: string;\r    isSource: boolean;\r    isTarget: boolean;\r}",
+                    "definition": "export interface BindingPointEntry\n{\n    bindableId: string;\n    bindingPointId: string; \n    displayName: string;\n    isSource: boolean;\n    isTarget: boolean;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\ndescribes a binding point entry as returned from {{#crossLink \"Bindings/availableBindingPoints:method\"}}{{/crosslink}}\r"
+                            "text": "\ndescribes a binding point entry as returned from {{#crossLink \"Bindings/availableBindingPoints:method\"}}{{/crosslink}}\n"
                         }
                     ],
                     "links": [],
@@ -224,11 +224,11 @@
                     "kind": "interface",
                     "name": "BindingPointInfo",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingPointInfo",
-                    "definition": "export interface BindingPointInfo\r{\r    id: string;\r    displayName: string;\r    kind: string;\r    valueFormat: string;\r    valueMin: number;\r    valueMax: number;\r    bindableParams: BindingParam[];\r    bindingPointParams: BindingParam[];\r}",
+                    "definition": "export interface BindingPointInfo\n{\n    id: string;\n    displayName: string;\n    kind: string;\n    valueFormat: string;\n    valueMin: number;\n    valueMax: number;\n    bindableParams: BindingParam[];\n    bindingPointParams: BindingParam[];\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nInformation about an available binding point\r"
+                            "text": "\nInformation about an available binding point\n"
                         }
                     ],
                     "links": [],
@@ -343,11 +343,11 @@
                     "kind": "interface",
                     "name": "BindingParam",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingParam",
-                    "definition": "export interface BindingParam\r{\r    name: string;\r    type: string;\r}",
+                    "definition": "export interface BindingParam\n{\n    name: string;\n    type: string;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nDescribes a binding point parameter\r"
+                            "text": "\nDescribes a binding point parameter\n"
                         }
                     ],
                     "links": [],
@@ -384,11 +384,11 @@
                     "kind": "interface",
                     "name": "ColorEntry",
                     "namepath": "module:@toptensoftware/cantabile-js.ColorEntry",
-                    "definition": "export interface ColorEntry\r{\r    fore: string;\r    back: string;\r}",
+                    "definition": "export interface ColorEntry\n{\n    fore: string;\n    back: string;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nDescribes a built in color\r"
+                            "text": "\nDescribes a built in color\n"
                         }
                     ],
                     "links": [],
@@ -425,11 +425,11 @@
                     "kind": "interface",
                     "name": "CommandInfo",
                     "namepath": "module:@toptensoftware/cantabile-js.CommandInfo",
-                    "definition": "export interface CommandInfo\r{\r    id: string;\r    name: string;\r}",
+                    "definition": "export interface CommandInfo\n{\n    id: string;\n    name: string;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nDescribes an available command \r"
+                            "text": "\nDescribes an available command \n"
                         }
                     ],
                     "links": [],
@@ -466,11 +466,11 @@
                     "kind": "interface",
                     "name": "KeyRange",
                     "namepath": "module:@toptensoftware/cantabile-js.KeyRange",
-                    "definition": "export interface KeyRange\r{\r    min: number;\r    max: number;\r    transport: number;\r    color: number;\r    title: string;\r}",
+                    "definition": "export interface KeyRange\n{\n    min: number;\n    max: number;\n    transport: number;\n    color: number;\n    title: string;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nDescribes an active key range\r"
+                            "text": "\nDescribes an active key range\n"
                         }
                     ],
                     "links": [],
@@ -546,7 +546,7 @@
                     "kind": "interface",
                     "name": "ShowNote",
                     "namepath": "module:@toptensoftware/cantabile-js.ShowNote",
-                    "definition": "export interface ShowNote\r{\r    kind: string;\r    name: string;\r    pr: number;\r    color: number;\r    backgroundColor: number;\r    bold: boolean;\r    fixedPitch: boolean;\r    fontSize: number;\r    hidden: boolean;\r    imageUrl: string;\r    imageScale: number;\r    imageWidth: number;\r    imageHeight: number;\r    text: string;\r    textAlign: string;\r    textColor: number;\r}",
+                    "definition": "export interface ShowNote\n{\n    kind: string;\n    name: string;\n    pr: number;\n    color: number;\n    backgroundColor: number;\n    bold: boolean;\n    fixedPitch: boolean;\n    fontSize: number;\n    hidden: boolean;\n    imageUrl: string;\n    imageScale: number;\n    imageWidth: number;\n    imageHeight: number;\n    text: string;\n    textAlign: string;\n    textColor: number;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -769,11 +769,11 @@
                     "kind": "interface",
                     "name": "State",
                     "namepath": "module:@toptensoftware/cantabile-js.State",
-                    "definition": "export interface State\r{\r    type: string;\r    pr: number;\r    color: number;\r}",
+                    "definition": "export interface State\n{\n    type: string;\n    pr: number;\n    color: number;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nAn anonymous type representing a state\r"
+                            "text": "\nAn anonymous type representing a state\n"
                         }
                     ],
                     "links": [],
@@ -823,11 +823,11 @@
                     "kind": "interface",
                     "name": "MidiControllerEvent",
                     "namepath": "module:@toptensoftware/cantabile-js.MidiControllerEvent",
-                    "definition": "export interface MidiControllerEvent\r{\r    channel: number;\r    kind: string;\r    controller: number;\r    value: number;\r}",
+                    "definition": "export interface MidiControllerEvent\n{\n    channel: number;\n    kind: string;\n    controller: number;\n    value: number;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nAn anonymous type representing a complex MIDI controller event.  \r\n\r\nMidiController events can be passed to anywhere that expects MIDI Data (eg: a target MIDI binding point), or can be \r\nused as a condition on a MIDI source binding point.\r"
+                            "text": "\nAn anonymous type representing a complex MIDI controller event.  \n\nMidiController events can be passed to anywhere that expects MIDI Data (eg: a target MIDI binding point), or can be \nused as a condition on a MIDI source binding point.\n"
                         }
                     ],
                     "links": [],
@@ -890,7 +890,7 @@
                     "kind": "class",
                     "name": "PatternWatcher",
                     "namepath": "module:@toptensoftware/cantabile-js.PatternWatcher",
-                    "definition": "export class PatternWatcher extends EventEmitter<any> {\n    constructor(owner: any, pattern: any, listener: any);\n    owner: any;\n    get pattern(): string;\n    get resolved(): string;\n    unwatch(): void;\n}",
+                    "definition": "export class PatternWatcher extends EventEmitter<any> {\n    get pattern(): string;\n    get resolved(): string;\n    unwatch(): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -907,18 +907,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.PatternWatcher#constructor",
-                            "definition": "constructor(owner: any, pattern: any, listener: any);"
-                        },
-                        {
-                            "kind": "property",
-                            "name": "owner",
-                            "namepath": "module:@toptensoftware/cantabile-js.PatternWatcher#owner",
-                            "definition": "owner: any;"
-                        },
                         {
                             "kind": "property",
                             "name": "pattern",
@@ -996,7 +984,7 @@
                     "kind": "class",
                     "name": "Variables",
                     "namepath": "module:@toptensoftware/cantabile-js.Variables",
-                    "definition": "export class Variables extends EndPoint {\n    constructor(owner: any);\n    watchers: any[];\n    patternIds: {};\n    resolve(pattern: any): Promise<string>;\n    watch(pattern: string, listener: any): PatternWatcher;\n}",
+                    "definition": "export class Variables extends EndPoint {\n    resolve(pattern: string): Promise<string>;\n    watch(pattern: string, callback?: Function): PatternWatcher;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -1014,28 +1002,10 @@
                     "links": [],
                     "members": [
                         {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.Variables#constructor",
-                            "definition": "constructor(owner: any);"
-                        },
-                        {
-                            "kind": "property",
-                            "name": "watchers",
-                            "namepath": "module:@toptensoftware/cantabile-js.Variables#watchers",
-                            "definition": "watchers: any[];"
-                        },
-                        {
-                            "kind": "property",
-                            "name": "patternIds",
-                            "namepath": "module:@toptensoftware/cantabile-js.Variables#patternIds",
-                            "definition": "patternIds: {};"
-                        },
-                        {
                             "kind": "method",
                             "name": "resolve",
                             "namepath": "module:@toptensoftware/cantabile-js.Variables#resolve",
-                            "definition": "resolve(pattern: any): Promise<string>;",
+                            "definition": "resolve(pattern: string): Promise<string>;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -1054,6 +1024,14 @@
                                     "text": "resolve\n"
                                 },
                                 {
+                                    "block": "param",
+                                    "text": "The string variable pattern to resolve\n",
+                                    "type": "string",
+                                    "optional": false,
+                                    "name": "pattern",
+                                    "specifier": "pattern"
+                                },
+                                {
                                     "block": "returns",
                                     "text": "A promise to provide the resolved string\n",
                                     "type": "Promise<String>"
@@ -1065,7 +1043,7 @@
                             "kind": "method",
                             "name": "watch",
                             "namepath": "module:@toptensoftware/cantabile-js.Variables#watch",
-                            "definition": "watch(pattern: string, listener: any): PatternWatcher;",
+                            "definition": "watch(pattern: string, callback?: Function): PatternWatcher;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -1113,7 +1091,7 @@
                     "kind": "class",
                     "name": "Transport",
                     "namepath": "module:@toptensoftware/cantabile-js.Transport",
-                    "definition": "export class Transport extends EndPoint {\n    constructor(owner: any);\n    set state(value: string);\n    get state(): string;\n    get timeSignatureNum(): number;\n    get timeSignatureDen(): number;\n    get timeSignature(): string;\n    get tempo(): number;\n    set loopMode(value: string);\n    get loopMode(): string;\n    get loopCount(): number;\n    get loopIteration(): number;\n    play(): void;\n    togglePlayPause(): void;\n    togglePause(): void;\n    togglePlay(): void;\n    togglePlayStop(): void;\n    pause(): void;\n    stop(): void;\n    cycleLoopMode(): void;\n}",
+                    "definition": "export class Transport extends EndPoint {\n    set state(value: string);\n    get state(): string;\n    get timeSignatureNum(): number;\n    get timeSignatureDen(): number;\n    get timeSignature(): string;\n    get tempo(): number;\n    set loopMode(value: string);\n    get loopMode(): string;\n    get loopCount(): number;\n    get loopIteration(): number;\n    play(): void;\n    togglePlayPause(): void;\n    togglePause(): void;\n    togglePlay(): void;\n    togglePlayStop(): void;\n    pause(): void;\n    stop(): void;\n    cycleLoopMode(): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -1130,12 +1108,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.Transport#constructor",
-                            "definition": "constructor(owner: any);"
-                        },
                         {
                             "kind": "property",
                             "name": "state",
@@ -1506,7 +1478,7 @@
                     "kind": "class",
                     "name": "States",
                     "namepath": "module:@toptensoftware/cantabile-js.States",
-                    "definition": "export class States extends EndPoint {\n    get items(): State[];\n    get name(): string;\n    get currentStateIndex(): number;\n    get currentState(): State;\n    loadStateByIndex(index: number, delayed?: boolean): void;\n    loadStateByProgram(pr: any, delayed?: boolean): void;\n    loadFirstState(delayed?: boolean): void;\n    loadLastState(delayed?: boolean): void;\n    loadNextState(direction: number, delayed?: boolean, wrap?: boolean): void;\n}",
+                    "definition": "export class States extends EndPoint {\n    get items(): State[];\n    get name(): string;\n    get currentStateIndex(): number;\n    get currentState(): State;\n    loadStateByIndex(index: number, delayed?: boolean): void;\n    loadStateByProgram(program: number, delayed?: boolean): void;\n    loadFirstState(delayed?: boolean): void;\n    loadLastState(delayed?: boolean): void;\n    loadNextState(direction: number, delayed?: boolean, wrap?: boolean): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -1669,7 +1641,7 @@
                             "kind": "method",
                             "name": "loadStateByProgram",
                             "namepath": "module:@toptensoftware/cantabile-js.States#loadStateByProgram",
-                            "definition": "loadStateByProgram(pr: any, delayed?: boolean): void;",
+                            "definition": "loadStateByProgram(program: number, delayed?: boolean): void;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -1684,8 +1656,8 @@
                                     "text": "The zero based program number of the State to load\n",
                                     "type": "Number",
                                     "optional": false,
-                                    "name": "index",
-                                    "specifier": "index"
+                                    "name": "program",
+                                    "specifier": "program"
                                 },
                                 {
                                     "block": "param",
@@ -1800,7 +1772,7 @@
                     "kind": "class",
                     "name": "SongStates",
                     "namepath": "module:@toptensoftware/cantabile-js.SongStates",
-                    "definition": "export class SongStates extends States {\n    constructor(owner: any);\n}",
+                    "definition": "export class SongStates extends States {\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -1816,20 +1788,13 @@
                         }
                     ],
                     "links": [],
-                    "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.SongStates#constructor",
-                            "definition": "constructor(owner: any);"
-                        }
-                    ]
+                    "members": []
                 },
                 {
                     "kind": "class",
                     "name": "Song",
                     "namepath": "module:@toptensoftware/cantabile-js.Song",
-                    "definition": "export class Song extends EndPoint {\n    constructor(owner: any);\n    get name(): string;\n    get pr(): number;\n    get currentState(): string;\n    available(): string[];\n    loadSong(name: string, state: string): void;\n}",
+                    "definition": "export class Song extends EndPoint {\n    get name(): string;\n    get pr(): number;\n    get currentState(): string;\n    available(): string[];\n    loadSong(name: string, state: string): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -1846,12 +1811,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.Song#constructor",
-                            "definition": "constructor(owner: any);"
-                        },
                         {
                             "kind": "property",
                             "name": "name",
@@ -1994,7 +1953,7 @@
                     "kind": "class",
                     "name": "ShowNotes",
                     "namepath": "module:@toptensoftware/cantabile-js.ShowNotes",
-                    "definition": "export class ShowNotes extends EndPoint {\n    constructor(owner: any);\n    get items(): ShowNote[];\n}",
+                    "definition": "export class ShowNotes extends EndPoint {\n    get items(): ShowNote[];\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2011,12 +1970,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.ShowNotes#constructor",
-                            "definition": "constructor(owner: any);"
-                        },
                         {
                             "kind": "property",
                             "name": "items",
@@ -2050,7 +2003,7 @@
                     "kind": "class",
                     "name": "SetList",
                     "namepath": "module:@toptensoftware/cantabile-js.SetList",
-                    "definition": "export class SetList extends EndPoint {\n    constructor(owner: any);\n    get items(): SetListItem[];\n    get name(): string;\n    get preLoaded(): boolean;\n    get currentSongIndex(): number;\n    get currentSong(): SetListItem;\n    loadSongByIndex(index: number, delayed?: boolean): void;\n    loadSongByProgram(pr: any, delayed?: boolean): void;\n    loadFirstSong(delayed?: boolean): void;\n    loadLastSong(delayed?: boolean): void;\n    loadNextSong(direction: number, delayed?: boolean, wrap?: boolean): void;\n    available(): string[];\n    loadSetList(name: string, loadFirst?: boolean): void;\n}",
+                    "definition": "export class SetList extends EndPoint {\n    get items(): SetListItem[];\n    get name(): string;\n    get preLoaded(): boolean;\n    get currentSongIndex(): number;\n    get currentSong(): SetListItem;\n    loadSongByIndex(index: number, delayed?: boolean): void;\n    loadSongByProgram(program: number, delayed?: boolean): void;\n    loadFirstSong(delayed?: boolean): void;\n    loadLastSong(delayed?: boolean): void;\n    loadNextSong(direction: number, delayed?: boolean, wrap?: boolean): void;\n    available(): string[];\n    loadSetList(name: string, loadFirst?: boolean): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2067,12 +2020,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.SetList#constructor",
-                            "definition": "constructor(owner: any);"
-                        },
                         {
                             "kind": "property",
                             "name": "items",
@@ -2246,7 +2193,7 @@
                             "kind": "method",
                             "name": "loadSongByProgram",
                             "namepath": "module:@toptensoftware/cantabile-js.SetList#loadSongByProgram",
-                            "definition": "loadSongByProgram(pr: any, delayed?: boolean): void;",
+                            "definition": "loadSongByProgram(program: number, delayed?: boolean): void;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -2261,8 +2208,8 @@
                                     "text": "The zero based program number of the song to load\n",
                                     "type": "Number",
                                     "optional": false,
-                                    "name": "index",
-                                    "specifier": "index"
+                                    "name": "program",
+                                    "specifier": "program"
                                 },
                                 {
                                     "block": "param",
@@ -2432,7 +2379,7 @@
                     "kind": "class",
                     "name": "ControllerWatcher",
                     "namepath": "module:@toptensoftware/cantabile-js.ControllerWatcher",
-                    "definition": "export class ControllerWatcher extends EventEmitter<any> {\n    constructor(owner: any, channel: any, kind: any, controller: any, listener: any);\n    owner: any;\n    get channel(): number;\n    get kind(): string;\n    get controller(): number;\n    get value(): number;\n    unwatch(): void;\n}",
+                    "definition": "export class ControllerWatcher extends EventEmitter<any> {\n    get channel(): number;\n    get kind(): string;\n    get controller(): number;\n    get value(): number;\n    unwatch(): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2449,18 +2396,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.ControllerWatcher#constructor",
-                            "definition": "constructor(owner: any, channel: any, kind: any, controller: any, listener: any);"
-                        },
-                        {
-                            "kind": "property",
-                            "name": "owner",
-                            "namepath": "module:@toptensoftware/cantabile-js.ControllerWatcher#owner",
-                            "definition": "owner: any;"
-                        },
                         {
                             "kind": "property",
                             "name": "channel",
@@ -2592,7 +2527,7 @@
                     "kind": "class",
                     "name": "OnscreenKeyboard",
                     "namepath": "module:@toptensoftware/cantabile-js.OnscreenKeyboard",
-                    "definition": "export class OnscreenKeyboard extends EndPoint {\n    constructor(owner: any);\n    watchers: any[];\n    ids: {};\n    queryController(channel: number, kind: string, controller: number): Promise<number>;\n    watch(channel: number, kind: string, controller: number, listener: any): ControllerWatcher;\n    injectMidi(data: object): void;\n}",
+                    "definition": "export class OnscreenKeyboard extends EndPoint {\n    queryController(channel: number, kind: string, controller: number): Promise<number>;\n    watch(channel: number, kind: string, controller: number, callback?: Function): ControllerWatcher;\n    injectMidi(data: object): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2609,24 +2544,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.OnscreenKeyboard#constructor",
-                            "definition": "constructor(owner: any);"
-                        },
-                        {
-                            "kind": "property",
-                            "name": "watchers",
-                            "namepath": "module:@toptensoftware/cantabile-js.OnscreenKeyboard#watchers",
-                            "definition": "watchers: any[];"
-                        },
-                        {
-                            "kind": "property",
-                            "name": "ids",
-                            "namepath": "module:@toptensoftware/cantabile-js.OnscreenKeyboard#ids",
-                            "definition": "ids: {};"
-                        },
                         {
                             "kind": "method",
                             "name": "queryController",
@@ -2685,7 +2602,7 @@
                             "kind": "method",
                             "name": "watch",
                             "namepath": "module:@toptensoftware/cantabile-js.OnscreenKeyboard#watch",
-                            "definition": "watch(channel: number, kind: string, controller: number, listener: any): ControllerWatcher;",
+                            "definition": "watch(channel: number, kind: string, controller: number, callback?: Function): ControllerWatcher;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -2782,7 +2699,7 @@
                     "kind": "class",
                     "name": "KeyRanges",
                     "namepath": "module:@toptensoftware/cantabile-js.KeyRanges",
-                    "definition": "export class KeyRanges extends EndPoint {\n    constructor(owner: any);\n    get items(): KeyRange[];\n}",
+                    "definition": "export class KeyRanges extends EndPoint {\n    get items(): KeyRange[];\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2799,12 +2716,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.KeyRanges#constructor",
-                            "definition": "constructor(owner: any);"
-                        },
                         {
                             "kind": "property",
                             "name": "items",
@@ -2838,7 +2749,7 @@
                     "kind": "class",
                     "name": "Engine",
                     "namepath": "module:@toptensoftware/cantabile-js.Engine",
-                    "definition": "export class Engine {\n    constructor(owner: any);\n    owner: any;\n    isStarted(): Promise<boolean>;\n    start(): Promise<any>;\n    stop(): Promise<any>;\n    restart(): Promise<any>;\n    startStop(): Promise<any>;\n}",
+                    "definition": "export class Engine {\n    isStarted(): Promise<boolean>;\n    start(): Promise<any>;\n    stop(): Promise<any>;\n    restart(): Promise<any>;\n    startStop(): Promise<any>;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2851,18 +2762,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.Engine#constructor",
-                            "definition": "constructor(owner: any);"
-                        },
-                        {
-                            "kind": "property",
-                            "name": "owner",
-                            "namepath": "module:@toptensoftware/cantabile-js.Engine#owner",
-                            "definition": "owner: any;"
-                        },
                         {
                             "kind": "method",
                             "name": "isStarted",
@@ -2979,7 +2878,7 @@
                     "kind": "class",
                     "name": "EndPoint",
                     "namepath": "module:@toptensoftware/cantabile-js.EndPoint",
-                    "definition": "export class EndPoint extends EventEmitter<any> {\n    static joinPath(a: any, b: any): string;\n    constructor(owner: any, endPoint: any);\n    get owner(): Cantabile;\n    get endPoint(): string;\n    get data(): string;\n    connect(): Promise<any>;\n    disconnect(): void;\n    send(method: any, endPoint: any, data: any): any;\n    request(method: any, endPoint: any, data: any): any;\n    post(endPoint: any, data: any): any;\n    get(endPoint: any): any;\n    get isConnected(): boolean;\n    get willConnect(): boolean;\n    waitForConnected(): Promise<any>;\n}",
+                    "definition": "export class EndPoint extends EventEmitter<any> {\n    get owner(): Cantabile;\n    get endPoint(): string;\n    get data(): string;\n    connect(): Promise<any>;\n    disconnect(): void;\n    get isConnected(): boolean;\n    get willConnect(): boolean;\n    waitForConnected(): Promise<any>;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2996,19 +2895,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "method",
-                            "static": true,
-                            "name": "joinPath",
-                            "namepath": "module:@toptensoftware/cantabile-js.EndPoint.joinPath",
-                            "definition": "static joinPath(a: any, b: any): string;"
-                        },
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.EndPoint#constructor",
-                            "definition": "constructor(owner: any, endPoint: any);"
-                        },
                         {
                             "kind": "property",
                             "name": "owner",
@@ -3130,30 +3016,6 @@
                             "links": []
                         },
                         {
-                            "kind": "method",
-                            "name": "send",
-                            "namepath": "module:@toptensoftware/cantabile-js.EndPoint#send",
-                            "definition": "send(method: any, endPoint: any, data: any): any;"
-                        },
-                        {
-                            "kind": "method",
-                            "name": "request",
-                            "namepath": "module:@toptensoftware/cantabile-js.EndPoint#request",
-                            "definition": "request(method: any, endPoint: any, data: any): any;"
-                        },
-                        {
-                            "kind": "method",
-                            "name": "post",
-                            "namepath": "module:@toptensoftware/cantabile-js.EndPoint#post",
-                            "definition": "post(endPoint: any, data: any): any;"
-                        },
-                        {
-                            "kind": "method",
-                            "name": "get",
-                            "namepath": "module:@toptensoftware/cantabile-js.EndPoint#get",
-                            "definition": "get(endPoint: any): any;"
-                        },
-                        {
                             "kind": "property",
                             "name": "isConnected",
                             "members": [
@@ -3239,7 +3101,7 @@
                     "kind": "class",
                     "name": "Commands",
                     "namepath": "module:@toptensoftware/cantabile-js.Commands",
-                    "definition": "export class Commands extends EndPoint {\n    constructor(owner: any);\n    availableCommands(): Promise<CommandInfo[]>;\n    invoke(id: string): Promise<any>;\n}",
+                    "definition": "export class Commands extends EndPoint {\n    availableCommands(): Promise<CommandInfo[]>;\n    invoke(id: string): Promise<any>;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -3256,12 +3118,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.Commands#constructor",
-                            "definition": "constructor(owner: any);"
-                        },
                         {
                             "kind": "method",
                             "name": "availableCommands",
@@ -3328,7 +3184,7 @@
                     "kind": "class",
                     "name": "Cantabile",
                     "namepath": "module:@toptensoftware/cantabile-js.Cantabile",
-                    "definition": "export class Cantabile extends EventEmitter<any> {\n    constructor(options: {\n        host?: string | undefined;\n        autoConnect?: boolean | undefined;\n        autoConnectEndPoints?: boolean | undefined;\n        maxListeners?: number | undefined;\n    });\n    shouldConnect: boolean;\n    set autoConnectEndPoints(value: boolean);\n    get autoConnectEndPoints(): boolean;\n    get options(): Object;\n    get state(): string;\n    connect(): Promise<any>;\n    disconnect(): void;\n    send(obj: object): void;\n    request(message: any): Promise<object>;\n    waitForConnected(): Promise<any>;\n    get host(): string;\n    get socketUrl(): string;\n    timeoutPending: boolean | undefined;\n    getEndPoint(type: any): any;\n    get song(): Song;\n    get setList(): SetList;\n    get songStates(): SongStates;\n    get keyRanges(): KeyRanges;\n    get showNotes(): ShowNotes;\n    get variables(): Variables;\n    get onscreenKeyboard(): OnscreenKeyboard;\n    get commands(): Commands;\n    get transport(): Transport;\n    get application(): Application;\n    get engine(): Engine;\n    get bindings(): Bindings;\n}",
+                    "definition": "export class Cantabile extends EventEmitter<any> {\n    constructor(options: {\n        host?: string | undefined;\n        autoConnect?: boolean | undefined;\n        autoConnectEndPoints?: boolean | undefined;\n        maxListeners?: number | undefined;\n    });\n    set autoConnectEndPoints(value: boolean);\n    get autoConnectEndPoints(): boolean;\n    get options(): Object;\n    get state(): string;\n    connect(): Promise<any>;\n    disconnect(): void;\n    send(obj: object): void;\n    request(message: object): Promise<object>;\n    waitForConnected(): Promise<any>;\n    get host(): string;\n    get socketUrl(): string;\n    get song(): Song;\n    get setList(): SetList;\n    get songStates(): SongStates;\n    get keyRanges(): KeyRanges;\n    get showNotes(): ShowNotes;\n    get variables(): Variables;\n    get onscreenKeyboard(): OnscreenKeyboard;\n    get commands(): Commands;\n    get transport(): Transport;\n    get application(): Application;\n    get engine(): Engine;\n    get bindings(): Bindings;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -3403,19 +3259,27 @@
                         },
                         {
                             "kind": "property",
-                            "name": "shouldConnect",
-                            "namepath": "module:@toptensoftware/cantabile-js.Cantabile#shouldConnect",
-                            "definition": "shouldConnect: boolean;"
-                        },
-                        {
-                            "kind": "property",
                             "name": "autoConnectEndPoints",
                             "members": [
                                 {
                                     "kind": "get",
                                     "name": "autoConnectEndPoints",
                                     "namepath": "module:@toptensoftware/cantabile-js.Cantabile#autoConnectEndPoints.get",
-                                    "definition": "get autoConnectEndPoints(): boolean;"
+                                    "definition": "get autoConnectEndPoints(): boolean;",
+                                    "jsdoc": [
+                                        {
+                                            "kind": null,
+                                            "text": "\nControls whether the sub-object end points are automatically\nconnected when first accessed.\n\n"
+                                        },
+                                        {
+                                            "block": "property",
+                                            "text": "* @type {Boolean}\n",
+                                            "optional": false,
+                                            "name": "autoConnectEndPoints",
+                                            "specifier": "autoConnectEndPoints"
+                                        }
+                                    ],
+                                    "links": []
                                 },
                                 {
                                     "kind": "set",
@@ -3548,7 +3412,7 @@
                             "kind": "method",
                             "name": "request",
                             "namepath": "module:@toptensoftware/cantabile-js.Cantabile#request",
-                            "definition": "request(message: any): Promise<object>;",
+                            "definition": "request(message: object): Promise<object>;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -3560,11 +3424,11 @@
                                 },
                                 {
                                     "block": "param",
-                                    "text": "The object to send\n",
+                                    "text": "The message object to send\n",
                                     "type": "object",
                                     "optional": false,
-                                    "name": "obj",
-                                    "specifier": "obj"
+                                    "name": "message",
+                                    "specifier": "message"
                                 },
                                 {
                                     "block": "returns",
@@ -3653,18 +3517,6 @@
                                 }
                             ],
                             "namepath": "module:@toptensoftware/cantabile-js.Cantabile#socketUrl"
-                        },
-                        {
-                            "kind": "property",
-                            "name": "timeoutPending",
-                            "namepath": "module:@toptensoftware/cantabile-js.Cantabile#timeoutPending",
-                            "definition": "timeoutPending: boolean | undefined;"
-                        },
-                        {
-                            "kind": "method",
-                            "name": "getEndPoint",
-                            "namepath": "module:@toptensoftware/cantabile-js.Cantabile#getEndPoint",
-                            "definition": "getEndPoint(type: any): any;"
                         },
                         {
                             "kind": "property",
@@ -3996,7 +3848,7 @@
                     "kind": "class",
                     "name": "BindingWatcher",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingWatcher",
-                    "definition": "export class BindingWatcher extends EventEmitter<any> {\n    constructor(owner: any, bindingPoint: any, callback: any);\n    owner: any;\n    get bindablePoint(): BindingPoint;\n    get value(): Object;\n    unwatch(): void;\n}",
+                    "definition": "export class BindingWatcher extends EventEmitter<any> {\n    get bindablePoint(): BindingPoint;\n    get value(): Object;\n    unwatch(): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -4013,18 +3865,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.BindingWatcher#constructor",
-                            "definition": "constructor(owner: any, bindingPoint: any, callback: any);"
-                        },
-                        {
-                            "kind": "property",
-                            "name": "owner",
-                            "namepath": "module:@toptensoftware/cantabile-js.BindingWatcher#owner",
-                            "definition": "owner: any;"
-                        },
                         {
                             "kind": "property",
                             "name": "bindablePoint",
@@ -4102,7 +3942,7 @@
                     "kind": "class",
                     "name": "PreparedBindingPoint",
                     "namepath": "module:@toptensoftware/cantabile-js.PreparedBindingPoint",
-                    "definition": "export class PreparedBindingPoint {\n    constructor(owner: any, bindingPoint: any);\n    owner: any;\n    waitForConnected(): Promise<any>;\n    get isConnected(): boolean;\n    unprepare(): void;\n    invoke(value: Object): Promise<any>;\n    tryInvoke(value: Object): boolean | Promise<any>;\n}",
+                    "definition": "export class PreparedBindingPoint {\n    waitForConnected(): Promise<any>;\n    get isConnected(): boolean;\n    unprepare(): void;\n    invoke(value: Object): Promise<any>;\n    tryInvoke(value: Object): boolean | Promise<any>;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -4115,18 +3955,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.PreparedBindingPoint#constructor",
-                            "definition": "constructor(owner: any, bindingPoint: any);"
-                        },
-                        {
-                            "kind": "property",
-                            "name": "owner",
-                            "namepath": "module:@toptensoftware/cantabile-js.PreparedBindingPoint#owner",
-                            "definition": "owner: any;"
-                        },
                         {
                             "kind": "method",
                             "name": "waitForConnected",
@@ -4259,7 +4087,7 @@
                     "kind": "class",
                     "name": "Bindings",
                     "namepath": "module:@toptensoftware/cantabile-js.Bindings",
-                    "definition": "export class Bindings extends EndPoint {\n    constructor(owner: any);\n    getAvailableBindingPoints(): Promise<BindingPointEntry[]>;\n    getBindingPointInfo(bindablePoint: any, source: boolean): Promise<BindingPointInfo>;\n    invoke(bindingPoint: any, value: Object): Promise<any>;\n    query(bindingPoint: BindingPoint): Promise<Object>;\n    watch(bindingPoint: BindingPoint, callback?: Function): BindingWatcher;\n    prepare(bindingPoint: BindingPoint): PreparedBindingPoint;\n}",
+                    "definition": "export class Bindings extends EndPoint {\n    getAvailableBindingPoints(): Promise<BindingPointEntry[]>;\n    getBindingPointInfo(bindingPoint: BindingPoint, source: boolean): Promise<BindingPointInfo>;\n    invoke(bindingPoint: BindingPoint, value: Object): Promise<any>;\n    query(bindingPoint: BindingPoint): Promise<Object>;\n    watch(bindingPoint: BindingPoint, callback?: Function): BindingWatcher;\n    prepare(bindingPoint: BindingPoint): PreparedBindingPoint;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -4276,12 +4104,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.Bindings#constructor",
-                            "definition": "constructor(owner: any);"
-                        },
                         {
                             "kind": "method",
                             "name": "getAvailableBindingPoints",
@@ -4312,7 +4134,7 @@
                             "kind": "method",
                             "name": "getBindingPointInfo",
                             "namepath": "module:@toptensoftware/cantabile-js.Bindings#getBindingPointInfo",
-                            "definition": "getBindingPointInfo(bindablePoint: any, source: boolean): Promise<BindingPointInfo>;",
+                            "definition": "getBindingPointInfo(bindingPoint: BindingPoint, source: boolean): Promise<BindingPointInfo>;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -4354,7 +4176,7 @@
                             "kind": "method",
                             "name": "invoke",
                             "namepath": "module:@toptensoftware/cantabile-js.Bindings#invoke",
-                            "definition": "invoke(bindingPoint: any, value: Object): Promise<any>;",
+                            "definition": "invoke(bindingPoint: BindingPoint, value: Object): Promise<any>;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -4389,8 +4211,8 @@
                                     "text": "The binding point to invoke\n",
                                     "type": "BindingPoint",
                                     "optional": false,
-                                    "name": "bindablePoint",
-                                    "specifier": "bindablePoint"
+                                    "name": "bindingPoint",
+                                    "specifier": "bindingPoint"
                                 },
                                 {
                                     "block": "param",
@@ -4532,7 +4354,7 @@
                     "kind": "class",
                     "name": "Application",
                     "namepath": "module:@toptensoftware/cantabile-js.Application",
-                    "definition": "export class Application extends EndPoint {\n    constructor(owner: any);\n    get companyName(): string;\n    get name(): string;\n    get version(): string;\n    get edition(): string;\n    get copyright(): string;\n    get build(): number;\n    get colors(): ColorEntry[];\n    get busy(): boolean;\n    get baseProgramNumber(): number;\n    get bankedProgramNumberFormat(): string;\n}",
+                    "definition": "export class Application extends EndPoint {\n    get companyName(): string;\n    get name(): string;\n    get version(): string;\n    get edition(): string;\n    get copyright(): string;\n    get build(): number;\n    get colors(): ColorEntry[];\n    get busy(): boolean;\n    get baseProgramNumber(): number;\n    get bankedProgramNumberFormat(): string;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -4549,12 +4371,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "constructor",
-                            "name": "constructor",
-                            "namepath": "module:@toptensoftware/cantabile-js.Application#constructor",
-                            "definition": "constructor(owner: any);"
-                        },
                         {
                             "kind": "property",
                             "name": "companyName",

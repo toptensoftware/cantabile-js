@@ -10,6 +10,7 @@ import { EndPoint } from './EndPoint.js';
  */
 export class KeyRanges extends EndPoint
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/keyranges");

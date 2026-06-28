@@ -10,6 +10,7 @@ import { EndPoint } from './EndPoint.js';
  */
 export class ShowNotes extends EndPoint
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/shownotes");

@@ -10,10 +10,13 @@ import fetch from 'node-fetch';
  */
 export class Engine
 {
+	/** @internal */
     constructor(owner)
     {
-		this.owner = owner;
+		this.#owner = owner;
     }
+
+	#owner;
 
 	/**
 	 * Returns a promise to provide the started state of Cantabile's audio engine.
@@ -23,9 +26,9 @@ export class Engine
 	 * @method isStarted
 	 * @returns {Promise<Boolean>}
 	 */
-	 async isStarted()
+	async isStarted()
 	{
-		let f = await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/")).then(r => r.json());
+		let f = await fetch(EndPoint.joinPath(this.#owner.hostUrl, "api/engine/")).then(r => r.json());
 		return f.isStarted;
 	}
 
@@ -39,7 +42,7 @@ export class Engine
 	 */
 	async start()
 	{
-		await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/start"), { method: "POST" });
+		await fetch(EndPoint.joinPath(this.#owner.hostUrl, "api/engine/start"), { method: "POST" });
 	}
 
 	/**
@@ -52,7 +55,7 @@ export class Engine
 	 */
 	async stop()
 	{
-		await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/stop"), { method: "POST" });
+		await fetch(EndPoint.joinPath(this.#owner.hostUrl, "api/engine/stop"), { method: "POST" });
 	}
 
 	/**
@@ -65,7 +68,7 @@ export class Engine
 	 */
 	 async restart()
 	 {
-		 await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/restart"), { method: "POST" });
+		 await fetch(EndPoint.joinPath(this.#owner.hostUrl, "api/engine/restart"), { method: "POST" });
 	 }
 
  	/**
@@ -78,7 +81,7 @@ export class Engine
 	 */
 	  async startStop()
 	  {
-		  await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/startStop"), { method: "POST" });
+		  await fetch(EndPoint.joinPath(this.#owner.hostUrl, "api/engine/startStop"), { method: "POST" });
 	  }
 
   }

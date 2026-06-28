@@ -7,6 +7,7 @@
  * @extends EndPoint
  */
 export class SetList extends EndPoint {
+    /** @internal */
     constructor(owner: any);
     _currentSong: any;
     /**
@@ -51,10 +52,10 @@ export class SetList extends EndPoint {
     /**
      * Load the song with a given program number
      * @method loadSongByProgram
-     * @param {Number} index The zero based program number of the song to load
+     * @param {Number} program The zero based program number of the song to load
      * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
      */
-    loadSongByProgram(pr: any, delayed?: boolean): void;
+    loadSongByProgram(program: number, delayed?: boolean): void;
     /**
      * Load the first song in the set list
      * @method loadFirstSong

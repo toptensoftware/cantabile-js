@@ -7,12 +7,8 @@
  * @extends EventEmitter
  */
 export class PatternWatcher extends EventEmitter<any> {
-    constructor(owner: any, pattern: any, listener: any);
-    owner: any;
-    _pattern: any;
-    _patternId: number;
-    _resolved: string;
-    _listener: any;
+    /** @internal */
+    constructor(owner: any, pattern: any, callback: any);
     /**
      * Returns the pattern string being watched
      *
@@ -37,6 +33,7 @@ export class PatternWatcher extends EventEmitter<any> {
     unwatch(): void;
     _update(data: any): void;
     _fireChanged(): void;
+    #private;
 }
 /**
  * Provides access to Cantabile's internal variables by allowing a pattern string to be
@@ -48,9 +45,8 @@ export class PatternWatcher extends EventEmitter<any> {
  * @extends EndPoint
  */
 export class Variables extends EndPoint {
+    /** @internal */
     constructor(owner: any);
-    watchers: any[];
-    patternIds: {};
     /**
      * Resolves a variable pattern string into a final display string
      *
@@ -65,9 +61,10 @@ export class Variables extends EndPoint {
      *     C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
      *
      * @method resolve
+     * @param {string} pattern The string variable pattern to resolve
      * @returns {Promise<String>} A promise to provide the resolved string
      */
-    resolve(pattern: any): Promise<string>;
+    resolve(pattern: string): Promise<string>;
     /**
      * Starts watching a pattern string for changes
      *
@@ -110,11 +107,12 @@ export class Variables extends EndPoint {
      *
      * @returns {PatternWatcher}
      */
-    watch(pattern: string, listener: any): PatternWatcher;
+    watch(pattern: string, callback?: Function): PatternWatcher;
     _registerPatternId(patternId: any, watcher: any): void;
     _revokePatternId(patternId: any): void;
     _revokeWatcher(w: any): void;
     _onEvent_patternChanged(data: any): void;
+    #private;
 }
 import EventEmitter from 'events';
 import { EndPoint } from './EndPoint.js';
