@@ -70,7 +70,7 @@ export class Cantabile extends EventEmitter
 		this.#setState("disconnected");
 		this.autoConnectEndPoints = options.autoConnectEndPoints;
 
-		if (autoConnect)
+		if (options.autoConnect)
 			this.connect();
 	}
 

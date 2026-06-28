@@ -39,7 +39,7 @@ class KeyRanges extends EndPoint
 
 	_onEvent_keyRangesChanged(data)
 	{
-		this.data = data;
+		this._setData(data);
 		this.emit('changed');
 	}
 }

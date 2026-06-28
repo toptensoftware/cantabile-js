@@ -187,7 +187,7 @@ class SetList extends EndPoint
 
 	_onEvent_setListChanged(data)
 	{
-		this.data = data;
+		this._setData(data);
 		this._resolveCurrentSong();
 		this.emit('reload');
 		this.emit('changed');

@@ -107,6 +107,125 @@ class BindingWatcher extends EventEmitter
 }
 
 
+/**
+ * Represents a target binding point prepared for multiple invocations
+
+ * Returned from the {{#crossLink "Bindings/prepare:method"}}{{/crossLink}} method.
+ * 
+ * @class PreparedBindingPoint
+ */
+class PreparedBindingPoint
+{
+	constructor(owner, bindingPoint)
+	{
+		this.owner = owner;
+		this.#bindingPoint = bindingPoint;
+		this.#prepareConnectPromise();
+	}
+
+	#bindingPoint;
+	#prepId = 0;
+	#connectPromise;
+	#connectPromiseResolve;
+	#connectPromiseReject;
+
+	// Prepares a new promise that will be resolved
+	// when this end point has initially connected
+	#prepareConnectPromise()
+	{
+		this.#connectPromise = new Promise((resolve, reject) => {
+			this.#connectPromiseResolve = resolve;
+			this.#connectPromiseReject = reject;
+		});
+	}
+
+	_start()
+	{
+		this.owner.post("/prepare", this.#bindingPoint)
+			.then(r => {
+				this.#prepId = r.data.prepId;
+				this.#connectPromiseResolve();
+			})
+			.catch((err) => {
+				this.#connectPromiseReject(err)
+			})
+	}
+
+	_stop()
+	{
+		if (this.owner._epid && this.#prepId)
+		{
+			this.owner.send("POST", "/unprepare", { prepId: this.#prepId })
+			this.#prepId = 0;
+			this.#prepareConnectPromise();
+		}
+	}
+
+	/**
+	 * Returns a promise that will resolve once this prepared binding has connected
+	 * @method waitForConnected
+	 * @returns {Promise}}
+	 */
+	waitForConnected()
+	{
+		return this.#connectPromise;
+	}
+
+	/**
+	 * Check if this binding point is currently connected and ready to accept invocations
+	 * 
+	 * @property isConnected
+	 * @type {Boolean}
+	 */
+	get isConnected()
+	{
+		return this.#prepId != 0;
+	}
+
+	/**
+	 * Releases this prepared binding point
+	 *
+	 * @method unprepare
+	 */
+	unprepare()
+	{
+		this._stop();
+		this.owner._revokePrepped(this);
+	}
+
+	/**
+	 * Invokes this binding point
+	 * @method invoke
+     * @param {Object} value The value to pass to the binding point
+     * @returns {Promise} A promise that resolves once the target binding point has been invoked
+	 */
+	invoke(value)
+	{
+		if (this.#prepId == 0)
+			throw new Error("Prepared binding point not (yet?) connected");
+
+        return this.owner.request("POST", "/preparedInvoke", {
+			prepId: this.#prepId,
+			value
+        });
+	}
+
+	/**
+	 * Tries to invokes this binding point
+	 * @method tryInvoke
+     * @param {Object} value The value to pass to the binding point
+     * @returns {Boolean|Promise} False if not currently connected, or a promise that resolves once the target 
+	 *                            binding point has been invoked
+	 */
+	tryInvoke(value)
+	{
+		if (!this.isConnected)
+			return false;
+		return this.invoke(value);
+	}
+
+}
+
 let allowedBindingPointProps = new Set([ "bindableId", "bindingPointId", "bindableParams", "bindingPointParams" ]);
 
 function checkBindingPoint(bp)
@@ -138,6 +257,7 @@ class Bindings extends EndPoint
     }
 
 	#watchers = [];
+	#prepped = [];
 	#watchIds = {};
 
     _onConnected()
@@ -146,6 +266,10 @@ class Bindings extends EndPoint
 		{
 			this.#watchers[i]._start();
 		}
+		for (let i=0; i<this.#prepped.length; i++)
+		{
+			this.#prepped[i]._start();
+		}
     }
 
     _onDisconnected()
@@ -153,6 +277,10 @@ class Bindings extends EndPoint
 		for (let i=0; i<this.#watchers.length; i++)
 		{
 			this.#watchers[i]._stop();
+		}
+		for (let i=0; i<this.#prepped.length; i++)
+		{
+			this.#prepped[i]._stop();
 		}
     }
 
@@ -373,6 +501,24 @@ class Bindings extends EndPoint
 		return w;
 	}
 
+	/**
+	 * Prepares a target binding point for multiple invocations
+	 * 
+	 * @method prepare
+     * @param {BindingPoint} bindingPoint The binding point to invoke
+	 * @returns {PreparedBindingPoint}
+	 */
+	prepare(bindingPoint)
+	{
+		checkBindingPoint(bindingPoint);
+
+		var p = new PreparedBindingPoint(this, bindingPoint);
+		this.#prepped.push(p);
+		if (this.isConnected)
+			p._start();
+		return p;
+	}
+
 	_registerWatchId(watchId, watcher)
 	{
 		this.#watchIds[watchId] = watcher;
@@ -385,9 +531,16 @@ class Bindings extends EndPoint
 
 	_revokeWatcher(w)
 	{
-		this.#watchers = this.#watchers.filter(x=>x != w);
-		if (this.#watchers.length == 0)
-			this.close();
+		let index = this.#watchers.indexOf(w);
+		if (index >= 0)
+			this.#watchers.splice(index, 1);
+	}
+
+	_revokePrepped(p)
+	{
+		let index = this.#prepped.indexOf(p);
+		if (index >= 0)
+			this.#prepped.splice(index, 1);
 	}
 
 	_onEvent_invoked(data)

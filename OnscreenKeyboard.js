@@ -288,8 +288,6 @@ class OnscreenKeyboard extends EndPoint
 	_revokeWatcher(w)
 	{
 		this.watchers = this.watchers.filter(x=>x != w);
-		if (this.watchers.length == 0)
-			this.close();
 	}
 
 	_onEvent_controllerChanged(data)

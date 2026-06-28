@@ -55,6 +55,9 @@ class EndPoint extends EventEmitter
 	 */
 	get data() { return this.#data; }
 
+	// internal setter
+	_setData(value) { this.#data = value; }
+
 	// Prepares a new promise that will be resolved
 	// when this end point has initially connected
 	#prepareConnectPromise()

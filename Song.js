@@ -95,7 +95,7 @@ class Song extends EndPoint
 
 	_onEvent_songChanged(data)
 	{
-		this.data = data;
+		this._setData(data);
 		this.emit('changed');
 		this.emit('nameChanged');
 		this.emit('currentStateChanged');

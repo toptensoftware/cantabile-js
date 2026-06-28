@@ -228,8 +228,6 @@ class Variables extends EndPoint
 	_revokeWatcher(w)
 	{
 		this.watchers = this.watchers.filter(x=>x != w);
-		if (this.watchers.length == 0)
-			this.close();
 	}
 
 	_onEvent_patternChanged(data)

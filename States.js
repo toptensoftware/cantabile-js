@@ -152,7 +152,7 @@ class States extends EndPoint
 
 	_onEvent_songChanged(data)
 	{
-		this.data = data;
+		this._setData(data);
 		this._resolveCurrentState();
 		this.emit('reload');
 		this.emit('changed');
