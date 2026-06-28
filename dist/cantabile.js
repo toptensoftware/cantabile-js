@@ -438,7 +438,7 @@ var hasRequiredBrowser;
 function requireBrowser () {
 	if (hasRequiredBrowser) return browser.exports;
 	hasRequiredBrowser = 1;
-	(function (module, exports$1) {
+	(function (module, exports) {
 
 		function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -447,17 +447,17 @@ function requireBrowser () {
 		/**
 		 * This is the web browser implementation of `debug()`.
 		 */
-		exports$1.log = log;
-		exports$1.formatArgs = formatArgs;
-		exports$1.save = save;
-		exports$1.load = load;
-		exports$1.useColors = useColors;
-		exports$1.storage = localstorage();
+		exports.log = log;
+		exports.formatArgs = formatArgs;
+		exports.save = save;
+		exports.load = load;
+		exports.useColors = useColors;
+		exports.storage = localstorage();
 		/**
 		 * Colors.
 		 */
 
-		exports$1.colors = ['#0000CC', '#0000FF', '#0033CC', '#0033FF', '#0066CC', '#0066FF', '#0099CC', '#0099FF', '#00CC00', '#00CC33', '#00CC66', '#00CC99', '#00CCCC', '#00CCFF', '#3300CC', '#3300FF', '#3333CC', '#3333FF', '#3366CC', '#3366FF', '#3399CC', '#3399FF', '#33CC00', '#33CC33', '#33CC66', '#33CC99', '#33CCCC', '#33CCFF', '#6600CC', '#6600FF', '#6633CC', '#6633FF', '#66CC00', '#66CC33', '#9900CC', '#9900FF', '#9933CC', '#9933FF', '#99CC00', '#99CC33', '#CC0000', '#CC0033', '#CC0066', '#CC0099', '#CC00CC', '#CC00FF', '#CC3300', '#CC3333', '#CC3366', '#CC3399', '#CC33CC', '#CC33FF', '#CC6600', '#CC6633', '#CC9900', '#CC9933', '#CCCC00', '#CCCC33', '#FF0000', '#FF0033', '#FF0066', '#FF0099', '#FF00CC', '#FF00FF', '#FF3300', '#FF3333', '#FF3366', '#FF3399', '#FF33CC', '#FF33FF', '#FF6600', '#FF6633', '#FF9900', '#FF9933', '#FFCC00', '#FFCC33'];
+		exports.colors = ['#0000CC', '#0000FF', '#0033CC', '#0033FF', '#0066CC', '#0066FF', '#0099CC', '#0099FF', '#00CC00', '#00CC33', '#00CC66', '#00CC99', '#00CCCC', '#00CCFF', '#3300CC', '#3300FF', '#3333CC', '#3333FF', '#3366CC', '#3366FF', '#3399CC', '#3399FF', '#33CC00', '#33CC33', '#33CC66', '#33CC99', '#33CCCC', '#33CCFF', '#6600CC', '#6600FF', '#6633CC', '#6633FF', '#66CC00', '#66CC33', '#9900CC', '#9900FF', '#9933CC', '#9933FF', '#99CC00', '#99CC33', '#CC0000', '#CC0033', '#CC0066', '#CC0099', '#CC00CC', '#CC00FF', '#CC3300', '#CC3333', '#CC3366', '#CC3399', '#CC33CC', '#CC33FF', '#CC6600', '#CC6633', '#CC9900', '#CC9933', '#CCCC00', '#CCCC33', '#FF0000', '#FF0033', '#FF0066', '#FF0099', '#FF00CC', '#FF00FF', '#FF3300', '#FF3333', '#FF3366', '#FF3399', '#FF33CC', '#FF33FF', '#FF6600', '#FF6633', '#FF9900', '#FF9933', '#FFCC00', '#FFCC33'];
 		/**
 		 * Currently only WebKit-based Web Inspectors, Firefox >= v31,
 		 * and the Firebug extension (any Firefox version) are known
@@ -550,9 +550,9 @@ function requireBrowser () {
 		function save(namespaces) {
 		  try {
 		    if (namespaces) {
-		      exports$1.storage.setItem('debug', namespaces);
+		      exports.storage.setItem('debug', namespaces);
 		    } else {
-		      exports$1.storage.removeItem('debug');
+		      exports.storage.removeItem('debug');
 		    }
 		  } catch (error) {// Swallow
 		    // XXX (@Qix-) should we be logging these?
@@ -570,7 +570,7 @@ function requireBrowser () {
 		  var r;
 
 		  try {
-		    r = exports$1.storage.getItem('debug');
+		    r = exports.storage.getItem('debug');
 		  } catch (error) {} // Swallow
 		  // XXX (@Qix-) should we be logging these?
 		  // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
@@ -604,7 +604,7 @@ function requireBrowser () {
 		  }
 		}
 
-		module.exports = requireCommon()(exports$1);
+		module.exports = requireCommon()(exports);
 		var formatters = module.exports.formatters;
 		/**
 		 * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
@@ -989,86 +989,130 @@ class EndPoint extends EventEmitter
 	constructor(owner, endPoint)
 	{
 		super();
-		this.owner = owner;
-		this.endPoint = endPoint;
-		this.openCount = 0;
-		this.owner.on('connected', this._onConnected.bind(this));
-		this.owner.on('disconnected', this._onDisconnected.bind(this));
+		if (this.setMaxListeners)
+			this.setMaxListeners(owner.options.maxListeners);
+		this.#owner = owner;
+		this.#endPoint = endPoint;
+		this.#owner.on('connected', () => this.#onSessionConnected());
+		this.#owner.on('disconnected', () => this.#onSessionDisconnected());
+		this.#prepareConnectPromise();
+	}
 
-		this.on('newListener', (event, listener) => {
-			if (event != "newListener" && event != "removeListener")
-				this.open();
-		});
-		this.on('removeListener', (event, listener) => {
-			if (event != "newListener" && event != "removeListener")
-				this.close();
+	#owner;
+	#connectCount = 0;
+	#connectPromise;
+	#connectPromiseResolve;
+	#connectPromiseReject;
+	#endPoint;
+	#epid = null;
+	#data = null;
+
+	/**
+	 * Gets the owning session of this end point
+	 * @property owner
+	 * @type {Cantabile}
+	 */
+	get owner() { return this.#owner; }
+
+	/**
+	 * Gets the end point url for this endpoint
+	 * @property endPoint
+	 * @type {string}
+	 */
+	get endPoint() { return this.#endPoint; }
+
+	/**
+	 * Gets the last received raw data for this end point
+	 * @property endPoint
+	 * @type {string}
+	 */
+	get data() { return this.#data; }
+
+	// internal setter
+	_setData(value) { this.#data = value; }
+
+	// Prepares a new promise that will be resolved
+	// when this end point has initially connected
+	#prepareConnectPromise()
+	{
+		this.#connectPromise = new Promise((resolve, reject) => {
+			this.#connectPromiseResolve = resolve;
+			this.#connectPromiseReject = reject;
 		});
 	}
 
 	/**
-	 * Opens this end point and starts listening for events. 
+	 * Connects this end point and starts listening for events. 
 	 * 
-	 * This method no longer needs to be explicitly called as end points are now
-	 * automatically opened when the first event listener is attached.
+	 * Usually this method doesn't need to be called since the session
+	 * object normally automatically connects end point objects when
+	 * first accessed
 	 * 
-	 * Use this method to keep the end point open even when no event listeners are attached.
-	 * 
-	 * @method open
+	 * @method connect
+	 * @returns {Promise} A promise that resolves when connected
 	 */
-	open()
+	connect()
 	{
-		this.openCount++;
+		this.#connectCount++;
 
-		if (this.openCount == 1 && this.owner.state == "connected")
+		if (this.#connectCount == 1 && this.owner.state == "connected")
 		{
-			this._onConnected();
+			this.#onSessionConnected();
 		}
+
+		return this.#connectPromise;
 	}
 
 	/**
-	 * Closes the end point and stops listening for events.
+	 * Disconnect this end point and stops listening for events.
+	 *
+	 * Usually this method should never be used
 	 * 
-	 * This method no longer needs to be explicitly called as end points are now
-	 * automatically closed when the last event listener is removed.
-	 * @method close
+	 * @method disconnect
 	 */
-	close()
+	disconnect()
 	{
-		// Reduce the open reference count
-		this.openCount--;
-		if (this.openCount > 0)
+		// Reduce the connected reference count
+		this.#connectCount--;
+		if (this.#connectCount > 0)
 			return;
 
-		// Send the close message
-		this.owner.send({
-			method: "close",
-			epid: this._epid,
-		});
+		if (this.#epid)
+		{
+			// Send the close message
+			this.owner.send({
+				method: "close",
+				epid: this.#epid,
+			});
 
-		// Remove end point event handler
-		this.owner._revokeEndPointEventHandler(this._epid);
+			// Remove end point event handler
+			this.owner._revokeEndPointEventHandler(this.#epid);
 
-		this._onClose();
+			// Prepare the next connection promise
+			this.#prepareConnectPromise();
+		}
 
-		delete this._epid;
-		delete this._data;
+		this._onDisconnected();
+
+		this.#epid = null;
+		this.#data = null;
 	}
 
 	send(method, endPoint, data)
 	{
-		if (this._epid)
+		if (this.#epid)
 		{
-			// If connection is open, pass the epid and just the sub-url path
+			// If connected, pass the epid and just the sub-url path
 			return this.owner.send({
 				ep: endPoint,
-				epid: this._epid,
+				epid: this.#epid,
 				method: method,
 				data: data,
 			});
 		}
 		else
 		{
-			// If connection isn't open, need to specify the full end point url
+			// If not connected, need to specify the full end point url
 			return this.owner.send({
 				ep: EndPoint.joinPath(this.endPoint, endPoint),
 				method: method,
@@ -1079,19 +1123,19 @@ class EndPoint extends EventEmitter
 
 	request(method, endPoint, data)
 	{
-		if (this._epid)
+		if (this.#epid)
 		{
-			// If connection is open, pass the epid and just the sub-url path
+			// If connected, pass the epid and just the sub-url path
 			return this.owner.request({
 				ep: endPoint,
-				epid: this._epid,
+				epid: this.#epid,
 				method: method,
 				data: data,
 			});
 		}
 		else
 		{
-			// If connection isn't open, need to specify the full end point url
+			// If not connected, need to specify the full end point url
 			return this.owner.request({
 				ep: EndPoint.joinPath(this.endPoint, endPoint),
 				method: method,
@@ -1110,43 +1154,42 @@ class EndPoint extends EventEmitter
 		return this.request('get', endPoint);
 	}
 
-	get isOpen() { return !!this._epid }
+	/**
+	 * Checks if this end point is current connected
+     * @property isConnected
+	 * @type {Boolean}
+	 */
+	get isConnected() { return !!this.#epid }
+
+	/**
+	 * Checks if this end point will connect when the session connects
+     * @property willConnect
+	 * @type {Boolean}
+	 */
+	get willConnect() { return this.#connectCount > 0 }
 
 	/**
 	 * Returns a promise that will be resolved when this end point is opened
 	 * 
 	 * @example
 	 * 
-	 *     let C = new CantabileApi();
-	 * 	   C.application.open();
-	 *     await C.application.untilOpen();
+	 *     let C = new Cantabile();
+	 *     await C.application.waitForConnected();
 	 *
-	 * @method untilOpen
-	 * @return {Promise}
+	 * @method waitForConnected
+	 * @returns {Promise}
 	 */
-	untilOpen()
+	waitForConnected()
 	{
-		if (this.isOpen)
-		{
-			return Promise.resolve();		
-		}
-		else
-		{
-			return new Promise((resolve, reject) => {
-				if (!this._pendingOpenPromises)
-					 this._pendingOpenPromises = [resolve];
-				else
-					this._pendingOpenPromises.push(resolve);
-			});
-		}
+		return this.#connectPromise;
 	}
 
 
-	async _onConnected()
+	async #onSessionConnected()
 	{
 		try
 		{
-			if (this.openCount == 0)
+			if (this.#connectCount == 0)
 				return;
 				
 			var msg = await this.owner.request(
@@ -1155,44 +1198,39 @@ class EndPoint extends EventEmitter
 				ep: this.endPoint,
 			});
 
-			this._epid = msg.epid;
-			this._data = msg.data;
-			this.owner._registerEndPointEventHandler(this._epid, this);
+			this.#epid = msg.epid;
+			this.#data = msg.data;
+			this.owner._registerEndPointEventHandler(this.#epid, this);
 
-			this._onOpen();
+			this._onConnected();
 
-			// Resolve open promises
-			if (this._pendingOpenPromises)
-			{
-				for (let i=0; i<this._pendingOpenPromises.length; i++)
-				{
-					this._pendingOpenPromises[i]();
-				}
-				this._pendingOpenPromises = null;
-			}
+			// Resolve connect promise
+			this.#connectPromiseResolve(this);
 		}
 		catch (err)
 		{
+			this.#connectPromiseReject(err);
 			debug$1(err);
-			throw err;
-			// What to do?
 		}
 	}
 
+	#onSessionDisconnected()
+	{
+		if (this.#epid)
+		{
+			this.owner._revokeEndPointEventHandler(this.#epid);
+			this.#prepareConnectPromise();
+		}
+		this.#epid = null;
+		this.#data = null;
+		this._onDisconnected();
+	}
+
+	_onConnected()
+	{
+	}
+
 	_onDisconnected()
-	{
-		if (this._epid)
-			this.owner._revokeEndPointEventHandler(this._epid);
-		delete this._epid;
-		delete this._data;
-		this._onClose();
-	}
-
-	_onOpen()
-	{
-	}
-
-	_onClose()
 	{
 	}
 
@@ -1235,7 +1273,7 @@ class SetList extends EndPoint
 		this._currentSong = null;
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		this._resolveCurrentSong();
 		this.emit('reload');
@@ -1243,7 +1281,7 @@ class SetList extends EndPoint
 		this.emit('preLoadedChanged');
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		this._resolveCurrentSong();
 		this.emit('reload');
@@ -1256,21 +1294,21 @@ class SetList extends EndPoint
 	 * @property items
 	 * @type {SetListItem[]}
 	 */
-	get items() { return this._data ? this._data.items : null; }
+	get items() { return this.data ? this.data.items : null; }
 
 	/**
 	 * The display name of the current set list (ie: its file name with path and extension removed)
 	 * @property name
 	 * @type {String} 
 	 */
-	get name() { return this._data ? this._data.name : null; }
+	get name() { return this.data ? this.data.name : null; }
 
 	/**
 	 * Indicates if the set list is currently pre-loaded
 	 * @property preLoaded
 	 * @type {Boolean}
 	 */
-	get preLoaded() { return this._data ? this._data.preLoaded : false; }
+	get preLoaded() { return this.data ? this.data.preLoaded : false; }
 
 	/**
 	 * The index of the currently loaded song (or -1 if the current song isn't in the set list).
@@ -1282,9 +1320,9 @@ class SetList extends EndPoint
 	{ 
 		if (!this._currentSong)
 			return -1;
-		if (!this._data)
+		if (!this.data)
 			return -1;
-		return this._data.items.indexOf(this._currentSong); 
+		return this.data.items.indexOf(this._currentSong); 
 	}
 
 	/**
@@ -1366,7 +1404,7 @@ class SetList extends EndPoint
 	/**
 	 * Gets a list of available set lists in the user's set list folder
 	 * @method available
-	 * @return {String[]} An array of set list names (relative to user's set list folder, extension removed)
+	 * @returns {String[]} An array of set list names (relative to user's set list folder, extension removed)
 	 */
 	async available()
 	{
@@ -1391,9 +1429,9 @@ class SetList extends EndPoint
 	_resolveCurrentSong()
 	{
 		// Check have data and current index is in range and record the current song
-		if (this._data && this._data.current>=0 && this._data.current < this._data.items.length)
+		if (this.data && this.data.current>=0 && this.data.current < this.data.items.length)
 		{
-			this._currentSong = this._data.items[this._data.current];
+			this._currentSong = this.data.items[this.data.current];
 		}
 		else
 		{
@@ -1403,7 +1441,7 @@ class SetList extends EndPoint
 
 	_onEvent_setListChanged(data)
 	{
-		this._data = data;
+		this._setData(data);
 		this._resolveCurrentSong();
 		this.emit('reload');
 		this.emit('changed');
@@ -1412,7 +1450,7 @@ class SetList extends EndPoint
 
 	_onEvent_itemAdded(data)
 	{
-		this._data.items.splice(data.index, 0, data.item);
+		this.data.items.splice(data.index, 0, data.item);
 		this.emit('itemAdded', data.index);
 		this.emit('changed');
 
@@ -1432,7 +1470,7 @@ class SetList extends EndPoint
 	}
 	_onEvent_itemRemoved(data)
 	{
-		this._data.items.splice(data.index, 1);		
+		this.data.items.splice(data.index, 1);		
 		this.emit('itemRemoved', data.index);
 		this.emit('changed');
 
@@ -1446,9 +1484,9 @@ class SetList extends EndPoint
 	}
 	_onEvent_itemMoved(data)
 	{
-		var item = this._data.items[data.from];
-		this._data.items.splice(data.from, 1);		
-		this._data.items.splice(data.to, 0, item);
+		var item = this.data.items[data.from];
+		this.data.items.splice(data.from, 1);		
+		this.data.items.splice(data.to, 0, item);
 		this.emit('itemMoved', data.from, data.to);
 		this.emit('changed');
 
@@ -1466,7 +1504,7 @@ class SetList extends EndPoint
 		if (this.currentSongIndex == data.index)
 			this._currentSong = data.item;
 
-		this._data.items.splice(data.index, 1, data.item);		// Don't use [] so Vue can handle it
+		this.data.items.splice(data.index, 1, data.item);		// Don't use [] so Vue can handle it
 
 		this.emit('itemChanged', data.index);
 		this.emit('changed');
@@ -1481,8 +1519,8 @@ class SetList extends EndPoint
 	}
 	_onEvent_itemsReload(data)
 	{
-		this._data.items = data.items;
-		this._data.current = data.current;
+		this.data.items = data.items;
+		this.data.current = data.current;
 		this._resolveCurrentSong();
 		this.emit('reload');
 		this.emit('changed');
@@ -1496,7 +1534,7 @@ class SetList extends EndPoint
 
 	_onEvent_preLoadedChanged(data)
 	{
-		this._data.preLoaded = data.preLoaded;
+		this.data.preLoaded = data.preLoaded;
 		this.emit('preLoadedChanged');
 
 		/**
@@ -1508,7 +1546,7 @@ class SetList extends EndPoint
 
 	_onEvent_currentSongChanged(data)
 	{
-		this._data.current = data.current;
+		this.data.current = data.current;
 		this._resolveCurrentSong();
 		this.emit('currentSongChanged');
 
@@ -1534,8 +1572,8 @@ class SetList extends EndPoint
 
 	_onEvent_nameChanged(data)
 	{
-		if (this._data)
-			this._data.name = data ? data.name : null;
+		if (this.data)
+			this.data.name = data ? data.name : null;
 		this.emit('nameChanged');
 		this.emit('changed');
 
@@ -1563,14 +1601,14 @@ class States extends EndPoint
 		this._currentState = null;
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		this._resolveCurrentState();
 		this.emit('reload');
 		this.emit('changed');
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		this._resolveCurrentState();
 		this.emit('reload');
@@ -1582,14 +1620,14 @@ class States extends EndPoint
 	 * @property items
 	 * @type {State[]}
 	 */
-	get items() { return this._data ? this._data.items : null; }
+	get items() { return this.data ? this.data.items : null; }
 
 	/**
 	 * The display name of the containing song or rack
 	 * @property name
 	 * @type {String} 
 	 */
-	get name() { return this._data ? this._data.name : null; }
+	get name() { return this.data ? this.data.name : null; }
 
 	/**
 	 * The index of the currently loaded State (or -1 if no active state).
@@ -1601,9 +1639,9 @@ class States extends EndPoint
 	{ 
 		if (!this._currentState)
 			return -1;
-		if (!this._data)
+		if (!this.data)
 			return -1;
-		return this._data.items.indexOf(this._currentState); 
+		return this.data.items.indexOf(this._currentState); 
 	}
 
 	/**
@@ -1686,9 +1724,9 @@ class States extends EndPoint
 	_resolveCurrentState()
 	{
 		// Check have data and current index is in range and record the current State
-		if (this._data && this._data.current>=0 && this._data.current < this._data.items.length)
+		if (this.data && this.data.current>=0 && this.data.current < this.data.items.length)
 		{
-			this._currentState = this._data.items[this._data.current];
+			this._currentState = this.data.items[this.data.current];
 		}
 		else
 		{
@@ -1698,7 +1736,7 @@ class States extends EndPoint
 
 	_onEvent_songChanged(data)
 	{
-		this._data = data;
+		this._setData(data);
 		this._resolveCurrentState();
 		this.emit('reload');
 		this.emit('changed');
@@ -1706,7 +1744,7 @@ class States extends EndPoint
 
 	_onEvent_itemAdded(data)
 	{
-		this._data.items.splice(data.index, 0, data.item);
+		this.data.items.splice(data.index, 0, data.item);
 		this.emit('itemAdded', data.index);
 		this.emit('changed');
 
@@ -1726,7 +1764,7 @@ class States extends EndPoint
 	}
 	_onEvent_itemRemoved(data)
 	{
-		this._data.items.splice(data.index, 1);		
+		this.data.items.splice(data.index, 1);		
 		this.emit('itemRemoved', data.index);
 		this.emit('changed');
 
@@ -1740,9 +1778,9 @@ class States extends EndPoint
 	}
 	_onEvent_itemMoved(data)
 	{
-		var item = this._data.items[data.from];
-		this._data.items.splice(data.from, 1);		
-		this._data.items.splice(data.to, 0, item);
+		var item = this.data.items[data.from];
+		this.data.items.splice(data.from, 1);		
+		this.data.items.splice(data.to, 0, item);
 		this.emit('itemMoved', data.from, data.to);
 		this.emit('changed');
 
@@ -1760,7 +1798,7 @@ class States extends EndPoint
 		if (this.currentStateIndex == data.index)
 			this._currentState = data.item;
 
-		this._data.items.splice(data.index, 1, data.item);		// Don't use [] so Vue can handle it
+		this.data.items.splice(data.index, 1, data.item);		// Don't use [] so Vue can handle it
 
 		this.emit('itemChanged', data.index);
 		this.emit('changed');
@@ -1775,8 +1813,8 @@ class States extends EndPoint
 	}
 	_onEvent_itemsReload(data)
 	{
-		this._data.items = data.items;
-		this._data.current = data.current;
+		this.data.items = data.items;
+		this.data.current = data.current;
 		this._resolveCurrentState();
 		this.emit('reload');
 		this.emit('changed');
@@ -1790,7 +1828,7 @@ class States extends EndPoint
 
 	_onEvent_currentStateChanged(data)
 	{
-		this._data.current = data.current;
+		this.data.current = data.current;
 		this._resolveCurrentState();
 		this.emit('currentStateChanged');
 
@@ -1803,8 +1841,8 @@ class States extends EndPoint
 
 	_onEvent_nameChanged(data)
 	{
-		if (this._data)
-			this._data.name = data ? data.name : null;
+		if (this.data)
+			this.data.name = data ? data.name : null;
 		this.emit('nameChanged');
 		this.emit('changed');
 
@@ -1847,7 +1885,7 @@ class KeyRanges extends EndPoint
 		super(owner, "/api/keyranges");
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		/**
 		 * Fired when the active set of key ranges has changed
@@ -1857,7 +1895,7 @@ class KeyRanges extends EndPoint
 		this.emit('changed');
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		this.emit('changed');
 	}
@@ -1867,11 +1905,11 @@ class KeyRanges extends EndPoint
 	 * @property items
 	 * @type {KeyRange[]}
 	 */
-	get items() { return this._data ? this._data.items : null; }
+	get items() { return this.data ? this.data.items : null; }
 
 	_onEvent_keyRangesChanged(data)
 	{
-		this._data = data;
+		this._setData(data);
 		this.emit('changed');
 	}
 }
@@ -1891,13 +1929,13 @@ class ShowNotes extends EndPoint
 		super(owner, "/api/shownotes");
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		this.emit('reload');
 		this.emit('changed');
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		this.emit('reload');
 		this.emit('changed');
@@ -1908,11 +1946,11 @@ class ShowNotes extends EndPoint
 	 * @property items
 	 * @type {ShowNote[]}
 	 */
-	get items() { return this._data ? this._data.items : null; }
+	get items() { return this.data ? this.data.items : null; }
 
 	_onEvent_itemAdded(data)
 	{
-		this._data.items.splice(data.index, 0, data.item);
+		this.data.items.splice(data.index, 0, data.item);
 		this.emit('itemAdded', data.index);
 		this.emit('changed');
 
@@ -1932,7 +1970,7 @@ class ShowNotes extends EndPoint
 	}
 	_onEvent_itemRemoved(data)
 	{
-		this._data.items.splice(data.index, 1);		
+		this.data.items.splice(data.index, 1);		
 		this.emit('itemRemoved', data.index);
 		this.emit('changed');
 
@@ -1946,9 +1984,9 @@ class ShowNotes extends EndPoint
 	}
 	_onEvent_itemMoved(data)
 	{
-		var item = this._data.items[data.from];
-		this._data.items.splice(data.from, 1);		
-		this._data.items.splice(data.to, 0, item);
+		var item = this.data.items[data.from];
+		this.data.items.splice(data.from, 1);		
+		this.data.items.splice(data.to, 0, item);
 		this.emit('itemMoved', data.from, data.to);
 		this.emit('changed');
 
@@ -1963,7 +2001,7 @@ class ShowNotes extends EndPoint
 
 	_onEvent_itemChanged(data)
 	{
-		this._data.items.splice(data.index, 1, data.item);		// Don't use [] so Vue can handle it
+		this.data.items.splice(data.index, 1, data.item);		// Don't use [] so Vue can handle it
 
 		this.emit('itemChanged', data.index);
 		this.emit('changed');
@@ -1978,7 +2016,7 @@ class ShowNotes extends EndPoint
 	}
 	_onEvent_itemsReload(data)
 	{
-		this._data.items = data.items;
+		this.data.items = data.items;
 		this.emit('reload');
 		this.emit('changed');
 
@@ -2115,27 +2153,27 @@ class Variables extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     console.log(await C.variables.resolve("Song: $(SongTitle)"));
 	 * 
 	 * @example
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
 	 *
 	 * @method resolve
-	 * @return {Promise|String} A promise to provide the resolved string
+	 * @returns {Promise<String>} A promise to provide the resolved string
 	 */
 	async resolve(pattern)
 	{
-		await this.owner.untilConnected();
+		await this.owner.waitForConnected();
 
 		return (await this.post("/resolve", {
 			pattern: pattern
 		})).data.resolved;
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		for (let i=0; i<this.watchers.length; i++)
 		{
@@ -2143,7 +2181,7 @@ class Variables extends EndPoint
 		}
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		for (let i=0; i<this.watchers.length; i++)
 		{
@@ -2158,7 +2196,7 @@ class Variables extends EndPoint
 	 * 
 	 * Using a callback function:
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     
 	 *     // Watch a string pattern using a callback function
 	 *     C.variables.watch("Song: $(SongTitle)", function(resolved) {
@@ -2172,7 +2210,7 @@ class Variables extends EndPoint
 	 * 
 	 * Using the PatternWatcher class and events:
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     let watcher = C.variables.watch("Song: $(SongTitle)");
 	 *     watcher.on('changed', function(resolved) {
 	 *         console.log(resolved);
@@ -2191,16 +2229,13 @@ class Variables extends EndPoint
 	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
 	 * is the {{#crossLink "PatternWatcher"}}{{/crossLink}} instance.
 	 *
-	 * @return {PatternWatcher}
+	 * @returns {PatternWatcher}
 	 */
 	watch(pattern, listener)
 	{
 		let w = new PatternWatcher(this, pattern, listener);
 		this.watchers.push(w);
-		if (this.watchers.length == 1)
-			this.open();
-
-		if (this.isOpen)
+		if (this.isConnected)
 			w._start();
 
 		return w;
@@ -2219,8 +2254,6 @@ class Variables extends EndPoint
 	_revokeWatcher(w)
 	{
 		this.watchers = this.watchers.filter(x=>x != w);
-		if (this.watchers.length == 0)
-			this.close();
 	}
 
 	_onEvent_patternChanged(data)
@@ -2378,23 +2411,23 @@ class OnscreenKeyboard extends EndPoint
 	 * @example
 	 * 
 	 * 	   // Get the value of cc 64 on channel 1
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     console.log(await C.onscreenKeyboard.queryController(1, "controller", 64));
 	 * 
 	 * @example
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     C.onscreenKeyboard.queryController(1, "controller", 64).then(r => console.log(r)));
 	 *
 	 * @method queryController
 	 * @param {Number} channel 		The MIDI channel number of the controller
 	 * @param {String} kind 		The MIDI controller kind
 	 * @param {Number} controller	The number of the controller
-	 * @return {Promise|Number} A promise to provide the controller value
+	 * @returns {Promise<Number>} A promise to provide the controller value
 	 */
 	async queryController(channel, kind, controller)
 	{
-		await this.owner.untilConnected();
+		await this.owner.waitForConnected();
 
 		return (await this.post("/queryController", {
 			channel: channel,
@@ -2403,7 +2436,7 @@ class OnscreenKeyboard extends EndPoint
 		})).data.value;
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		for (let i=0; i<this.watchers.length; i++)
 		{
@@ -2411,7 +2444,7 @@ class OnscreenKeyboard extends EndPoint
 		}
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		for (let i=0; i<this.watchers.length; i++)
 		{
@@ -2426,7 +2459,7 @@ class OnscreenKeyboard extends EndPoint
 	 * 
 	 * Using a callback function:
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     
 	 *     // Watch a controller using a callback function
 	 *     C.onscreenKeyboard.watchController(1, "controller", 64, function(value) {
@@ -2440,7 +2473,7 @@ class OnscreenKeyboard extends EndPoint
 	 * 
 	 * Using the ControllerWatcher class and events:
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     let watcher = C.onscreenKeyboard.watchController(1, "controller", 64);
 	 *     watcher.on('changed', function(value) {
 	 *         console.log(value);
@@ -2461,17 +2494,14 @@ class OnscreenKeyboard extends EndPoint
 	 * The callback function has the form function(value, source) where value is the controller value and source
 	 * is the {{#crossLink "ControllerWatcher"}}{{/crossLink}} instance.
 	 *
-	 * @return {ControllerWatcher}
+	 * @returns {ControllerWatcher}
 	 */
 	watch(channel, kind, controller, listener)
 	{
 		let w = new ControllerWatcher(this, channel, kind, controller, listener);
 		this.watchers.push(w);
 
-		if (this.watchers.length == 1)
-			this.open();
-
-		if (this.isOpen)
+		if (this.isConnected)
 			w._start();
 
 		return w;
@@ -2523,8 +2553,6 @@ class OnscreenKeyboard extends EndPoint
 	_revokeWatcher(w)
 	{
 		this.watchers = this.watchers.filter(x=>x != w);
-		if (this.watchers.length == 0)
-			this.close();
 	}
 
 	_onEvent_controllerChanged(data)
@@ -2541,7 +2569,7 @@ class OnscreenKeyboard extends EndPoint
 _debug('Cantabile');
 
 /**
- * Represents an active connection watching a source binding point for changes/invocations
+ * Represents an watched binding point for changes/invocations
 
  * Returned from the {{#crossLink "Bindings/watch:method"}}{{/crossLink}} method.
  * 
@@ -2550,40 +2578,27 @@ _debug('Cantabile');
  */
 class BindingWatcher extends EventEmitter
 {
-	constructor(owner, name, indicies, condition, listener)
+	constructor(owner, bindingPoint, callback)
 	{
 		super();
 		this.owner = owner;
-		this._name = name;
-		this._indicies = indicies;
-		this._condition = condition;
-        this._listener = listener;
-        this._value = null;
+		this.#bindingPoint = bindingPoint;
+        this.#callback = callback;
+        this.#value = null;
 	}
 
-	/**
-	 * Returns the name of the binding point being listened to
-	 *
-	 * @property name
-	 * @type {String} 
-	 */
-	get name() { return this._name; }
+	#bindingPoint;
+	#callback;
+	#value;
+	#watchId;
 
 	/**
-	 * Returns the indicies of the binding point being listened to
+	 * Returns the binding point being listened to
 	 *
-	 * @property indicies
-	 * @type {Number[]} 
+	 * @property bindingPoint
+	 * @type {BindingPoint} 
 	 */
-    get indicies() { return this._indicies; }
-    
-	/**
-	 * Returns the condition of the binding point being listened to
-	 *
-	 * @property condition
-	 * @type {Object} 
-	 */
-    get condition() { return this._condition; }
+	get bindablePoint() { return this.#bindingPoint; }
 
 	/**
 	 * Returns the last received value for the source binding point
@@ -2591,36 +2606,32 @@ class BindingWatcher extends EventEmitter
 	 * @property value
 	 * @type {Object} 
 	 */
-    get value() { return this._value; }
+    get value() { return this.#value; }
     
 	_start()
 	{
-		this.owner.post("/watch", {
-            name: this._name,
-            indicies: this._indicies,
-            condition: this._condition
-		}).then(r => {
+		this.owner.post("/watch", this.#bindingPoint).then(r => {
             this.owner._registerWatchId(r.data.watchId, this);
-			this._watchId = r.data.watchId;
+			this.#watchId = r.data.watchId;
 			if (r.data.value !== null && r.data.value !== undefined)
 			{
-				this._value = r.data.value;
-				this._fireInvoked();
+				this.#value = r.data.value;
+				this.#fireInvoked();
 			}
 		});
 	}
 
 	_stop()
 	{
-		if (this.owner._epid && this._watchId)
+		if (this.owner._epid && this.#watchId)
 		{
-			this.owner.send("POST", "/unwatch", { watchId: this._watchId});
-			this.owner._revokeWatchId(this._watchId);
-			this._watchId = 0;
-			if (this._value !== null && this._value !== undefined)
+			this.owner.send("POST", "/unwatch", { watchId: this.#watchId});
+			this.owner._revokeWatchId(this.#watchId);
+			this.#watchId = 0;
+			if (this.#value !== null && this.#value !== undefined)
 			{
-				this._value = null;
-				this._fireInvoked();
+				this.#value = null;
+				this.#fireInvoked();
 			}
 		}
 	}
@@ -2638,15 +2649,15 @@ class BindingWatcher extends EventEmitter
 
 	_update(data)
 	{
-		this._value = data.value;
-		this._fireInvoked();
+		this.#value = data.value;
+		this.#fireInvoked();
 	}
 
-	_fireInvoked()
+	#fireInvoked()
 	{
 		// Function listener?
-		if (this._listener)
-			this._listener(this._value, this);
+		if (this.#callback)
+			this.#callback(this.#value, this);
 
 		/**
 		 * Fired when the source binding point is triggered
@@ -2657,6 +2668,141 @@ class BindingWatcher extends EventEmitter
 		 */
 		this.emit('invoked', this.value, this);
 	}
+}
+
+
+/**
+ * Represents a target binding point prepared for multiple invocations
+
+ * Returned from the {{#crossLink "Bindings/prepare:method"}}{{/crossLink}} method.
+ * 
+ * @class PreparedBindingPoint
+ */
+class PreparedBindingPoint
+{
+	constructor(owner, bindingPoint)
+	{
+		this.owner = owner;
+		this.#bindingPoint = bindingPoint;
+		this.#prepareConnectPromise();
+	}
+
+	#bindingPoint;
+	#prepId = 0;
+	#connectPromise;
+	#connectPromiseResolve;
+	#connectPromiseReject;
+
+	// Prepares a new promise that will be resolved
+	// when this end point has initially connected
+	#prepareConnectPromise()
+	{
+		this.#connectPromise = new Promise((resolve, reject) => {
+			this.#connectPromiseResolve = resolve;
+			this.#connectPromiseReject = reject;
+		});
+	}
+
+	_start()
+	{
+		this.owner.post("/prepare", this.#bindingPoint)
+			.then(r => {
+				this.#prepId = r.data.prepId;
+				this.#connectPromiseResolve();
+			})
+			.catch((err) => {
+				this.#connectPromiseReject(err);
+			});
+	}
+
+	_stop()
+	{
+		if (this.owner._epid && this.#prepId)
+		{
+			this.owner.send("POST", "/unprepare", { prepId: this.#prepId });
+			this.#prepId = 0;
+			this.#prepareConnectPromise();
+		}
+	}
+
+	/**
+	 * Returns a promise that will resolve once this prepared binding has connected
+	 * @method waitForConnected
+	 * @returns {Promise}}
+	 */
+	waitForConnected()
+	{
+		return this.#connectPromise;
+	}
+
+	/**
+	 * Check if this binding point is currently connected and ready to accept invocations
+	 * 
+	 * @property isConnected
+	 * @type {Boolean}
+	 */
+	get isConnected()
+	{
+		return this.#prepId != 0;
+	}
+
+	/**
+	 * Releases this prepared binding point
+	 *
+	 * @method unprepare
+	 */
+	unprepare()
+	{
+		this._stop();
+		this.owner._revokePrepped(this);
+	}
+
+	/**
+	 * Invokes this binding point
+	 * @method invoke
+     * @param {Object} value The value to pass to the binding point
+     * @returns {Promise} A promise that resolves once the target binding point has been invoked
+	 */
+	invoke(value)
+	{
+		if (this.#prepId == 0)
+			throw new Error("Prepared binding point not (yet?) connected");
+
+        return this.owner.request("POST", "/preparedInvoke", {
+			prepId: this.#prepId,
+			value
+        });
+	}
+
+	/**
+	 * Tries to invokes this binding point
+	 * @method tryInvoke
+     * @param {Object} value The value to pass to the binding point
+     * @returns {Boolean|Promise} False if not currently connected, or a promise that resolves once the target 
+	 *                            binding point has been invoked
+	 */
+	tryInvoke(value)
+	{
+		if (!this.isConnected)
+			return false;
+		return this.invoke(value);
+	}
+
+}
+
+let allowedBindingPointProps = new Set([ "bindableId", "bindingPointId", "bindableParams", "bindingPointParams" ]);
+
+function checkBindingPoint(bp)
+{
+	if (!bp.bindableId)
+		throw new Error("Invalid binding point, must have a field `bindableId`");
+	if (!bp.bindingPointId)
+		throw new Error("Invalid binding point, must have a field `bindingPointId`");
+
+	Object.keys(bp).forEach(key => {
+		if (!allowedBindingPointProps.has(key))
+			throw new Error(`Invalid binding point, '${key}' is not allowed`);
+	});
 }
 
 /**
@@ -2671,417 +2817,34 @@ class Bindings extends EndPoint
 {
     constructor(owner)
     {
-        super(owner, "/api/bindings");
-		this._watchers = [];
-		this._watchIds = {};
+        super(owner, "/api/Bindings4");
     }
 
-    _onOpen()
+	#watchers = [];
+	#prepped = [];
+	#watchIds = {};
+
+    _onConnected()
     {
-		for (let i=0; i<this._watchers.length; i++)
+		for (let i=0; i<this.#watchers.length; i++)
 		{
-			this._watchers[i]._start();
+			this.#watchers[i]._start();
+		}
+		for (let i=0; i<this.#prepped.length; i++)
+		{
+			this.#prepped[i]._start();
 		}
     }
 
-    _onClose()
+    _onDisconnected()
     {
-		for (let i=0; i<this._watchers.length; i++)
+		for (let i=0; i<this.#watchers.length; i++)
 		{
-			this._watchers[i]._stop();
+			this.#watchers[i]._stop();
 		}
-    }
-
-
-    /**
-     * Retrieves a list of available binding points
-	 * 
-	 * If Cantabile is running on your local machine you can view this list
-	 * directly at <http://localhost:35007/api/bindings/availableBindingPoints>
-     * 
-     * @example
-     * 
-     *     let C = new CantabileApi();
-     *     C.connect();
-     *     console.log(await C.bindings.availableBindingPoints());
-     * 
-     * @method availableBindingPoints
-     * @return {Promise|BindingPointInfo[]} A promise to return an array of {{#crossLink "BindingPointInfo"}}{{/crossLink}} objects
-     */
-    async availableBindingPoints()
-    {
-        await this.owner.untilConnected();
-        return (await this.request("GET", "/availableBindingPoints")).data;
-    }
-
-    /**
-     * Invokes a target binding point
-     * 
-     * If Cantabile is running on your local machine a full list of available binding
-     * points is [available here](http://localhost:35007/api/bindings/availableBindingPoints)
-     * 
-     * @example
-     * 
-     * Set the master output level gain
-	 * 
-     *     C.bindings.invoke("global.masterLevels.outputGain", 0.5);
-     * 
-     * @example
-     * 
-     * Suspend the 2nd plugin in the song
-	 * 
-     *     C.bindings.invoke("global.indexedPlugin.suspend", true, [
-     * 	        0,     // Rack index (zero = song)
-     *          1      // Plugin index (zero based, 1 = the second plugin)
-     * 		]);
-     * 
-	 * 
-	 * @example
-	 * 
-	 * Sending a MIDI Controller Event
-	 * 
-	 *     C.bindings.invoke("midiInputPort.Main Keyboard", new {
-	 *         kind: "FineController",
-	 *         controller: 10,
-	 *         value: 1000,
-	 * 	   });
-	 *
-	 * @example
-	 * 
-	 * Sending MIDI Data directly
-	 * 
-	 *     C.bindings.invoke("midiInputPort.Main Keyboard", [ 0xb0, 23, 99 ]);
-	 * 
-	 * @example
-	 * 
-	 * Sending MIDI Sysex Data directly
-	 * 
-	 *     C.bindings.invoke("midiInputPort.Main Keyboard", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
-	 * 
-     * @example
-     * 
-     * Some binding points expect a "parameter" value.  Parameter values are similar to the `value` parameter
-     * in that they specify a value to invoke on the target of the binding.  The difference is related to the
-     * way they're managed internally for user created bindings.  The `value` comes from the source of the binding 
-     * whereas a `parameter` value is stored with the binding itself.
-     * 
-     * eg: Load the song with program number 12
-	 * 
-     *     C.bindings.invoke("global.setList.loadSpecificSongByProgramInstant", null, null, 12);
-     * 
-     * @param {String} name The name of the binding point to invoke
-     * @param {Object} [value] The value to pass to the binding point
-     * @param {Number[]} [indicies] The integer indicies of the target binding point
-     * @param {Object} [parameter] The parameter value to invoke the target with
-     * @method invoke
-     * @return {Promise} A promise that resolves once the target binding point has been invoked
-     */
-    async invoke(name, value, indicies, parameter)
-    {
-        return (await this.request("POST", "/invoke", {
-            name: name,
-            value: value,
-            indicies: indicies,
-            parameter: parameter,
-        }));
-    }
-
-    /**
-     * Queries a source binding point for it's current value.
-     *
-     * If Cantabile is running on your local machine a full list of available binding
-     * points is [available here](http://localhost:35007/api/bindings/availableBindingPoints)
-     * 
-     * @example
-     * 
-     *     console.log("Current Output Gain:", await C.bindings.query("global.masterLevels.outputGain"));
-     * 
-	 * @method query
-     * @param {String} name The name of the binding point to query
-     * @param {Number[]} [indicies] The integer indicies of the binding point
-	 * @return {Object} The current value of the binding source
-     */
-    async query(name, indicies)
-    {
-        return (await this.request("POST", "/query", {
-            name: name,
-            indicies: indicies,
-        })).data.value;
-    }
-
-	/**
-	 * Starts watching a source binding point for changes (or invocations)
-	 * 
-     * If Cantabile is running on your local machine a full list of available binding
-     * points is [available here](http://localhost:35007/api/bindings/availableBindingPoints)
-     *
-	 * @example
-	 * 
-	 * Using a callback function:
-	 * 
-	 *     let C = new CantabileApi();
-	 *     
-	 *     // Watch a source binding point using a callback function
-	 *     C.bindings.watch("global.masterLevels.outputGain", null, null, function(value) {
-	 *         console.log("Master output gain changed to:", value);
-	 *     })
-	 *     
-	 * 	   // The "bindings" end point must be opened before callbacks will happen
-	 *     C.bindings.open();
-	 * 
-	 * @example
-	 * 
-	 * Using the BindingWatcher class and events:
-	 * 
-	 *     let C = new CantabileApi();
-	 *     let watcher = C.bindings.watch("global.masterLevels.outputGain");
-	 *     watcher.on('invoked', function(value) {
-	 *         console.log("Master output gain changed to:", value);
-	 *     });
-	 *     
-	 * 	   // The "bindings" end point must be opened before callbacks will happen
-	 *     C.bindings.open();
-	 *     
-	 *     /// later, stop listening
-	 *     watcher.unwatch();
-	 * 
-	 * @example
-	 * 
-	 * Watching for a MIDI event:
-	 * 
-     *     C.bindings.watch("midiInputPort.Onscreen Keyboard", null, {
-     *         channel: 0,
-     *         kind: "ProgramChange",
-     *         controller: -1,
-     *     }, function(value) {
-     *         console.log("Program Change: ", value);
-     *     })
-	 * 
-	 * @example
-
-	 * Watching for a keystroke:
-	 * 
-	 *     C.bindings.watch("global.pckeyboard.keyPress", null, "Ctrl+Alt+M", function() {
-     *         console.log("Key press!");
-     *     })
-	 * 
-	 * 
-	 * 
-	 *
-	 * @method watch
-     * @param {String} name The name of the binding point to query
-     * @param {Number[]} [indicies] The integer indicies of the binding point
-     * @param {Object} [condition] The condition for triggering the binding
-	 * @param {Function} [callback] Optional callback function to be called when the source binding triggers
-	 * 
-	 * The callback function has the form function(value, source) where value is the binding point value and source
-	 * is the BindingWatcher instance.
-	 * 
-	 * @return {BindingWatcher}
-	 */
-	watch(name, indicies, condition, listener)
-	{
-		let w = new BindingWatcher(this, name, indicies, condition, listener);
-		this._watchers.push(w);
-
-		if (this._watchers.length == 1)
-			this.open();
-
-		if (this.isOpen)
-			w._start();
-
-		return w;
-	}
-
-	_registerWatchId(watchId, watcher)
-	{
-		this._watchIds[watchId] = watcher;
-	}
-
-	_revokeWatchId(watchId)
-	{
-		delete this._watchIds[watchId];
-	}
-
-	_revokeWatcher(w)
-	{
-		this._watchers = this._watchers.filter(x=>x != w);
-		if (this._watchers.length == 0)
-			this.close();
-	}
-
-	_onEvent_invoked(data)
-	{
-		// Get the watcher
-		let w = this._watchIds[data.watchId];
-		if (w)
+		for (let i=0; i<this.#prepped.length; i++)
 		{
-			w._update(data);
-		}
-	}
-}
-
-_debug('Cantabile');
-
-/**
- * Represents an active connection watching a source binding point for changes/invocations
-
- * Returned from the {{#crossLink "Bindings4/watch:method"}}{{/crossLink}} method.
- * 
- * @class Binding4Watcher
- * @extends EventEmitter
- */
-class Binding4Watcher extends EventEmitter
-{
-	constructor(owner, bindableId, bindingPointId, bindableParams, bindingPointParams, callback)
-	{
-		super();
-		this.owner = owner;
-		this._bindableId = bindableId;
-		this._bindingPointId = bindingPointId;
-		this._bindableParams = bindableParams;
-		this._bindingPointParams = bindingPointParams;
-        this._callback = callback;
-        this._value = null;
-	}
-
-	/**
-	 * Returns the id of the bindable object being listened to
-	 *
-	 * @property bindableId
-	 * @type {String} 
-	 */
-	get bindableId() { return this._bindableId; }
-
-	/**
-	 * Returns the id of the binding point being listened to
-	 *
-	 * @property bindingPointId
-	 * @type {String} 
-	 */
-	 get bindingPointId() { return this._bindingPointId; }
-
-	/**
-	 * Returns the parameters of the bindable object
-	 *
-	 * @property bindableParams
-	 * @type {Object} 
-	 */
-	 get bindableParams() { return this._bindableParams; }
-    
-	/**
-	 * Returns the parameters of the binding point object
-	 *
-	 * @property bindingPointParams
-	 * @type {Object} 
-	 */
-	 get bindingPointParams() { return this._bindingPointParams; }
-    
-	/**
-	 * Returns the last received value for the source binding point
-	 *
-	 * @property value
-	 * @type {Object} 
-	 */
-    get value() { return this._value; }
-    
-	_start()
-	{
-		this.owner.post("/watch", {
-            bindableId: this._bindableId,
-			bindingPointId: this._bindingPointId,
-            bindableParams: this._bindableParams,
-            bindingPointParams: this._bindingPointParams
-		}).then(r => {
-            this.owner._registerWatchId(r.data.watchId, this);
-			this._watchId = r.data.watchId;
-			if (r.data.value !== null && r.data.value !== undefined)
-			{
-				this._value = r.data.value;
-				this._fireInvoked();
-			}
-		});
-	}
-
-	_stop()
-	{
-		if (this.owner._epid && this._watchId)
-		{
-			this.owner.send("POST", "/unwatch", { watchId: this._watchId});
-			this.owner._revokeWatchId(this._watchId);
-			this._watchId = 0;
-			if (this._value !== null && this._value !== undefined)
-			{
-				this._value = null;
-				this._fireInvoked();
-			}
-		}
-	}
-
-	/**
-	 * Stops monitoring this binding source
-	 *
-	 * @method unwatch
-	 */
-	unwatch()
-	{
-		this._stop();
-		this.owner._revokeWatcher(this);
-	}
-
-	_update(data)
-	{
-		this._value = data.value;
-		this._fireInvoked();
-	}
-
-	_fireInvoked()
-	{
-		// Function listener?
-		if (this._callback)
-			this._callback(this._value, this);
-
-		/**
-		 * Fired when the source binding point is triggered
-		 *
-		 * @event invoked
-		 * @param {Object} value The value supplied from the source binding
-		 * @param {Binding4Watcher} source This object
-		 */
-		this.emit('invoked', this.value, this);
-	}
-}
-
-/**
- * Provides access to Cantabile's binding points.
- * 
- * Access this object via the {{#crossLink "Cantabile/bindings4:property"}}{{/crossLink}} property.
- *
- * @class Bindings4
- * @extends EndPoint
- */
-class Bindings4 extends EndPoint
-{
-    constructor(owner)
-    {
-        super(owner, "/api/bindings4");
-		this._watchers = [];
-		this._watchIds = {};
-    }
-
-    _onOpen()
-    {
-		for (let i=0; i<this._watchers.length; i++)
-		{
-			this._watchers[i]._start();
-		}
-    }
-
-    _onClose()
-    {
-		for (let i=0; i<this._watchers.length; i++)
-		{
-			this._watchers[i]._stop();
+			this.#prepped[i]._stop();
 		}
     }
 
@@ -3090,20 +2853,19 @@ class Bindings4 extends EndPoint
      * Retrieves a list of available binding points
 	 * 
 	 * If Cantabile is running on your local machine you can view this list
-	 * directly at <http://localhost:35007/api/bindings/availableBindingPoints>
+	 * directly at <http://localhost:35007/api/bindings/vailableBindingPoints>
      * 
      * @example
      * 
-     *     let C = new CantabileApi();
-     *     C.connect();
-     *     console.log(await C.bindings4.availableBindingPoints());
+     *     let C = new Cantabile();
+     *     console.log(await C.bindings.getAvailableBindingPoints());
      * 
-     * @method availableBindingPoints
-     * @return {Promise|BindingPointEntry4[]} A promise to return an array of {{#crossLink "BindingPointEntry4"}}{{/crossLink}} objects
+     * @method getAvailableBindingPoints
+     * @returns {Promise<BindingPointEntry[]>} A promise to return an array of {{#crossLink "BindingPointEntry"}}{{/crossLink}} objects
      */
-    async availableBindingPoints()
+    async getAvailableBindingPoints()
     {
-        await this.owner.untilConnected();
+        await this.owner.waitForConnected();
         return (await this.request("GET", "/availableBindingPoints")).data;
     }
 
@@ -3112,22 +2874,21 @@ class Bindings4 extends EndPoint
 	 * 
      * @example
      * 
-     *     let C = new CantabileApi();
-     *     C.connect();
-     *     console.log(await C.bindings4.bindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
+     *     let C = new Cantabile();
+     *     console.log(await C.bindings.getBindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
      * 
-     * @method bindingPointInfo
-     * @return {Promise|BindingPointInfo4} A promise to return a {{#crossLink "BindingPointInfo4"}}{{/crossLink}} object
+     * @method getBindingPointInfo
+	 * @param {BindingPoint} bindingPoint the binding point to be queried
+	 * @param {Boolean} source whether to return information about the source or target version of the binding point
+     * @returns {Promise<BindingPointInfo>} A promise to return a {{#crossLink "BindingPointInfo"}}{{/crossLink}} object
      */
-	 async bindingPointInfo(bindableId, bindingPointId, source, bindableParams, bindingPointParams)
+	async getBindingPointInfo(bindablePoint, source)
 	{
-        await this.owner.untilConnected();
+		checkBindingPoint();
+        await this.owner.waitForConnected();
         return (await this.request("GET", "/bindingPointInfo", {
-			bindableId: bindableId,
-			bindingPointId: bindingPointId,
-			source: source,
-			bindableParams: bindableParams,
-			bindingPointParams: bindingPointParams
+			...bindingPoint,
+			source,
 		})).data;
 	}
 
@@ -3141,67 +2902,69 @@ class Bindings4 extends EndPoint
      * 
      * Set the master output level gain
 	 * 
-     *     C.bindings4.invoke("masterLevels", "outputGain", 0.5);
+     *     C.bindings.invoke({ 
+	 * 			bindableId: "masterLevels", 
+	 * 			bindingPointId: "outputGain"
+	 * 	   }, 0.5);
      * 
      * @example
      * 
      * Suspend the 2nd plugin in the song
 	 * 
-     *     C.bindings4.invoke("indexedPlugin", "suspend", true, { 
-	 * 		rackIndex: 0,
-	 *      pluginIndex: 1,
-	 * 		}
-	 *    );
+     *     C.bindings.invoke({ 
+	 * 			bindableId: "indexedPlugin", 
+	 * 			bindableParams: { 
+	 * 				rackIndex: 0, 			// 0 = song, 1 = first rack, 2 = second etc...
+	 * 				pluginIndex: 1, 		// 1 = second plugin (zero based)
+	 * 			}
+	 * 			bindingPointId: "suspend"
+	 *     }, true);
      * 
 	 * 
 	 * @example
 	 * 
 	 * Sending a MIDI Controller Event
 	 * 
-	 *     C.bindings4.invoke("midiPorts", "out.Main Keyboard", 65, {
-	 *         kind: "Controller",
-	 *         controller: 10,
-	 * 		   channel: 0
-	 * 	   });
+	 *     C.bindings.invoke({
+	 * 			bindableId: "midiPorts", 
+	 * 			bindingPointId: "out.Main Keyboard",
+	 * 			bindingPointParams: {
+	 *         		kind: "Controller",
+	 *         		controller: 10,
+	 * 		   		channel: 0
+	 * 	   		}
+	 *      }, 65);
 	 *
 	 * @example
 	 * 
 	 * Sending MIDI Data directly
 	 * 
-	 *     C.bindings4.invoke("midiPorts", "out.Main Keyboard", [ 0xb0, 23, 99 ]);
+	 *     C.bindings.invoke({
+	 * 			bindiableId: "midiPorts", 
+	 *          bindingPointId: "out.Main Keyboard"
+	 * 	   }, [ 0xb0, 23, 99 ]);
 	 * 
 	 * @example
 	 * 
 	 * Sending MIDI Sysex Data directly
 	 * 
-	 *     C.bindings4.invoke("midiPorts", "out.Main Keyboard", [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
+	 *     C.bindings.invoke({
+	 * 			bindiableId: "midiPorts", 
+	 *          bindingPointId: "out.Main Keyboard"
+	 * 	   }, [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
 	 * 
-     * @example
-     * 
-     * Some binding points expect parameters.  Parameter values are similar to the `value` parameter
-     * in that they specify a value to invoke on the target of the binding.  The difference is related to the
-     * way they're managed internally for user created bindings.  The `value` comes from the source of the binding 
-     * whereas parameters are stored with the binding itself.
-     * 
-     * eg: Load the song with program number 12
-	 * 
-     *     C.bindings4.invoke("setList", "loadSongWithProgram", null, null, {
-	 * 			program: 12
-	 *     });
-     * 
-     * @param {String} bindableId The id of the bindable object
-     * @param {String} bindingPointId The id of the binding point to invoke
-     * @param {Object} [value] The value to pass to the binding point
-     * @param {Object} [bindableParams] Parameters for the bindable object
-     * @param {Object} [bindingPointParams] Parameters for the binding point object
      * @method invoke
-     * @return {Promise} A promise that resolves once the target binding point has been invoked
+     * @param {BindingPoint} bindablePoint The binding point to invoke
+     * @param {Object} value The value to pass to the binding point
+     * @returns {Promise} A promise that resolves once the target binding point has been invoked
      */
-    async invoke(bindableId, bindingPointId, value, bindableParams, bindingPointParams)
+    invoke(bindingPoint, value)
     {
-        return (await this.request("POST", "/invoke", {
-            bindableId, bindingPointId, value, bindableParams, bindingPointParams
-        }));
+		checkBindingPoint();
+        return this.request("POST", "/invoke", {
+			...bindingPoint,
+			value
+        });
     }
 
     /**
@@ -3209,20 +2972,19 @@ class Bindings4 extends EndPoint
      *
      * @example
      * 
-     *     console.log("Current Output Gain:", await C.bindings4.query("masterLevels", "outputGain"));
+     *     console.log("Current Output Gain:", await C.bindings.query({ 
+	 *         bindableId: "masterLevels", 
+	 *         bindingPointId: "outputGain"
+     *     }));
      * 
 	 * @method query
-     * @param {String} bindableId The id of the bindable object
-     * @param {String} bindingPointId The id of the binding point to query
-     * @param {Object} [bindableParams] Parameters for the bindable object
-     * @param {Object} [bindingPointParams] Parameters for the binding point object
-	 * @return {Object} The current value of the binding source
+     * @param {BindingPoint} bindingPoint The binding point to query
+	 * @returns {Promise<Object>} The current value of the binding source
      */
-    async query(bindableId, bindingPointId, bindableParams, bindingPointParams)
+    async query(bindingPoint)
     {
-        return (await this.request("POST", "/query", {
-            bindableId, bindingPointId, bindableParams, bindingPointParams
-        })).data.value;
+		checkBindingPoint(bindingPoint);
+        return (await this.request("POST", "/query", bindingPoint)).data.value;
     }
 
 	/**
@@ -3232,28 +2994,26 @@ class Bindings4 extends EndPoint
 	 * 
 	 * Using a callback function:
 	 * 
-	 *     let C = new CantabileApi();
+	 *     let C = new Cantabile();
 	 *     
 	 *     // Watch a source binding point using a callback function
-	 *     C.bindings4.watch("masterLevels", "outputGain", null, null, function(value) {
-	 *         console.log("Master output gain changed to:", value);
-	 *     })
+	 *     C.bindings.watch({
+	 *         bindableId: "masterLevels", 
+	 *         bindingPointId: "outputGain",
+	 *     }, (value) => console.log("Master output gain changed to:", value));
 	 *     
-	 * 	   // The "bindings" end point must be opened before callbacks will happen
-	 *     C.bindings4.open();
-	 * 
 	 * @example
 	 * 
-	 * Using the Binding4Watcher class and events:
+	 * Using the BindingWatcher class and events:
 	 * 
-	 *     let C = new CantabileApi();
-	 *     let watcher = C.bindings4.watch("masterLevels", "outputGain");
+	 *     let C = new Cantabile();
+	 *     let watcher = C.bindings.watch({
+	 *         bindableId: "masterLevels", 
+	 *         bindingPointId: "outputGain",
+	 *     });
 	 *     watcher.on('invoked', function(value) {
 	 *         console.log("Master output gain changed to:", value);
 	 *     });
-	 *     
-	 * 	   // The "bindings" end point must be opened before callbacks will happen
-	 *     C.bindings4.open();
 	 *     
 	 *     /// later, stop listening
 	 *     watcher.unwatch();
@@ -3262,74 +3022,95 @@ class Bindings4 extends EndPoint
 	 * 
 	 * Watching for a MIDI event:
 	 * 
-     *     C.bindings4.watch("midiPorts", "in.Onscreen Keyboard", null, {
-     *         channel: 0,
-     *         kind: "ProgramChange",
-     *         controller: -1,
-     *     }, function(value) {
-     *         console.log("Program Change: ", value);
-     *     })
+     *     C.bindings.watch({
+	 *         bindableId: "midiPorts", 
+	 *         bindingPointId: "in.Onscreen Keyboard", 
+	 *         bindingPointParams: {
+     *             channel: 0,
+     *             kind: "ProgramChange",
+     *             controller: -1,
+     *     }, (value) => console.log("Program Change: ", value));
 	 * 
 	 * @example
 
 	 * Watching for a keystroke:
 	 * 
-	 *     C.bindings4.watch("pckeyboard", "keyPress", null, {
-	 * 			key: "Ctrl+Alt+M"
-	 * 	   }, function() {
-     *         console.log("Key press!");
-     *     })
-	 * 
-	 * 
+	 *     C.bindings.watch({
+	 *         bindableId: "pckeyboard", 
+	 *         bindingPointId: "keyPress", 
+	 *         bindingPointParams:  {
+	 *             key: "Ctrl+Alt+M"
+	 * 	       },
+	 *     }, () => console.log("Key press!"));
 	 * 
 	 *
 	 * @method watch
-     * @param {String} bindableId The id of the bindable object
-     * @param {String} bindingPointId The id of the binding point to query
-     * @param {Object} [bindableParams] Parameters for the bindable object
-     * @param {Object} [bindingPointParams] Parameters for the binding point object
+     * @param {BindingPoint} bindingPoint The binding point to watch
 	 * @param {Function} [callback] Optional callback function to be called when the source binding triggers
 	 * 
 	 * The callback function has the form function(value, source) where value is the new binding point value and source
-	 * is the Binding4Watcher instance.
+	 * is the BindingWatcher instance.
 	 * 
-	 * @return {Binding4Watcher}
+	 * @returns {BindingWatcher}
 	 */
-	watch(bindableId, bindingPointId, bindableParams, bindingPointParams, callback)
+	watch(bindingPoint, callback)
 	{
-		let w = new Binding4Watcher(this, bindableId, bindingPointId, bindableParams, bindingPointParams, callback);
-		this._watchers.push(w);
+		checkBindingPoint(bindingPoint);
+		let w = new BindingWatcher(this, bindingPoint, callback);
+		this.#watchers.push(w);
 
-		if (this._watchers.length == 1)
-			this.open();
-
-		if (this.isOpen)
+		if (this.isConnected)
 			w._start();
 
 		return w;
 	}
 
+	/**
+	 * Prepares a target binding point for multiple invocations
+	 * 
+	 * @method prepare
+     * @param {BindingPoint} bindingPoint The binding point to invoke
+	 * @returns {PreparedBindingPoint}
+	 */
+	prepare(bindingPoint)
+	{
+		checkBindingPoint(bindingPoint);
+
+		var p = new PreparedBindingPoint(this, bindingPoint);
+		this.#prepped.push(p);
+		if (this.isConnected)
+			p._start();
+		return p;
+	}
+
 	_registerWatchId(watchId, watcher)
 	{
-		this._watchIds[watchId] = watcher;
+		this.#watchIds[watchId] = watcher;
 	}
 
 	_revokeWatchId(watchId)
 	{
-		delete this._watchIds[watchId];
+		delete this.#watchIds[watchId];
 	}
 
 	_revokeWatcher(w)
 	{
-		this._watchers = this._watchers.filter(x=>x != w);
-		if (this._watchers.length == 0)
-			this.close();
+		let index = this.#watchers.indexOf(w);
+		if (index >= 0)
+			this.#watchers.splice(index, 1);
+	}
+
+	_revokePrepped(p)
+	{
+		let index = this.#prepped.indexOf(p);
+		if (index >= 0)
+			this.#prepped.splice(index, 1);
 	}
 
 	_onEvent_invoked(data)
 	{
 		// Get the watcher
-		let w = this._watchIds[data.watchId];
+		let w = this.#watchIds[data.watchId];
 		if (w)
 		{
 			w._update(data);
@@ -3352,11 +3133,11 @@ class Commands extends EndPoint
         super(owner, "/api/commands");
     }
 
-    _onOpen()
+    _onConnected()
     {
     }
 
-    _onClose()
+    _onDisconnected()
     {
     }
 
@@ -3369,16 +3150,15 @@ class Commands extends EndPoint
      * 
      * @example
      * 
-     *     let C = new CantabileApi();
-     *     C.connect();
+     *     let C = new Cantabile();
      *     console.log(await C.commands.availableCommands());
      * 
      * @method availableCommands
-     * @return {Promise|CommandInfo[]} A promise to return an array of {{#crossLink "CommandInfo"}}{{/crossLink}} objects
+     * @returns {Promise<CommandInfo[]>} A promise to return an array of {{#crossLink "CommandInfo"}}{{/crossLink}} objects
      */
     async availableCommands()
     {
-        await this.owner.untilConnected();
+        await this.owner.waitForConnected();
         return (await this.request("GET", "/availableCommands")).data;
     }
 
@@ -3393,7 +3173,7 @@ class Commands extends EndPoint
      * 
      * @param {String} id The id of the command to invoke
      * @method invoke
-     * @return {Promise} A promise that resolves once the target command has been invoked
+     * @returns {Promise} A promise that resolves once the target command has been invoked
      */
     async invoke(id)
     {
@@ -3418,7 +3198,7 @@ class Song extends EndPoint
 		super(owner, "/api/song");
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		/**
 		 * Fired when anything about the current song changes
@@ -3442,7 +3222,7 @@ class Song extends EndPoint
 		this.emit('currentStateChanged');
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		this.emit('changed');
 		this.emit('nameChanged');
@@ -3454,26 +3234,26 @@ class Song extends EndPoint
 	 * @property name
 	 * @type {String}
 	 */
-	get name() { return this._data ? this._data.name : null; }
+	get name() { return this.data ? this.data.name : null; }
 
 	/**
 	 * The set list program number of the song (or -1 if not in set list, or not set)
 	 * @property pr
 	 * @type {Number}
 	 */
-	get pr() { return this._data ? this._data.pr : null; }
+	get pr() { return this.data ? this.data.pr : null; }
 
 	/**
 	 * The name of the current song state
 	 * @property currentState
 	 * @type {String}
 	 */
-	get currentState() { return this._data ? this._data.currentState : null; }
+	get currentState() { return this.data ? this.data.currentState : null; }
 
 	/**
 	 * Gets a list of available songs in the user's songs folder
 	 * @method available
-	 * @return {String[]} An array of song names (relative to user's song folder, extension removed)
+	 * @returns {String[]} An array of song names (relative to user's song folder, extension removed)
 	 */
 	async available()
 	{
@@ -3498,7 +3278,7 @@ class Song extends EndPoint
 
 	_onEvent_songChanged(data)
 	{
-		this._data = data;
+		this._setData(data);
 		this.emit('changed');
 		this.emit('nameChanged');
 		this.emit('currentStateChanged');
@@ -3506,14 +3286,14 @@ class Song extends EndPoint
 
 	_onEvent_nameChanged(data)
 	{
-		this._data.name = data.name;
+		this.data.name = data.name;
 		this.emit('changed');
 		this.emit('nameChanged');
 	}
 
 	_onEvent_currentStateChanged(data)
 	{
-		this._data.currentState = data.currentState;
+		this.data.currentState = data.currentState;
 		this.emit('changed');
 		this.emit('currentStateChanged');
 	}
@@ -3535,7 +3315,7 @@ class Transport extends EndPoint
 		super(owner, "/api/transport");
 	}
 
-	_onOpen()
+	_onConnected()
 	{
         this.emit('stateChanged');
         this.emit('loopStateChanged');
@@ -3543,7 +3323,7 @@ class Transport extends EndPoint
         this.emit('tempoChanged');
     }
 
-	_onClose()
+	_onDisconnected()
 	{
         this.emit('stateChanged');
         this.emit('loopStateChanged');
@@ -3559,7 +3339,7 @@ class Transport extends EndPoint
 	 * @property state
 	 * @type {String}
 	 */
-    get state() { return this._data ? this._data.state : "stopped"; }
+    get state() { return this.data ? this.data.state : "stopped"; }
     set state(value)
     {
         if (this.state == value)
@@ -3577,28 +3357,28 @@ class Transport extends EndPoint
 	 * @property timeSignatureNum
 	 * @type {Number}
 	 */
-    get timeSignatureNum() { return this._data ? this._data.timeSigNum : 0 }
+    get timeSignatureNum() { return this.data ? this.data.timeSigNum : 0 }
 
 	/**
 	 * Gets the current time signature denominator
 	 * @property timeSignatureDen
 	 * @type {Number}
 	 */
-    get timeSignatureDen() { return this._data ? this._data.timeSigDen : 0 }
+    get timeSignatureDen() { return this.data ? this.data.timeSigDen : 0 }
 
 	/**
 	 * Gets the current time signature as a string (eg: "3/4")
 	 * @property timeSignature
 	 * @type {String}
 	 */
-    get timeSignature() { return this._data ? this._data.timeSigNum + "/" + this._data.timeSigDen : "-" }
+    get timeSignature() { return this.data ? this.data.timeSigNum + "/" + this.data.timeSigDen : "-" }
 
 	/**
 	 * Gets the current tempo
 	 * @property tempo
 	 * @type {Number}
 	 */
-    get tempo() { return this._data ? this._data.tempo : 0 }
+    get tempo() { return this.data ? this.data.tempo : 0 }
 
 	/**
 	 * Gets or sets the current loopMode ("auto", "break", "loopOnce" or "loop").
@@ -3606,7 +3386,7 @@ class Transport extends EndPoint
 	 * @property loopMode
 	 * @type {String}
 	 */
-    get loopMode() { return this._data ? this._data.loopMode : "none" }
+    get loopMode() { return this.data ? this.data.loopMode : "none" }
 
     set loopMode(value)
     {
@@ -3621,14 +3401,14 @@ class Transport extends EndPoint
 	 * @property loopCount
 	 * @type {Number}
 	 */
-    get loopCount() { return this._data ? this._data.loopCount : -1 }
+    get loopCount() { return this.data ? this.data.loopCount : -1 }
 
 	/**
 	 * Gets the current loopIteration
 	 * @property loopIteration
 	 * @type {Number}
 	 */
-    get loopIteration() { return this._data ? this._data.loopIteration : -1 }
+    get loopIteration() { return this.data ? this.data.loopIteration : -1 }
 
     _onEvent_stateChanged(data)
 	{
@@ -3638,7 +3418,7 @@ class Transport extends EndPoint
 		 * @event stateChanged
 		 */
 
-        this._data.state = data.state;
+        this.data.state = data.state;
 		this.emit('stateChanged');
     }
 
@@ -3650,8 +3430,8 @@ class Transport extends EndPoint
 		 * @event timeSignatureChanged
 		 */
 
-        this._data.timeSigNum = data.timeSigNum;
-        this._data.timeSigDen = data.timeSigDen;
+        this.data.timeSigNum = data.timeSigNum;
+        this.data.timeSigDen = data.timeSigDen;
         this.emit('timeSignatureChanged');
     }
     
@@ -3663,7 +3443,7 @@ class Transport extends EndPoint
 		 * @event tempoChanged
 		 */
 
-        this._data.tempo  = data.tempo;
+        this.data.tempo  = data.tempo;
         this.emit('tempoChanged');
     }
     
@@ -3675,7 +3455,7 @@ class Transport extends EndPoint
 		 * @event loopStateChanged
 		 */
 
-        Object.assign(this._data, data);
+        Object.assign(this.data, data);
 		this.emit('loopStateChanged');
     }
 
@@ -3801,7 +3581,7 @@ class Application extends EndPoint
 		super(owner, "/api/application");
 	}
 
-	_onOpen()
+	_onConnected()
 	{
 		/**
 		 * Fired when any of the application properties change
@@ -3810,17 +3590,17 @@ class Application extends EndPoint
 		 */
 
 		/**
-		 * Fired when the application object has initially loaded
+		 * Fired when the application object has initially connected
 		 * 
-		 * @event open
+		 * @event connected
 		 */
 
-		this.emit('open');
+		this.emit('connected');
 		this.emit('busyChanged', this.busy);
 		this.emit('changed');
 	}
 
-	_onClose()
+	_onDisconnected()
 	{
 		this.emit('busyChanged', this.busy);
 		this.emit('changed');
@@ -3831,71 +3611,71 @@ class Application extends EndPoint
 	 * @property companyName
 	 * @type {String}
 	 */
-	get companyName() { return this._data ? this._data.companyName : null; }
+	get companyName() { return this.data ? this.data.companyName : null; }
 
 	/**
 	 * The application name
 	 * @property name
 	 * @type {String}
 	 */
-	get name() { return this._data ? this._data.name : null; }
+	get name() { return this.data ? this.data.name : null; }
 
 	/**
 	 * The application version string
 	 * @property version
 	 * @type {String}
 	 */
-	get version() { return this._data ? this._data.version : null; }
+	get version() { return this.data ? this.data.version : null; }
 
 	/**
 	 * The application edition string
 	 * @property edition
 	 * @type {String}
 	 */
-	get edition() { return this._data ? this._data.edition : null; }
+	get edition() { return this.data ? this.data.edition : null; }
 
 	/**
 	 * The application's copyright message
 	 * @property copyright
 	 * @type {String}
 	 */
-	get copyright() { return this._data ? this._data.copyright : null; }
+	get copyright() { return this.data ? this.data.copyright : null; }
 
 	/**
 	 * The application's build number
 	 * @property build
 	 * @type {Number}
 	 */
-	 get build() { return this._data ? this._data.build : null; }
+	get build() { return this.data ? this.data.build : null; }
 
 	/**
 	 * An array of {{#crossLink "ColorEntry"}}{{/crossLink}} items for the color index table
 	 * @property colors
 	 * @type {ColorEntry[]}
 	 */
-	 get colors() { return this._data ? this._data.colors : null; }
+	get colors() { return this.data ? this.data.colors : null; }
 
 	 /**
 	 * The application's busy status
 	 * @property busy
 	 * @type {Boolean}
 	 */
-	get busy() { return this._data ? this._data.busy : false; }
+	get busy() { return this.data ? this.data.busy : false; }
 
 
-	 /**
+	/**
 	 * The base program number (0 or 1)
 	 * @property baseProgramNumber
 	 * @type {Number}
 	 */
-	 get baseProgramNumber() { return this._data ? this._data.baseProgramNumber : null; }
+	get baseProgramNumber() { return this.data ? this.data.baseProgramNumber : null; }
 
-	 /**
+	/**
 	 * The preferred banked program display format - "SeparateBanks","CombinedBanks","Plain" or "ZeroPadded"
 	 * @property bankedProgramNumberFormat
 	 * @type {String}
 	 */
-	 get bankedProgramNumberFormat() { return this._data ? this._data.bankedProgramNumberFormat : null; }
+	get bankedProgramNumberFormat() { return this.data ? this.data.bankedProgramNumberFormat : null; }
 
 	 _onEvent_busyChanged(data)
 	{
@@ -3906,7 +3686,7 @@ class Application extends EndPoint
 		 * @param {Boolean} busy True if the app is currently busy
 		 */
 
-		this._data.busy = data.busy;
+		this.data.busy = data.busy;
 		this.emit('busyChanged', this.busy);
 	}
 
@@ -3935,7 +3715,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method isStarted
-	 * @return {Promise|Boolean}
+	 * @returns {Promise<Boolean>}
 	 */
 	 async isStarted()
 	{
@@ -3949,7 +3729,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method start
-	 * @return {Promise}
+	 * @returns {Promise}
 	 */
 	async start()
 	{
@@ -3962,7 +3742,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method stop
-	 * @return {Promise}
+	 * @returns {Promise}
 	 */
 	async stop()
 	{
@@ -3975,7 +3755,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method restart
-	 * @return {Promise}
+	 * @returns {Promise}
 	 */
 	 async restart()
 	 {
@@ -3988,7 +3768,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method startStop
-	 * @return {Promise}
+	 * @returns {Promise}
 	 */
 	  async startStop()
 	  {
@@ -4011,262 +3791,66 @@ const debug = _debug('Cantabile');
 */
 class Cantabile extends EventEmitter
 {
-	constructor(host)
+	/**
+	 * Creates a new Cantabile network session
+	 * @constructor 
+	 * @param {Object} options configuration options
+	 * @param {string} [host] the host to connect to (defaults to browser url, or localhost:35007)
+	 * @param {boolean} [autoConnect=true] if true automatically initiates connection
+	 * @param {boolean} [autoConnectEndPoints=true] if true automatically connects end point objects when accessed
+	 * @param {number} [maxListeners=30] set the max event listeners for this object (if supported)
+	 */
+	constructor(options)
 	{
 		super();
 
+		// Host string as options
+		if (typeof(options) === 'string')
+		{
+			options = { host: options };
+		}
+
+		// Resolve defaultl options
+		options = Object.assign({
+			maxListeners: 30,
+			autoConnect: true,
+			autoConnectEndPoints: true,
+		}, options);
+
+		// Store options
+		this.#options = options;
+
+		// Setup max listeners
 		if (this.setMaxListeners)
-			this.setMaxListeners(30);
+			this.setMaxListeners(options.maxListeners);
 
-		this.host = host;
+		// Initialize host
+		this.#setHost(options.host);
 
+		// Connection
 		this.shouldConnect = false;
-		this._nextRid = 1;
-		this._pendingResponseHandlers = {};
-		this._endPointEventHandlers = {};
-		this._setState("disconnected");
+		this.#prepareConnectPromise();
+		this.#setState("disconnected");
+		this.autoConnectEndPoints = options.autoConnectEndPoints;
 
-		/**
-		 * Gets the {{#crossLink "SetList"}}{{/crossLink}} object
-		 *
-		 * @property setList
-		 * @type {SetList}
-		 */
-		this.setList = new SetList(this);
-
-		/**
-		 * Gets the {{#crossLink "SongStates"}}{{/crossLink}} for the current song
-		 *
-		 * @property songStates
-		 * @type {SongStates}
-		 */
-		this.songStates = new SongStates(this);
-
-		/**
-		 * Gets the currently active {{#crossLink "KeyRanges"}}{{/crossLink}}
-		 *
-		 * @property keyRanges
-		 * @type {KeyRanges}
-		 */
-		this.keyRanges = new KeyRanges(this);
-
-		/**
-		 * Gets the current {{#crossLink "ShowNotes"}}{{/crossLink}}
-		 *
-		 * @property showNotes
-		 * @type {ShowNotes}
-		 */
-		this.showNotes = new ShowNotes(this);
-
-		/**
-		 * Provides access to {{#crossLink "Variables"}}{{/crossLink}} expansion facilities
-		 *
-		 * @property variables
-		 * @type {Variables}
-		 */
-		 this.variables = new Variables(this);
-
-		/**
-		 * Provides access to controllers managed by Cantabile's {{#crossLink "OnscreenKeyboard"}}{{/crossLink}} device
-		 *
-		 * @property onscreenKeyboard
-		 * @type {OnscreenKeyboard}
-		 */
-		 this.onscreenKeyboard = new OnscreenKeyboard(this);
-
-		 /**
-		 * Provides access to global {{#crossLink "Bindings"}}{{/crossLink}} points
-		 *
-		 * @property bindings
-		 * @type {Bindings}
-		 */
-		  this.bindings = new Bindings(this);
-
-		 /**
-		 * Provides access to global {{#crossLink "Bindings4"}}{{/crossLink}} points
-		 *
-		 * @property bindings4
-		 * @type {Bindings4}
-		 */
-		  this.bindings4 = new Bindings4(this);
-
-		  /**
-		 * Provides access to global {{#crossLink "Commands"}}{{/crossLink}}
-		 *
-		 * @property commands
-		 * @type {Commands}
-		 */
-		 this.commands = new Commands(this);
-
-		 /**
-		 * Provides access to {{#crossLink "Song"}}{{/crossLink}} information about the current song
-		 *
-		 * @property song
-		 * @type {Song}
-		 */
-		this.song = new Song(this);
-
-		/**
-		 * Provides access to master {{#crossLink "Transport"}}{{/crossLink}} controls
-		 *
-		 * @property transport
-		 * @type {Transport}
-		 */
-		this.transport = new Transport(this);
-
-		/**
-		 * Provides access to the {{#crossLink "Application"}}{{/crossLink}} object
-		 *
-		 * @property application
-		 * @type {Application}
-		 */
-		this.application = new Application(this);
-
-		/**
-		 * Provides access to the {{#crossLink "Engine"}}{{/crossLink}} object
-		 *
-		 * @property engine
-		 * @type {Engine}
-		 */
-		 this.engine = new Engine(this);
-		}
-
-	/**
-	 * The current connection state, either "connecting", "connected" or "disconnected"
-	 *
-	 * @property state
-	 * @type {String} 
-	 */
-	get state()
-	{
-		return this._state;
+		if (options.autoConnect)
+			this.connect();
 	}
 
-	/**
-	 * Initiate connection and retry if fails
-	 * @method connect
-	 */
-	connect()
-	{
-		this.shouldConnect = true;
-		this._internalConnect();
-	}
+	#options;
+	#host;
+	#socketUrl;
+	#state;
+	#ws;
+	#nextRid = 1;
+	#pendingResponseHandlers = {};
+	#endPointEventHandlers = {};
+	#connectPromise;
+	#connectPromiseResolve;
+	#connectPromiseReject;
 
-	/**
-	 * Disconnect and stop retries
-	 * @method disconnect
-	 */
-	disconnect()
-	{
-		this.shouldConnect = false;
-		this._internalDisconnect();
-	}
-
-	/**
-	 * Stringify an object as a JSON message and send it to the server
-	 *
-	 * @method send
-	 * @param {object} obj The object to send
-	 */
-	send(obj)
-	{
-		debug('SEND: %j', obj);
-		this._ws.send(JSON.stringify(obj));
-	}
-
-	/**
-	 * Stringify an object as a JSON message, send it to the server and returns 
-	 * a promise which will resolve to the result.
-	 *
-	 * @method request
-	 * @param {object} obj The object to send
-	 * @return {Promise|object}
-	 */
-	request(message)
-	{
-		return new Promise(function(resolve, reject) {
-
-			// Tag the message with the request id
-			message.rid = this._nextRid++;
-
-			// Store in the response handler map
-			this._pendingResponseHandlers[message.rid] = {
-				message: message,
-				resolve: resolve,
-				reject: reject,
-			};
-
-			// Send the request
-			this.send(message);
-		}.bind(this));
-	}
-
-	/**
-	 * Returns a promise that will be resolved when connected
-	 * 
-	 * @example
-	 * 
-	 *     let C = new CantabileApi();
-	 *     await C.untilConnected();
-	 *
-	 * @method untilConnected
-	 * @return {Promise}
-	 */
-	untilConnected()
-	{
-		if (this._state == "connected")
-		{
-			return Promise.resolve();		
-		}
-		else
-		{
-			return new Promise((resolve, reject) => {
-				if (!this.pendingConnectPromises)
-					 this.pendingConnectPromises = [resolve];
-				else
-					this.pendingConnectPromises.push(resolve);
-			});
-		}
-	}
-
-	// PRIVATE:
-
-	// Internal helper to change state, log it and fire event
-	_setState(value)
-	{
-		if (this._state != value)
-		{
-			this._state = value;
-			this.emit('stateChanged', value);
-			this.emit(value);
-			debug(value);
-
-			if (this._state == "connected")
-			{
-				if (this.pendingConnectPromises)
-				{
-					for (let i=0; i<this.pendingConnectPromises.length; i++)
-					{
-						this.pendingConnectPromises[i]();
-					}
-					this.pendingConnectPromises = null;
-				}
-			}
-		}
-	}
-
-	/**
-	 * The current host
-	 *
-	 * @property host
-	 * @type {String} 
-	 */
-    get host()
-	{
-		return this._host;
-	}
-
-	set host(value)
+	// Resolve host string to host url and socket url
+	#setHost(value)
 	{
 		if (!value && true)
 			value = window.location.host;
@@ -4313,8 +3897,150 @@ class Cantabile extends EventEmitter
 		}
 
 		// Build final http and ws url
-		this._host = (secure ? "https://" : "http://") + value;
-		this._socketUrl = (secure ? "wss://" : "ws://") + value + "/api/socket/";
+		this.#host = (secure ? "https://" : "http://") + value;
+		this.#socketUrl = (secure ? "wss://" : "ws://") + value + "/api/socket/";
+	}
+
+	// Create a promise that will be resolved when connection succeeds
+	#prepareConnectPromise()
+	{
+		this.#connectPromise = new Promise((resolve, reject) => {
+			this.#connectPromiseResolve = resolve;
+			this.#connectPromiseReject = reject;
+		});
+	}
+
+	/**
+	 * Gets the resolved options object used to construct this object
+	 * @property options
+	 * @type {Object}
+	 */
+	get options()
+	{
+		return this.#options;
+	}
+
+	/**
+	 * The current connection state, either "connecting", "connected" or "disconnected"
+	 *
+	 * @property state
+	 * @type {String} 
+	 */
+	get state()
+	{
+		return this.#state;
+	}
+
+	/**
+	 * Initiate connection and retry if fails until success
+	 * @method connect
+	 * @returns {Promise} a promise that resolves when connected
+	 */
+	connect()
+	{
+		this.shouldConnect = true;
+		this.#internalConnect();
+		return this.#connectPromise;
+	}
+
+	/**
+	 * Disconnect and stop retries
+	 * @method disconnect
+	 */
+	disconnect()
+	{
+		this.shouldConnect = false;
+		this.#internalDisconnect();
+	}
+
+	/**
+	 * Stringify an object as a JSON message and send it to the server
+	 *
+	 * @method send
+	 * @param {object} obj The object to send
+	 */
+	send(obj)
+	{
+		debug('SEND: %j', obj);
+		this.#ws.send(JSON.stringify(obj));
+	}
+
+	/**
+	 * Stringify an object as a JSON message, send it to the server and returns 
+	 * a promise which will resolve to the result.
+	 *
+	 * @method request
+	 * @param {object} obj The object to send
+	 * @returns {Promise<object>}
+	 */
+	request(message)
+	{
+		return new Promise((resolve, reject) => {
+
+			// Tag the message with the request id
+			message.rid = this.#nextRid++;
+
+			// Store in the response handler map
+			this.#pendingResponseHandlers[message.rid] = {
+				message: message,
+				resolve: resolve,
+				reject: reject,
+			};
+
+			// Send the request
+			this.send(message);
+		});
+	}
+
+	/**
+	 * Returns a promise that will be resolved when connected
+	 * 
+	 * @example
+	 * 
+	 *     let C = new Cantabile();
+	 *     await C.waitForConnected();
+	 *
+	 * @method waitForConnected
+	 * @returns {Promise}
+	 */
+	waitForConnected()
+	{
+		return this.#connectPromise;
+	}
+
+	// PRIVATE:
+
+	// Internal helper to change state, log it and fire event
+	#setState(value)
+	{
+		if (this.#state != value)
+		{
+			if (this.#state == "connected")
+			{
+				this.#prepareConnectPromise();
+			}
+
+			this.#state = value;
+			this.emit('stateChanged', value);
+			this.emit(value);
+			debug(value);
+
+			if (this.#state == "connected")
+			{
+				this.#connectPromiseResolve();
+			}
+		}
+	}
+
+	/**
+	 * The host URL
+	 *
+	 * @property host
+	 * @type {String} 
+	 */
+    get host()
+	{
+		return this.#host;
 	}
 
 	/**
@@ -4323,128 +4049,96 @@ class Cantabile extends EventEmitter
 	 * @property socketUrl
 	 * @type {String}
 	 */
-	 get socketUrl()
+	get socketUrl()
 	{
-		return this._socketUrl;
+		return this.#socketUrl;
 	}
 
-	/**
-	 * The base host url
-	 *
-	 * @property hostUrl
-	 * @type {String}
-	 */
-	 get hostUrl()
-	{
-		return this._host;
-	}
-	set hostUrl(value)
-	{
-		throw new Error("The `hostUrl` property is read-only, use `host` instead");
-	}
-
-	set socketUrl(value)
-	{
-		throw new Error("The `socketUrl` property has been deprecated, use `host` instead");
-	}
 
 
 	// Internal helper to actually perform the connection
-	_internalConnect()
+	#internalConnect()
 	{
 		if (!this.shouldConnect)
 			return;
 
 		// Already connected?
-		if (this._ws)
+		if (this.#ws)
 			return;
 
-		this._setState("connecting");
+		this.#setState("connecting");
 
 		// Work out socket url
 		let socketUrl = this.socketUrl;
 
 		// Create the socket and hook up handlers
 		debug("Opening web socket '%s'", socketUrl);
-		this._ws =  new WebSocket(socketUrl);
-		this._ws.onerror = this._onSocketError.bind(this);
-		this._ws.onopen = this._onSocketOpen.bind(this);
-		this._ws.onclose = this._onSocketClose.bind(this);
-		this._ws.onmessage = this._onSocketMessage.bind(this);
+		this.#ws =  new WebSocket(socketUrl);
+		this.#ws.onerror = (e) => this.#onSocketError(e);
+		this.#ws.onopen = () => this.#onSocketOpen();
+		this.#ws.onclose = () => this.#onSocketClose();
+		this.#ws.onmessage = (m) => this.#onSocketMessage(m);
 	}
 
 	// Internal helper to disconnect
-	_internalDisconnect()
+	#internalDisconnect()
 	{
 		if (this.state == "connected")
-			this._setState("disconnected");
+			this.#setState("disconnected");
 
 		// Already disconnected?
-		if (!this._ws)
+		if (!this.#ws)
 			return;
 
-		this._ws.close();
-		delete this._ws;
+		this.#ws.close();
+		this.#ws = null;
 	}
 
 	// Internal helper to retry connection every 1 second
-	_internalReconnect()
+	#internalReconnect()
 	{
 		if (this.shouldConnect && !this.timeoutPending)
 		{
 			this.timeoutPending = true;
-			this._setState("connecting");
-			setTimeout(function() {
+			this.#setState("connecting");
+			setTimeout(() => {
 				this.timeoutPending = false;
-				this._internalConnect();
-			}.bind(this), 1000);
+				this.#internalConnect();
+			}, 1000);
 		}
 	}
 
 	// Socket onerror handler
-	_onSocketError(evt)
+	#onSocketError(evt)
 	{
 		// Disconnect
-		this._internalDisconnect();
+		this.#internalDisconnect();
 
 		// Try to reconnect...
-		this._internalReconnect();
+		this.#internalReconnect();
 	}
 
 	// Socket onopen handler
-	_onSocketOpen()
+	#onSocketOpen()
 	{
-		this._setState("connected");
+		this.#setState("connected");
 	}
 
 	// Socket onclose handler
-	_onSocketClose()
+	#onSocketClose()
 	{
-		if (this._ws)
+		if (this.#ws)
 		{
-			this._setState("disconnected");
-			delete this._ws;
-
-			// Reject any pending requests
-			/*
-			var pending = this._pendingResponseHandlers;
-			console.log(pending);
-			this._pendingResponseHandlers = {};
-			for (let key in pending) 
-			{
-				debugger;
-				console.log("===> disconnecting", key);
-			  	pending[key].reject(new Error("Disconnected"));
-			}
-			*/
+			this.#setState("disconnected");
+			this.#ws = null;
 		}
 
 		// Try to reconnect...
-		this._internalReconnect();
+		this.#internalReconnect();
 	}
 
 	// Socket onmessage handler
-	_onSocketMessage(msg)
+	#onSocketMessage(msg)
 	{
 		msg = JSON.parse(msg.data);
 
@@ -4454,7 +4148,7 @@ class Cantabile extends EventEmitter
 		if (msg.rid)
 		{
 			// Find the handler
-			let handlerInfo = this._pendingResponseHandlers[msg.rid];
+			let handlerInfo = this.#pendingResponseHandlers[msg.rid];
 			if (!handlerInfo)
 			{
 				debug('ERROR: received response for unknown rid:', msg.rid);
@@ -4462,7 +4156,7 @@ class Cantabile extends EventEmitter
 			}
 
 			// Remove from pending map
-			delete this._pendingResponseHandlers[msg.rid];
+			delete this.#pendingResponseHandlers[msg.rid];
 
 			// Resolve reject
 			if (msg.status >= 200 && msg.status < 300)
@@ -4474,7 +4168,7 @@ class Cantabile extends EventEmitter
 		// Event message?
 		if (msg.epid && msg.eventName)
 		{
-			var ep = this._endPointEventHandlers[msg.epid];
+			var ep = this.#endPointEventHandlers[msg.epid];
 			if (ep)
 			{
 				ep._dispatchEventMessage(msg.eventName, msg.data);
@@ -4489,14 +4183,135 @@ class Cantabile extends EventEmitter
 
 	_registerEndPointEventHandler(epid, endPoint)
 	{
-		this._endPointEventHandlers[epid] = endPoint;
+		this.#endPointEventHandlers[epid] = endPoint;
 	}
 
 	_revokeEndPointEventHandler(epid)
 	{
-		delete this._endPointEventHandlers[epid];
+		delete this.#endPointEventHandlers[epid];
 	}
 
+	#autoConnectEndPoints = true;
+	get autoConnectEndPoints()
+	{
+		return this.#autoConnectEndPoints;
+	}
+	set autoConnectEndPoints(value)
+	{
+		this.#autoConnectEndPoints = value;
+	}
+
+	#endPoints = new Map();
+	getEndPoint(type)
+	{
+		var ep = this.#endPoints.get(type);
+		if (!ep)
+		{
+			ep = new type(this);
+			this.#endPoints.set(type, ep);
+			
+			if (this.#autoConnectEndPoints)
+				ep.connect();
+		}
+
+		return ep;
+	}
+
+	/**
+	 * Gets the {{#crossLink "Song"}}{{/crossLink}} object
+	 *
+	 * @property song
+	 * @type {Song}
+	 */
+	get song() { return this.getEndPoint(Song) };
+
+	/**
+	 * Gets the {{#crossLink "SetList"}}{{/crossLink}} object
+	 *
+	 * @property setList
+	 * @type {SetList}
+	 */
+	get setList() { return this.getEndPoint(SetList) };
+
+	/**
+	 * Gets the {{#crossLink "SongStates"}}{{/crossLink}} object
+	 *
+	 * @property songStates
+	 * @type {SongStates}
+	 */
+	get songStates() { return this.getEndPoint(SongStates) };
+
+	/**
+	 * Gets the {{#crossLink "KeyRanges"}}{{/crossLink}} object
+	 *
+	 * @property keyRanges
+	 * @type {KeyRanges}
+	 */
+	get keyRanges() { return this.getEndPoint(KeyRanges) };
+
+	/**
+	 * Gets the {{#crossLink "ShowNotes"}}{{/crossLink}} object
+	 *
+	 * @property showNotes
+	 * @type {ShowNotes}
+	 */
+	get showNotes() { return this.getEndPoint(ShowNotes) };
+
+	/**
+	 * Gets the {{#crossLink "Variables"}}{{/crossLink}} object
+	 *
+	 * @property variables
+	 * @type {Variables}
+	 */
+	get variables() { return this.getEndPoint(Variables) };
+
+	/**
+	 * Gets the {{#crossLink "OnscreenKeyboard"}}{{/crossLink}} object
+	 *
+	 * @property onscreenKeyboard
+	 * @type {OnscreenKeyboard}
+	 */
+	get onscreenKeyboard() { return this.getEndPoint(OnscreenKeyboard) };
+
+	/**
+	 * Gets the {{#crossLink "Commands"}}{{/crossLink}} object
+	 *
+	 * @property commands
+	 * @type {Commands}
+	 */
+	get commands() { return this.getEndPoint(Commands) };
+
+	/**
+	 * Gets the {{#crossLink "Transport"}}{{/crossLink}} object
+	 *
+	 * @property transport
+	 * @type {Transport}
+	 */
+	get transport() { return this.getEndPoint(Transport) };
+
+	/**
+	 * Gets the {{#crossLink "Application"}}{{/crossLink}} object
+	 *
+	 * @property application
+	 * @type {Application}
+	 */
+	get application() { return this.getEndPoint(Application) };
+
+	/**
+	 * Gets the {{#crossLink "Engine"}}{{/crossLink}} object
+	 *
+	 * @property engine
+	 * @type {Engine}
+	 */
+	get engine() { return this.getEndPoint(Engine) };
+
+	/**
+	 * Gets the {{#crossLink "Bindings"}}{{/crossLink}} object
+	 *
+	 * @property bindings
+	 * @type {Bindings}
+	 */
+	get bindings() { return this.getEndPoint(Bindings) };
 }
 
 export { Cantabile };

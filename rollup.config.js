@@ -5,7 +5,7 @@ import replace from '@rollup/plugin-replace';
 import terser from '@rollup/plugin-terser';
 
 export default {
-  input: 'CantabileAPI.js',
+  input: 'src/Cantabile.js',
   output: [
     {
       file: 'dist/cantabile.js',

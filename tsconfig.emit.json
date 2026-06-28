@@ -1,0 +1,20 @@
+{
+    "include": [
+        "./src/**/*.js",
+        "./src/**/*.d.ts"
+    ],
+	"compilerOptions": {
+        "rootDir": "./src",
+		"allowJs": true,
+		"declaration": true,
+		"noEmit": false,
+        "emitDeclarationOnly": true,
+        "stripInternal": true,
+        "module": "node16",
+        "moduleResolution": "node16",
+        "esModuleInterop": true,
+        "outDir": "./types",
+        "declarationMap": true,
+        "target": "ES2015",
+	}
+}
