@@ -33,7 +33,7 @@ export default {
     // Resolve node_modules using their browser entry points where available
     resolve({ browser: true, preferBuiltins: false }),
 
-    // Convert any CommonJS dependencies (debug, eventemitter3) to ESM
+    // Convert any CommonJS dependencies to ESM
     commonjs(),
   ],
 };

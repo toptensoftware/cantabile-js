@@ -14,7 +14,7 @@
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nIdentifies the kind of set list iteem\r"
+                            "text": "\nIdentifies the kind of set list iteem\n"
                         }
                     ],
                     "links": []
@@ -23,11 +23,11 @@
                     "kind": "interface",
                     "name": "SetListItem",
                     "namepath": "module:@toptensoftware/cantabile-js.SetListItem",
-                    "definition": "export interface SetListItem\r{\r    readonly kind: SetListItemKind;\r    readonly name: string;\r    readonly pr: number;\r    readonly color: number;\r}",
+                    "definition": "export interface SetListItem\n{\n    readonly kind: SetListItemKind;\n    readonly name: string;\n    readonly pr: number;\n    readonly color: number;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nRepresents an item in a list\r"
+                            "text": "\nRepresents an item in a list\n"
                         }
                     ],
                     "links": [],
@@ -90,11 +90,11 @@
                     "kind": "interface",
                     "name": "BindingPoint",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingPoint",
-                    "definition": "export interface BindingPoint\r{\r    bindableId: string;\r    bindableParams?: object;\r    bindingPointId: string;\r    bindingPointParams?: object;\r}",
+                    "definition": "export interface BindingPoint\n{\n    bindableId: string;\n    bindableParams?: object;\n    bindingPointId: string;\n    bindingPointParams?: object;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nDescribes a binding point\r"
+                            "text": "\nDescribes a binding point\n"
                         }
                     ],
                     "links": [],
@@ -157,11 +157,11 @@
                     "kind": "interface",
                     "name": "BindingPointEntry",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingPointEntry",
-                    "definition": "export interface BindingPointEntry\r{\r    bindableId: string;\r    bindingPointId: string; \r    displayName: string;\r    isSource: boolean;\r    isTarget: boolean;\r}",
+                    "definition": "export interface BindingPointEntry\n{\n    bindableId: string;\n    bindingPointId: string; \n    displayName: string;\n    isSource: boolean;\n    isTarget: boolean;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\ndescribes a binding point entry as returned from {{#crossLink \"Bindings/availableBindingPoints:method\"}}{{/crosslink}}\r"
+                            "text": "\ndescribes a binding point entry as returned from {{#crossLink \"Bindings/availableBindingPoints:method\"}}{{/crosslink}}\n"
                         }
                     ],
                     "links": [],
@@ -241,7 +241,7 @@
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nIdentifies the kind of binding point\r"
+                            "text": "\nIdentifies the kind of binding point\n"
                         }
                     ],
                     "links": []
@@ -254,7 +254,7 @@
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nIdentifies the value format of a binding point value\r"
+                            "text": "\nIdentifies the value format of a binding point value\n"
                         }
                     ],
                     "links": []
@@ -263,11 +263,11 @@
                     "kind": "interface",
                     "name": "BindingPointInfo",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingPointInfo",
-                    "definition": "export interface BindingPointInfo\r{\r    id: string;\r    displayName: string;\r    kind: BindingPointKind;\r    valueFormat: BindingPointValueFormat;\r    valueMin: number;\r    valueMax: number;\r    bindableParams: BindingParam[];\r    bindingPointParams: BindingParam[];\r}",
+                    "definition": "export interface BindingPointInfo\n{\n    id: string;\n    displayName: string;\n    kind: BindingPointKind;\n    valueFormat: BindingPointValueFormat;\n    valueMin: number;\n    valueMax: number;\n    bindableParams: BindingParam[];\n    bindingPointParams: BindingParam[];\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nInformation about an available binding point\r"
+                            "text": "\nInformation about an available binding point\n"
                         }
                     ],
                     "links": [],
@@ -382,11 +382,11 @@
                     "kind": "interface",
                     "name": "BindingParam",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingParam",
-                    "definition": "export interface BindingParam\r{\r    name: string;\r    type: string;\r}",
+                    "definition": "export interface BindingParam\n{\n    name: string;\n    type: string;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nDescribes a binding point parameter\r"
+                            "text": "\nDescribes a binding point parameter\n"
                         }
                     ],
                     "links": [],
@@ -423,11 +423,11 @@
                     "kind": "interface",
                     "name": "ColorEntry",
                     "namepath": "module:@toptensoftware/cantabile-js.ColorEntry",
-                    "definition": "export interface ColorEntry\r{\r    fore: string;\r    back: string;\r}",
+                    "definition": "export interface ColorEntry\n{\n    fore: string;\n    back: string;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nDescribes a built in color\r"
+                            "text": "\nDescribes a built in color\n"
                         }
                     ],
                     "links": [],
@@ -464,11 +464,11 @@
                     "kind": "interface",
                     "name": "CommandInfo",
                     "namepath": "module:@toptensoftware/cantabile-js.CommandInfo",
-                    "definition": "export interface CommandInfo\r{\r    id: string;\r    name: string;\r}",
+                    "definition": "export interface CommandInfo\n{\n    id: string;\n    name: string;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nDescribes an available command \r"
+                            "text": "\nDescribes an available command \n"
                         }
                     ],
                     "links": [],
@@ -505,11 +505,11 @@
                     "kind": "interface",
                     "name": "KeyRange",
                     "namepath": "module:@toptensoftware/cantabile-js.KeyRange",
-                    "definition": "export interface KeyRange\r{\r    min: number;\r    max: number;\r    transport: number;\r    color: number;\r    title: string;\r}",
+                    "definition": "export interface KeyRange\n{\n    min: number;\n    max: number;\n    transport: number;\n    color: number;\n    title: string;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nDescribes an active key range\r"
+                            "text": "\nDescribes an active key range\n"
                         }
                     ],
                     "links": [],
@@ -589,7 +589,7 @@
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nText alignment constants for show note text\r"
+                            "text": "\nText alignment constants for show note text\n"
                         }
                     ],
                     "links": []
@@ -598,7 +598,7 @@
                     "kind": "interface",
                     "name": "ShowNote",
                     "namepath": "module:@toptensoftware/cantabile-js.ShowNote",
-                    "definition": "export interface ShowNote\r{\r    backgroundColor: number;\r    bold: boolean;\r    fixedPitch: boolean;\r    fontSize: number;\r    hidden: boolean;\r    imageUrl: string;\r    imageScale: number;\r    imageWidth: number;\r    imageHeight: number;\r    text: string;\r    textAlign: ShowNoteTextAlignment;\r    textColor: number;\r}",
+                    "definition": "export interface ShowNote\n{\n    backgroundColor: number;\n    bold: boolean;\n    fixedPitch: boolean;\n    fontSize: number;\n    hidden: boolean;\n    imageUrl: string;\n    imageScale: number;\n    imageWidth: number;\n    imageHeight: number;\n    text: string;\n    textAlign: ShowNoteTextAlignment;\n    textColor: number;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -769,11 +769,11 @@
                     "kind": "interface",
                     "name": "State",
                     "namepath": "module:@toptensoftware/cantabile-js.State",
-                    "definition": "export interface State\r{\r    name: string;\r    pr: number;\r    color: number;\r}",
+                    "definition": "export interface State\n{\n    name: string;\n    pr: number;\n    color: number;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nAn anonymous type representing a state\r"
+                            "text": "\nAn anonymous type representing a state\n"
                         }
                     ],
                     "links": [],
@@ -823,7 +823,7 @@
                     "kind": "type-alias",
                     "name": "MidiControllerEventKind",
                     "namepath": "module:@toptensoftware/cantabile-js.MidiControllerEventKind",
-                    "definition": "export type MidiControllerEventKind = \r    'Controller' |\r    'FineController' |\r    'ControllerButton' |\r    'ControllerNonEdgeButton' |\r    'ControllerSwitch' |\r    'ProgramChange\t' |\r    'BankedProgramChange' |\r    'PitchBend\t\t' |\r    'ChannelPressure' |\r    'Note' |\r    'NoteOff' |\r    'NoteSwitch' |\r    'RpnCoarse' |\r    'RpnFine' |\r    'NRpnCoarse' |\r    'NRpnFine' |\r    'MasterVolume' |\r    'MasterBalance' |\r    'MmcStop' |\r    'MmcPlay' |\r    'MmcDeferredPlay' |\r    'MmcFastForward' |\r    'MmcRewind' |\r    'MmcRecordPunchIn' |\r    'MmcRecordPunchOut' |\r    'MmcRecordReady' |\r    'MmcPause' |\r    'MmcEject' |\r    'MmcChase' |\r    'MmcReset' |\r    'SongSelect' |\r    'ClockStart' |\r    'ClockContinue' |\r    'ClockStop';",
+                    "definition": "export type MidiControllerEventKind = \n    'Controller' |\n    'FineController' |\n    'ControllerButton' |\n    'ControllerNonEdgeButton' |\n    'ControllerSwitch' |\n    'ProgramChange\t' |\n    'BankedProgramChange' |\n    'PitchBend\t\t' |\n    'ChannelPressure' |\n    'Note' |\n    'NoteOff' |\n    'NoteSwitch' |\n    'RpnCoarse' |\n    'RpnFine' |\n    'NRpnCoarse' |\n    'NRpnFine' |\n    'MasterVolume' |\n    'MasterBalance' |\n    'MmcStop' |\n    'MmcPlay' |\n    'MmcDeferredPlay' |\n    'MmcFastForward' |\n    'MmcRewind' |\n    'MmcRecordPunchIn' |\n    'MmcRecordPunchOut' |\n    'MmcRecordReady' |\n    'MmcPause' |\n    'MmcEject' |\n    'MmcChase' |\n    'MmcReset' |\n    'SongSelect' |\n    'ClockStart' |\n    'ClockContinue' |\n    'ClockStop';",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -836,11 +836,11 @@
                     "kind": "interface",
                     "name": "MidiControllerEvent",
                     "namepath": "module:@toptensoftware/cantabile-js.MidiControllerEvent",
-                    "definition": "export interface MidiControllerEvent\r{\r    channel: number;\r    kind: MidiControllerEventKind;\r    controller: number;\r    value: number;\r}",
+                    "definition": "export interface MidiControllerEvent\n{\n    channel: number;\n    kind: MidiControllerEventKind;\n    controller: number;\n    value: number;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nAn anonymous type representing a complex MIDI controller event.  \r\n\r\nMidiController events can be passed to anywhere that expects MIDI Data (eg: a target MIDI binding point), or can be \r\nused as a condition on a MIDI source binding point.\r"
+                            "text": "\nAn anonymous type representing a complex MIDI controller event.  \n\nMidiController events can be passed to anywhere that expects MIDI Data (eg: a target MIDI binding point), or can be \nused as a condition on a MIDI source binding point.\n"
                         }
                     ],
                     "links": [],
@@ -907,7 +907,7 @@
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\r\nTransport states\r"
+                            "text": "\nTransport states\n"
                         }
                     ],
                     "links": []
@@ -929,7 +929,7 @@
                     "kind": "type-alias",
                     "name": "MidiControllerKind",
                     "namepath": "module:@toptensoftware/cantabile-js.MidiControllerKind",
-                    "definition": "export type MidiControllerKind = \r         'Controller' |\r         'FineController' |\r         'Program' |\r         'BankedProgram' |\r         'PitchBend\t\t' |\r         'ChannelPressure' |\r         'RpnCoarse' |\r         'RpnFine' |\r         'NRpnCoarse' |\r         'NRpnFine';",
+                    "definition": "export type MidiControllerKind = \n         'Controller' |\n         'FineController' |\n         'Program' |\n         'BankedProgram' |\n         'PitchBend\t\t' |\n         'ChannelPressure' |\n         'RpnCoarse' |\n         'RpnFine' |\n         'NRpnCoarse' |\n         'NRpnFine';",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -981,7 +981,7 @@
                     "kind": "class",
                     "name": "PatternWatcher",
                     "namepath": "module:@toptensoftware/cantabile-js.PatternWatcher",
-                    "definition": "export class PatternWatcher {\n    get pattern(): string;\n    get resolved(): string;\n    unwatch(): void;\n}",
+                    "definition": "export class PatternWatcher extends EventEmitter<any> {\n    get pattern(): string;\n    get resolved(): string;\n    unwatch(): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2529,7 +2529,7 @@
                     "kind": "class",
                     "name": "ControllerWatcher",
                     "namepath": "module:@toptensoftware/cantabile-js.ControllerWatcher",
-                    "definition": "export class ControllerWatcher {\n    get channel(): number;\n    get kind(): MidiControllerKind;\n    get controller(): number;\n    get value(): number;\n    unwatch(): void;\n}",
+                    "definition": "export class ControllerWatcher extends EventEmitter<any> {\n    get channel(): number;\n    get kind(): MidiControllerKind;\n    get controller(): number;\n    get value(): number;\n    unwatch(): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -3334,7 +3334,7 @@
                     "kind": "class",
                     "name": "Cantabile",
                     "namepath": "module:@toptensoftware/cantabile-js.Cantabile",
-                    "definition": "export class Cantabile {\n    constructor(options: string | Object);\n    set autoConnectEndPoints(value: boolean);\n    get autoConnectEndPoints(): boolean;\n    get options(): Object;\n    get state(): string;\n    connect(): Promise<any>;\n    disconnect(): void;\n    send(obj: object): void;\n    request(message: object): Promise<object>;\n    waitForConnected(): Promise<any>;\n    get host(): string;\n    get socketUrl(): string;\n    get song(): Song;\n    get setList(): SetList;\n    get songStates(): SongStates;\n    get keyRanges(): KeyRanges;\n    get showNotes(): ShowNotes;\n    get variables(): Variables;\n    get onscreenKeyboard(): OnscreenKeyboard;\n    get commands(): Commands;\n    get transport(): Transport;\n    get application(): Application;\n    get engine(): Engine;\n    get bindings(): Bindings;\n}",
+                    "definition": "export class Cantabile extends EventEmitter<any> {\n    constructor(options: string | Object);\n    set autoConnectEndPoints(value: boolean);\n    get autoConnectEndPoints(): boolean;\n    get options(): Object;\n    get state(): string;\n    connect(): Promise<any>;\n    disconnect(): void;\n    send(obj: object): void;\n    request(message: object): Promise<object>;\n    waitForConnected(): Promise<any>;\n    get host(): string;\n    get socketUrl(): string;\n    get song(): Song;\n    get setList(): SetList;\n    get songStates(): SongStates;\n    get keyRanges(): KeyRanges;\n    get showNotes(): ShowNotes;\n    get variables(): Variables;\n    get onscreenKeyboard(): OnscreenKeyboard;\n    get commands(): Commands;\n    get transport(): Transport;\n    get application(): Application;\n    get engine(): Engine;\n    get bindings(): Bindings;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -3998,7 +3998,7 @@
                     "kind": "class",
                     "name": "BindingWatcher",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingWatcher",
-                    "definition": "export class BindingWatcher {\n    get bindablePoint(): BindingPoint;\n    get value(): Object;\n    unwatch(): void;\n}",
+                    "definition": "export class BindingWatcher extends EventEmitter<any> {\n    get bindablePoint(): BindingPoint;\n    get value(): Object;\n    unwatch(): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,

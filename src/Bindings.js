@@ -1,5 +1,5 @@
 import { EndPoint } from './EndPoint.js';
-import EventEmitter from 'eventemitter3';
+import EventEmitter from 'events';
 
 
 /**

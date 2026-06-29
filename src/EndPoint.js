@@ -1,17 +1,10 @@
-import EventEmitter from 'eventemitter3';
-
-
-/**
- * @type {EventEmitter}
- * @internal
- */
-const _unused = undefined;
+import EventEmitter from 'events';
 
 /**
  * Common functionality for all end point handlers
  *
  * @class EndPoint
- * @extends {EventEmitter}
+ * @extends EventEmitter
  */
 export class EndPoint extends EventEmitter
 {

@@ -1,5 +1,5 @@
 import WebSocket from 'isomorphic-ws';
-import EventEmitter from 'eventemitter3';
+import EventEmitter from 'events';
 import { SetList } from './SetList.js';
 import { SongStates } from './SongStates.js';
 import { KeyRanges } from './KeyRanges.js';

@@ -306,7 +306,7 @@ export type ControllerWatcherCallback = (value: number, source: ControllerWatche
  * @class PatternWatcher
  * @extends EventEmitter
  */
-export class PatternWatcher {
+export class PatternWatcher extends EventEmitter<any> {
     /**
      * Returns the pattern string being watched
      *
@@ -738,7 +738,7 @@ export class SetList extends EndPoint {
  * @class ControllerWatcher
  * @extends EventEmitter
  */
-export class ControllerWatcher {
+export class ControllerWatcher extends EventEmitter<any> {
     /**
      * Returns the MIDI channel number of controller being watched
      *
@@ -941,9 +941,9 @@ export class Engine {
  * Common functionality for all end point handlers
  *
  * @class EndPoint
- * @extends {EventEmitter}
+ * @extends EventEmitter
  */
-export class EndPoint {
+export class EndPoint extends EventEmitter<any> {
     /**
      * Gets the owning session of this end point
      * @property owner
@@ -1055,7 +1055,7 @@ export class Commands extends EndPoint {
 * When running in a browser, the defaults to `${window.location.host}`.  In other environments it defaults to
 `localhost:35007`.
 */
-export class Cantabile {
+export class Cantabile extends EventEmitter<any> {
     /**
      * Creates a new Cantabile network session
      * @constructor
@@ -1234,7 +1234,7 @@ export class Cantabile {
  * @class BindingWatcher
  * @extends EventEmitter
  */
-export class BindingWatcher {
+export class BindingWatcher extends EventEmitter<any> {
     /**
      * Returns the binding point being listened to
      *
@@ -1561,7 +1561,7 @@ export class Application extends EndPoint {
      */
     get bankedProgramNumberFormat(): string;
 }
-import { 0 } from "events";
+import EventEmitter from "events";
 
 }
 
