@@ -2044,7 +2044,7 @@
                     "kind": "class",
                     "name": "ShowNotes",
                     "namepath": "module:@toptensoftware/cantabile-js.ShowNotes",
-                    "definition": "export class ShowNotes extends EndPoint {\n    get items(): ShowNote[];\n}",
+                    "definition": "export class ShowNotes extends EndPoint {\n    getV1Raw(): Promise<object>;\n    get items(): ShowNote[];\n    get markdown(): any;\n    storeMarkdown(markdown: string): Promise<any>;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2061,6 +2061,24 @@
                     ],
                     "links": [],
                     "members": [
+                        {
+                            "kind": "method",
+                            "name": "getV1Raw",
+                            "namepath": "module:@toptensoftware/cantabile-js.ShowNotes#getV1Raw",
+                            "definition": "getV1Raw(): Promise<object>;",
+                            "jsdoc": [
+                                {
+                                    "kind": null,
+                                    "text": "\nGet's the original v1 show notes in raw json format\n"
+                                },
+                                {
+                                    "block": "returns",
+                                    "text": "Returns a promise for the JSON data\n",
+                                    "type": "Promise<object>"
+                                }
+                            ],
+                            "links": []
+                        },
                         {
                             "kind": "property",
                             "name": "items",
@@ -2087,6 +2105,47 @@
                                 }
                             ],
                             "namepath": "module:@toptensoftware/cantabile-js.ShowNotes#items"
+                        },
+                        {
+                            "kind": "property",
+                            "name": "markdown",
+                            "members": [
+                                {
+                                    "kind": "get",
+                                    "name": "markdown",
+                                    "namepath": "module:@toptensoftware/cantabile-js.ShowNotes#markdown.get",
+                                    "definition": "get markdown(): any;",
+                                    "jsdoc": [
+                                        {
+                                            "kind": null,
+                                            "text": "\nThe markdown show notes\n"
+                                        }
+                                    ],
+                                    "links": []
+                                }
+                            ],
+                            "namepath": "module:@toptensoftware/cantabile-js.ShowNotes#markdown"
+                        },
+                        {
+                            "kind": "method",
+                            "name": "storeMarkdown",
+                            "namepath": "module:@toptensoftware/cantabile-js.ShowNotes#storeMarkdown",
+                            "definition": "storeMarkdown(markdown: string): Promise<any>;",
+                            "jsdoc": [
+                                {
+                                    "kind": null,
+                                    "text": "\nStores the markdown notes\t\t for the current song\n\n"
+                                },
+                                {
+                                    "block": "param",
+                                    "text": "* @returns {Promise} A promise that resolves when the markdown has been stored with the song\n",
+                                    "type": "string",
+                                    "optional": false,
+                                    "name": "markdown",
+                                    "specifier": "markdown"
+                                }
+                            ],
+                            "links": []
                         }
                     ]
                 },

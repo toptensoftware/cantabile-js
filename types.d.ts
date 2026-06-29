@@ -619,11 +619,27 @@ export class Song extends EndPoint {
  */
 export class ShowNotes extends EndPoint {
     /**
+     * Get's the original v1 show notes in raw json format
+     * @returns {Promise<object>} Returns a promise for the JSON data
+     */
+    getV1Raw(): Promise<object>;
+    /**
      * An array of {{#crossLink "ShowNote"}}{{/crossLink}} items
      * @property items
      * @type {ShowNote[]}
      */
     get items(): ShowNote[];
+    /**
+     * The markdown show notes
+     */
+    get markdown(): any;
+    /**
+     * Stores the markdown notes		 for the current song
+     *
+     * @param {string} markdown
+     * @returns {Promise} A promise that resolves when the markdown has been stored with the song
+     */
+    storeMarkdown(markdown: string): Promise<any>;
 }
 /**
  * Used to access and control Cantabile's set list functionality.

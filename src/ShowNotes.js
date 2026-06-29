@@ -20,12 +20,23 @@ export class ShowNotes extends EndPoint
 	{
 		this.emit('reload');
 		this.emit('changed');
+		this.emit('markdownChanged');
 	}
 
 	_onDisconnected()
 	{
 		this.emit('reload');
 		this.emit('changed');
+		this.emit('markdownChanged');
+	}
+
+	/**
+	 * Get's the original v1 show notes in raw json format
+	 * @returns {Promise<object>} Returns a promise for the JSON data
+	 */
+	async getV1Raw()
+	{
+		return (await this.get("/v1raw")).data;
 	}
 
 	/**
@@ -34,6 +45,22 @@ export class ShowNotes extends EndPoint
 	 * @type {ShowNote[]}
 	 */
 	get items() { return this.data ? this.data.items : null; }
+
+	/**
+	 * The markdown show notes
+	 */
+	get markdown() { return this.data?.markdown}
+
+	/**
+	 * Stores the markdown notes		 for the current song
+	 * 
+	 * @param {string} markdown 
+	 * @returns {Promise} A promise that resolves when the markdown has been stored with the song
+	 */
+	storeMarkdown(markdown)
+	{
+		return this.post("/markdown", { markdown });
+	}
 
 	_onEvent_itemAdded(data)
 	{
@@ -104,13 +131,21 @@ export class ShowNotes extends EndPoint
 	_onEvent_itemsReload(data)
 	{
 		this.data.items = data.items;
+		this.data.markdown = data.markdown;
 		this.emit('reload');
 		this.emit('changed');
+		this.emit('markdownChanged');
 
 		/**
 		 * Fired when the entire set of show notes has changed (eg: after  loading a new song)
 		 * 
 		 * @event reload
 		 */
+	}
+	_onEvent_markdownChanged(data)
+	{
+		this.data.markdown = data.markdown;
+		this.emit('changed');
+		this.emit('markdownChanged');
 	}
 }
