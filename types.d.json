@@ -10,11 +10,11 @@
                     "kind": "interface",
                     "name": "SetListItem",
                     "namepath": "module:@toptensoftware/cantabile-js.SetListItem",
-                    "definition": "export interface SetListItem\n{\n    readonly kind: string;\n    readonly name: string;\n    readonly pr: number;\n    readonly color: number;\n}",
+                    "definition": "export interface SetListItem\r{\r    readonly kind: string;\r    readonly name: string;\r    readonly pr: number;\r    readonly color: number;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\nRepresents an item in a list\n"
+                            "text": "\r\nRepresents an item in a list\r"
                         }
                     ],
                     "links": [],
@@ -77,11 +77,11 @@
                     "kind": "interface",
                     "name": "BindingPoint",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingPoint",
-                    "definition": "export interface BindingPoint\n{\n    bindableId: string;\n    bindableParams?: object;\n    bindingPointId: string;\n    bindingPointParams?: object;\n}",
+                    "definition": "export interface BindingPoint\r{\r    bindableId: string;\r    bindableParams?: object;\r    bindingPointId: string;\r    bindingPointParams?: object;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\nDescribes a binding point\n"
+                            "text": "\r\nDescribes a binding point\r"
                         }
                     ],
                     "links": [],
@@ -144,11 +144,11 @@
                     "kind": "interface",
                     "name": "BindingPointEntry",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingPointEntry",
-                    "definition": "export interface BindingPointEntry\n{\n    bindableId: string;\n    bindingPointId: string; \n    displayName: string;\n    isSource: boolean;\n    isTarget: boolean;\n}",
+                    "definition": "export interface BindingPointEntry\r{\r    bindableId: string;\r    bindingPointId: string; \r    displayName: string;\r    isSource: boolean;\r    isTarget: boolean;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\ndescribes a binding point entry as returned from {{#crossLink \"Bindings/availableBindingPoints:method\"}}{{/crosslink}}\n"
+                            "text": "\r\ndescribes a binding point entry as returned from {{#crossLink \"Bindings/availableBindingPoints:method\"}}{{/crosslink}}\r"
                         }
                     ],
                     "links": [],
@@ -224,11 +224,11 @@
                     "kind": "interface",
                     "name": "BindingPointInfo",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingPointInfo",
-                    "definition": "export interface BindingPointInfo\n{\n    id: string;\n    displayName: string;\n    kind: string;\n    valueFormat: string;\n    valueMin: number;\n    valueMax: number;\n    bindableParams: BindingParam[];\n    bindingPointParams: BindingParam[];\n}",
+                    "definition": "export interface BindingPointInfo\r{\r    id: string;\r    displayName: string;\r    kind: string;\r    valueFormat: string;\r    valueMin: number;\r    valueMax: number;\r    bindableParams: BindingParam[];\r    bindingPointParams: BindingParam[];\r}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\nInformation about an available binding point\n"
+                            "text": "\r\nInformation about an available binding point\r"
                         }
                     ],
                     "links": [],
@@ -343,11 +343,11 @@
                     "kind": "interface",
                     "name": "BindingParam",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingParam",
-                    "definition": "export interface BindingParam\n{\n    name: string;\n    type: string;\n}",
+                    "definition": "export interface BindingParam\r{\r    name: string;\r    type: string;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\nDescribes a binding point parameter\n"
+                            "text": "\r\nDescribes a binding point parameter\r"
                         }
                     ],
                     "links": [],
@@ -384,11 +384,11 @@
                     "kind": "interface",
                     "name": "ColorEntry",
                     "namepath": "module:@toptensoftware/cantabile-js.ColorEntry",
-                    "definition": "export interface ColorEntry\n{\n    fore: string;\n    back: string;\n}",
+                    "definition": "export interface ColorEntry\r{\r    fore: string;\r    back: string;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\nDescribes a built in color\n"
+                            "text": "\r\nDescribes a built in color\r"
                         }
                     ],
                     "links": [],
@@ -425,11 +425,11 @@
                     "kind": "interface",
                     "name": "CommandInfo",
                     "namepath": "module:@toptensoftware/cantabile-js.CommandInfo",
-                    "definition": "export interface CommandInfo\n{\n    id: string;\n    name: string;\n}",
+                    "definition": "export interface CommandInfo\r{\r    id: string;\r    name: string;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\nDescribes an available command \n"
+                            "text": "\r\nDescribes an available command \r"
                         }
                     ],
                     "links": [],
@@ -466,11 +466,11 @@
                     "kind": "interface",
                     "name": "KeyRange",
                     "namepath": "module:@toptensoftware/cantabile-js.KeyRange",
-                    "definition": "export interface KeyRange\n{\n    min: number;\n    max: number;\n    transport: number;\n    color: number;\n    title: string;\n}",
+                    "definition": "export interface KeyRange\r{\r    min: number;\r    max: number;\r    transport: number;\r    color: number;\r    title: string;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\nDescribes an active key range\n"
+                            "text": "\r\nDescribes an active key range\r"
                         }
                     ],
                     "links": [],
@@ -546,7 +546,7 @@
                     "kind": "interface",
                     "name": "ShowNote",
                     "namepath": "module:@toptensoftware/cantabile-js.ShowNote",
-                    "definition": "export interface ShowNote\n{\n    kind: string;\n    name: string;\n    pr: number;\n    color: number;\n    backgroundColor: number;\n    bold: boolean;\n    fixedPitch: boolean;\n    fontSize: number;\n    hidden: boolean;\n    imageUrl: string;\n    imageScale: number;\n    imageWidth: number;\n    imageHeight: number;\n    text: string;\n    textAlign: string;\n    textColor: number;\n}",
+                    "definition": "export interface ShowNote\r{\r    kind: string;\r    name: string;\r    pr: number;\r    color: number;\r    backgroundColor: number;\r    bold: boolean;\r    fixedPitch: boolean;\r    fontSize: number;\r    hidden: boolean;\r    imageUrl: string;\r    imageScale: number;\r    imageWidth: number;\r    imageHeight: number;\r    text: string;\r    textAlign: string;\r    textColor: number;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -769,11 +769,11 @@
                     "kind": "interface",
                     "name": "State",
                     "namepath": "module:@toptensoftware/cantabile-js.State",
-                    "definition": "export interface State\n{\n    type: string;\n    pr: number;\n    color: number;\n}",
+                    "definition": "export interface State\r{\r    type: string;\r    pr: number;\r    color: number;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\nAn anonymous type representing a state\n"
+                            "text": "\r\nAn anonymous type representing a state\r"
                         }
                     ],
                     "links": [],
@@ -823,11 +823,11 @@
                     "kind": "interface",
                     "name": "MidiControllerEvent",
                     "namepath": "module:@toptensoftware/cantabile-js.MidiControllerEvent",
-                    "definition": "export interface MidiControllerEvent\n{\n    channel: number;\n    kind: string;\n    controller: number;\n    value: number;\n}",
+                    "definition": "export interface MidiControllerEvent\r{\r    channel: number;\r    kind: string;\r    controller: number;\r    value: number;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
-                            "text": "\nAn anonymous type representing a complex MIDI controller event.  \n\nMidiController events can be passed to anywhere that expects MIDI Data (eg: a target MIDI binding point), or can be \nused as a condition on a MIDI source binding point.\n"
+                            "text": "\r\nAn anonymous type representing a complex MIDI controller event.  \r\n\r\nMidiController events can be passed to anywhere that expects MIDI Data (eg: a target MIDI binding point), or can be \r\nused as a condition on a MIDI source binding point.\r"
                         }
                     ],
                     "links": [],
