@@ -1,5 +1,5 @@
 import { EndPoint } from './EndPoint.js';
-import fetch from 'node-fetch';
+import 'isomorphic-fetch';
 
 /**
  * Provides access to Cantabile's engine object for start/stop control
