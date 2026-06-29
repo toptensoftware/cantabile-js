@@ -1,8 +1,6 @@
-import _debug from 'debug';
 import { EndPoint } from './EndPoint.js';
-import EventEmitter from 'events';
+import EventEmitter from 'eventemitter3';
 
-const debug = _debug('Cantabile');
 
 /**
  * Represents a monitored controller

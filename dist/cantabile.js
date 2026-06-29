@@ -1,981 +1,6 @@
+import EventEmitter from 'eventemitter3';
+
 var WebSocket = globalThis.WebSocket;
-
-function getDefaultExportFromCjs (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-}
-
-var browser = {exports: {}};
-
-/**
- * Helpers.
- */
-
-var ms;
-var hasRequiredMs;
-
-function requireMs () {
-	if (hasRequiredMs) return ms;
-	hasRequiredMs = 1;
-	var s = 1000;
-	var m = s * 60;
-	var h = m * 60;
-	var d = h * 24;
-	var w = d * 7;
-	var y = d * 365.25;
-
-	/**
-	 * Parse or format the given `val`.
-	 *
-	 * Options:
-	 *
-	 *  - `long` verbose formatting [false]
-	 *
-	 * @param {String|Number} val
-	 * @param {Object} [options]
-	 * @throws {Error} throw an error if val is not a non-empty string or a number
-	 * @return {String|Number}
-	 * @api public
-	 */
-
-	ms = function (val, options) {
-	  options = options || {};
-	  var type = typeof val;
-	  if (type === 'string' && val.length > 0) {
-	    return parse(val);
-	  } else if (type === 'number' && isFinite(val)) {
-	    return options.long ? fmtLong(val) : fmtShort(val);
-	  }
-	  throw new Error(
-	    'val is not a non-empty string or a valid number. val=' +
-	      JSON.stringify(val)
-	  );
-	};
-
-	/**
-	 * Parse the given `str` and return milliseconds.
-	 *
-	 * @param {String} str
-	 * @return {Number}
-	 * @api private
-	 */
-
-	function parse(str) {
-	  str = String(str);
-	  if (str.length > 100) {
-	    return;
-	  }
-	  var match = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
-	    str
-	  );
-	  if (!match) {
-	    return;
-	  }
-	  var n = parseFloat(match[1]);
-	  var type = (match[2] || 'ms').toLowerCase();
-	  switch (type) {
-	    case 'years':
-	    case 'year':
-	    case 'yrs':
-	    case 'yr':
-	    case 'y':
-	      return n * y;
-	    case 'weeks':
-	    case 'week':
-	    case 'w':
-	      return n * w;
-	    case 'days':
-	    case 'day':
-	    case 'd':
-	      return n * d;
-	    case 'hours':
-	    case 'hour':
-	    case 'hrs':
-	    case 'hr':
-	    case 'h':
-	      return n * h;
-	    case 'minutes':
-	    case 'minute':
-	    case 'mins':
-	    case 'min':
-	    case 'm':
-	      return n * m;
-	    case 'seconds':
-	    case 'second':
-	    case 'secs':
-	    case 'sec':
-	    case 's':
-	      return n * s;
-	    case 'milliseconds':
-	    case 'millisecond':
-	    case 'msecs':
-	    case 'msec':
-	    case 'ms':
-	      return n;
-	    default:
-	      return undefined;
-	  }
-	}
-
-	/**
-	 * Short format for `ms`.
-	 *
-	 * @param {Number} ms
-	 * @return {String}
-	 * @api private
-	 */
-
-	function fmtShort(ms) {
-	  var msAbs = Math.abs(ms);
-	  if (msAbs >= d) {
-	    return Math.round(ms / d) + 'd';
-	  }
-	  if (msAbs >= h) {
-	    return Math.round(ms / h) + 'h';
-	  }
-	  if (msAbs >= m) {
-	    return Math.round(ms / m) + 'm';
-	  }
-	  if (msAbs >= s) {
-	    return Math.round(ms / s) + 's';
-	  }
-	  return ms + 'ms';
-	}
-
-	/**
-	 * Long format for `ms`.
-	 *
-	 * @param {Number} ms
-	 * @return {String}
-	 * @api private
-	 */
-
-	function fmtLong(ms) {
-	  var msAbs = Math.abs(ms);
-	  if (msAbs >= d) {
-	    return plural(ms, msAbs, d, 'day');
-	  }
-	  if (msAbs >= h) {
-	    return plural(ms, msAbs, h, 'hour');
-	  }
-	  if (msAbs >= m) {
-	    return plural(ms, msAbs, m, 'minute');
-	  }
-	  if (msAbs >= s) {
-	    return plural(ms, msAbs, s, 'second');
-	  }
-	  return ms + ' ms';
-	}
-
-	/**
-	 * Pluralization helper.
-	 */
-
-	function plural(ms, msAbs, n, name) {
-	  var isPlural = msAbs >= n * 1.5;
-	  return Math.round(ms / n) + ' ' + name + (isPlural ? 's' : '');
-	}
-	return ms;
-}
-
-var common;
-var hasRequiredCommon;
-
-function requireCommon () {
-	if (hasRequiredCommon) return common;
-	hasRequiredCommon = 1;
-
-	/**
-	 * This is the common logic for both the Node.js and web browser
-	 * implementations of `debug()`.
-	 */
-	function setup(env) {
-	  createDebug.debug = createDebug;
-	  createDebug.default = createDebug;
-	  createDebug.coerce = coerce;
-	  createDebug.disable = disable;
-	  createDebug.enable = enable;
-	  createDebug.enabled = enabled;
-	  createDebug.humanize = requireMs();
-	  Object.keys(env).forEach(function (key) {
-	    createDebug[key] = env[key];
-	  });
-	  /**
-	  * Active `debug` instances.
-	  */
-
-	  createDebug.instances = [];
-	  /**
-	  * The currently active debug mode names, and names to skip.
-	  */
-
-	  createDebug.names = [];
-	  createDebug.skips = [];
-	  /**
-	  * Map of special "%n" handling functions, for the debug "format" argument.
-	  *
-	  * Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
-	  */
-
-	  createDebug.formatters = {};
-	  /**
-	  * Selects a color for a debug namespace
-	  * @param {String} namespace The namespace string for the for the debug instance to be colored
-	  * @return {Number|String} An ANSI color code for the given namespace
-	  * @api private
-	  */
-
-	  function selectColor(namespace) {
-	    var hash = 0;
-
-	    for (var i = 0; i < namespace.length; i++) {
-	      hash = (hash << 5) - hash + namespace.charCodeAt(i);
-	      hash |= 0; // Convert to 32bit integer
-	    }
-
-	    return createDebug.colors[Math.abs(hash) % createDebug.colors.length];
-	  }
-
-	  createDebug.selectColor = selectColor;
-	  /**
-	  * Create a debugger with the given `namespace`.
-	  *
-	  * @param {String} namespace
-	  * @return {Function}
-	  * @api public
-	  */
-
-	  function createDebug(namespace) {
-	    var prevTime;
-
-	    function debug() {
-	      // Disabled?
-	      if (!debug.enabled) {
-	        return;
-	      }
-
-	      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-	        args[_key] = arguments[_key];
-	      }
-
-	      var self = debug; // Set `diff` timestamp
-
-	      var curr = Number(new Date());
-	      var ms = curr - (prevTime || curr);
-	      self.diff = ms;
-	      self.prev = prevTime;
-	      self.curr = curr;
-	      prevTime = curr;
-	      args[0] = createDebug.coerce(args[0]);
-
-	      if (typeof args[0] !== 'string') {
-	        // Anything else let's inspect with %O
-	        args.unshift('%O');
-	      } // Apply any `formatters` transformations
-
-
-	      var index = 0;
-	      args[0] = args[0].replace(/%([a-zA-Z%])/g, function (match, format) {
-	        // If we encounter an escaped % then don't increase the array index
-	        if (match === '%%') {
-	          return match;
-	        }
-
-	        index++;
-	        var formatter = createDebug.formatters[format];
-
-	        if (typeof formatter === 'function') {
-	          var val = args[index];
-	          match = formatter.call(self, val); // Now we need to remove `args[index]` since it's inlined in the `format`
-
-	          args.splice(index, 1);
-	          index--;
-	        }
-
-	        return match;
-	      }); // Apply env-specific formatting (colors, etc.)
-
-	      createDebug.formatArgs.call(self, args);
-	      var logFn = self.log || createDebug.log;
-	      logFn.apply(self, args);
-	    }
-
-	    debug.namespace = namespace;
-	    debug.enabled = createDebug.enabled(namespace);
-	    debug.useColors = createDebug.useColors();
-	    debug.color = selectColor(namespace);
-	    debug.destroy = destroy;
-	    debug.extend = extend; // Debug.formatArgs = formatArgs;
-	    // debug.rawLog = rawLog;
-	    // env-specific initialization logic for debug instances
-
-	    if (typeof createDebug.init === 'function') {
-	      createDebug.init(debug);
-	    }
-
-	    createDebug.instances.push(debug);
-	    return debug;
-	  }
-
-	  function destroy() {
-	    var index = createDebug.instances.indexOf(this);
-
-	    if (index !== -1) {
-	      createDebug.instances.splice(index, 1);
-	      return true;
-	    }
-
-	    return false;
-	  }
-
-	  function extend(namespace, delimiter) {
-	    return createDebug(this.namespace + (typeof delimiter === 'undefined' ? ':' : delimiter) + namespace);
-	  }
-	  /**
-	  * Enables a debug mode by namespaces. This can include modes
-	  * separated by a colon and wildcards.
-	  *
-	  * @param {String} namespaces
-	  * @api public
-	  */
-
-
-	  function enable(namespaces) {
-	    createDebug.save(namespaces);
-	    createDebug.names = [];
-	    createDebug.skips = [];
-	    var i;
-	    var split = (typeof namespaces === 'string' ? namespaces : '').split(/[\s,]+/);
-	    var len = split.length;
-
-	    for (i = 0; i < len; i++) {
-	      if (!split[i]) {
-	        // ignore empty strings
-	        continue;
-	      }
-
-	      namespaces = split[i].replace(/\*/g, '.*?');
-
-	      if (namespaces[0] === '-') {
-	        createDebug.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
-	      } else {
-	        createDebug.names.push(new RegExp('^' + namespaces + '$'));
-	      }
-	    }
-
-	    for (i = 0; i < createDebug.instances.length; i++) {
-	      var instance = createDebug.instances[i];
-	      instance.enabled = createDebug.enabled(instance.namespace);
-	    }
-	  }
-	  /**
-	  * Disable debug output.
-	  *
-	  * @api public
-	  */
-
-
-	  function disable() {
-	    createDebug.enable('');
-	  }
-	  /**
-	  * Returns true if the given mode name is enabled, false otherwise.
-	  *
-	  * @param {String} name
-	  * @return {Boolean}
-	  * @api public
-	  */
-
-
-	  function enabled(name) {
-	    if (name[name.length - 1] === '*') {
-	      return true;
-	    }
-
-	    var i;
-	    var len;
-
-	    for (i = 0, len = createDebug.skips.length; i < len; i++) {
-	      if (createDebug.skips[i].test(name)) {
-	        return false;
-	      }
-	    }
-
-	    for (i = 0, len = createDebug.names.length; i < len; i++) {
-	      if (createDebug.names[i].test(name)) {
-	        return true;
-	      }
-	    }
-
-	    return false;
-	  }
-	  /**
-	  * Coerce `val`.
-	  *
-	  * @param {Mixed} val
-	  * @return {Mixed}
-	  * @api private
-	  */
-
-
-	  function coerce(val) {
-	    if (val instanceof Error) {
-	      return val.stack || val.message;
-	    }
-
-	    return val;
-	  }
-
-	  createDebug.enable(createDebug.load());
-	  return createDebug;
-	}
-
-	common = setup;
-	return common;
-}
-
-var hasRequiredBrowser;
-
-function requireBrowser () {
-	if (hasRequiredBrowser) return browser.exports;
-	hasRequiredBrowser = 1;
-	(function (module, exports) {
-
-		function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-		/* eslint-env browser */
-
-		/**
-		 * This is the web browser implementation of `debug()`.
-		 */
-		exports.log = log;
-		exports.formatArgs = formatArgs;
-		exports.save = save;
-		exports.load = load;
-		exports.useColors = useColors;
-		exports.storage = localstorage();
-		/**
-		 * Colors.
-		 */
-
-		exports.colors = ['#0000CC', '#0000FF', '#0033CC', '#0033FF', '#0066CC', '#0066FF', '#0099CC', '#0099FF', '#00CC00', '#00CC33', '#00CC66', '#00CC99', '#00CCCC', '#00CCFF', '#3300CC', '#3300FF', '#3333CC', '#3333FF', '#3366CC', '#3366FF', '#3399CC', '#3399FF', '#33CC00', '#33CC33', '#33CC66', '#33CC99', '#33CCCC', '#33CCFF', '#6600CC', '#6600FF', '#6633CC', '#6633FF', '#66CC00', '#66CC33', '#9900CC', '#9900FF', '#9933CC', '#9933FF', '#99CC00', '#99CC33', '#CC0000', '#CC0033', '#CC0066', '#CC0099', '#CC00CC', '#CC00FF', '#CC3300', '#CC3333', '#CC3366', '#CC3399', '#CC33CC', '#CC33FF', '#CC6600', '#CC6633', '#CC9900', '#CC9933', '#CCCC00', '#CCCC33', '#FF0000', '#FF0033', '#FF0066', '#FF0099', '#FF00CC', '#FF00FF', '#FF3300', '#FF3333', '#FF3366', '#FF3399', '#FF33CC', '#FF33FF', '#FF6600', '#FF6633', '#FF9900', '#FF9933', '#FFCC00', '#FFCC33'];
-		/**
-		 * Currently only WebKit-based Web Inspectors, Firefox >= v31,
-		 * and the Firebug extension (any Firefox version) are known
-		 * to support "%c" CSS customizations.
-		 *
-		 * TODO: add a `localStorage` variable to explicitly enable/disable colors
-		 */
-		// eslint-disable-next-line complexity
-
-		function useColors() {
-		  // NB: In an Electron preload script, document will be defined but not fully
-		  // initialized. Since we know we're in Chrome, we'll just detect this case
-		  // explicitly
-		  if (typeof window !== 'undefined' && window.process && (window.process.type === 'renderer' || window.process.__nwjs)) {
-		    return true;
-		  } // Internet Explorer and Edge do not support colors.
-
-
-		  if (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/(edge|trident)\/(\d+)/)) {
-		    return false;
-		  } // Is webkit? http://stackoverflow.com/a/16459606/376773
-		  // document is undefined in react-native: https://github.com/facebook/react-native/pull/1632
-
-
-		  return typeof document !== 'undefined' && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance || // Is firebug? http://stackoverflow.com/a/398120/376773
-		  typeof window !== 'undefined' && window.console && (window.console.firebug || window.console.exception && window.console.table) || // Is firefox >= v31?
-		  // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
-		  typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31 || // Double check webkit in userAgent just in case we are in a worker
-		  typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/);
-		}
-		/**
-		 * Colorize log arguments if enabled.
-		 *
-		 * @api public
-		 */
-
-
-		function formatArgs(args) {
-		  args[0] = (this.useColors ? '%c' : '') + this.namespace + (this.useColors ? ' %c' : ' ') + args[0] + (this.useColors ? '%c ' : ' ') + '+' + module.exports.humanize(this.diff);
-
-		  if (!this.useColors) {
-		    return;
-		  }
-
-		  var c = 'color: ' + this.color;
-		  args.splice(1, 0, c, 'color: inherit'); // The final "%c" is somewhat tricky, because there could be other
-		  // arguments passed either before or after the %c, so we need to
-		  // figure out the correct index to insert the CSS into
-
-		  var index = 0;
-		  var lastC = 0;
-		  args[0].replace(/%[a-zA-Z%]/g, function (match) {
-		    if (match === '%%') {
-		      return;
-		    }
-
-		    index++;
-
-		    if (match === '%c') {
-		      // We only are interested in the *last* %c
-		      // (the user may have provided their own)
-		      lastC = index;
-		    }
-		  });
-		  args.splice(lastC, 0, c);
-		}
-		/**
-		 * Invokes `console.log()` when available.
-		 * No-op when `console.log` is not a "function".
-		 *
-		 * @api public
-		 */
-
-
-		function log() {
-		  var _console;
-
-		  // This hackery is required for IE8/9, where
-		  // the `console.log` function doesn't have 'apply'
-		  return (typeof console === "undefined" ? "undefined" : _typeof(console)) === 'object' && console.log && (_console = console).log.apply(_console, arguments);
-		}
-		/**
-		 * Save `namespaces`.
-		 *
-		 * @param {String} namespaces
-		 * @api private
-		 */
-
-
-		function save(namespaces) {
-		  try {
-		    if (namespaces) {
-		      exports.storage.setItem('debug', namespaces);
-		    } else {
-		      exports.storage.removeItem('debug');
-		    }
-		  } catch (error) {// Swallow
-		    // XXX (@Qix-) should we be logging these?
-		  }
-		}
-		/**
-		 * Load `namespaces`.
-		 *
-		 * @return {String} returns the previously persisted debug modes
-		 * @api private
-		 */
-
-
-		function load() {
-		  var r;
-
-		  try {
-		    r = exports.storage.getItem('debug');
-		  } catch (error) {} // Swallow
-		  // XXX (@Qix-) should we be logging these?
-		  // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
-
-
-		  if (!r && typeof process !== 'undefined' && 'env' in process) {
-		    r = process.env.DEBUG;
-		  }
-
-		  return r;
-		}
-		/**
-		 * Localstorage attempts to return the localstorage.
-		 *
-		 * This is necessary because safari throws
-		 * when a user disables cookies/localstorage
-		 * and you attempt to access it.
-		 *
-		 * @return {LocalStorage}
-		 * @api private
-		 */
-
-
-		function localstorage() {
-		  try {
-		    // TVMLKit (Apple TV JS Runtime) does not have a window object, just localStorage in the global context
-		    // The Browser also has localStorage in the global context.
-		    return localStorage;
-		  } catch (error) {// Swallow
-		    // XXX (@Qix-) should we be logging these?
-		  }
-		}
-
-		module.exports = requireCommon()(exports);
-		var formatters = module.exports.formatters;
-		/**
-		 * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
-		 */
-
-		formatters.j = function (v) {
-		  try {
-		    return JSON.stringify(v);
-		  } catch (error) {
-		    return '[UnexpectedJSONParseError]: ' + error.message;
-		  }
-		}; 
-	} (browser, browser.exports));
-	return browser.exports;
-}
-
-var browserExports = requireBrowser();
-var _debug = /*@__PURE__*/getDefaultExportFromCjs(browserExports);
-
-var eventemitter3 = {exports: {}};
-
-var hasRequiredEventemitter3;
-
-function requireEventemitter3 () {
-	if (hasRequiredEventemitter3) return eventemitter3.exports;
-	hasRequiredEventemitter3 = 1;
-	(function (module) {
-
-		var has = Object.prototype.hasOwnProperty
-		  , prefix = '~';
-
-		/**
-		 * Constructor to create a storage for our `EE` objects.
-		 * An `Events` instance is a plain object whose properties are event names.
-		 *
-		 * @constructor
-		 * @private
-		 */
-		function Events() {}
-
-		//
-		// We try to not inherit from `Object.prototype`. In some engines creating an
-		// instance in this way is faster than calling `Object.create(null)` directly.
-		// If `Object.create(null)` is not supported we prefix the event names with a
-		// character to make sure that the built-in object properties are not
-		// overridden or used as an attack vector.
-		//
-		if (Object.create) {
-		  Events.prototype = Object.create(null);
-
-		  //
-		  // This hack is needed because the `__proto__` property is still inherited in
-		  // some old browsers like Android 4, iPhone 5.1, Opera 11 and Safari 5.
-		  //
-		  if (!new Events().__proto__) prefix = false;
-		}
-
-		/**
-		 * Representation of a single event listener.
-		 *
-		 * @param {Function} fn The listener function.
-		 * @param {*} context The context to invoke the listener with.
-		 * @param {Boolean} [once=false] Specify if the listener is a one-time listener.
-		 * @constructor
-		 * @private
-		 */
-		function EE(fn, context, once) {
-		  this.fn = fn;
-		  this.context = context;
-		  this.once = once || false;
-		}
-
-		/**
-		 * Add a listener for a given event.
-		 *
-		 * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
-		 * @param {(String|Symbol)} event The event name.
-		 * @param {Function} fn The listener function.
-		 * @param {*} context The context to invoke the listener with.
-		 * @param {Boolean} once Specify if the listener is a one-time listener.
-		 * @returns {EventEmitter}
-		 * @private
-		 */
-		function addListener(emitter, event, fn, context, once) {
-		  if (typeof fn !== 'function') {
-		    throw new TypeError('The listener must be a function');
-		  }
-
-		  var listener = new EE(fn, context || emitter, once)
-		    , evt = prefix ? prefix + event : event;
-
-		  if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;
-		  else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);
-		  else emitter._events[evt] = [emitter._events[evt], listener];
-
-		  return emitter;
-		}
-
-		/**
-		 * Clear event by name.
-		 *
-		 * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
-		 * @param {(String|Symbol)} evt The Event name.
-		 * @private
-		 */
-		function clearEvent(emitter, evt) {
-		  if (--emitter._eventsCount === 0) emitter._events = new Events();
-		  else delete emitter._events[evt];
-		}
-
-		/**
-		 * Minimal `EventEmitter` interface that is molded against the Node.js
-		 * `EventEmitter` interface.
-		 *
-		 * @constructor
-		 * @public
-		 */
-		function EventEmitter() {
-		  this._events = new Events();
-		  this._eventsCount = 0;
-		}
-
-		/**
-		 * Return an array listing the events for which the emitter has registered
-		 * listeners.
-		 *
-		 * @returns {Array}
-		 * @public
-		 */
-		EventEmitter.prototype.eventNames = function eventNames() {
-		  var names = []
-		    , events
-		    , name;
-
-		  if (this._eventsCount === 0) return names;
-
-		  for (name in (events = this._events)) {
-		    if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);
-		  }
-
-		  if (Object.getOwnPropertySymbols) {
-		    return names.concat(Object.getOwnPropertySymbols(events));
-		  }
-
-		  return names;
-		};
-
-		/**
-		 * Return the listeners registered for a given event.
-		 *
-		 * @param {(String|Symbol)} event The event name.
-		 * @returns {Array} The registered listeners.
-		 * @public
-		 */
-		EventEmitter.prototype.listeners = function listeners(event) {
-		  var evt = prefix ? prefix + event : event
-		    , handlers = this._events[evt];
-
-		  if (!handlers) return [];
-		  if (handlers.fn) return [handlers.fn];
-
-		  for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) {
-		    ee[i] = handlers[i].fn;
-		  }
-
-		  return ee;
-		};
-
-		/**
-		 * Return the number of listeners listening to a given event.
-		 *
-		 * @param {(String|Symbol)} event The event name.
-		 * @returns {Number} The number of listeners.
-		 * @public
-		 */
-		EventEmitter.prototype.listenerCount = function listenerCount(event) {
-		  var evt = prefix ? prefix + event : event
-		    , listeners = this._events[evt];
-
-		  if (!listeners) return 0;
-		  if (listeners.fn) return 1;
-		  return listeners.length;
-		};
-
-		/**
-		 * Calls each of the listeners registered for a given event.
-		 *
-		 * @param {(String|Symbol)} event The event name.
-		 * @returns {Boolean} `true` if the event had listeners, else `false`.
-		 * @public
-		 */
-		EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
-		  var evt = prefix ? prefix + event : event;
-
-		  if (!this._events[evt]) return false;
-
-		  var listeners = this._events[evt]
-		    , len = arguments.length
-		    , args
-		    , i;
-
-		  if (listeners.fn) {
-		    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
-
-		    switch (len) {
-		      case 1: return listeners.fn.call(listeners.context), true;
-		      case 2: return listeners.fn.call(listeners.context, a1), true;
-		      case 3: return listeners.fn.call(listeners.context, a1, a2), true;
-		      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;
-		      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
-		      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
-		    }
-
-		    for (i = 1, args = new Array(len -1); i < len; i++) {
-		      args[i - 1] = arguments[i];
-		    }
-
-		    listeners.fn.apply(listeners.context, args);
-		  } else {
-		    var length = listeners.length
-		      , j;
-
-		    for (i = 0; i < length; i++) {
-		      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
-
-		      switch (len) {
-		        case 1: listeners[i].fn.call(listeners[i].context); break;
-		        case 2: listeners[i].fn.call(listeners[i].context, a1); break;
-		        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
-		        case 4: listeners[i].fn.call(listeners[i].context, a1, a2, a3); break;
-		        default:
-		          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
-		            args[j - 1] = arguments[j];
-		          }
-
-		          listeners[i].fn.apply(listeners[i].context, args);
-		      }
-		    }
-		  }
-
-		  return true;
-		};
-
-		/**
-		 * Add a listener for a given event.
-		 *
-		 * @param {(String|Symbol)} event The event name.
-		 * @param {Function} fn The listener function.
-		 * @param {*} [context=this] The context to invoke the listener with.
-		 * @returns {EventEmitter} `this`.
-		 * @public
-		 */
-		EventEmitter.prototype.on = function on(event, fn, context) {
-		  return addListener(this, event, fn, context, false);
-		};
-
-		/**
-		 * Add a one-time listener for a given event.
-		 *
-		 * @param {(String|Symbol)} event The event name.
-		 * @param {Function} fn The listener function.
-		 * @param {*} [context=this] The context to invoke the listener with.
-		 * @returns {EventEmitter} `this`.
-		 * @public
-		 */
-		EventEmitter.prototype.once = function once(event, fn, context) {
-		  return addListener(this, event, fn, context, true);
-		};
-
-		/**
-		 * Remove the listeners of a given event.
-		 *
-		 * @param {(String|Symbol)} event The event name.
-		 * @param {Function} fn Only remove the listeners that match this function.
-		 * @param {*} context Only remove the listeners that have this context.
-		 * @param {Boolean} once Only remove one-time listeners.
-		 * @returns {EventEmitter} `this`.
-		 * @public
-		 */
-		EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
-		  var evt = prefix ? prefix + event : event;
-
-		  if (!this._events[evt]) return this;
-		  if (!fn) {
-		    clearEvent(this, evt);
-		    return this;
-		  }
-
-		  var listeners = this._events[evt];
-
-		  if (listeners.fn) {
-		    if (
-		      listeners.fn === fn &&
-		      (!once || listeners.once) &&
-		      (!context || listeners.context === context)
-		    ) {
-		      clearEvent(this, evt);
-		    }
-		  } else {
-		    for (var i = 0, events = [], length = listeners.length; i < length; i++) {
-		      if (
-		        listeners[i].fn !== fn ||
-		        (once && !listeners[i].once) ||
-		        (context && listeners[i].context !== context)
-		      ) {
-		        events.push(listeners[i]);
-		      }
-		    }
-
-		    //
-		    // Reset the array, or remove it completely if we have no more listeners.
-		    //
-		    if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;
-		    else clearEvent(this, evt);
-		  }
-
-		  return this;
-		};
-
-		/**
-		 * Remove all listeners, or those of the specified event.
-		 *
-		 * @param {(String|Symbol)} [event] The event name.
-		 * @returns {EventEmitter} `this`.
-		 * @public
-		 */
-		EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
-		  var evt;
-
-		  if (event) {
-		    evt = prefix ? prefix + event : event;
-		    if (this._events[evt]) clearEvent(this, evt);
-		  } else {
-		    this._events = new Events();
-		    this._eventsCount = 0;
-		  }
-
-		  return this;
-		};
-
-		//
-		// Alias methods names because people roll like that.
-		//
-		EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
-		EventEmitter.prototype.addListener = EventEmitter.prototype.on;
-
-		//
-		// Expose the prefix.
-		//
-		EventEmitter.prefixed = prefix;
-
-		//
-		// Allow `EventEmitter` to be imported as module namespace.
-		//
-		EventEmitter.EventEmitter = EventEmitter;
-
-		//
-		// Expose the module.
-		//
-		{
-		  module.exports = EventEmitter;
-		} 
-	} (eventemitter3));
-	return eventemitter3.exports;
-}
-
-var eventemitter3Exports = requireEventemitter3();
-var EventEmitter = /*@__PURE__*/getDefaultExportFromCjs(eventemitter3Exports);
-
-const debug$1 = _debug('Cantabile');
-
 
 /**
  * Common functionality for all end point handlers
@@ -986,6 +11,7 @@ const debug$1 = _debug('Cantabile');
 class EndPoint extends EventEmitter
 {
 	// Private constructor
+	/** @internal */
 	constructor(owner, endPoint)
 	{
 		super();
@@ -1098,6 +124,7 @@ class EndPoint extends EventEmitter
 		this.#data = null;
 	}
 
+	/** @internal */
 	send(method, endPoint, data)
 	{
 		if (this.#epid)
@@ -1121,6 +148,7 @@ class EndPoint extends EventEmitter
 		}
 	}
 
+	/** @internal */
 	request(method, endPoint, data)
 	{
 		if (this.#epid)
@@ -1144,11 +172,13 @@ class EndPoint extends EventEmitter
 		}
 	}
 
+	/** @internal */
 	post(endPoint, data)
 	{
 		return this.request('post', endPoint, data);
 	}
 
+	/** @internal */
 	get(endPoint)
 	{
 		return this.request('get', endPoint);
@@ -1210,7 +240,6 @@ class EndPoint extends EventEmitter
 		catch (err)
 		{
 			this.#connectPromiseReject(err);
-			debug$1(err);
 		}
 	}
 
@@ -1243,6 +272,7 @@ class EndPoint extends EventEmitter
 	}
 
 	// Helper to correctly join two paths ensuring only a single slash between them
+	/** @internal */
 	static joinPath(a,b)
 	{
 		while (a.endsWith('/'))
@@ -1255,8 +285,6 @@ class EndPoint extends EventEmitter
 
 }
 
-_debug('Cantabile');
-
 /**
  * Used to access and control Cantabile's set list functionality.
  * 
@@ -1267,6 +295,7 @@ _debug('Cantabile');
  */
 class SetList extends EndPoint
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/setlist");
@@ -1350,13 +379,13 @@ class SetList extends EndPoint
 	/**
 	 * Load the song with a given program number
 	 * @method loadSongByProgram
-	 * @param {Number} index The zero based program number of the song to load
+	 * @param {Number} program The zero based program number of the song to load
 	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
 	 */
-	loadSongByProgram(pr, delayed)
+	loadSongByProgram(program, delayed)
 	{
 		this.post("/loadSongByProgram", {
-			pr: pr,
+			pr: program,
 			delayed: delayed,
 		});
 	}
@@ -1585,8 +614,6 @@ class SetList extends EndPoint
 	}
 }
 
-_debug('Cantabile');
-
 /**
  * Base states functionality for State and racks
  * 
@@ -1669,13 +696,13 @@ class States extends EndPoint
 	/**
 	 * Load the State with a given program number
 	 * @method loadStateByProgram
-	 * @param {Number} index The zero based program number of the State to load
+	 * @param {Number} program The zero based program number of the State to load
 	 * @param {Boolean} [delayed=false] Whether to perform a delayed or immediate load
 	 */
-	loadStateByProgram(pr, delayed)
+	loadStateByProgram(program, delayed)
 	{
 		this.post("/loadStateByProgram", {
-			pr: pr,
+			pr: program,
 			delayed: delayed,
 		});
 	}
@@ -1864,6 +891,7 @@ class States extends EndPoint
  */
 class SongStates extends States
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/songStates");
@@ -1880,6 +908,7 @@ class SongStates extends States
  */
 class KeyRanges extends EndPoint
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/keyranges");
@@ -1924,6 +953,7 @@ class KeyRanges extends EndPoint
  */
 class ShowNotes extends EndPoint
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/shownotes");
@@ -1933,12 +963,23 @@ class ShowNotes extends EndPoint
 	{
 		this.emit('reload');
 		this.emit('changed');
+		this.emit('markdownChanged');
 	}
 
 	_onDisconnected()
 	{
 		this.emit('reload');
 		this.emit('changed');
+		this.emit('markdownChanged');
+	}
+
+	/**
+	 * Get's the original v1 show notes in raw json format
+	 * @returns {Promise<object>} Returns a promise for the JSON data
+	 */
+	async getV1Raw()
+	{
+		return (await this.get("/v1raw")).data;
 	}
 
 	/**
@@ -1947,6 +988,22 @@ class ShowNotes extends EndPoint
 	 * @type {ShowNote[]}
 	 */
 	get items() { return this.data ? this.data.items : null; }
+
+	/**
+	 * The markdown show notes
+	 */
+	get markdown() { return this.data?.markdown}
+
+	/**
+	 * Stores the markdown notes		 for the current song
+	 * 
+	 * @param {string} markdown 
+	 * @returns {Promise} A promise that resolves when the markdown has been stored with the song
+	 */
+	storeMarkdown(markdown)
+	{
+		return this.post("/markdown", { markdown });
+	}
 
 	_onEvent_itemAdded(data)
 	{
@@ -2017,8 +1074,10 @@ class ShowNotes extends EndPoint
 	_onEvent_itemsReload(data)
 	{
 		this.data.items = data.items;
+		this.data.markdown = data.markdown;
 		this.emit('reload');
 		this.emit('changed');
+		this.emit('markdownChanged');
 
 		/**
 		 * Fired when the entire set of show notes has changed (eg: after  loading a new song)
@@ -2026,9 +1085,13 @@ class ShowNotes extends EndPoint
 		 * @event reload
 		 */
 	}
+	_onEvent_markdownChanged(data)
+	{
+		this.data.markdown = data.markdown;
+		this.emit('changed');
+		this.emit('markdownChanged');
+	}
 }
-
-_debug('Cantabile');
 
 /**
  * Represents a monitored pattern string.
@@ -2040,15 +1103,22 @@ _debug('Cantabile');
  */
 class PatternWatcher extends EventEmitter
 {
-	constructor(owner, pattern, listener)
+	/** @internal */
+	constructor(owner, pattern, callback)
 	{
 		super();
-		this.owner = owner;
-		this._pattern = pattern;	
-		this._patternId = 0;
-		this._resolved = "";
-		this._listener = listener;
+		this.#owner = owner;
+		this.#pattern = pattern;	
+		this.#patternId = 0;
+		this.#resolved = "";
+		this.#callback = callback;
 	}
+
+	#owner;
+	#pattern;
+	#patternId;
+	#resolved;
+	#callback;
 
 	/**
 	 * Returns the pattern string being watched
@@ -2056,7 +1126,7 @@ class PatternWatcher extends EventEmitter
 	 * @property pattern
 	 * @type {String} 
 	 */
-	get pattern() { return this._pattern; }
+	get pattern() { return this.#pattern; }
 
 	/**
 	 * Returns the current resolved display string
@@ -2064,31 +1134,31 @@ class PatternWatcher extends EventEmitter
 	 * @property resolved
 	 * @type {String} 
 	 */
-	get resolved() { return this._resolved; }
+	get resolved() { return this.#resolved; }
 
 	_start()
 	{
-		this.owner.post("/watch", {
-			pattern: this._pattern,
+		this.#owner.post("/watch", {
+			pattern: this.#pattern,
 		}).then(r => {
 			if (r.data.patternId)
 			{
-				this.owner._registerPatternId(r.data.patternId, this);
-				this._patternId = r.data.patternId;
+				this.#owner._registerPatternId(r.data.patternId, this);
+				this.#patternId = r.data.patternId;
 			}
-			this._resolved = r.data.resolved;
+			this.#resolved = r.data.resolved;
 			this._fireChanged();
 		});
 	}
 
 	_stop()
 	{
-		if (this.owner._epid && this._patternId)
+		if (this.#owner._epid && this.#patternId)
 		{
-			this.owner.send("POST", "/unwatch", { patternId: this._patternId});
-			this.owner._revokePatternId(this._patternId);
-			this._patternId = 0;
-			this._resolved = "";
+			this.#owner.send("POST", "/unwatch", { patternId: this.#patternId});
+			this.#owner._revokePatternId(this.#patternId);
+			this.#patternId = 0;
+			this.#resolved = "";
 			this._fireChanged();
 		}
 	}
@@ -2101,20 +1171,20 @@ class PatternWatcher extends EventEmitter
 	unwatch()
 	{
 		this._stop();
-		this.owner._revokeWatcher(this);
+		this.#owner._revokeWatcher(this);
 	}
 
 	_update(data)
 	{
-		this._resolved = data.resolved;
+		this.#resolved = data.resolved;
 		this._fireChanged();
 	}
 
 	_fireChanged()
 	{
-		// Function listener?
-		if (this._listener)
-			this._listener(this.resolved, this);
+		// Callback?
+		if (this.#callback)
+			this.#callback(this.resolved, this);
 
 		/**
 		 * Fired when the resolved display string has changed
@@ -2140,13 +1210,14 @@ class PatternWatcher extends EventEmitter
  */
 class Variables extends EndPoint
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/variables");
-		this.watchers = [];
-		this.patternIds = {};
 	}
 
+	#watchers = [];
+	#patternIds = {};
 
 	/**
 	 * Resolves a variable pattern string into a final display string
@@ -2162,6 +1233,7 @@ class Variables extends EndPoint
 	 *     C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
 	 *
 	 * @method resolve
+	 * @param {string} pattern The string variable pattern to resolve
 	 * @returns {Promise<String>} A promise to provide the resolved string
 	 */
 	async resolve(pattern)
@@ -2175,17 +1247,17 @@ class Variables extends EndPoint
 
 	_onConnected()
 	{
-		for (let i=0; i<this.watchers.length; i++)
+		for (let i=0; i<this.#watchers.length; i++)
 		{
-			this.watchers[i]._start();
+			this.#watchers[i]._start();
 		}
 	}
 
 	_onDisconnected()
 	{
-		for (let i=0; i<this.watchers.length; i++)
+		for (let i=0; i<this.#watchers.length; i++)
 		{
-			this.watchers[i]._stop();
+			this.#watchers[i]._stop();
 		}
 	}
 
@@ -2203,9 +1275,6 @@ class Variables extends EndPoint
 	 *         console.log(resolved);
 	 *     })
 	 *     
-	 * 	   // The "variables" end point must be opened before callbacks will happen
-	 *     C.variables.open();
-	 * 
 	 * @example
 	 * 
 	 * Using the PatternWatcher class and events:
@@ -2216,25 +1285,18 @@ class Variables extends EndPoint
 	 *         console.log(resolved);
 	 *     });
 	 *     
-	 * 	   // The "variables" end point must be opened before callbacks will happen
-	 *     C.variables.open();
-	 *     
 	 *     /// later, stop listening
 	 *     watcher.unwatch();
 	 *
 	 * @method watch
 	 * @param {String} pattern The string pattern to watch
-	 * @param {Function} [callback] Optional callback function to be called when the resolved display string changes.
-	 * 
-	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
-	 * is the {{#crossLink "PatternWatcher"}}{{/crossLink}} instance.
-	 *
+	 * @param {PatternWatcherCallback} [callback] Optional callback function to be called when the resolved display string changes.
 	 * @returns {PatternWatcher}
 	 */
-	watch(pattern, listener)
+	watch(pattern, callback)
 	{
-		let w = new PatternWatcher(this, pattern, listener);
-		this.watchers.push(w);
+		let w = new PatternWatcher(this, pattern, callback);
+		this.#watchers.push(w);
 		if (this.isConnected)
 			w._start();
 
@@ -2243,31 +1305,29 @@ class Variables extends EndPoint
 
 	_registerPatternId(patternId, watcher)
 	{
-		this.patternIds[patternId] = watcher;
+		this.#patternIds[patternId] = watcher;
 	}
 
 	_revokePatternId(patternId)
 	{
-		delete this.patternIds[patternId];
+		delete this.#patternIds[patternId];
 	}
 
 	_revokeWatcher(w)
 	{
-		this.watchers = this.watchers.filter(x=>x != w);
+		this.#watchers = this.#watchers.filter(x=>x != w);
 	}
 
 	_onEvent_patternChanged(data)
 	{
 		// Get the watcher
-		let w = this.patternIds[data.patternId];
+		let w = this.#patternIds[data.patternId];
 		if (w)
 		{
 			w._update(data);
 		}
 	}
 }
-
-_debug('Cantabile');
 
 /**
  * Represents a monitored controller
@@ -2279,16 +1339,24 @@ _debug('Cantabile');
  */
 class ControllerWatcher extends EventEmitter
 {
+	/** @internal */
 	constructor(owner, channel, kind, controller, listener)
 	{
 		super();
-		this.owner = owner;
-		this._channel = channel;	
-		this._kind = kind;
-		this._controller = controller;
-		this._value = null;
-		this._listener = listener;
+		this.#owner = owner;
+		this.#channel = channel;	
+		this.#kind = kind;
+		this.#controller = controller;
+		this.#value = null;
+		this.#listener = listener;
 	}
+
+	#owner;
+	#channel;
+	#kind;
+	#controller;
+	#value;
+	#listener;
 
 	/**
 	 * Returns the MIDI channel number of controller being watched
@@ -2296,15 +1364,15 @@ class ControllerWatcher extends EventEmitter
 	 * @property channel
 	 * @type {Number} 
 	 */
-	 get channel() { return this._channel; }
+	 get channel() { return this.#channel; }
 
 	/**
 	 * Returns the kind of controller being watched
 	 *
 	 * @property kind
-	 * @type {String} 
+	 * @type {MidiControllerKind} 
 	 */
-	 get kind() { return this._kind; }
+	 get kind() { return this.#kind; }
 
 	/**
 	 * Returns the number of the controller being watched
@@ -2312,7 +1380,7 @@ class ControllerWatcher extends EventEmitter
 	 * @property controller
 	 * @type {Number} 
 	 */
-	 get controller() { return this._controller; }
+	 get controller() { return this.#controller; }
 
 	 /**
 	 * Returns the current value of the controller
@@ -2320,33 +1388,33 @@ class ControllerWatcher extends EventEmitter
 	 * @property value
 	 * @type {Number} 
 	 */
-	get value() { return this._value; }
+	get value() { return this.#value; }
 
 	_start()
 	{
-		this.owner.post("/watchController", {
-			channel: this._channel,
-			kind: this._kind,
-			controller: this._controller,
+		this.#owner.post("/watchController", {
+			channel: this.#channel,
+			kind: this.#kind,
+			controller: this.#controller,
 		}).then(r => {
 			if (r.data.id)
 			{
-				this.owner._registerWatcher(r.data.id, this);
+				this.#owner._registerWatcher(r.data.id, this);
 				this._id = r.data.id;
 			}
-			this._value = r.data.value;
+			this.#value = r.data.value;
 			this._fireChanged();
 		});
 	}
 
 	_stop()
 	{
-		if (this.owner._epid && this._id)
+		if (this.#owner._epid && this._id)
 		{
-			this.owner.send("POST", "/unwatch", { id: this._id});
-			this.owner._revokeWatcher(this._id);
+			this.#owner.send("POST", "/unwatch", { id: this._id});
+			this.#owner._revokeWatcher(this._id);
 			this._id = 0;
-			this._value = null;
+			this.#value = null;
 			this._fireChanged();
 		}
 	}
@@ -2359,20 +1427,20 @@ class ControllerWatcher extends EventEmitter
 	unwatch()
 	{
 		this._stop();
-		this.owner._revokeWatcher(this);
+		this.#owner._revokeWatcher(this);
 	}
 
 	_update(data)
 	{
-		this._value = data.value;
+		this.#value = data.value;
 		this._fireChanged();
 	}
 
 	_fireChanged()
 	{
 		// Function listener?
-		if (this._listener)
-			this._listener(this._value, this);
+		if (this.#listener)
+			this.#listener(this.#value, this);
 
 		/**
 		 * Fired when the controller value has changed
@@ -2381,7 +1449,7 @@ class ControllerWatcher extends EventEmitter
 		 * @param {Number} value The new value of the controller
 		 * @param {ControllerWatcher} source This object
 		 */
-		this.emit('controllerChanged', this._value, this);
+		this.emit('controllerChanged', this.#value, this);
 	}
 }
 
@@ -2397,13 +1465,14 @@ class ControllerWatcher extends EventEmitter
  */
 class OnscreenKeyboard extends EndPoint
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/onscreenKeyboard");
-		this.watchers = [];
-		this.ids = {};
 	}
 
+	#watchers = [];
+	#ids = {};
 
 	/**
 	 * Queries the on-screen keyboard for the current value of a controller
@@ -2421,7 +1490,7 @@ class OnscreenKeyboard extends EndPoint
 	 *
 	 * @method queryController
 	 * @param {Number} channel 		The MIDI channel number of the controller
-	 * @param {String} kind 		The MIDI controller kind
+	 * @param {MidiControllerKind} kind 		The MIDI controller kind
 	 * @param {Number} controller	The number of the controller
 	 * @returns {Promise<Number>} A promise to provide the controller value
 	 */
@@ -2438,17 +1507,17 @@ class OnscreenKeyboard extends EndPoint
 
 	_onConnected()
 	{
-		for (let i=0; i<this.watchers.length; i++)
+		for (let i=0; i<this.#watchers.length; i++)
 		{
-			this.watchers[i]._start();
+			this.#watchers[i]._start();
 		}
 	}
 
 	_onDisconnected()
 	{
-		for (let i=0; i<this.watchers.length; i++)
+		for (let i=0; i<this.#watchers.length; i++)
 		{
-			this.watchers[i]._stop();
+			this.#watchers[i]._stop();
 		}
 	}
 
@@ -2466,9 +1535,6 @@ class OnscreenKeyboard extends EndPoint
 	 *         console.log(value);
 	 *     })
 	 *     
-	 * 	   // The "onscreenKeyboard" end point must be opened before callbacks will happen
-	 *     C.onscreenKeyboard.open();
-	 * 
 	 * @example
 	 * 
 	 * Using the ControllerWatcher class and events:
@@ -2479,27 +1545,20 @@ class OnscreenKeyboard extends EndPoint
 	 *         console.log(value);
 	 *     });
 	 *     
-	 *     // The "onscreenKeyboard" end point must be opened before callbacks will happen
-	 *     C.onscreenKeyboard.open();
-	 *     
 	 *     /// later, stop listening
 	 *     watcher.unwatch();
 	 *
 	 * @method watch
 	 * @param {Number} channel 		The MIDI channel number of the controller
-	 * @param {String} kind 		The MIDI controller kind
+	 * @param {MidiControllerKind} kind 		The MIDI controller kind
 	 * @param {Number} controller	The number of the controller
-	 * @param {Function} [callback] Optional callback function to be called when the controller value changes.
-	 * 
-	 * The callback function has the form function(value, source) where value is the controller value and source
-	 * is the {{#crossLink "ControllerWatcher"}}{{/crossLink}} instance.
-	 *
+	 * @param {ControllerWatcherCallback} [callback] Optional callback function to be called when the controller value changes.
 	 * @returns {ControllerWatcher}
 	 */
-	watch(channel, kind, controller, listener)
+	watch(channel, kind, controller, callback)
 	{
-		let w = new ControllerWatcher(this, channel, kind, controller, listener);
-		this.watchers.push(w);
+		let w = new ControllerWatcher(this, channel, kind, controller, callback);
+		this.#watchers.push(w);
 
 		if (this.isConnected)
 			w._start();
@@ -2542,31 +1601,29 @@ class OnscreenKeyboard extends EndPoint
 
 	_registerWatcher(id, watcher)
 	{
-		this.ids[id] = watcher;
+		this.#ids[id] = watcher;
 	}
 
 	_revokeWatcher(id)
 	{
-		delete this.ids[id];
+		delete this.#ids[id];
 	}
 
 	_revokeWatcher(w)
 	{
-		this.watchers = this.watchers.filter(x=>x != w);
+		this.#watchers = this.#watchers.filter(x=>x != w);
 	}
 
 	_onEvent_controllerChanged(data)
 	{
 		// Get the watcher
-		let w = this.ids[data.id];
+		let w = this.#ids[data.id];
 		if (w)
 		{
 			w._update(data);
 		}
 	}
 }
-
-_debug('Cantabile');
 
 /**
  * Represents an watched binding point for changes/invocations
@@ -2578,15 +1635,17 @@ _debug('Cantabile');
  */
 class BindingWatcher extends EventEmitter
 {
+	/** @internal */
 	constructor(owner, bindingPoint, callback)
 	{
 		super();
-		this.owner = owner;
+		this.#owner = owner;
 		this.#bindingPoint = bindingPoint;
         this.#callback = callback;
         this.#value = null;
 	}
 
+	#owner;
 	#bindingPoint;
 	#callback;
 	#value;
@@ -2610,8 +1669,8 @@ class BindingWatcher extends EventEmitter
     
 	_start()
 	{
-		this.owner.post("/watch", this.#bindingPoint).then(r => {
-            this.owner._registerWatchId(r.data.watchId, this);
+		this.#owner.post("/watch", this.#bindingPoint).then(r => {
+            this.#owner._registerWatchId(r.data.watchId, this);
 			this.#watchId = r.data.watchId;
 			if (r.data.value !== null && r.data.value !== undefined)
 			{
@@ -2623,10 +1682,10 @@ class BindingWatcher extends EventEmitter
 
 	_stop()
 	{
-		if (this.owner._epid && this.#watchId)
+		if (this.#owner._epid && this.#watchId)
 		{
-			this.owner.send("POST", "/unwatch", { watchId: this.#watchId});
-			this.owner._revokeWatchId(this.#watchId);
+			this.#owner.send("POST", "/unwatch", { watchId: this.#watchId});
+			this.#owner._revokeWatchId(this.#watchId);
 			this.#watchId = 0;
 			if (this.#value !== null && this.#value !== undefined)
 			{
@@ -2644,7 +1703,7 @@ class BindingWatcher extends EventEmitter
 	unwatch()
 	{
 		this._stop();
-		this.owner._revokeWatcher(this);
+		this.#owner._revokeWatcher(this);
 	}
 
 	_update(data)
@@ -2680,13 +1739,15 @@ class BindingWatcher extends EventEmitter
  */
 class PreparedBindingPoint
 {
+	/** @internal */
 	constructor(owner, bindingPoint)
 	{
-		this.owner = owner;
+		this.#owner = owner;
 		this.#bindingPoint = bindingPoint;
 		this.#prepareConnectPromise();
 	}
 
+	#owner;
 	#bindingPoint;
 	#prepId = 0;
 	#connectPromise;
@@ -2705,7 +1766,7 @@ class PreparedBindingPoint
 
 	_start()
 	{
-		this.owner.post("/prepare", this.#bindingPoint)
+		this.#owner.post("/prepare", this.#bindingPoint)
 			.then(r => {
 				this.#prepId = r.data.prepId;
 				this.#connectPromiseResolve();
@@ -2717,9 +1778,9 @@ class PreparedBindingPoint
 
 	_stop()
 	{
-		if (this.owner._epid && this.#prepId)
+		if (this.#owner._epid && this.#prepId)
 		{
-			this.owner.send("POST", "/unprepare", { prepId: this.#prepId });
+			this.#owner.send("POST", "/unprepare", { prepId: this.#prepId });
 			this.#prepId = 0;
 			this.#prepareConnectPromise();
 		}
@@ -2754,7 +1815,7 @@ class PreparedBindingPoint
 	unprepare()
 	{
 		this._stop();
-		this.owner._revokePrepped(this);
+		this.#owner._revokePrepped(this);
 	}
 
 	/**
@@ -2768,7 +1829,7 @@ class PreparedBindingPoint
 		if (this.#prepId == 0)
 			throw new Error("Prepared binding point not (yet?) connected");
 
-        return this.owner.request("POST", "/preparedInvoke", {
+        return this.#owner.request("POST", "/preparedInvoke", {
 			prepId: this.#prepId,
 			value
         });
@@ -2815,6 +1876,7 @@ function checkBindingPoint(bp)
  */
 class Bindings extends EndPoint
 {
+	/** @internal */
     constructor(owner)
     {
         super(owner, "/api/Bindings4");
@@ -2882,7 +1944,7 @@ class Bindings extends EndPoint
 	 * @param {Boolean} source whether to return information about the source or target version of the binding point
      * @returns {Promise<BindingPointInfo>} A promise to return a {{#crossLink "BindingPointInfo"}}{{/crossLink}} object
      */
-	async getBindingPointInfo(bindablePoint, source)
+	async getBindingPointInfo(bindingPoint, source)
 	{
 		checkBindingPoint();
         await this.owner.waitForConnected();
@@ -2954,7 +2016,7 @@ class Bindings extends EndPoint
 	 * 	   }, [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
 	 * 
      * @method invoke
-     * @param {BindingPoint} bindablePoint The binding point to invoke
+     * @param {BindingPoint} bindingPoint The binding point to invoke
      * @param {Object} value The value to pass to the binding point
      * @returns {Promise} A promise that resolves once the target binding point has been invoked
      */
@@ -3046,11 +2108,7 @@ class Bindings extends EndPoint
 	 *
 	 * @method watch
      * @param {BindingPoint} bindingPoint The binding point to watch
-	 * @param {Function} [callback] Optional callback function to be called when the source binding triggers
-	 * 
-	 * The callback function has the form function(value, source) where value is the new binding point value and source
-	 * is the BindingWatcher instance.
-	 * 
+	 * @param {BindingWatcherCallback} [callback] Optional callback function to be called when the source binding triggers
 	 * @returns {BindingWatcher}
 	 */
 	watch(bindingPoint, callback)
@@ -3128,6 +2186,7 @@ class Bindings extends EndPoint
  */
 class Commands extends EndPoint
 {
+	/** @internal */
     constructor(owner)
     {
         super(owner, "/api/commands");
@@ -3193,6 +2252,7 @@ class Commands extends EndPoint
  */
 class Song extends EndPoint
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/song");
@@ -3310,6 +2370,7 @@ class Song extends EndPoint
  */
 class Transport extends EndPoint
 {
+    /** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/transport");
@@ -3332,12 +2393,9 @@ class Transport extends EndPoint
 	}
 
 	/**
-	 * Gets or sets the current transport state.  Supported values include "playing", "paused" or "stopped".
-	 * Setting this property calls {{#crossLink "Transport/play:method"}}{{/crossLink}},
-	 * {{#crossLink "Transport/pause:method"}}{{/crossLink}}, or
-	 * {{#crossLink "Transport/stop:method"}}{{/crossLink}} accordingly.
+	 * The current transport state.  
 	 * @property state
-	 * @type {String}
+	 * @type {TransportState}
 	 */
     get state() { return this.data ? this.data.state : "stopped"; }
     set state(value)
@@ -3381,10 +2439,9 @@ class Transport extends EndPoint
     get tempo() { return this.data ? this.data.tempo : 0 }
 
 	/**
-	 * Gets or sets the current loopMode ("auto", "break", "loopOnce" or "loop").
-	 * Changes fire the {{#crossLink "Transport/loopStateChanged:event"}}{{/crossLink}} event.
+	 * Gets or sets the current loopMode 
 	 * @property loopMode
-	 * @type {String}
+	 * @type {TransportLoopMode}
 	 */
     get loopMode() { return this.data ? this.data.loopMode : "none" }
 
@@ -3576,6 +2633,7 @@ class Transport extends EndPoint
  */
 class Application extends EndPoint
 {
+	/** @internal */
 	constructor(owner)
 	{
 		super(owner, "/api/application");
@@ -3693,7 +2751,669 @@ class Application extends EndPoint
 
 }
 
-var fetch = globalThis.fetch;
+var global$1 = (typeof global !== "undefined" ? global :
+  typeof self !== "undefined" ? self :
+  typeof window !== "undefined" ? window : {});
+
+/* eslint-disable no-prototype-builtins */
+var g =
+  (typeof globalThis !== 'undefined' && globalThis) ||
+  (typeof self !== 'undefined' && self) ||
+  // eslint-disable-next-line no-undef
+  (typeof global$1 !== 'undefined' && global$1) ||
+  {};
+
+var support = {
+  searchParams: 'URLSearchParams' in g,
+  iterable: 'Symbol' in g && 'iterator' in Symbol,
+  blob:
+    'FileReader' in g &&
+    'Blob' in g &&
+    (function() {
+      try {
+        new Blob();
+        return true
+      } catch (e) {
+        return false
+      }
+    })(),
+  formData: 'FormData' in g,
+  arrayBuffer: 'ArrayBuffer' in g
+};
+
+function isDataView(obj) {
+  return obj && DataView.prototype.isPrototypeOf(obj)
+}
+
+if (support.arrayBuffer) {
+  var viewClasses = [
+    '[object Int8Array]',
+    '[object Uint8Array]',
+    '[object Uint8ClampedArray]',
+    '[object Int16Array]',
+    '[object Uint16Array]',
+    '[object Int32Array]',
+    '[object Uint32Array]',
+    '[object Float32Array]',
+    '[object Float64Array]'
+  ];
+
+  var isArrayBufferView =
+    ArrayBuffer.isView ||
+    function(obj) {
+      return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
+    };
+}
+
+function normalizeName(name) {
+  if (typeof name !== 'string') {
+    name = String(name);
+  }
+  if (/[^a-z0-9\-#$%&'*+.^_`|~!]/i.test(name) || name === '') {
+    throw new TypeError('Invalid character in header field name: "' + name + '"')
+  }
+  return name.toLowerCase()
+}
+
+function normalizeValue(value) {
+  if (typeof value !== 'string') {
+    value = String(value);
+  }
+  return value
+}
+
+// Build a destructive iterator for the value list
+function iteratorFor(items) {
+  var iterator = {
+    next: function() {
+      var value = items.shift();
+      return {done: value === undefined, value: value}
+    }
+  };
+
+  if (support.iterable) {
+    iterator[Symbol.iterator] = function() {
+      return iterator
+    };
+  }
+
+  return iterator
+}
+
+function Headers(headers) {
+  this.map = {};
+
+  if (headers instanceof Headers) {
+    headers.forEach(function(value, name) {
+      this.append(name, value);
+    }, this);
+  } else if (Array.isArray(headers)) {
+    headers.forEach(function(header) {
+      if (header.length != 2) {
+        throw new TypeError('Headers constructor: expected name/value pair to be length 2, found' + header.length)
+      }
+      this.append(header[0], header[1]);
+    }, this);
+  } else if (headers) {
+    Object.getOwnPropertyNames(headers).forEach(function(name) {
+      this.append(name, headers[name]);
+    }, this);
+  }
+}
+
+Headers.prototype.append = function(name, value) {
+  name = normalizeName(name);
+  value = normalizeValue(value);
+  var oldValue = this.map[name];
+  this.map[name] = oldValue ? oldValue + ', ' + value : value;
+};
+
+Headers.prototype['delete'] = function(name) {
+  delete this.map[normalizeName(name)];
+};
+
+Headers.prototype.get = function(name) {
+  name = normalizeName(name);
+  return this.has(name) ? this.map[name] : null
+};
+
+Headers.prototype.has = function(name) {
+  return this.map.hasOwnProperty(normalizeName(name))
+};
+
+Headers.prototype.set = function(name, value) {
+  this.map[normalizeName(name)] = normalizeValue(value);
+};
+
+Headers.prototype.forEach = function(callback, thisArg) {
+  for (var name in this.map) {
+    if (this.map.hasOwnProperty(name)) {
+      callback.call(thisArg, this.map[name], name, this);
+    }
+  }
+};
+
+Headers.prototype.keys = function() {
+  var items = [];
+  this.forEach(function(value, name) {
+    items.push(name);
+  });
+  return iteratorFor(items)
+};
+
+Headers.prototype.values = function() {
+  var items = [];
+  this.forEach(function(value) {
+    items.push(value);
+  });
+  return iteratorFor(items)
+};
+
+Headers.prototype.entries = function() {
+  var items = [];
+  this.forEach(function(value, name) {
+    items.push([name, value]);
+  });
+  return iteratorFor(items)
+};
+
+if (support.iterable) {
+  Headers.prototype[Symbol.iterator] = Headers.prototype.entries;
+}
+
+function consumed(body) {
+  if (body._noBody) return
+  if (body.bodyUsed) {
+    return Promise.reject(new TypeError('Already read'))
+  }
+  body.bodyUsed = true;
+}
+
+function fileReaderReady(reader) {
+  return new Promise(function(resolve, reject) {
+    reader.onload = function() {
+      resolve(reader.result);
+    };
+    reader.onerror = function() {
+      reject(reader.error);
+    };
+  })
+}
+
+function readBlobAsArrayBuffer(blob) {
+  var reader = new FileReader();
+  var promise = fileReaderReady(reader);
+  reader.readAsArrayBuffer(blob);
+  return promise
+}
+
+function readBlobAsText(blob) {
+  var reader = new FileReader();
+  var promise = fileReaderReady(reader);
+  var match = /charset=([A-Za-z0-9_-]+)/.exec(blob.type);
+  var encoding = match ? match[1] : 'utf-8';
+  reader.readAsText(blob, encoding);
+  return promise
+}
+
+function readArrayBufferAsText(buf) {
+  var view = new Uint8Array(buf);
+  var chars = new Array(view.length);
+
+  for (var i = 0; i < view.length; i++) {
+    chars[i] = String.fromCharCode(view[i]);
+  }
+  return chars.join('')
+}
+
+function bufferClone(buf) {
+  if (buf.slice) {
+    return buf.slice(0)
+  } else {
+    var view = new Uint8Array(buf.byteLength);
+    view.set(new Uint8Array(buf));
+    return view.buffer
+  }
+}
+
+function Body() {
+  this.bodyUsed = false;
+
+  this._initBody = function(body) {
+    /*
+      fetch-mock wraps the Response object in an ES6 Proxy to
+      provide useful test harness features such as flush. However, on
+      ES5 browsers without fetch or Proxy support pollyfills must be used;
+      the proxy-pollyfill is unable to proxy an attribute unless it exists
+      on the object before the Proxy is created. This change ensures
+      Response.bodyUsed exists on the instance, while maintaining the
+      semantic of setting Request.bodyUsed in the constructor before
+      _initBody is called.
+    */
+    // eslint-disable-next-line no-self-assign
+    this.bodyUsed = this.bodyUsed;
+    this._bodyInit = body;
+    if (!body) {
+      this._noBody = true;
+      this._bodyText = '';
+    } else if (typeof body === 'string') {
+      this._bodyText = body;
+    } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+      this._bodyBlob = body;
+    } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+      this._bodyFormData = body;
+    } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+      this._bodyText = body.toString();
+    } else if (support.arrayBuffer && support.blob && isDataView(body)) {
+      this._bodyArrayBuffer = bufferClone(body.buffer);
+      // IE 10-11 can't handle a DataView body.
+      this._bodyInit = new Blob([this._bodyArrayBuffer]);
+    } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
+      this._bodyArrayBuffer = bufferClone(body);
+    } else {
+      this._bodyText = body = Object.prototype.toString.call(body);
+    }
+
+    if (!this.headers.get('content-type')) {
+      if (typeof body === 'string') {
+        this.headers.set('content-type', 'text/plain;charset=UTF-8');
+      } else if (this._bodyBlob && this._bodyBlob.type) {
+        this.headers.set('content-type', this._bodyBlob.type);
+      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+        this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+      }
+    }
+  };
+
+  if (support.blob) {
+    this.blob = function() {
+      var rejected = consumed(this);
+      if (rejected) {
+        return rejected
+      }
+
+      if (this._bodyBlob) {
+        return Promise.resolve(this._bodyBlob)
+      } else if (this._bodyArrayBuffer) {
+        return Promise.resolve(new Blob([this._bodyArrayBuffer]))
+      } else if (this._bodyFormData) {
+        throw new Error('could not read FormData body as blob')
+      } else {
+        return Promise.resolve(new Blob([this._bodyText]))
+      }
+    };
+  }
+
+  this.arrayBuffer = function() {
+    if (this._bodyArrayBuffer) {
+      var isConsumed = consumed(this);
+      if (isConsumed) {
+        return isConsumed
+      } else if (ArrayBuffer.isView(this._bodyArrayBuffer)) {
+        return Promise.resolve(
+          this._bodyArrayBuffer.buffer.slice(
+            this._bodyArrayBuffer.byteOffset,
+            this._bodyArrayBuffer.byteOffset + this._bodyArrayBuffer.byteLength
+          )
+        )
+      } else {
+        return Promise.resolve(this._bodyArrayBuffer)
+      }
+    } else if (support.blob) {
+      return this.blob().then(readBlobAsArrayBuffer)
+    } else {
+      throw new Error('could not read as ArrayBuffer')
+    }
+  };
+
+  this.text = function() {
+    var rejected = consumed(this);
+    if (rejected) {
+      return rejected
+    }
+
+    if (this._bodyBlob) {
+      return readBlobAsText(this._bodyBlob)
+    } else if (this._bodyArrayBuffer) {
+      return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer))
+    } else if (this._bodyFormData) {
+      throw new Error('could not read FormData body as text')
+    } else {
+      return Promise.resolve(this._bodyText)
+    }
+  };
+
+  if (support.formData) {
+    this.formData = function() {
+      return this.text().then(decode)
+    };
+  }
+
+  this.json = function() {
+    return this.text().then(JSON.parse)
+  };
+
+  return this
+}
+
+// HTTP methods whose capitalization should be normalized
+var methods = ['CONNECT', 'DELETE', 'GET', 'HEAD', 'OPTIONS', 'PATCH', 'POST', 'PUT', 'TRACE'];
+
+function normalizeMethod(method) {
+  var upcased = method.toUpperCase();
+  return methods.indexOf(upcased) > -1 ? upcased : method
+}
+
+function Request(input, options) {
+  if (!(this instanceof Request)) {
+    throw new TypeError('Please use the "new" operator, this DOM object constructor cannot be called as a function.')
+  }
+
+  options = options || {};
+  var body = options.body;
+
+  if (input instanceof Request) {
+    if (input.bodyUsed) {
+      throw new TypeError('Already read')
+    }
+    this.url = input.url;
+    this.credentials = input.credentials;
+    if (!options.headers) {
+      this.headers = new Headers(input.headers);
+    }
+    this.method = input.method;
+    this.mode = input.mode;
+    this.signal = input.signal;
+    if (!body && input._bodyInit != null) {
+      body = input._bodyInit;
+      input.bodyUsed = true;
+    }
+  } else {
+    this.url = String(input);
+  }
+
+  this.credentials = options.credentials || this.credentials || 'same-origin';
+  if (options.headers || !this.headers) {
+    this.headers = new Headers(options.headers);
+  }
+  this.method = normalizeMethod(options.method || this.method || 'GET');
+  this.mode = options.mode || this.mode || null;
+  this.signal = options.signal || this.signal || (function () {
+    if ('AbortController' in g) {
+      var ctrl = new AbortController();
+      return ctrl.signal;
+    }
+  }());
+  this.referrer = null;
+
+  if ((this.method === 'GET' || this.method === 'HEAD') && body) {
+    throw new TypeError('Body not allowed for GET or HEAD requests')
+  }
+  this._initBody(body);
+
+  if (this.method === 'GET' || this.method === 'HEAD') {
+    if (options.cache === 'no-store' || options.cache === 'no-cache') {
+      // Search for a '_' parameter in the query string
+      var reParamSearch = /([?&])_=[^&]*/;
+      if (reParamSearch.test(this.url)) {
+        // If it already exists then set the value with the current time
+        this.url = this.url.replace(reParamSearch, '$1_=' + new Date().getTime());
+      } else {
+        // Otherwise add a new '_' parameter to the end with the current time
+        var reQueryString = /\?/;
+        this.url += (reQueryString.test(this.url) ? '&' : '?') + '_=' + new Date().getTime();
+      }
+    }
+  }
+}
+
+Request.prototype.clone = function() {
+  return new Request(this, {body: this._bodyInit})
+};
+
+function decode(body) {
+  var form = new FormData();
+  body
+    .trim()
+    .split('&')
+    .forEach(function(bytes) {
+      if (bytes) {
+        var split = bytes.split('=');
+        var name = split.shift().replace(/\+/g, ' ');
+        var value = split.join('=').replace(/\+/g, ' ');
+        form.append(decodeURIComponent(name), decodeURIComponent(value));
+      }
+    });
+  return form
+}
+
+function parseHeaders(rawHeaders) {
+  var headers = new Headers();
+  // Replace instances of \r\n and \n followed by at least one space or horizontal tab with a space
+  // https://tools.ietf.org/html/rfc7230#section-3.2
+  var preProcessedHeaders = rawHeaders.replace(/\r?\n[\t ]+/g, ' ');
+  // Avoiding split via regex to work around a common IE11 bug with the core-js 3.6.0 regex polyfill
+  // https://github.com/github/fetch/issues/748
+  // https://github.com/zloirock/core-js/issues/751
+  preProcessedHeaders
+    .split('\r')
+    .map(function(header) {
+      return header.indexOf('\n') === 0 ? header.substr(1, header.length) : header
+    })
+    .forEach(function(line) {
+      var parts = line.split(':');
+      var key = parts.shift().trim();
+      if (key) {
+        var value = parts.join(':').trim();
+        try {
+          headers.append(key, value);
+        } catch (error) {
+          console.warn('Response ' + error.message);
+        }
+      }
+    });
+  return headers
+}
+
+Body.call(Request.prototype);
+
+function Response(bodyInit, options) {
+  if (!(this instanceof Response)) {
+    throw new TypeError('Please use the "new" operator, this DOM object constructor cannot be called as a function.')
+  }
+  if (!options) {
+    options = {};
+  }
+
+  this.type = 'default';
+  this.status = options.status === undefined ? 200 : options.status;
+  if (this.status < 200 || this.status > 599) {
+    throw new RangeError("Failed to construct 'Response': The status provided (0) is outside the range [200, 599].")
+  }
+  this.ok = this.status >= 200 && this.status < 300;
+  this.statusText = options.statusText === undefined ? '' : '' + options.statusText;
+  this.headers = new Headers(options.headers);
+  this.url = options.url || '';
+  this._initBody(bodyInit);
+}
+
+Body.call(Response.prototype);
+
+Response.prototype.clone = function() {
+  return new Response(this._bodyInit, {
+    status: this.status,
+    statusText: this.statusText,
+    headers: new Headers(this.headers),
+    url: this.url
+  })
+};
+
+Response.error = function() {
+  var response = new Response(null, {status: 200, statusText: ''});
+  response.ok = false;
+  response.status = 0;
+  response.type = 'error';
+  return response
+};
+
+var redirectStatuses = [301, 302, 303, 307, 308];
+
+Response.redirect = function(url, status) {
+  if (redirectStatuses.indexOf(status) === -1) {
+    throw new RangeError('Invalid status code')
+  }
+
+  return new Response(null, {status: status, headers: {location: url}})
+};
+
+var DOMException = g.DOMException;
+try {
+  new DOMException();
+} catch (err) {
+  DOMException = function(message, name) {
+    this.message = message;
+    this.name = name;
+    var error = Error(message);
+    this.stack = error.stack;
+  };
+  DOMException.prototype = Object.create(Error.prototype);
+  DOMException.prototype.constructor = DOMException;
+}
+
+function fetch$1(input, init) {
+  return new Promise(function(resolve, reject) {
+    var request = new Request(input, init);
+
+    if (request.signal && request.signal.aborted) {
+      return reject(new DOMException('Aborted', 'AbortError'))
+    }
+
+    var xhr = new XMLHttpRequest();
+
+    function abortXhr() {
+      xhr.abort();
+    }
+
+    xhr.onload = function() {
+      var options = {
+        statusText: xhr.statusText,
+        headers: parseHeaders(xhr.getAllResponseHeaders() || '')
+      };
+      // This check if specifically for when a user fetches a file locally from the file system
+      // Only if the status is out of a normal range
+      if (request.url.indexOf('file://') === 0 && (xhr.status < 200 || xhr.status > 599)) {
+        options.status = 200;
+      } else {
+        options.status = xhr.status;
+      }
+      options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL');
+      var body = 'response' in xhr ? xhr.response : xhr.responseText;
+      setTimeout(function() {
+        resolve(new Response(body, options));
+      }, 0);
+    };
+
+    xhr.onerror = function() {
+      setTimeout(function() {
+        reject(new TypeError('Network request failed'));
+      }, 0);
+    };
+
+    xhr.ontimeout = function() {
+      setTimeout(function() {
+        reject(new TypeError('Network request timed out'));
+      }, 0);
+    };
+
+    xhr.onabort = function() {
+      setTimeout(function() {
+        reject(new DOMException('Aborted', 'AbortError'));
+      }, 0);
+    };
+
+    function fixUrl(url) {
+      try {
+        return url === '' && g.location.href ? g.location.href : url
+      } catch (e) {
+        return url
+      }
+    }
+
+    xhr.open(request.method, fixUrl(request.url), true);
+
+    if (request.credentials === 'include') {
+      xhr.withCredentials = true;
+    } else if (request.credentials === 'omit') {
+      xhr.withCredentials = false;
+    }
+
+    if ('responseType' in xhr) {
+      if (support.blob) {
+        xhr.responseType = 'blob';
+      } else if (
+        support.arrayBuffer
+      ) {
+        xhr.responseType = 'arraybuffer';
+      }
+    }
+
+    if (init && typeof init.headers === 'object' && !(init.headers instanceof Headers || (g.Headers && init.headers instanceof g.Headers))) {
+      var names = [];
+      Object.getOwnPropertyNames(init.headers).forEach(function(name) {
+        names.push(normalizeName(name));
+        xhr.setRequestHeader(name, normalizeValue(init.headers[name]));
+      });
+      request.headers.forEach(function(value, name) {
+        if (names.indexOf(name) === -1) {
+          xhr.setRequestHeader(name, value);
+        }
+      });
+    } else {
+      request.headers.forEach(function(value, name) {
+        xhr.setRequestHeader(name, value);
+      });
+    }
+
+    if (request.signal) {
+      request.signal.addEventListener('abort', abortXhr);
+
+      xhr.onreadystatechange = function() {
+        // DONE (success or failure)
+        if (xhr.readyState === 4) {
+          request.signal.removeEventListener('abort', abortXhr);
+        }
+      };
+    }
+
+    xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit);
+  })
+}
+
+fetch$1.polyfill = true;
+
+if (!g.fetch) {
+  g.fetch = fetch$1;
+  g.Headers = Headers;
+  g.Request = Request;
+  g.Response = Response;
+}
+
+var fetchNpmBrowserify;
+var hasRequiredFetchNpmBrowserify;
+
+function requireFetchNpmBrowserify () {
+	if (hasRequiredFetchNpmBrowserify) return fetchNpmBrowserify;
+	hasRequiredFetchNpmBrowserify = 1;
+	// the whatwg-fetch polyfill installs the fetch() function
+	// on the global object (window or self)
+	//
+	// Return that as the export for use in Webpack, Browserify etc.
+
+	fetchNpmBrowserify = self.fetch.bind(self);
+	return fetchNpmBrowserify;
+}
+
+requireFetchNpmBrowserify();
 
 /**
  * Provides access to Cantabile's engine object for start/stop control
@@ -3704,10 +3424,13 @@ var fetch = globalThis.fetch;
  */
 class Engine
 {
+	/** @internal */
     constructor(owner)
     {
-		this.owner = owner;
+		this.#owner = owner;
     }
+
+	#owner;
 
 	/**
 	 * Returns a promise to provide the started state of Cantabile's audio engine.
@@ -3717,9 +3440,9 @@ class Engine
 	 * @method isStarted
 	 * @returns {Promise<Boolean>}
 	 */
-	 async isStarted()
+	async isStarted()
 	{
-		let f = await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/")).then(r => r.json());
+		let f = await fetch(EndPoint.joinPath(this.#owner.hostUrl, "api/engine/")).then(r => r.json());
 		return f.isStarted;
 	}
 
@@ -3733,7 +3456,7 @@ class Engine
 	 */
 	async start()
 	{
-		await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/start"), { method: "POST" });
+		await fetch(EndPoint.joinPath(this.#owner.hostUrl, "api/engine/start"), { method: "POST" });
 	}
 
 	/**
@@ -3746,7 +3469,7 @@ class Engine
 	 */
 	async stop()
 	{
-		await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/stop"), { method: "POST" });
+		await fetch(EndPoint.joinPath(this.#owner.hostUrl, "api/engine/stop"), { method: "POST" });
 	}
 
 	/**
@@ -3759,7 +3482,7 @@ class Engine
 	 */
 	 async restart()
 	 {
-		 await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/restart"), { method: "POST" });
+		 await fetch(EndPoint.joinPath(this.#owner.hostUrl, "api/engine/restart"), { method: "POST" });
 	 }
 
  	/**
@@ -3772,12 +3495,10 @@ class Engine
 	 */
 	  async startStop()
 	  {
-		  await fetch(EndPoint.joinPath(this.owner.hostUrl, "api/engine/startStop"), { method: "POST" });
+		  await fetch(EndPoint.joinPath(this.#owner.hostUrl, "api/engine/startStop"), { method: "POST" });
 	  }
 
   }
-
-const debug = _debug('Cantabile');
 
 /**
 * Represents a connection to Cantabile.
@@ -3794,11 +3515,11 @@ class Cantabile extends EventEmitter
 	/**
 	 * Creates a new Cantabile network session
 	 * @constructor 
-	 * @param {Object} options configuration options
-	 * @param {string} [host] the host to connect to (defaults to browser url, or localhost:35007)
-	 * @param {boolean} [autoConnect=true] if true automatically initiates connection
-	 * @param {boolean} [autoConnectEndPoints=true] if true automatically connects end point objects when accessed
-	 * @param {number} [maxListeners=30] set the max event listeners for this object (if supported)
+	 * @param {string|Object} options A string host, or configuration options
+	 * @param {string} [options.host] the host to connect to (defaults to browser url, or localhost:35007)
+	 * @param {boolean} [options.autoConnect=true] if true automatically initiates connection
+	 * @param {boolean} [options.autoConnectEndPoints=true] if true automatically connects end point objects when accessed
+	 * @param {number} [options.maxListeners=30] set the max event listeners for this object (if supported)
 	 */
 	constructor(options)
 	{
@@ -3828,7 +3549,7 @@ class Cantabile extends EventEmitter
 		this.#setHost(options.host);
 
 		// Connection
-		this.shouldConnect = false;
+		this.#shouldConnect = false;
 		this.#prepareConnectPromise();
 		this.#setState("disconnected");
 		this.autoConnectEndPoints = options.autoConnectEndPoints;
@@ -3848,6 +3569,8 @@ class Cantabile extends EventEmitter
 	#connectPromise;
 	#connectPromiseResolve;
 	#connectPromiseReject;
+	#shouldConnect;
+	#timeoutPending;
 
 	// Resolve host string to host url and socket url
 	#setHost(value)
@@ -3938,7 +3661,7 @@ class Cantabile extends EventEmitter
 	 */
 	connect()
 	{
-		this.shouldConnect = true;
+		this.#shouldConnect = true;
 		this.#internalConnect();
 		return this.#connectPromise;
 	}
@@ -3949,7 +3672,7 @@ class Cantabile extends EventEmitter
 	 */
 	disconnect()
 	{
-		this.shouldConnect = false;
+		this.#shouldConnect = false;
 		this.#internalDisconnect();
 	}
 
@@ -3961,7 +3684,6 @@ class Cantabile extends EventEmitter
 	 */
 	send(obj)
 	{
-		debug('SEND: %j', obj);
 		this.#ws.send(JSON.stringify(obj));
 	}
 
@@ -3970,7 +3692,7 @@ class Cantabile extends EventEmitter
 	 * a promise which will resolve to the result.
 	 *
 	 * @method request
-	 * @param {object} obj The object to send
+	 * @param {object} message The message object to send
 	 * @returns {Promise<object>}
 	 */
 	request(message)
@@ -4023,7 +3745,6 @@ class Cantabile extends EventEmitter
 			this.#state = value;
 			this.emit('stateChanged', value);
 			this.emit(value);
-			debug(value);
 
 			if (this.#state == "connected")
 			{
@@ -4059,7 +3780,7 @@ class Cantabile extends EventEmitter
 	// Internal helper to actually perform the connection
 	#internalConnect()
 	{
-		if (!this.shouldConnect)
+		if (!this.#shouldConnect)
 			return;
 
 		// Already connected?
@@ -4072,7 +3793,6 @@ class Cantabile extends EventEmitter
 		let socketUrl = this.socketUrl;
 
 		// Create the socket and hook up handlers
-		debug("Opening web socket '%s'", socketUrl);
 		this.#ws =  new WebSocket(socketUrl);
 		this.#ws.onerror = (e) => this.#onSocketError(e);
 		this.#ws.onopen = () => this.#onSocketOpen();
@@ -4097,12 +3817,12 @@ class Cantabile extends EventEmitter
 	// Internal helper to retry connection every 1 second
 	#internalReconnect()
 	{
-		if (this.shouldConnect && !this.timeoutPending)
+		if (this.#shouldConnect && !this.#timeoutPending)
 		{
-			this.timeoutPending = true;
+			this.#timeoutPending = true;
 			this.#setState("connecting");
 			setTimeout(() => {
-				this.timeoutPending = false;
+				this.#timeoutPending = false;
 				this.#internalConnect();
 			}, 1000);
 		}
@@ -4142,8 +3862,6 @@ class Cantabile extends EventEmitter
 	{
 		msg = JSON.parse(msg.data);
 
-		debug('RECV: %j', msg);
-
 		// Request response?
 		if (msg.rid)
 		{
@@ -4151,7 +3869,6 @@ class Cantabile extends EventEmitter
 			let handlerInfo = this.#pendingResponseHandlers[msg.rid];
 			if (!handlerInfo)
 			{
-				debug('ERROR: received response for unknown rid:', msg.rid);
 				return;
 			}
 
@@ -4173,10 +3890,6 @@ class Cantabile extends EventEmitter
 			{
 				ep._dispatchEventMessage(msg.eventName, msg.data);
 			}
-			else
-			{
-				debug(`ERROR: No event handler found for end point ${msg.epid}`);
-			}
 		}
 	}
 
@@ -4192,6 +3905,14 @@ class Cantabile extends EventEmitter
 	}
 
 	#autoConnectEndPoints = true;
+
+	/**
+	 * Controls whether the sub-object end points are automatically
+	 * connected when first accessed.
+	 *
+	 * @property autoConnectEndPoints
+	 * @type {Boolean}
+	 */
 	get autoConnectEndPoints()
 	{
 		return this.#autoConnectEndPoints;
@@ -4202,7 +3923,7 @@ class Cantabile extends EventEmitter
 	}
 
 	#endPoints = new Map();
-	getEndPoint(type)
+	#getEndPoint(type)
 	{
 		var ep = this.#endPoints.get(type);
 		if (!ep)
@@ -4223,7 +3944,7 @@ class Cantabile extends EventEmitter
 	 * @property song
 	 * @type {Song}
 	 */
-	get song() { return this.getEndPoint(Song) };
+	get song() { return this.#getEndPoint(Song) };
 
 	/**
 	 * Gets the {{#crossLink "SetList"}}{{/crossLink}} object
@@ -4231,7 +3952,7 @@ class Cantabile extends EventEmitter
 	 * @property setList
 	 * @type {SetList}
 	 */
-	get setList() { return this.getEndPoint(SetList) };
+	get setList() { return this.#getEndPoint(SetList) };
 
 	/**
 	 * Gets the {{#crossLink "SongStates"}}{{/crossLink}} object
@@ -4239,7 +3960,7 @@ class Cantabile extends EventEmitter
 	 * @property songStates
 	 * @type {SongStates}
 	 */
-	get songStates() { return this.getEndPoint(SongStates) };
+	get songStates() { return this.#getEndPoint(SongStates) };
 
 	/**
 	 * Gets the {{#crossLink "KeyRanges"}}{{/crossLink}} object
@@ -4247,7 +3968,7 @@ class Cantabile extends EventEmitter
 	 * @property keyRanges
 	 * @type {KeyRanges}
 	 */
-	get keyRanges() { return this.getEndPoint(KeyRanges) };
+	get keyRanges() { return this.#getEndPoint(KeyRanges) };
 
 	/**
 	 * Gets the {{#crossLink "ShowNotes"}}{{/crossLink}} object
@@ -4255,7 +3976,7 @@ class Cantabile extends EventEmitter
 	 * @property showNotes
 	 * @type {ShowNotes}
 	 */
-	get showNotes() { return this.getEndPoint(ShowNotes) };
+	get showNotes() { return this.#getEndPoint(ShowNotes) };
 
 	/**
 	 * Gets the {{#crossLink "Variables"}}{{/crossLink}} object
@@ -4263,7 +3984,7 @@ class Cantabile extends EventEmitter
 	 * @property variables
 	 * @type {Variables}
 	 */
-	get variables() { return this.getEndPoint(Variables) };
+	get variables() { return this.#getEndPoint(Variables) };
 
 	/**
 	 * Gets the {{#crossLink "OnscreenKeyboard"}}{{/crossLink}} object
@@ -4271,7 +3992,7 @@ class Cantabile extends EventEmitter
 	 * @property onscreenKeyboard
 	 * @type {OnscreenKeyboard}
 	 */
-	get onscreenKeyboard() { return this.getEndPoint(OnscreenKeyboard) };
+	get onscreenKeyboard() { return this.#getEndPoint(OnscreenKeyboard) };
 
 	/**
 	 * Gets the {{#crossLink "Commands"}}{{/crossLink}} object
@@ -4279,7 +4000,7 @@ class Cantabile extends EventEmitter
 	 * @property commands
 	 * @type {Commands}
 	 */
-	get commands() { return this.getEndPoint(Commands) };
+	get commands() { return this.#getEndPoint(Commands) };
 
 	/**
 	 * Gets the {{#crossLink "Transport"}}{{/crossLink}} object
@@ -4287,7 +4008,7 @@ class Cantabile extends EventEmitter
 	 * @property transport
 	 * @type {Transport}
 	 */
-	get transport() { return this.getEndPoint(Transport) };
+	get transport() { return this.#getEndPoint(Transport) };
 
 	/**
 	 * Gets the {{#crossLink "Application"}}{{/crossLink}} object
@@ -4295,7 +4016,7 @@ class Cantabile extends EventEmitter
 	 * @property application
 	 * @type {Application}
 	 */
-	get application() { return this.getEndPoint(Application) };
+	get application() { return this.#getEndPoint(Application) };
 
 	/**
 	 * Gets the {{#crossLink "Engine"}}{{/crossLink}} object
@@ -4303,7 +4024,7 @@ class Cantabile extends EventEmitter
 	 * @property engine
 	 * @type {Engine}
 	 */
-	get engine() { return this.getEndPoint(Engine) };
+	get engine() { return this.#getEndPoint(Engine) };
 
 	/**
 	 * Gets the {{#crossLink "Bindings"}}{{/crossLink}} object
@@ -4311,7 +4032,7 @@ class Cantabile extends EventEmitter
 	 * @property bindings
 	 * @type {Bindings}
 	 */
-	get bindings() { return this.getEndPoint(Bindings) };
+	get bindings() { return this.#getEndPoint(Bindings) };
 }
 
 export { Cantabile };

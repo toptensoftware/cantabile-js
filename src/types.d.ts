@@ -226,7 +226,7 @@ export interface ShowNote
 export interface State
 {
     /** The name of the state */
-    type: string;
+    name: string;
 
     /** The zero based program number of the state */
     pr: number;

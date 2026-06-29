@@ -1,8 +1,5 @@
-import _debug from 'debug';
 import { EndPoint } from './EndPoint.js';
-import EventEmitter from 'events';
-
-const debug = _debug('Cantabile');
+import EventEmitter from 'eventemitter3';
 
 /**
  * Represents a monitored pattern string.

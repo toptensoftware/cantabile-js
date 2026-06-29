@@ -1,6 +1,5 @@
 import WebSocket from 'isomorphic-ws';
-import _debug from 'debug';
-import EventEmitter from 'events';
+import EventEmitter from 'eventemitter3';
 import { SetList } from './SetList.js';
 import { SongStates } from './SongStates.js';
 import { KeyRanges } from './KeyRanges.js';
@@ -13,8 +12,6 @@ import { Song } from './Song.js';
 import { Transport } from './Transport.js';
 import { Application } from './Application.js';
 import { Engine } from './Engine.js';
-
-const debug = _debug('Cantabile');
 
 /**
 * Represents a connection to Cantabile.
@@ -200,7 +197,6 @@ export class Cantabile extends EventEmitter
 	 */
 	send(obj)
 	{
-		debug('SEND: %j', obj);
 		this.#ws.send(JSON.stringify(obj));
 	}
 
@@ -262,7 +258,6 @@ export class Cantabile extends EventEmitter
 			this.#state = value;
 			this.emit('stateChanged', value);
 			this.emit(value);
-			debug(value);
 
 			if (this.#state == "connected")
 			{
@@ -311,7 +306,6 @@ export class Cantabile extends EventEmitter
 		let socketUrl = this.socketUrl;
 
 		// Create the socket and hook up handlers
-		debug("Opening web socket '%s'", socketUrl);
 		this.#ws =  new WebSocket(socketUrl);
 		this.#ws.onerror = (e) => this.#onSocketError(e);
 		this.#ws.onopen = () => this.#onSocketOpen();
@@ -381,8 +375,6 @@ export class Cantabile extends EventEmitter
 	{
 		msg = JSON.parse(msg.data);
 
-		debug('RECV: %j', msg);
-
 		// Request response?
 		if (msg.rid)
 		{
@@ -390,7 +382,6 @@ export class Cantabile extends EventEmitter
 			let handlerInfo = this.#pendingResponseHandlers[msg.rid];
 			if (!handlerInfo)
 			{
-				debug('ERROR: received response for unknown rid:', msg.rid)
 				return;
 			}
 
@@ -411,10 +402,6 @@ export class Cantabile extends EventEmitter
 			if (ep)
 			{
 				ep._dispatchEventMessage(msg.eventName, msg.data);
-			}
-			else
-			{
-				debug(`ERROR: No event handler found for end point ${msg.epid}`)
 			}
 		}
 	}

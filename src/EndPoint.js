@@ -1,14 +1,17 @@
-import _debug from 'debug';
-import EventEmitter from 'events';
+import EventEmitter from 'eventemitter3';
 
-const debug = _debug('Cantabile');
 
+/**
+ * @type {EventEmitter}
+ * @internal
+ */
+const _unused = undefined;
 
 /**
  * Common functionality for all end point handlers
  *
  * @class EndPoint
- * @extends EventEmitter
+ * @extends {EventEmitter}
  */
 export class EndPoint extends EventEmitter
 {
@@ -242,7 +245,6 @@ export class EndPoint extends EventEmitter
 		catch (err)
 		{
 			this.#connectPromiseReject(err);
-			debug(err);
 		}
 	}
 

@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "debug": "^3.1.0",
-    "eventemitter3": "^3.1.0",
+    "eventemitter3": "^5.0.4",
     "isomorphic-fetch": "^3.0.0",
     "isomorphic-ws": "^4.0.1",
     "typescript": "^6.0.3"
@@ -29,10 +29,7 @@
     "@toptensoftware/jsdoc": "github:toptensoftware/jsdoc",
     "@types/node": "^26.0.1",
     "@types/ws": "^8.18.1",
-    "apidoc": "^0.50.1",
-    "dts-bundle-generator": "^9.5.1",
     "rollup": "^4.0.0",
-    "yuidoc-lucid-theme": "^0.1.2",
-    "yuidocjs": "^0.10.2"
+    "rollup-plugin-polyfill-node": "^0.13.0"
   }
 }

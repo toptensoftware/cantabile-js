@@ -769,7 +769,7 @@
                     "kind": "interface",
                     "name": "State",
                     "namepath": "module:@toptensoftware/cantabile-js.State",
-                    "definition": "export interface State\r{\r    type: string;\r    pr: number;\r    color: number;\r}",
+                    "definition": "export interface State\r{\r    name: string;\r    pr: number;\r    color: number;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -780,9 +780,9 @@
                     "members": [
                         {
                             "kind": "property",
-                            "name": "type",
-                            "namepath": "module:@toptensoftware/cantabile-js.State#type",
-                            "definition": "type: string;",
+                            "name": "name",
+                            "namepath": "module:@toptensoftware/cantabile-js.State#name",
+                            "definition": "name: string;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -981,7 +981,7 @@
                     "kind": "class",
                     "name": "PatternWatcher",
                     "namepath": "module:@toptensoftware/cantabile-js.PatternWatcher",
-                    "definition": "export class PatternWatcher extends EventEmitter<any> {\n    get pattern(): string;\n    get resolved(): string;\n    unwatch(): void;\n}",
+                    "definition": "export class PatternWatcher {\n    get pattern(): string;\n    get resolved(): string;\n    unwatch(): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2529,7 +2529,7 @@
                     "kind": "class",
                     "name": "ControllerWatcher",
                     "namepath": "module:@toptensoftware/cantabile-js.ControllerWatcher",
-                    "definition": "export class ControllerWatcher extends EventEmitter<any> {\n    get channel(): number;\n    get kind(): MidiControllerKind;\n    get controller(): number;\n    get value(): number;\n    unwatch(): void;\n}",
+                    "definition": "export class ControllerWatcher {\n    get channel(): number;\n    get kind(): MidiControllerKind;\n    get controller(): number;\n    get value(): number;\n    unwatch(): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -3334,7 +3334,7 @@
                     "kind": "class",
                     "name": "Cantabile",
                     "namepath": "module:@toptensoftware/cantabile-js.Cantabile",
-                    "definition": "export class Cantabile extends EventEmitter<any> {\n    constructor(options: string | Object);\n    set autoConnectEndPoints(value: boolean);\n    get autoConnectEndPoints(): boolean;\n    get options(): Object;\n    get state(): string;\n    connect(): Promise<any>;\n    disconnect(): void;\n    send(obj: object): void;\n    request(message: object): Promise<object>;\n    waitForConnected(): Promise<any>;\n    get host(): string;\n    get socketUrl(): string;\n    get song(): Song;\n    get setList(): SetList;\n    get songStates(): SongStates;\n    get keyRanges(): KeyRanges;\n    get showNotes(): ShowNotes;\n    get variables(): Variables;\n    get onscreenKeyboard(): OnscreenKeyboard;\n    get commands(): Commands;\n    get transport(): Transport;\n    get application(): Application;\n    get engine(): Engine;\n    get bindings(): Bindings;\n}",
+                    "definition": "export class Cantabile {\n    constructor(options: string | Object);\n    set autoConnectEndPoints(value: boolean);\n    get autoConnectEndPoints(): boolean;\n    get options(): Object;\n    get state(): string;\n    connect(): Promise<any>;\n    disconnect(): void;\n    send(obj: object): void;\n    request(message: object): Promise<object>;\n    waitForConnected(): Promise<any>;\n    get host(): string;\n    get socketUrl(): string;\n    get song(): Song;\n    get setList(): SetList;\n    get songStates(): SongStates;\n    get keyRanges(): KeyRanges;\n    get showNotes(): ShowNotes;\n    get variables(): Variables;\n    get onscreenKeyboard(): OnscreenKeyboard;\n    get commands(): Commands;\n    get transport(): Transport;\n    get application(): Application;\n    get engine(): Engine;\n    get bindings(): Bindings;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -3998,7 +3998,7 @@
                     "kind": "class",
                     "name": "BindingWatcher",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingWatcher",
-                    "definition": "export class BindingWatcher extends EventEmitter<any> {\n    get bindablePoint(): BindingPoint;\n    get value(): Object;\n    unwatch(): void;\n}",
+                    "definition": "export class BindingWatcher {\n    get bindablePoint(): BindingPoint;\n    get value(): Object;\n    unwatch(): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,

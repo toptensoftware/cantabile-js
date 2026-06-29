@@ -16,5 +16,6 @@
         "outDir": "./types",
         "declarationMap": true,
         "target": "ES2015",
+        "skipLibCheck": true,
 	}
 }

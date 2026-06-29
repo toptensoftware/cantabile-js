@@ -1,7 +1,4 @@
-import _debug from 'debug';
 import { EndPoint } from './EndPoint.js';
-
-const debug = _debug('Cantabile');
 
 /**
  * Used to access and control Cantabile's set list functionality.

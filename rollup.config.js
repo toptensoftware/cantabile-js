@@ -3,6 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import virtual from '@rollup/plugin-virtual';
 import replace from '@rollup/plugin-replace';
 import terser from '@rollup/plugin-terser';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 export default {
   input: 'src/Cantabile.js',
@@ -20,17 +21,12 @@ export default {
     },
   ],
   plugins: [
-    // Browser shims for Node.js-specific imports
+    nodePolyfills(),
     virtual({
-      'isomorphic-ws': 'export default globalThis.WebSocket;',
-      'node-fetch': 'export default globalThis.fetch;',
-      // Redirect Node's `events` to the already-bundled eventemitter3
-      'events': `import EventEmitter from 'eventemitter3'; export default EventEmitter; export { EventEmitter };`,
-    }),
-
-    // Replace process.browser with true so the browser host detection works
+      'isomorphic-ws': 'export default globalThis.WebSocket;',  // Browser WebSocket
+    }),    
     replace({
-      'process.browser': 'true',
+      'process.browser': 'true', // Replace process.browser with true so the browser host detection works
       preventAssignment: true,
     }),
 
