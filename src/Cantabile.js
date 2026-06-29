@@ -31,7 +31,7 @@ export class Cantabile extends EventEmitter
 	/**
 	 * Creates a new Cantabile network session
 	 * @constructor 
-	 * @param {Object} options configuration options
+	 * @param {string|Object} options A string host, or configuration options
 	 * @param {string} [options.host] the host to connect to (defaults to browser url, or localhost:35007)
 	 * @param {boolean} [options.autoConnect=true] if true automatically initiates connection
 	 * @param {boolean} [options.autoConnectEndPoints=true] if true automatically connects end point objects when accessed

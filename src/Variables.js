@@ -186,9 +186,6 @@ export class Variables extends EndPoint
 	 *         console.log(resolved);
 	 *     })
 	 *     
-	 * 	   // The "variables" end point must be opened before callbacks will happen
-	 *     C.variables.open();
-	 * 
 	 * @example
 	 * 
 	 * Using the PatternWatcher class and events:
@@ -199,19 +196,12 @@ export class Variables extends EndPoint
 	 *         console.log(resolved);
 	 *     });
 	 *     
-	 * 	   // The "variables" end point must be opened before callbacks will happen
-	 *     C.variables.open();
-	 *     
 	 *     /// later, stop listening
 	 *     watcher.unwatch();
 	 *
 	 * @method watch
 	 * @param {String} pattern The string pattern to watch
-	 * @param {Function} [callback] Optional callback function to be called when the resolved display string changes.
-	 * 
-	 * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
-	 * is the {{#crossLink "PatternWatcher"}}{{/crossLink}} instance.
-	 *
+	 * @param {PatternWatcherCallback} [callback] Optional callback function to be called when the resolved display string changes.
 	 * @returns {PatternWatcher}
 	 */
 	watch(pattern, callback)

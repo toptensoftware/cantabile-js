@@ -1,4 +1,7 @@
 import { EventEmitter } from 'events';
+import { BindingWatcher } from './Bindings.js';
+import { PatternWatcher } from './Variables.js';
+import { ControllerWatcher } from "./OnscreenKeyboard.js";
 
 /**
  * Identifies the kind of set list iteem
@@ -323,3 +326,16 @@ export type MidiControllerKind =
          'RpnFine' |
          'NRpnCoarse' |
          'NRpnFine';
+
+
+
+/** Callback from a bindings watcher */
+export type BindingWatcherCallback = (value: any, source: BindingWatcher) => void;
+
+/** Callback from a variables pattern watcher */
+export type PatternWatcherCallback = (value: string, source: PatternWatcher) => void;
+
+/** Callback from a controller watcher */
+export type ControllerWatcherCallback = (value: number, source: ControllerWatcher) => void;
+
+

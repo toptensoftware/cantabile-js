@@ -210,9 +210,6 @@ export class OnscreenKeyboard extends EndPoint
 	 *         console.log(value);
 	 *     })
 	 *     
-	 * 	   // The "onscreenKeyboard" end point must be opened before callbacks will happen
-	 *     C.onscreenKeyboard.open();
-	 * 
 	 * @example
 	 * 
 	 * Using the ControllerWatcher class and events:
@@ -223,9 +220,6 @@ export class OnscreenKeyboard extends EndPoint
 	 *         console.log(value);
 	 *     });
 	 *     
-	 *     // The "onscreenKeyboard" end point must be opened before callbacks will happen
-	 *     C.onscreenKeyboard.open();
-	 *     
 	 *     /// later, stop listening
 	 *     watcher.unwatch();
 	 *
@@ -233,11 +227,7 @@ export class OnscreenKeyboard extends EndPoint
 	 * @param {Number} channel 		The MIDI channel number of the controller
 	 * @param {MidiControllerKind} kind 		The MIDI controller kind
 	 * @param {Number} controller	The number of the controller
-	 * @param {Function} [callback] Optional callback function to be called when the controller value changes.
-	 * 
-	 * The callback function has the form function(value, source) where value is the controller value and source
-	 * is the {{#crossLink "ControllerWatcher"}}{{/crossLink}} instance.
-	 *
+	 * @param {ControllerWatcherCallback} [callback] Optional callback function to be called when the controller value changes.
 	 * @returns {ControllerWatcher}
 	 */
 	watch(channel, kind, controller, callback)

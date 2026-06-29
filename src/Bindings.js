@@ -487,11 +487,7 @@ export class Bindings extends EndPoint
 	 *
 	 * @method watch
      * @param {BindingPoint} bindingPoint The binding point to watch
-	 * @param {Function} [callback] Optional callback function to be called when the source binding triggers
-	 * 
-	 * The callback function has the form function(value, source) where value is the new binding point value and source
-	 * is the BindingWatcher instance.
-	 * 
+	 * @param {BindingWatcherCallback} [callback] Optional callback function to be called when the source binding triggers
 	 * @returns {BindingWatcher}
 	 */
 	watch(bindingPoint, callback)

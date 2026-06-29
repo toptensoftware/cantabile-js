@@ -939,6 +939,45 @@
                     "links": []
                 },
                 {
+                    "kind": "type-alias",
+                    "name": "BindingWatcherCallback",
+                    "namepath": "module:@toptensoftware/cantabile-js.BindingWatcherCallback",
+                    "definition": "export type BindingWatcherCallback = (value: any, source: BindingWatcher) => void;",
+                    "jsdoc": [
+                        {
+                            "kind": null,
+                            "text": "Callback from a bindings watcher "
+                        }
+                    ],
+                    "links": []
+                },
+                {
+                    "kind": "type-alias",
+                    "name": "PatternWatcherCallback",
+                    "namepath": "module:@toptensoftware/cantabile-js.PatternWatcherCallback",
+                    "definition": "export type PatternWatcherCallback = (value: string, source: PatternWatcher) => void;",
+                    "jsdoc": [
+                        {
+                            "kind": null,
+                            "text": "Callback from a variables pattern watcher "
+                        }
+                    ],
+                    "links": []
+                },
+                {
+                    "kind": "type-alias",
+                    "name": "ControllerWatcherCallback",
+                    "namepath": "module:@toptensoftware/cantabile-js.ControllerWatcherCallback",
+                    "definition": "export type ControllerWatcherCallback = (value: number, source: ControllerWatcher) => void;",
+                    "jsdoc": [
+                        {
+                            "kind": null,
+                            "text": "Callback from a controller watcher "
+                        }
+                    ],
+                    "links": []
+                },
+                {
                     "kind": "class",
                     "name": "PatternWatcher",
                     "namepath": "module:@toptensoftware/cantabile-js.PatternWatcher",
@@ -1036,7 +1075,7 @@
                     "kind": "class",
                     "name": "Variables",
                     "namepath": "module:@toptensoftware/cantabile-js.Variables",
-                    "definition": "export class Variables extends EndPoint {\n    resolve(pattern: string): Promise<string>;\n    watch(pattern: string, callback?: Function): PatternWatcher;\n}",
+                    "definition": "export class Variables extends EndPoint {\n    resolve(pattern: string): Promise<string>;\n    watch(pattern: string, callback?: PatternWatcherCallback): PatternWatcher;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -1095,7 +1134,7 @@
                             "kind": "method",
                             "name": "watch",
                             "namepath": "module:@toptensoftware/cantabile-js.Variables#watch",
-                            "definition": "watch(pattern: string, callback?: Function): PatternWatcher;",
+                            "definition": "watch(pattern: string, callback?: PatternWatcherCallback): PatternWatcher;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -1103,11 +1142,11 @@
                                 },
                                 {
                                     "block": "example",
-                                    "text": "*\nUsing a callback function:\n\n    let C = new Cantabile();\n\n    // Watch a string pattern using a callback function\n    C.variables.watch(\"Song: $(SongTitle)\", function(resolved) {\n        console.log(resolved);\n    })\n\n\t   // The \"variables\" end point must be opened before callbacks will happen\n    C.variables.open();\n\n"
+                                    "text": "*\nUsing a callback function:\n\n    let C = new Cantabile();\n\n    // Watch a string pattern using a callback function\n    C.variables.watch(\"Song: $(SongTitle)\", function(resolved) {\n        console.log(resolved);\n    })\n\n"
                                 },
                                 {
                                     "block": "example",
-                                    "text": "*\nUsing the PatternWatcher class and events:\n\n    let C = new Cantabile();\n    let watcher = C.variables.watch(\"Song: $(SongTitle)\");\n    watcher.on('changed', function(resolved) {\n        console.log(resolved);\n    });\n\n\t   // The \"variables\" end point must be opened before callbacks will happen\n    C.variables.open();\n\n    /// later, stop listening\n    watcher.unwatch();\n\n"
+                                    "text": "*\nUsing the PatternWatcher class and events:\n\n    let C = new Cantabile();\n    let watcher = C.variables.watch(\"Song: $(SongTitle)\");\n    watcher.on('changed', function(resolved) {\n        console.log(resolved);\n    });\n\n    /// later, stop listening\n    watcher.unwatch();\n\n"
                                 },
                                 {
                                     "block": "method",
@@ -1123,8 +1162,8 @@
                                 },
                                 {
                                     "block": "param",
-                                    "text": "Optional callback function to be called when the resolved display string changes.\n\nThe callback function has the form function(resolved, source) where resolved is the resolved display string and source\nis the {{#crossLink \"PatternWatcher\"}}{{/crossLink}} instance.\n\n",
-                                    "type": "Function",
+                                    "text": "Optional callback function to be called when the resolved display string changes.\n",
+                                    "type": "PatternWatcherCallback",
                                     "optional": true,
                                     "name": "callback",
                                     "specifier": "callback"
@@ -2579,7 +2618,7 @@
                     "kind": "class",
                     "name": "OnscreenKeyboard",
                     "namepath": "module:@toptensoftware/cantabile-js.OnscreenKeyboard",
-                    "definition": "export class OnscreenKeyboard extends EndPoint {\n    queryController(channel: number, kind: MidiControllerKind, controller: number): Promise<number>;\n    watch(channel: number, kind: MidiControllerKind, controller: number, callback?: Function): ControllerWatcher;\n    injectMidi(data: object): void;\n}",
+                    "definition": "export class OnscreenKeyboard extends EndPoint {\n    queryController(channel: number, kind: MidiControllerKind, controller: number): Promise<number>;\n    watch(channel: number, kind: MidiControllerKind, controller: number, callback?: ControllerWatcherCallback): ControllerWatcher;\n    injectMidi(data: object): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2654,7 +2693,7 @@
                             "kind": "method",
                             "name": "watch",
                             "namepath": "module:@toptensoftware/cantabile-js.OnscreenKeyboard#watch",
-                            "definition": "watch(channel: number, kind: MidiControllerKind, controller: number, callback?: Function): ControllerWatcher;",
+                            "definition": "watch(channel: number, kind: MidiControllerKind, controller: number, callback?: ControllerWatcherCallback): ControllerWatcher;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -2662,11 +2701,11 @@
                                 },
                                 {
                                     "block": "example",
-                                    "text": "*\nUsing a callback function:\n\n    let C = new Cantabile();\n\n    // Watch a controller using a callback function\n    C.onscreenKeyboard.watchController(1, \"controller\", 64, function(value) {\n        console.log(value);\n    })\n\n\t   // The \"onscreenKeyboard\" end point must be opened before callbacks will happen\n    C.onscreenKeyboard.open();\n\n"
+                                    "text": "*\nUsing a callback function:\n\n    let C = new Cantabile();\n\n    // Watch a controller using a callback function\n    C.onscreenKeyboard.watchController(1, \"controller\", 64, function(value) {\n        console.log(value);\n    })\n\n"
                                 },
                                 {
                                     "block": "example",
-                                    "text": "*\nUsing the ControllerWatcher class and events:\n\n    let C = new Cantabile();\n    let watcher = C.onscreenKeyboard.watchController(1, \"controller\", 64);\n    watcher.on('changed', function(value) {\n        console.log(value);\n    });\n\n    // The \"onscreenKeyboard\" end point must be opened before callbacks will happen\n    C.onscreenKeyboard.open();\n\n    /// later, stop listening\n    watcher.unwatch();\n\n"
+                                    "text": "*\nUsing the ControllerWatcher class and events:\n\n    let C = new Cantabile();\n    let watcher = C.onscreenKeyboard.watchController(1, \"controller\", 64);\n    watcher.on('changed', function(value) {\n        console.log(value);\n    });\n\n    /// later, stop listening\n    watcher.unwatch();\n\n"
                                 },
                                 {
                                     "block": "method",
@@ -2698,8 +2737,8 @@
                                 },
                                 {
                                     "block": "param",
-                                    "text": "Optional callback function to be called when the controller value changes.\n\nThe callback function has the form function(value, source) where value is the controller value and source\nis the {{#crossLink \"ControllerWatcher\"}}{{/crossLink}} instance.\n\n",
-                                    "type": "Function",
+                                    "text": "Optional callback function to be called when the controller value changes.\n",
+                                    "type": "ControllerWatcherCallback",
                                     "optional": true,
                                     "name": "callback",
                                     "specifier": "callback"
@@ -3236,7 +3275,7 @@
                     "kind": "class",
                     "name": "Cantabile",
                     "namepath": "module:@toptensoftware/cantabile-js.Cantabile",
-                    "definition": "export class Cantabile extends EventEmitter<any> {\n    constructor(options: {\n        host?: string | undefined;\n        autoConnect?: boolean | undefined;\n        autoConnectEndPoints?: boolean | undefined;\n        maxListeners?: number | undefined;\n    });\n    set autoConnectEndPoints(value: boolean);\n    get autoConnectEndPoints(): boolean;\n    get options(): Object;\n    get state(): string;\n    connect(): Promise<any>;\n    disconnect(): void;\n    send(obj: object): void;\n    request(message: object): Promise<object>;\n    waitForConnected(): Promise<any>;\n    get host(): string;\n    get socketUrl(): string;\n    get song(): Song;\n    get setList(): SetList;\n    get songStates(): SongStates;\n    get keyRanges(): KeyRanges;\n    get showNotes(): ShowNotes;\n    get variables(): Variables;\n    get onscreenKeyboard(): OnscreenKeyboard;\n    get commands(): Commands;\n    get transport(): Transport;\n    get application(): Application;\n    get engine(): Engine;\n    get bindings(): Bindings;\n}",
+                    "definition": "export class Cantabile extends EventEmitter<any> {\n    constructor(options: string | Object);\n    set autoConnectEndPoints(value: boolean);\n    get autoConnectEndPoints(): boolean;\n    get options(): Object;\n    get state(): string;\n    connect(): Promise<any>;\n    disconnect(): void;\n    send(obj: object): void;\n    request(message: object): Promise<object>;\n    waitForConnected(): Promise<any>;\n    get host(): string;\n    get socketUrl(): string;\n    get song(): Song;\n    get setList(): SetList;\n    get songStates(): SongStates;\n    get keyRanges(): KeyRanges;\n    get showNotes(): ShowNotes;\n    get variables(): Variables;\n    get onscreenKeyboard(): OnscreenKeyboard;\n    get commands(): Commands;\n    get transport(): Transport;\n    get application(): Application;\n    get engine(): Engine;\n    get bindings(): Bindings;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -3261,7 +3300,7 @@
                             "kind": "constructor",
                             "name": "constructor",
                             "namepath": "module:@toptensoftware/cantabile-js.Cantabile#constructor",
-                            "definition": "constructor(options: {\n    host?: string | undefined;\n    autoConnect?: boolean | undefined;\n    autoConnectEndPoints?: boolean | undefined;\n    maxListeners?: number | undefined;\n});",
+                            "definition": "constructor(options: string | Object);",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -3269,7 +3308,7 @@
                                 },
                                 {
                                     "block": "constructor",
-                                    "text": "* @param {Object} options configuration options\n"
+                                    "text": "* @param {string|Object} options A string host, or configuration options\n"
                                 },
                                 {
                                     "block": "param",
@@ -4139,7 +4178,7 @@
                     "kind": "class",
                     "name": "Bindings",
                     "namepath": "module:@toptensoftware/cantabile-js.Bindings",
-                    "definition": "export class Bindings extends EndPoint {\n    getAvailableBindingPoints(): Promise<BindingPointEntry[]>;\n    getBindingPointInfo(bindingPoint: BindingPoint, source: boolean): Promise<BindingPointInfo>;\n    invoke(bindingPoint: BindingPoint, value: Object): Promise<any>;\n    query(bindingPoint: BindingPoint): Promise<Object>;\n    watch(bindingPoint: BindingPoint, callback?: Function): BindingWatcher;\n    prepare(bindingPoint: BindingPoint): PreparedBindingPoint;\n}",
+                    "definition": "export class Bindings extends EndPoint {\n    getAvailableBindingPoints(): Promise<BindingPointEntry[]>;\n    getBindingPointInfo(bindingPoint: BindingPoint, source: boolean): Promise<BindingPointInfo>;\n    invoke(bindingPoint: BindingPoint, value: Object): Promise<any>;\n    query(bindingPoint: BindingPoint): Promise<Object>;\n    watch(bindingPoint: BindingPoint, callback?: BindingWatcherCallback): BindingWatcher;\n    prepare(bindingPoint: BindingPoint): PreparedBindingPoint;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -4320,7 +4359,7 @@
                             "kind": "method",
                             "name": "watch",
                             "namepath": "module:@toptensoftware/cantabile-js.Bindings#watch",
-                            "definition": "watch(bindingPoint: BindingPoint, callback?: Function): BindingWatcher;",
+                            "definition": "watch(bindingPoint: BindingPoint, callback?: BindingWatcherCallback): BindingWatcher;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -4356,8 +4395,8 @@
                                 },
                                 {
                                     "block": "param",
-                                    "text": "Optional callback function to be called when the source binding triggers\n\nThe callback function has the form function(value, source) where value is the new binding point value and source\nis the BindingWatcher instance.\n\n",
-                                    "type": "Function",
+                                    "text": "Optional callback function to be called when the source binding triggers\n",
+                                    "type": "BindingWatcherCallback",
                                     "optional": true,
                                     "name": "callback",
                                     "specifier": "callback"

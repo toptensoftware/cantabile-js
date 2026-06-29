@@ -292,6 +292,12 @@ export type MidiControllerKind =
          'RpnFine' |
          'NRpnCoarse' |
          'NRpnFine';
+/** Callback from a bindings watcher */
+export type BindingWatcherCallback = (value: any, source: BindingWatcher) => void;
+/** Callback from a variables pattern watcher */
+export type PatternWatcherCallback = (value: string, source: PatternWatcher) => void;
+/** Callback from a controller watcher */
+export type ControllerWatcherCallback = (value: number, source: ControllerWatcher) => void;
 /**
  * Represents a monitored pattern string.
 
@@ -364,9 +370,6 @@ export class Variables extends EndPoint {
      *         console.log(resolved);
      *     })
      *
-     * 	   // The "variables" end point must be opened before callbacks will happen
-     *     C.variables.open();
-     *
      * @example
      *
      * Using the PatternWatcher class and events:
@@ -377,22 +380,15 @@ export class Variables extends EndPoint {
      *         console.log(resolved);
      *     });
      *
-     * 	   // The "variables" end point must be opened before callbacks will happen
-     *     C.variables.open();
-     *
      *     /// later, stop listening
      *     watcher.unwatch();
      *
      * @method watch
      * @param {String} pattern The string pattern to watch
-     * @param {Function} [callback] Optional callback function to be called when the resolved display string changes.
-     *
-     * The callback function has the form function(resolved, source) where resolved is the resolved display string and source
-     * is the {{#crossLink "PatternWatcher"}}{{/crossLink}} instance.
-     *
+     * @param {PatternWatcherCallback} [callback] Optional callback function to be called when the resolved display string changes.
      * @returns {PatternWatcher}
      */
-    watch(pattern: string, callback?: Function): PatternWatcher;
+    watch(pattern: string, callback?: PatternWatcherCallback): PatternWatcher;
 }
 /**
  * Interface to the master transport
@@ -806,9 +802,6 @@ export class OnscreenKeyboard extends EndPoint {
      *         console.log(value);
      *     })
      *
-     * 	   // The "onscreenKeyboard" end point must be opened before callbacks will happen
-     *     C.onscreenKeyboard.open();
-     *
      * @example
      *
      * Using the ControllerWatcher class and events:
@@ -819,9 +812,6 @@ export class OnscreenKeyboard extends EndPoint {
      *         console.log(value);
      *     });
      *
-     *     // The "onscreenKeyboard" end point must be opened before callbacks will happen
-     *     C.onscreenKeyboard.open();
-     *
      *     /// later, stop listening
      *     watcher.unwatch();
      *
@@ -829,14 +819,10 @@ export class OnscreenKeyboard extends EndPoint {
      * @param {Number} channel 		The MIDI channel number of the controller
      * @param {MidiControllerKind} kind 		The MIDI controller kind
      * @param {Number} controller	The number of the controller
-     * @param {Function} [callback] Optional callback function to be called when the controller value changes.
-     *
-     * The callback function has the form function(value, source) where value is the controller value and source
-     * is the {{#crossLink "ControllerWatcher"}}{{/crossLink}} instance.
-     *
+     * @param {ControllerWatcherCallback} [callback] Optional callback function to be called when the controller value changes.
      * @returns {ControllerWatcher}
      */
-    watch(channel: number, kind: MidiControllerKind, controller: number, callback?: Function): ControllerWatcher;
+    watch(channel: number, kind: MidiControllerKind, controller: number, callback?: ControllerWatcherCallback): ControllerWatcher;
     /**
      * Inject MIDI from the on-screen keyboard device
      *
@@ -1057,18 +1043,13 @@ export class Cantabile extends EventEmitter<any> {
     /**
      * Creates a new Cantabile network session
      * @constructor
-     * @param {Object} options configuration options
+     * @param {string|Object} options A string host, or configuration options
      * @param {string} [options.host] the host to connect to (defaults to browser url, or localhost:35007)
      * @param {boolean} [options.autoConnect=true] if true automatically initiates connection
      * @param {boolean} [options.autoConnectEndPoints=true] if true automatically connects end point objects when accessed
      * @param {number} [options.maxListeners=30] set the max event listeners for this object (if supported)
      */
-    constructor(options: {
-        host?: string | undefined;
-        autoConnect?: boolean | undefined;
-        autoConnectEndPoints?: boolean | undefined;
-        maxListeners?: number | undefined;
-    });
+    constructor(options: string | Object);
     set autoConnectEndPoints(value: boolean);
     /**
      * Controls whether the sub-object end points are automatically
@@ -1481,14 +1462,10 @@ export class Bindings extends EndPoint {
      *
      * @method watch
      * @param {BindingPoint} bindingPoint The binding point to watch
-     * @param {Function} [callback] Optional callback function to be called when the source binding triggers
-     *
-     * The callback function has the form function(value, source) where value is the new binding point value and source
-     * is the BindingWatcher instance.
-     *
+     * @param {BindingWatcherCallback} [callback] Optional callback function to be called when the source binding triggers
      * @returns {BindingWatcher}
      */
-    watch(bindingPoint: BindingPoint, callback?: Function): BindingWatcher;
+    watch(bindingPoint: BindingPoint, callback?: BindingWatcherCallback): BindingWatcher;
     /**
      * Prepares a target binding point for multiple invocations
      *
@@ -1568,8 +1545,8 @@ export class Application extends EndPoint {
      */
     get bankedProgramNumberFormat(): string;
 }
+import EventEmitter from "events";
 
 }
-import EventEmitter from "events";
 
 //# sourceMappingURL=types.d.ts.map
