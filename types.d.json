@@ -7,10 +7,23 @@
             "namepath": "module:@toptensoftware/cantabile-js",
             "members": [
                 {
+                    "kind": "type-alias",
+                    "name": "SetListItemKind",
+                    "namepath": "module:@toptensoftware/cantabile-js.SetListItemKind",
+                    "definition": "export type SetListItemKind = 'song' | 'break';",
+                    "jsdoc": [
+                        {
+                            "kind": null,
+                            "text": "\r\nIdentifies the kind of set list iteem\r"
+                        }
+                    ],
+                    "links": []
+                },
+                {
                     "kind": "interface",
                     "name": "SetListItem",
                     "namepath": "module:@toptensoftware/cantabile-js.SetListItem",
-                    "definition": "export interface SetListItem\r{\r    readonly kind: string;\r    readonly name: string;\r    readonly pr: number;\r    readonly color: number;\r}",
+                    "definition": "export interface SetListItem\r{\r    readonly kind: SetListItemKind;\r    readonly name: string;\r    readonly pr: number;\r    readonly color: number;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -23,11 +36,11 @@
                             "kind": "property",
                             "name": "kind",
                             "namepath": "module:@toptensoftware/cantabile-js.SetListItem#kind",
-                            "definition": "readonly kind: string;",
+                            "definition": "readonly kind: SetListItemKind;",
                             "jsdoc": [
                                 {
                                     "kind": null,
-                                    "text": "The item kind - either \"song\" or \"break\" "
+                                    "text": "The item kind  "
                                 }
                             ],
                             "links": []
@@ -221,10 +234,36 @@
                     ]
                 },
                 {
+                    "kind": "type-alias",
+                    "name": "BindingPointKind",
+                    "namepath": "module:@toptensoftware/cantabile-js.BindingPointKind",
+                    "definition": "export type BindingPointKind = 'Command' | 'Switch' | 'Value' | 'Object';",
+                    "jsdoc": [
+                        {
+                            "kind": null,
+                            "text": "\r\nIdentifies the kind of binding point\r"
+                        }
+                    ],
+                    "links": []
+                },
+                {
+                    "kind": "type-alias",
+                    "name": "BindingPointValueFormat",
+                    "namepath": "module:@toptensoftware/cantabile-js.BindingPointValueFormat",
+                    "definition": "export type BindingPointValueFormat = 'None' | 'Float' | 'Integer' | 'Index' | 'ProgramNumber' | 'BankedProgramNumber' | 'BankedProgramMask' | 'GainLevel' | 'PitchBend';",
+                    "jsdoc": [
+                        {
+                            "kind": null,
+                            "text": "\r\nIdentifies the value format of a binding point value\r"
+                        }
+                    ],
+                    "links": []
+                },
+                {
                     "kind": "interface",
                     "name": "BindingPointInfo",
                     "namepath": "module:@toptensoftware/cantabile-js.BindingPointInfo",
-                    "definition": "export interface BindingPointInfo\r{\r    id: string;\r    displayName: string;\r    kind: string;\r    valueFormat: string;\r    valueMin: number;\r    valueMax: number;\r    bindableParams: BindingParam[];\r    bindingPointParams: BindingParam[];\r}",
+                    "definition": "export interface BindingPointInfo\r{\r    id: string;\r    displayName: string;\r    kind: BindingPointKind;\r    valueFormat: BindingPointValueFormat;\r    valueMin: number;\r    valueMax: number;\r    bindableParams: BindingParam[];\r    bindingPointParams: BindingParam[];\r}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -263,11 +302,11 @@
                             "kind": "property",
                             "name": "kind",
                             "namepath": "module:@toptensoftware/cantabile-js.BindingPointInfo#kind",
-                            "definition": "kind: string;",
+                            "definition": "kind: BindingPointKind;",
                             "jsdoc": [
                                 {
                                     "kind": null,
-                                    "text": " \nThe kind of value accepted/sent by this binding point\n  * \"Command\" - value is ignored, binding point is a simple \"action\"\n  * \"Switch\" - True/false value, <0.5 = false, >= 0.5 = true\n  * \"Value\" - A numeric value (floating point or integer)\n  * \"Object\" - An object value (typically double, string or byte array)\n"
+                                    "text": "The kind of value accepted/sent by this binding point "
                                 }
                             ],
                             "links": []
@@ -276,11 +315,11 @@
                             "kind": "property",
                             "name": "valueFormat",
                             "namepath": "module:@toptensoftware/cantabile-js.BindingPointInfo#valueFormat",
-                            "definition": "valueFormat: string;",
+                            "definition": "valueFormat: BindingPointValueFormat;",
                             "jsdoc": [
                                 {
                                     "kind": null,
-                                    "text": "\nThe kind of value accepted/sent by this binding point\n  * \"Float\" - a floating point value\n  * \"Integer\" - an integer value\n  * \"Index\" - an index displayed either 0 or 1 based\n  * \"ProgramNumber\" - a program number displayed either 0 or 1 based\n  * \"BankedProgramNumber\" - a banked program number displayed in one of several banked program number formats\n  * \"GainLevel\" - a gain level displayed by converting from scalar value to decibels\n  * \"PitchBend\" - a pitch bend value from 0 to 16384 but displayed as -8192 to 8191\nThis property is only present if 'kind' is \"Value\"\n"
+                                    "text": "The kind of value accepted/sent by this binding point\nThis property is only present if 'kind' is \"Value\" "
                                 }
                             ],
                             "links": []
@@ -543,10 +582,23 @@
                     ]
                 },
                 {
+                    "kind": "type-alias",
+                    "name": "ShowNoteTextAlignment",
+                    "namepath": "module:@toptensoftware/cantabile-js.ShowNoteTextAlignment",
+                    "definition": "export type ShowNoteTextAlignment = 'left' | 'center' | 'right';",
+                    "jsdoc": [
+                        {
+                            "kind": null,
+                            "text": "\r\nText alignment constants for show note text\r"
+                        }
+                    ],
+                    "links": []
+                },
+                {
                     "kind": "interface",
                     "name": "ShowNote",
                     "namepath": "module:@toptensoftware/cantabile-js.ShowNote",
-                    "definition": "export interface ShowNote\r{\r    kind: string;\r    name: string;\r    pr: number;\r    color: number;\r    backgroundColor: number;\r    bold: boolean;\r    fixedPitch: boolean;\r    fontSize: number;\r    hidden: boolean;\r    imageUrl: string;\r    imageScale: number;\r    imageWidth: number;\r    imageHeight: number;\r    text: string;\r    textAlign: string;\r    textColor: number;\r}",
+                    "definition": "export interface ShowNote\r{\r    backgroundColor: number;\r    bold: boolean;\r    fixedPitch: boolean;\r    fontSize: number;\r    hidden: boolean;\r    imageUrl: string;\r    imageScale: number;\r    imageWidth: number;\r    imageHeight: number;\r    text: string;\r    textAlign: ShowNoteTextAlignment;\r    textColor: number;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -555,58 +607,6 @@
                     ],
                     "links": [],
                     "members": [
-                        {
-                            "kind": "property",
-                            "name": "kind",
-                            "namepath": "module:@toptensoftware/cantabile-js.ShowNote#kind",
-                            "definition": "kind: string;",
-                            "jsdoc": [
-                                {
-                                    "kind": null,
-                                    "text": "The item kind - either \"song\" or \"break\" "
-                                }
-                            ],
-                            "links": []
-                        },
-                        {
-                            "kind": "property",
-                            "name": "name",
-                            "namepath": "module:@toptensoftware/cantabile-js.ShowNote#name",
-                            "definition": "name: string;",
-                            "jsdoc": [
-                                {
-                                    "kind": null,
-                                    "text": "The name of the song or break "
-                                }
-                            ],
-                            "links": []
-                        },
-                        {
-                            "kind": "property",
-                            "name": "pr",
-                            "namepath": "module:@toptensoftware/cantabile-js.ShowNote#pr",
-                            "definition": "pr: number;",
-                            "jsdoc": [
-                                {
-                                    "kind": null,
-                                    "text": "The zero based program number of a song "
-                                }
-                            ],
-                            "links": []
-                        },
-                        {
-                            "kind": "property",
-                            "name": "color",
-                            "namepath": "module:@toptensoftware/cantabile-js.ShowNote#color",
-                            "definition": "color: number;",
-                            "jsdoc": [
-                                {
-                                    "kind": null,
-                                    "text": "The color of the item (0 to 15) "
-                                }
-                            ],
-                            "links": []
-                        },
                         {
                             "kind": "property",
                             "name": "backgroundColor",
@@ -741,11 +741,11 @@
                             "kind": "property",
                             "name": "textAlign",
                             "namepath": "module:@toptensoftware/cantabile-js.ShowNote#textAlign",
-                            "definition": "textAlign: string;",
+                            "definition": "textAlign: ShowNoteTextAlignment;",
                             "jsdoc": [
                                 {
                                     "kind": null,
-                                    "text": "Text alignment (\"left\", \"center\" or \"right\") "
+                                    "text": "Text alignment "
                                 }
                             ],
                             "links": []
@@ -820,10 +820,23 @@
                     ]
                 },
                 {
+                    "kind": "type-alias",
+                    "name": "MidiControllerEventKind",
+                    "namepath": "module:@toptensoftware/cantabile-js.MidiControllerEventKind",
+                    "definition": "export type MidiControllerEventKind = \r    'Controller' |\r    'FineController' |\r    'ControllerButton' |\r    'ControllerNonEdgeButton' |\r    'ControllerSwitch' |\r    'ProgramChange\t' |\r    'BankedProgramChange' |\r    'PitchBend\t\t' |\r    'ChannelPressure' |\r    'Note' |\r    'NoteOff' |\r    'NoteSwitch' |\r    'RpnCoarse' |\r    'RpnFine' |\r    'NRpnCoarse' |\r    'NRpnFine' |\r    'MasterVolume' |\r    'MasterBalance' |\r    'MmcStop' |\r    'MmcPlay' |\r    'MmcDeferredPlay' |\r    'MmcFastForward' |\r    'MmcRewind' |\r    'MmcRecordPunchIn' |\r    'MmcRecordPunchOut' |\r    'MmcRecordReady' |\r    'MmcPause' |\r    'MmcEject' |\r    'MmcChase' |\r    'MmcReset' |\r    'SongSelect' |\r    'ClockStart' |\r    'ClockContinue' |\r    'ClockStop';",
+                    "jsdoc": [
+                        {
+                            "kind": null,
+                            "text": "MIDI Controller Event Kinds "
+                        }
+                    ],
+                    "links": []
+                },
+                {
                     "kind": "interface",
                     "name": "MidiControllerEvent",
                     "namepath": "module:@toptensoftware/cantabile-js.MidiControllerEvent",
-                    "definition": "export interface MidiControllerEvent\r{\r    channel: number;\r    kind: string;\r    controller: number;\r    value: number;\r}",
+                    "definition": "export interface MidiControllerEvent\r{\r    channel: number;\r    kind: MidiControllerEventKind;\r    controller: number;\r    value: number;\r}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -840,7 +853,7 @@
                             "jsdoc": [
                                 {
                                     "kind": null,
-                                    "text": "\nThe zero based MIDI channel number of the event (0-15)\n"
+                                    "text": "The zero based MIDI channel number of the event (0-15) "
                                 }
                             ],
                             "links": []
@@ -849,11 +862,11 @@
                             "kind": "property",
                             "name": "kind",
                             "namepath": "module:@toptensoftware/cantabile-js.MidiControllerEvent#kind",
-                            "definition": "kind: string;",
+                            "definition": "kind: MidiControllerEventKind;",
                             "jsdoc": [
                                 {
                                     "kind": null,
-                                    "text": "\nThe kind of MIDI event\n\n* Controller\t\t\n* FineController\n* ControllerButton\n* ControllerNonEdgeButton\n* ControllerSwitch\n* ProgramChange\t\n* BankedProgramChange\n* PitchBend\t\t\n* ChannelPressure\n* Note\n* NoteOff\n* NoteSwitch\n* RpnCoarse\n* RpnFine\n* NRpnCoarse\n* NRpnFine\n* MasterVolume\n* MasterBalance\n* MmcStop\n* MmcPlay\n* MmcDeferredPlay\n* MmcFastForward\n* MmcRewind\n* MmcRecordPunchIn\n* MmcRecordPunchOut\n* MmcRecordReady\n* MmcPause\n* MmcEject\n* MmcChase\n* MmcReset\n* SongSelect\n* ClockStart\n* ClockContinue\n* ClockStop\n"
+                                    "text": "The kind of MIDI event "
                                 }
                             ],
                             "links": []
@@ -885,6 +898,45 @@
                             "links": []
                         }
                     ]
+                },
+                {
+                    "kind": "type-alias",
+                    "name": "TransportState",
+                    "namepath": "module:@toptensoftware/cantabile-js.TransportState",
+                    "definition": "export type TransportState = \"playing\" | \"paused\" | \"stopped\";",
+                    "jsdoc": [
+                        {
+                            "kind": null,
+                            "text": "\r\nTransport states\r"
+                        }
+                    ],
+                    "links": []
+                },
+                {
+                    "kind": "type-alias",
+                    "name": "TransportLoopMode",
+                    "namepath": "module:@toptensoftware/cantabile-js.TransportLoopMode",
+                    "definition": "export type TransportLoopMode = \"auto\" | \"break\" |\"loopOnce\" | \"loop\";",
+                    "jsdoc": [
+                        {
+                            "kind": null,
+                            "text": "Transport loop modes "
+                        }
+                    ],
+                    "links": []
+                },
+                {
+                    "kind": "type-alias",
+                    "name": "MidiControllerKind",
+                    "namepath": "module:@toptensoftware/cantabile-js.MidiControllerKind",
+                    "definition": "export type MidiControllerKind = \r         'Controller' |\r         'FineController' |\r         'Program' |\r         'BankedProgram' |\r         'PitchBend\t\t' |\r         'ChannelPressure' |\r         'RpnCoarse' |\r         'RpnFine' |\r         'NRpnCoarse' |\r         'NRpnFine';",
+                    "jsdoc": [
+                        {
+                            "kind": null,
+                            "text": "Controller event kinds "
+                        }
+                    ],
+                    "links": []
                 },
                 {
                     "kind": "class",
@@ -1091,7 +1143,7 @@
                     "kind": "class",
                     "name": "Transport",
                     "namepath": "module:@toptensoftware/cantabile-js.Transport",
-                    "definition": "export class Transport extends EndPoint {\n    set state(value: string);\n    get state(): string;\n    get timeSignatureNum(): number;\n    get timeSignatureDen(): number;\n    get timeSignature(): string;\n    get tempo(): number;\n    set loopMode(value: string);\n    get loopMode(): string;\n    get loopCount(): number;\n    get loopIteration(): number;\n    play(): void;\n    togglePlayPause(): void;\n    togglePause(): void;\n    togglePlay(): void;\n    togglePlayStop(): void;\n    pause(): void;\n    stop(): void;\n    cycleLoopMode(): void;\n}",
+                    "definition": "export class Transport extends EndPoint {\n    set state(value: TransportState);\n    get state(): TransportState;\n    get timeSignatureNum(): number;\n    get timeSignatureDen(): number;\n    get timeSignature(): string;\n    get tempo(): number;\n    set loopMode(value: TransportLoopMode);\n    get loopMode(): TransportLoopMode;\n    get loopCount(): number;\n    get loopIteration(): number;\n    play(): void;\n    togglePlayPause(): void;\n    togglePause(): void;\n    togglePlay(): void;\n    togglePlayStop(): void;\n    pause(): void;\n    stop(): void;\n    cycleLoopMode(): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -1116,15 +1168,15 @@
                                     "kind": "get",
                                     "name": "state",
                                     "namepath": "module:@toptensoftware/cantabile-js.Transport#state.get",
-                                    "definition": "get state(): string;",
+                                    "definition": "get state(): TransportState;",
                                     "jsdoc": [
                                         {
                                             "kind": null,
-                                            "text": "\nGets or sets the current transport state.  Supported values include \"playing\", \"paused\" or \"stopped\".\nSetting this property calls {{#crossLink \"Transport/play:method\"}}{{/crossLink}},\n{{#crossLink \"Transport/pause:method\"}}{{/crossLink}}, or\n{{#crossLink \"Transport/stop:method\"}}{{/crossLink}} accordingly.\n"
+                                            "text": "\nThe current transport state.\n"
                                         },
                                         {
                                             "block": "property",
-                                            "text": "* @type {String}\n",
+                                            "text": "* @type {TransportState}\n",
                                             "optional": false,
                                             "name": "state",
                                             "specifier": "state"
@@ -1136,7 +1188,7 @@
                                     "kind": "set",
                                     "name": "state",
                                     "namepath": "module:@toptensoftware/cantabile-js.Transport#state.set",
-                                    "definition": "set state(value: string);"
+                                    "definition": "set state(value: TransportState);"
                                 }
                             ],
                             "namepath": "module:@toptensoftware/cantabile-js.Transport#state"
@@ -1257,15 +1309,15 @@
                                     "kind": "get",
                                     "name": "loopMode",
                                     "namepath": "module:@toptensoftware/cantabile-js.Transport#loopMode.get",
-                                    "definition": "get loopMode(): string;",
+                                    "definition": "get loopMode(): TransportLoopMode;",
                                     "jsdoc": [
                                         {
                                             "kind": null,
-                                            "text": "\nGets or sets the current loopMode (\"auto\", \"break\", \"loopOnce\" or \"loop\").\nChanges fire the {{#crossLink \"Transport/loopStateChanged:event\"}}{{/crossLink}} event.\n"
+                                            "text": "\nGets or sets the current loopMode\n"
                                         },
                                         {
                                             "block": "property",
-                                            "text": "* @type {String}\n",
+                                            "text": "* @type {TransportLoopMode}\n",
                                             "optional": false,
                                             "name": "loopMode",
                                             "specifier": "loopMode"
@@ -1277,7 +1329,7 @@
                                     "kind": "set",
                                     "name": "loopMode",
                                     "namepath": "module:@toptensoftware/cantabile-js.Transport#loopMode.set",
-                                    "definition": "set loopMode(value: string);"
+                                    "definition": "set loopMode(value: TransportLoopMode);"
                                 }
                             ],
                             "namepath": "module:@toptensoftware/cantabile-js.Transport#loopMode"
@@ -2379,7 +2431,7 @@
                     "kind": "class",
                     "name": "ControllerWatcher",
                     "namepath": "module:@toptensoftware/cantabile-js.ControllerWatcher",
-                    "definition": "export class ControllerWatcher extends EventEmitter<any> {\n    get channel(): number;\n    get kind(): string;\n    get controller(): number;\n    get value(): number;\n    unwatch(): void;\n}",
+                    "definition": "export class ControllerWatcher extends EventEmitter<any> {\n    get channel(): number;\n    get kind(): MidiControllerKind;\n    get controller(): number;\n    get value(): number;\n    unwatch(): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2431,7 +2483,7 @@
                                     "kind": "get",
                                     "name": "kind",
                                     "namepath": "module:@toptensoftware/cantabile-js.ControllerWatcher#kind.get",
-                                    "definition": "get kind(): string;",
+                                    "definition": "get kind(): MidiControllerKind;",
                                     "jsdoc": [
                                         {
                                             "kind": null,
@@ -2439,7 +2491,7 @@
                                         },
                                         {
                                             "block": "property",
-                                            "text": "* @type {String}\n",
+                                            "text": "* @type {MidiControllerKind}\n",
                                             "optional": false,
                                             "name": "kind",
                                             "specifier": "kind"
@@ -2527,7 +2579,7 @@
                     "kind": "class",
                     "name": "OnscreenKeyboard",
                     "namepath": "module:@toptensoftware/cantabile-js.OnscreenKeyboard",
-                    "definition": "export class OnscreenKeyboard extends EndPoint {\n    queryController(channel: number, kind: string, controller: number): Promise<number>;\n    watch(channel: number, kind: string, controller: number, callback?: Function): ControllerWatcher;\n    injectMidi(data: object): void;\n}",
+                    "definition": "export class OnscreenKeyboard extends EndPoint {\n    queryController(channel: number, kind: MidiControllerKind, controller: number): Promise<number>;\n    watch(channel: number, kind: MidiControllerKind, controller: number, callback?: Function): ControllerWatcher;\n    injectMidi(data: object): void;\n}",
                     "jsdoc": [
                         {
                             "kind": null,
@@ -2548,7 +2600,7 @@
                             "kind": "method",
                             "name": "queryController",
                             "namepath": "module:@toptensoftware/cantabile-js.OnscreenKeyboard#queryController",
-                            "definition": "queryController(channel: number, kind: string, controller: number): Promise<number>;",
+                            "definition": "queryController(channel: number, kind: MidiControllerKind, controller: number): Promise<number>;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -2577,7 +2629,7 @@
                                 {
                                     "block": "param",
                                     "text": "The MIDI controller kind\n",
-                                    "type": "String",
+                                    "type": "MidiControllerKind",
                                     "optional": false,
                                     "name": "kind",
                                     "specifier": "kind"
@@ -2602,7 +2654,7 @@
                             "kind": "method",
                             "name": "watch",
                             "namepath": "module:@toptensoftware/cantabile-js.OnscreenKeyboard#watch",
-                            "definition": "watch(channel: number, kind: string, controller: number, callback?: Function): ControllerWatcher;",
+                            "definition": "watch(channel: number, kind: MidiControllerKind, controller: number, callback?: Function): ControllerWatcher;",
                             "jsdoc": [
                                 {
                                     "kind": null,
@@ -2631,7 +2683,7 @@
                                 {
                                     "block": "param",
                                     "text": "The MIDI controller kind\n",
-                                    "type": "String",
+                                    "type": "MidiControllerKind",
                                     "optional": false,
                                     "name": "kind",
                                     "specifier": "kind"

@@ -45,7 +45,7 @@ export class ControllerWatcher extends EventEmitter
 	 * Returns the kind of controller being watched
 	 *
 	 * @property kind
-	 * @type {String} 
+	 * @type {MidiControllerKind} 
 	 */
 	 get kind() { return this.#kind; }
 
@@ -165,7 +165,7 @@ export class OnscreenKeyboard extends EndPoint
 	 *
 	 * @method queryController
 	 * @param {Number} channel 		The MIDI channel number of the controller
-	 * @param {String} kind 		The MIDI controller kind
+	 * @param {MidiControllerKind} kind 		The MIDI controller kind
 	 * @param {Number} controller	The number of the controller
 	 * @returns {Promise<Number>} A promise to provide the controller value
 	 */
@@ -231,7 +231,7 @@ export class OnscreenKeyboard extends EndPoint
 	 *
 	 * @method watch
 	 * @param {Number} channel 		The MIDI channel number of the controller
-	 * @param {String} kind 		The MIDI controller kind
+	 * @param {MidiControllerKind} kind 		The MIDI controller kind
 	 * @param {Number} controller	The number of the controller
 	 * @param {Function} [callback] Optional callback function to be called when the controller value changes.
 	 * 

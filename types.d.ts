@@ -1,11 +1,15 @@
 declare module "@toptensoftware/cantabile-js" {
 /**
+ * Identifies the kind of set list iteem
+ */
+export type SetListItemKind = 'song' | 'break';
+/**
  * Represents an item in a list
  */
 export interface SetListItem
 {
-    /** The item kind - either "song" or "break" */
-    readonly kind: string;
+    /** The item kind  */
+    readonly kind: SetListItemKind;
 
     /** The name of the song or break */
     readonly name: string;
@@ -54,6 +58,14 @@ export interface BindingPointEntry
     isTarget: boolean;
 }
 /**
+ * Identifies the kind of binding point
+ */
+export type BindingPointKind = 'Command' | 'Switch' | 'Value' | 'Object';
+/**
+ * Identifies the value format of a binding point value
+ */
+export type BindingPointValueFormat = 'None' | 'Float' | 'Integer' | 'Index' | 'ProgramNumber' | 'BankedProgramNumber' | 'BankedProgramMask' | 'GainLevel' | 'PitchBend';
+/**
  * Information about an available binding point
  */
 export interface BindingPointInfo
@@ -64,27 +76,12 @@ export interface BindingPointInfo
     /** The display name of the binding point */
     displayName: string;
 
-    /**  
-     * The kind of value accepted/sent by this binding point
-     *   * "Command" - value is ignored, binding point is a simple "action"
-     *   * "Switch" - True/false value, <0.5 = false, >= 0.5 = true
-     *   * "Value" - A numeric value (floating point or integer)
-     *   * "Object" - An object value (typically double, string or byte array)
-     */
-    kind: string;
+    /** The kind of value accepted/sent by this binding point */
+    kind: BindingPointKind;
 
-    /** 
-     * The kind of value accepted/sent by this binding point
-     *   * "Float" - a floating point value
-     *   * "Integer" - an integer value
-     *   * "Index" - an index displayed either 0 or 1 based
-     *   * "ProgramNumber" - a program number displayed either 0 or 1 based
-     *   * "BankedProgramNumber" - a banked program number displayed in one of several banked program number formats
-     *   * "GainLevel" - a gain level displayed by converting from scalar value to decibels
-     *   * "PitchBend" - a pitch bend value from 0 to 16384 but displayed as -8192 to 8191
-     * This property is only present if 'kind' is "Value"
-     */
-    valueFormat: string;
+    /** The kind of value accepted/sent by this binding point
+     * This property is only present if 'kind' is "Value" */
+    valueFormat: BindingPointValueFormat;
 
     /** The minimum value range (only if 'kind' is "Value") */
     valueMin: number;
@@ -153,23 +150,15 @@ export interface KeyRange
     /** The title of the key range (ie: name of the target) */
     title: string;
 }
+/**
+ * Text alignment constants for show note text
+ */
+export type ShowNoteTextAlignment = 'left' | 'center' | 'right';
  /**
  * Describes a show note item
  */
 export interface ShowNote
 {
-    /** The item kind - either "song" or "break" */
-    kind: string;
-
-    /** The name of the song or break */
-    name: string;
-
-    /** The zero based program number of a song */
-    pr: number;
-
-    /** The color of the item (0 to 15) */
-    color: number;
-
     /** Background color (0 - 15) */
     backgroundColor: number;
 
@@ -200,8 +189,8 @@ export interface ShowNote
     /** The show note's text */
     text: string;
 
-    /** Text alignment ("left", "center" or "right") */
-    textAlign: string;
+    /** Text alignment */
+    textAlign: ShowNoteTextAlignment;
 
     /** Text color (0 - 15) */
     textColor: number;
@@ -220,6 +209,42 @@ export interface State
     /** The color of the state (0 to 15) */
     color: number;
 }
+/** MIDI Controller Event Kinds */
+export type MidiControllerEventKind = 
+    'Controller' |
+    'FineController' |
+    'ControllerButton' |
+    'ControllerNonEdgeButton' |
+    'ControllerSwitch' |
+    'ProgramChange	' |
+    'BankedProgramChange' |
+    'PitchBend		' |
+    'ChannelPressure' |
+    'Note' |
+    'NoteOff' |
+    'NoteSwitch' |
+    'RpnCoarse' |
+    'RpnFine' |
+    'NRpnCoarse' |
+    'NRpnFine' |
+    'MasterVolume' |
+    'MasterBalance' |
+    'MmcStop' |
+    'MmcPlay' |
+    'MmcDeferredPlay' |
+    'MmcFastForward' |
+    'MmcRewind' |
+    'MmcRecordPunchIn' |
+    'MmcRecordPunchOut' |
+    'MmcRecordReady' |
+    'MmcPause' |
+    'MmcEject' |
+    'MmcChase' |
+    'MmcReset' |
+    'SongSelect' |
+    'ClockStart' |
+    'ClockContinue' |
+    'ClockStop';
 /**
  * An anonymous type representing a complex MIDI controller event.  
  * 
@@ -228,51 +253,11 @@ export interface State
  */
 export interface MidiControllerEvent
 {
-
-    /** 
-     * The zero based MIDI channel number of the event (0-15)
-     */
+    /** The zero based MIDI channel number of the event (0-15) */
     channel: number;
 
-    /** 
-     * The kind of MIDI event
-     * 
-     * * Controller		
-     * * FineController
-     * * ControllerButton
-     * * ControllerNonEdgeButton
-     * * ControllerSwitch
-     * * ProgramChange	
-     * * BankedProgramChange
-     * * PitchBend		
-     * * ChannelPressure
-     * * Note
-     * * NoteOff
-     * * NoteSwitch
-     * * RpnCoarse
-     * * RpnFine
-     * * NRpnCoarse
-     * * NRpnFine
-     * * MasterVolume
-     * * MasterBalance
-     * * MmcStop
-     * * MmcPlay
-     * * MmcDeferredPlay
-     * * MmcFastForward
-     * * MmcRewind
-     * * MmcRecordPunchIn
-     * * MmcRecordPunchOut
-     * * MmcRecordReady
-     * * MmcPause
-     * * MmcEject
-     * * MmcChase
-     * * MmcReset
-     * * SongSelect
-     * * ClockStart
-     * * ClockContinue
-     * * ClockStop
-     */
-    kind: string;
+    /** The kind of MIDI event */
+    kind: MidiControllerEventKind;
 
     /** 
      * The associated controller number for any of the controller event kinds, or the program
@@ -289,6 +274,24 @@ export interface MidiControllerEvent
      */
     value: number;
 }
+/**
+ * Transport states
+ */
+export type TransportState = "playing" | "paused" | "stopped";
+/** Transport loop modes */
+export type TransportLoopMode = "auto" | "break" |"loopOnce" | "loop";
+/** Controller event kinds */
+export type MidiControllerKind = 
+         'Controller' |
+         'FineController' |
+         'Program' |
+         'BankedProgram' |
+         'PitchBend		' |
+         'ChannelPressure' |
+         'RpnCoarse' |
+         'RpnFine' |
+         'NRpnCoarse' |
+         'NRpnFine';
 /**
  * Represents a monitored pattern string.
 
@@ -400,16 +403,13 @@ export class Variables extends EndPoint {
  * @extends EndPoint
  */
 export class Transport extends EndPoint {
-    set state(value: string);
+    set state(value: TransportState);
     /**
-     * Gets or sets the current transport state.  Supported values include "playing", "paused" or "stopped".
-     * Setting this property calls {{#crossLink "Transport/play:method"}}{{/crossLink}},
-     * {{#crossLink "Transport/pause:method"}}{{/crossLink}}, or
-     * {{#crossLink "Transport/stop:method"}}{{/crossLink}} accordingly.
+     * The current transport state.
      * @property state
-     * @type {String}
+     * @type {TransportState}
      */
-    get state(): string;
+    get state(): TransportState;
     /**
      * Gets the current time signature numerator
      * @property timeSignatureNum
@@ -434,14 +434,13 @@ export class Transport extends EndPoint {
      * @type {Number}
      */
     get tempo(): number;
-    set loopMode(value: string);
+    set loopMode(value: TransportLoopMode);
     /**
-     * Gets or sets the current loopMode ("auto", "break", "loopOnce" or "loop").
-     * Changes fire the {{#crossLink "Transport/loopStateChanged:event"}}{{/crossLink}} event.
+     * Gets or sets the current loopMode
      * @property loopMode
-     * @type {String}
+     * @type {TransportLoopMode}
      */
-    get loopMode(): string;
+    get loopMode(): TransportLoopMode;
     /**
      * Gets the current loopCount
      * @property loopCount
@@ -739,9 +738,9 @@ export class ControllerWatcher extends EventEmitter<any> {
      * Returns the kind of controller being watched
      *
      * @property kind
-     * @type {String}
+     * @type {MidiControllerKind}
      */
-    get kind(): string;
+    get kind(): MidiControllerKind;
     /**
      * Returns the number of the controller being watched
      *
@@ -788,11 +787,11 @@ export class OnscreenKeyboard extends EndPoint {
      *
      * @method queryController
      * @param {Number} channel 		The MIDI channel number of the controller
-     * @param {String} kind 		The MIDI controller kind
+     * @param {MidiControllerKind} kind 		The MIDI controller kind
      * @param {Number} controller	The number of the controller
      * @returns {Promise<Number>} A promise to provide the controller value
      */
-    queryController(channel: number, kind: string, controller: number): Promise<number>;
+    queryController(channel: number, kind: MidiControllerKind, controller: number): Promise<number>;
     /**
      * Starts watching a controller for changes
      *
@@ -828,7 +827,7 @@ export class OnscreenKeyboard extends EndPoint {
      *
      * @method watch
      * @param {Number} channel 		The MIDI channel number of the controller
-     * @param {String} kind 		The MIDI controller kind
+     * @param {MidiControllerKind} kind 		The MIDI controller kind
      * @param {Number} controller	The number of the controller
      * @param {Function} [callback] Optional callback function to be called when the controller value changes.
      *
@@ -837,7 +836,7 @@ export class OnscreenKeyboard extends EndPoint {
      *
      * @returns {ControllerWatcher}
      */
-    watch(channel: number, kind: string, controller: number, callback?: Function): ControllerWatcher;
+    watch(channel: number, kind: MidiControllerKind, controller: number, callback?: Function): ControllerWatcher;
     /**
      * Inject MIDI from the on-screen keyboard device
      *
