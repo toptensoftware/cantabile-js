@@ -88,7 +88,7 @@ export class Cantabile extends EventEmitter
 	// Resolve host string to host url and socket url
 	#setHost(value)
 	{
-		if (!value && process.browser)
+		if (!value && typeof window !== 'undefined')
 			value = window.location.host
 		if (!value)
 			value = "localhost"
