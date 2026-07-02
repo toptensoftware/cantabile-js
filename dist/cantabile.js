@@ -1102,16 +1102,18 @@ class States extends EndPoint
 
 	_onConnected()
 	{
-		this._resolveCurrentState();
+		this.#resolveCurrentState();
 		this.emit('reload');
 		this.emit('changed');
+		this.emit('currentStateChanged');
 	}
 
 	_onDisconnected()
 	{
-		this._resolveCurrentState();
+		this.#resolveCurrentState();
 		this.emit('reload');
 		this.emit('changed');
+		this.emit('currentStateChanged');
 	}
 
 	/**
@@ -1220,7 +1222,7 @@ class States extends EndPoint
 	}
 
 
-	_resolveCurrentState()
+	#resolveCurrentState()
 	{
 		// Check have data and current index is in range and record the current State
 		if (this.data && this.data.current>=0 && this.data.current < this.data.items.length)
@@ -1236,7 +1238,7 @@ class States extends EndPoint
 	_onEvent_songChanged(data)
 	{
 		this._setData(data);
-		this._resolveCurrentState();
+		this.#resolveCurrentState();
 		this.emit('reload');
 		this.emit('changed');
 	}
@@ -1314,7 +1316,7 @@ class States extends EndPoint
 	{
 		this.data.items = data.items;
 		this.data.current = data.current;
-		this._resolveCurrentState();
+		this.#resolveCurrentState();
 		this.emit('reload');
 		this.emit('changed');
 
@@ -1328,7 +1330,7 @@ class States extends EndPoint
 	_onEvent_currentStateChanged(data)
 	{
 		this.data.current = data.current;
-		this._resolveCurrentState();
+		this.#resolveCurrentState();
 		this.emit('currentStateChanged');
 
 		/**
@@ -4047,7 +4049,7 @@ class Cantabile extends EventEmitter
 	// Resolve host string to host url and socket url
 	#setHost(value)
 	{
-		if (!value && true)
+		if (!value && typeof window !== 'undefined')
 			value = window.location.host;
 		if (!value)
 			value = "localhost";
