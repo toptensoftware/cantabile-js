@@ -7,8 +7,8 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Run Sandbox",
-            "program": "${workspaceFolder}/engine.js"
+            "name": "Make Docs",
+            "program": "${workspaceFolder}/make-docs.js"
         },
     ]
 }
