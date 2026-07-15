@@ -3,6 +3,17 @@ import { parseNamePath } from "@toptensoftware/jsdoc";
 
 let groups = new Map();
 
+function encodeHtmlEntities(str) {
+  return str.replace(/[&<>"'`]/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+    '`': '&#96;'
+  }[char]));
+}
+
 // Given a name, work out which group it belongs to
 function groupForName(name)
 {
@@ -21,17 +32,11 @@ function groupForName(name)
         g.writer.write(`title: ${g.title}\n`);
         g.writer.write(`description: ${g.title} Reference\n`);
         g.writer.write(`---\n\n`);
-        g.writer.write(`# ${g.title}\n\n`);
     }
 
     return g;
 }
 
-
-// create group writers
-for (let g of groups)
-{
-}
 
 // Load index.d.json
 let defs = JSON.parse(fs.readFileSync("types.d.json", "utf8"));
@@ -43,14 +48,24 @@ defs.members[0].members.sort((a,b) => a.name.localeCompare(b.name));
 for (let n of defs.members[0].members)
 {
     let g = groupForName(n.name);
-    render(g.writer, 2, n);
+    render(g.writer, 1, n);
 }
+
+// Make sure output directory exists
+fs.mkdirSync("./docs/API/", { recursive: true });
 
 // Write the group files
 for (let g of groups.values())
 {
-    fs.writeFileSync(`./doc/${g.filename}.md`, g.output, "utf8");
+    fs.writeFileSync(`./docs/API/${g.filename}.md`, g.output, "utf8");
 }
+
+// Write index.md
+fs.writeFileSync(`./docs/API/index.md`, `---
+folder:
+    title: API Reference
+---
+`, "utf8");
 
 // Done!
 console.log("OK");
@@ -59,8 +74,10 @@ console.log("OK");
 // Strip our module name from a namepath
 function stripModuleFromNamepath(np)
 {
-    if (np.startsWith("module:@codeonlyjs/core."))
-        np = np.substring("module:@codeonlyjs/core.".length);
+    if (np.startsWith("module:@toptensoftware/cantabile-js."))
+        np = np.substring("module:@toptensoftware/cantabile-js.".length);
+    if (np.startsWith("module:\"@toptensoftware/cantabile-js\"."))
+        np = np.substring("module:\"@toptensoftware/cantabile-doc\".".length);
     return np;
 }
 
@@ -96,7 +113,7 @@ function expandInline(links, text)
 
             // If it's to our module
             let file = "";
-            if (np && np[0].prefix == "module:" && np[0].name == "@codeonlyjs/core")
+            if (np && np[0].prefix == "module:" && np[0].name == "@toptensoftware/cantabile-js")
             {
                 // Get the group and filename that it lives in
                 let group = groupForName(np[1].name);
@@ -152,10 +169,11 @@ function render(w, depth, el)
         switch (el.kind)
         {
             case "class": title += " Class"; break;
-            case "class": title += " Interface"; break;
+            case "interface": title += " Interface"; break;
             case "constructor": title += "()"; break;
             case "function": title += "()"; break;
             case "method": title += "()"; break;
+            case "type-alias": title += " Type"; break;
         }
 
         if (el.static)
@@ -202,6 +220,18 @@ function render(w, depth, el)
         for (let m of el.members)
         {
             render(w, depth+1, m);
+        }
+    }
+
+    if (el.jsdoc)
+    {
+        for (let p of el.jsdoc.filter(x => x.block == "example"))
+        {
+            let code = p.text.replace(/^\*?\n?/, "").replace(/\n*$/, "");
+            w.write(`Example\n\n`);
+            w.write("```js\n");
+            w.write(code);
+            w.write("\n```\n\n");
         }
     }
 

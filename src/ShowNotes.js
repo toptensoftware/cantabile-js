@@ -3,7 +3,7 @@ import { EndPoint } from './EndPoint.js';
 /**
  * Used to access the current set of show notes
  * 
- * Access this object via the {{#crossLink "Cantabile/showNotes:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#showNotes} property.
  *
  * @class ShowNotes
  * @extends EndPoint
@@ -40,7 +40,7 @@ export class ShowNotes extends EndPoint
 	}
 
 	/**
-	 * An array of {{#crossLink "ShowNote"}}{{/crossLink}} items
+	 * An array of {@linkcode ShowNote} items
 	 * @property items
 	 * @type {ShowNote[]}
 	 */
@@ -54,8 +54,8 @@ export class ShowNotes extends EndPoint
 	/**
 	 * Stores the markdown notes		 for the current song
 	 * 
-	 * @param {string} markdown 
-	 * @returns {Promise} A promise that resolves when the markdown has been stored with the song
+	 * @param {string} markdown The markdown to store
+	 * @returns {Promise<void>} A promise that resolves when the markdown has been stored with the song
 	 */
 	storeMarkdown(markdown)
 	{

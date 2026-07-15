@@ -6,8 +6,12 @@
   "type": "module",
   "types": "types.d.ts",
   "scripts": {
-    "types": "tsc --project tsconfig.emit.json && dts flatten @toptensoftware/cantabile-js ./src/types.d.ts ./types/*.d.ts --out:types.d.ts && dts extract types.d.ts --out:types.d.json",
     "build": "rollup -c",
+    "types": "(tsc --project tsconfig.emit.json) && (dts flatten @toptensoftware/cantabile-js ./src/types.d.ts ./types/*.d.ts --out:types.d.ts) && (dts extract types.d.ts --out:types.d.json)",
+    "docs": "(npm run types) && (rm -rf ./docs/API) && (node make-docs)",
+    "serve-docs": "(npm run docs) && (doconly ./docs)",
+    "build-docs": "(npm run docs) && (doconly ./docs --build --out:dist/docs)",
+    "build-all": "(npm run build) && (npm run build-docs)",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -18,6 +22,7 @@
     "isomorphic-ws": "^4.0.1"
   },
   "devDependencies": {
+    "@codeonlyjs/doconly": "github:codeonlyjs/doconly",
     "@rollup/plugin-commonjs": "^28.0.0",
     "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-replace": "^6.0.0",

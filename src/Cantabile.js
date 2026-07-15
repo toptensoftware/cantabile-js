@@ -170,7 +170,7 @@ export class Cantabile extends EventEmitter
 	/**
 	 * Initiate connection and retry if fails until success
 	 * @method connect
-	 * @returns {Promise} a promise that resolves when connected
+	 * @returns {Promise<void>} a promise that resolves when connected
 	 */
 	connect()
 	{
@@ -232,11 +232,11 @@ export class Cantabile extends EventEmitter
 	 * 
 	 * @example
 	 * 
-	 *     let C = new Cantabile();
-	 *     await C.waitForConnected();
+	 * let C = new Cantabile();
+	 * await C.waitForConnected();
 	 *
 	 * @method waitForConnected
-	 * @returns {Promise}
+	 * @returns {Promise<void>}
 	 */
 	waitForConnected()
 	{
@@ -452,7 +452,7 @@ export class Cantabile extends EventEmitter
 	}
 
 	/**
-	 * Gets the {{#crossLink "Song"}}{{/crossLink}} object
+	 * Gets the {@linkcode Song} object
 	 *
 	 * @property song
 	 * @type {Song}
@@ -460,7 +460,7 @@ export class Cantabile extends EventEmitter
 	get song() { return this.#getEndPoint(Song) };
 
 	/**
-	 * Gets the {{#crossLink "SetList"}}{{/crossLink}} object
+	 * Gets the {@linkcode SetList} object
 	 *
 	 * @property setList
 	 * @type {SetList}
@@ -468,7 +468,7 @@ export class Cantabile extends EventEmitter
 	get setList() { return this.#getEndPoint(SetList) };
 
 	/**
-	 * Gets the {{#crossLink "SongStates"}}{{/crossLink}} object
+	 * Gets the {@linkcode SongStates} object
 	 *
 	 * @property songStates
 	 * @type {SongStates}
@@ -476,7 +476,7 @@ export class Cantabile extends EventEmitter
 	get songStates() { return this.#getEndPoint(SongStates) };
 
 	/**
-	 * Gets the {{#crossLink "KeyRanges"}}{{/crossLink}} object
+	 * Gets the {@linkcode KeyRanges} object
 	 *
 	 * @property keyRanges
 	 * @type {KeyRanges}
@@ -484,7 +484,7 @@ export class Cantabile extends EventEmitter
 	get keyRanges() { return this.#getEndPoint(KeyRanges) };
 
 	/**
-	 * Gets the {{#crossLink "ShowNotes"}}{{/crossLink}} object
+	 * Gets the {@linkcode ShowNotes} object
 	 *
 	 * @property showNotes
 	 * @type {ShowNotes}
@@ -492,7 +492,7 @@ export class Cantabile extends EventEmitter
 	get showNotes() { return this.#getEndPoint(ShowNotes) };
 
 	/**
-	 * Gets the {{#crossLink "Variables"}}{{/crossLink}} object
+	 * Gets the {@linkcode Variables} object
 	 *
 	 * @property variables
 	 * @type {Variables}
@@ -500,7 +500,7 @@ export class Cantabile extends EventEmitter
 	get variables() { return this.#getEndPoint(Variables) };
 
 	/**
-	 * Gets the {{#crossLink "OnscreenKeyboard"}}{{/crossLink}} object
+	 * Gets the {@linkcode OnscreenKeyboard} object
 	 *
 	 * @property onscreenKeyboard
 	 * @type {OnscreenKeyboard}
@@ -508,7 +508,7 @@ export class Cantabile extends EventEmitter
 	get onscreenKeyboard() { return this.#getEndPoint(OnscreenKeyboard) };
 
 	/**
-	 * Gets the {{#crossLink "Commands"}}{{/crossLink}} object
+	 * Gets the {@linkcode Commands} object
 	 *
 	 * @property commands
 	 * @type {Commands}
@@ -516,7 +516,7 @@ export class Cantabile extends EventEmitter
 	get commands() { return this.#getEndPoint(Commands) };
 
 	/**
-	 * Gets the {{#crossLink "Transport"}}{{/crossLink}} object
+	 * Gets the {@linkcode Transport} object
 	 *
 	 * @property transport
 	 * @type {Transport}
@@ -524,7 +524,7 @@ export class Cantabile extends EventEmitter
 	get transport() { return this.#getEndPoint(Transport) };
 
 	/**
-	 * Gets the {{#crossLink "Application"}}{{/crossLink}} object
+	 * Gets the {@linkcode Application} object
 	 *
 	 * @property application
 	 * @type {Application}
@@ -532,7 +532,7 @@ export class Cantabile extends EventEmitter
 	get application() { return this.#getEndPoint(Application) };
 
 	/**
-	 * Gets the {{#crossLink "Engine"}}{{/crossLink}} object
+	 * Gets the {@linkcode Engine} object
 	 *
 	 * @property engine
 	 * @type {Engine}
@@ -540,7 +540,7 @@ export class Cantabile extends EventEmitter
 	get engine() { return this.#getEndPoint(Engine) };
 
 	/**
-	 * Gets the {{#crossLink "Bindings"}}{{/crossLink}} object
+	 * Gets the {@linkcode Bindings} object
 	 *
 	 * @property bindings
 	 * @type {Bindings}
@@ -549,7 +549,7 @@ export class Cantabile extends EventEmitter
 }
 
 /**
- * Fired when the {{#crossLink "Cantabile/state:property"}}{{/crossLink}} property value changes
+ * Fired when the {@linkcode Cantabile#state} property value changes
  *
  * @event stateChanged
  * @param {String} state The new connection state ("connecting", "connected" or "disconnected")

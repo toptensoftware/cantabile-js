@@ -134,23 +134,23 @@
     "SetListItem"
   ],
   "sources": [
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\Application.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\Bindings.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\Cantabile.js",
-    "types\\Cantabile.d.ts",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\Commands.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\EndPoint.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\Engine.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\KeyRanges.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\OnscreenKeyboard.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\SetList.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\ShowNotes.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\Song.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\SongStates.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\States.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\Transport.js",
-    "C:\\Users\\Brad\\Projects\\shownotes-dev\\cantabile-js\\src\\Variables.js",
-    "src\\types.d.ts"
+    "src/Application.js",
+    "src/Bindings.js",
+    "src/Cantabile.js",
+    "types/Cantabile.d.ts",
+    "src/Commands.js",
+    "src/EndPoint.js",
+    "src/Engine.js",
+    "src/KeyRanges.js",
+    "src/OnscreenKeyboard.js",
+    "src/SetList.js",
+    "src/ShowNotes.js",
+    "src/Song.js",
+    "src/SongStates.js",
+    "src/States.js",
+    "src/Transport.js",
+    "src/Variables.js",
+    "src/types.d.ts"
   ],
   "sourcesContent": [
     null,
@@ -171,6 +171,6 @@
     null,
     null
   ],
-  "mappings": "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",
+  "mappings": "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",
   "ignoreList": []
 }

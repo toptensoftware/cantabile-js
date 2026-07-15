@@ -4,9 +4,11 @@ import { PatternWatcher } from './Variables.js';
 import { ControllerWatcher } from "./OnscreenKeyboard.js";
 
 /**
- * Identifies the kind of set list iteem
+ * Identifies the kind of set list item
  */
-export type SetListItemKind = 'song' | 'break';
+export type SetListItemKind = 
+    'song' | 
+    'break';
 
 /**
  * Represents an item in a list
@@ -47,7 +49,7 @@ export interface BindingPoint
  
 
 /**
- * describes a binding point entry as returned from {{#crossLink "Bindings/availableBindingPoints:method"}}{{/crosslink}}
+ * describes a binding point entry as returned from {@linkcode Bindings#getAvailableBindingPoints}
  */
 export interface BindingPointEntry
 {
@@ -71,12 +73,25 @@ export interface BindingPointEntry
 /**
  * Identifies the kind of binding point
  */
-export type BindingPointKind = 'Command' | 'Switch' | 'Value' | 'Object';
+export type BindingPointKind = 
+    'Command' | 
+    'Switch' | 
+    'Value' | 
+    'Object';
 
 /**
  * Identifies the value format of a binding point value
  */
-export type BindingPointValueFormat = 'None' | 'Float' | 'Integer' | 'Index' | 'ProgramNumber' | 'BankedProgramNumber' | 'BankedProgramMask' | 'GainLevel' | 'PitchBend';
+export type BindingPointValueFormat = 
+    'None' | 
+    'Float' | 
+    'Integer' | 
+    'Index' | 
+    'ProgramNumber' | 
+    'BankedProgramNumber' | 
+    'BankedProgramMask' | 
+    'GainLevel' | 
+    'PitchBend';
 
 
 /**
@@ -175,7 +190,10 @@ export interface KeyRange
 /**
  * Text alignment constants for show note text
  */
-export type ShowNoteTextAlignment = 'left' | 'center' | 'right';
+export type ShowNoteTextAlignment = 
+    'left' | 
+    'center' | 
+    'right';
 
  /**
  * Describes a show note item
@@ -309,23 +327,30 @@ export interface MidiControllerEvent
 /**
  * Transport states
  */
-export type TransportState = "playing" | "paused" | "stopped";
+export type TransportState = 
+    "playing" | 
+    "paused" | 
+    "stopped";
 
 /** Transport loop modes */
-export type TransportLoopMode = "auto" | "break" |"loopOnce" | "loop";
+export type TransportLoopMode = 
+    "auto" | 
+    "break" |
+    "loopOnce" | 
+    "loop";
 
 /** Controller event kinds */
 export type MidiControllerKind = 
-         'Controller' |
-         'FineController' |
-         'Program' |
-         'BankedProgram' |
-         'PitchBend		' |
-         'ChannelPressure' |
-         'RpnCoarse' |
-         'RpnFine' |
-         'NRpnCoarse' |
-         'NRpnFine';
+    'Controller' |
+    'FineController' |
+    'Program' |
+    'BankedProgram' |
+    'PitchBend		' |
+    'ChannelPressure' |
+    'RpnCoarse' |
+    'RpnFine' |
+    'NRpnCoarse' |
+    'NRpnFine';
 
 
 

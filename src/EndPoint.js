@@ -73,7 +73,7 @@ export class EndPoint extends EventEmitter
 	 * first accessed
 	 * 
 	 * @method connect
-	 * @returns {Promise} A promise that resolves when connected
+	 * @returns {Promise<void>} A promise that resolves when connected
 	 */
 	connect()
 	{
@@ -201,11 +201,10 @@ export class EndPoint extends EventEmitter
 	 * 
 	 * @example
 	 * 
-	 *     let C = new Cantabile();
-	 *     await C.application.waitForConnected();
+	 * await C.application.waitForConnected();
 	 *
 	 * @method waitForConnected
-	 * @returns {Promise}
+	 * @returns {Promise<void>}
 	 */
 	waitForConnected()
 	{

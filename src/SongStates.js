@@ -3,7 +3,7 @@ import { States } from './States.js';
 /**
  * Interface to the states of the current song
  * 
- * Access this object via the {{#crossLink "Cantabile/songStates:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#songStates} property.
  *
  * @class SongStates
  * @extends States

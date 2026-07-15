@@ -3,7 +3,7 @@ import { EndPoint } from './EndPoint.js';
 /**
  * Provides access to information about the currently active set of key ranges
  * 
- * Access this object via the {{#crossLink "Cantabile/keyRanges:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#keyRanges} property.
  *
  * @class KeyRanges
  * @extends EndPoint
@@ -32,7 +32,7 @@ export class KeyRanges extends EndPoint
 	}
 
 	/**
-	 * An array of {{#crossLink "KeyRange"}}{{/crossLink}} items
+	 * An array of {@linkcode KeyRange} items
 	 * @property items
 	 * @type {KeyRange[]}
 	 */

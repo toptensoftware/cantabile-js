@@ -3,7 +3,7 @@ import { EndPoint } from './EndPoint.js';
 /**
  * Interface to the application object
  * 
- * Access this object via the {{#crossLink "Cantabile/application:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#application} property.
  *
  * @class Application
  * @extends EndPoint
@@ -84,7 +84,7 @@ export class Application extends EndPoint
 	get build() { return this.data ? this.data.build : null; }
 
 	/**
-	 * An array of {{#crossLink "ColorEntry"}}{{/crossLink}} items for the color index table
+	 * An array of {@linkcode ColorEntry} items for the color index table
 	 * @property colors
 	 * @type {ColorEntry[]}
 	 */

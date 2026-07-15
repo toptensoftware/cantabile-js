@@ -3,7 +3,7 @@ import { EndPoint } from './EndPoint.js';
 /**
  * Interface to the current song
  * 
- * Access this object via the {{#crossLink "Cantabile/song:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#song} property.
  *
  * @class Song
  * @extends EndPoint

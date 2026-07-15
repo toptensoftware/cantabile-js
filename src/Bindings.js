@@ -5,7 +5,7 @@ import EventEmitter from 'events';
 /**
  * Represents an watched binding point for changes/invocations
 
- * Returned from the {{#crossLink "Bindings/watch:method"}}{{/crossLink}} method.
+ * Returned from the {@linkcode Bindings#watch} method.
  * 
  * @class BindingWatcher
  * @extends EventEmitter
@@ -110,7 +110,7 @@ export class BindingWatcher extends EventEmitter
 /**
  * Represents a target binding point prepared for multiple invocations
 
- * Returned from the {{#crossLink "Bindings/prepare:method"}}{{/crossLink}} method.
+ * Returned from the {@linkcode Bindings#prepare} method.
  * 
  * @class PreparedBindingPoint
  */
@@ -166,7 +166,7 @@ export class PreparedBindingPoint
 	/**
 	 * Returns a promise that will resolve once this prepared binding has connected
 	 * @method waitForConnected
-	 * @returns {Promise}}
+	 * @returns {Promise<void>}}
 	 */
 	waitForConnected()
 	{
@@ -199,7 +199,7 @@ export class PreparedBindingPoint
 	 * Invokes this binding point
 	 * @method invoke
      * @param {Object} value The value to pass to the binding point
-     * @returns {Promise} A promise that resolves once the target binding point has been invoked
+     * @returns {Promise<void>} A promise that resolves once the target binding point has been invoked
 	 */
 	invoke(value)
 	{
@@ -246,7 +246,7 @@ function checkBindingPoint(bp)
 /**
  * Provides access to Cantabile's binding points.
  * 
- * Access this object via the {{#crossLink "Cantabile/bindings:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#bindings} property.
  *
  * @class Bindings
  * @extends EndPoint
@@ -292,15 +292,14 @@ export class Bindings extends EndPoint
      * Retrieves a list of available binding points
 	 * 
 	 * If Cantabile is running on your local machine you can view this list
-	 * directly at <http://localhost:35007/api/bindings/vailableBindingPoints>
+	 * directly at <http://localhost:35007/api/bindings/availableBindingPoints>
      * 
      * @example
      * 
-     *     let C = new Cantabile();
-     *     console.log(await C.bindings.getAvailableBindingPoints());
+     * console.log(await C.bindings.getAvailableBindingPoints());
      * 
      * @method getAvailableBindingPoints
-     * @returns {Promise<BindingPointEntry[]>} A promise to return an array of {{#crossLink "BindingPointEntry"}}{{/crossLink}} objects
+     * @returns {Promise<BindingPointEntry[]>} A promise to return an array of {@linkcode BindingPointEntry} objects
      */
     async getAvailableBindingPoints()
     {
@@ -313,13 +312,12 @@ export class Bindings extends EndPoint
 	 * 
      * @example
      * 
-     *     let C = new Cantabile();
-     *     console.log(await C.bindings.getBindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
+     * console.log(await C.bindings.getBindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
      * 
      * @method getBindingPointInfo
 	 * @param {BindingPoint} bindingPoint the binding point to be queried
 	 * @param {Boolean} source whether to return information about the source or target version of the binding point
-     * @returns {Promise<BindingPointInfo>} A promise to return a {{#crossLink "BindingPointInfo"}}{{/crossLink}} object
+     * @returns {Promise<BindingPointInfo>} A promise to return a {@linkcode BindingPointInfo} object
      */
 	async getBindingPointInfo(bindingPoint, source)
 	{
@@ -339,63 +337,58 @@ export class Bindings extends EndPoint
      * 
      * @example
      * 
-     * Set the master output level gain
-	 * 
-     *     C.bindings.invoke({ 
-	 * 			bindableId: "masterLevels", 
-	 * 			bindingPointId: "outputGain"
-	 * 	   }, 0.5);
+     * // Set the master output level gain
+     * C.bindings.invoke({ 
+	 *     bindableId: "masterLevels", 
+	 *     bindingPointId: "outputGain"
+	 * }, 0.5);
      * 
      * @example
      * 
-     * Suspend the 2nd plugin in the song
-	 * 
-     *     C.bindings.invoke({ 
-	 * 			bindableId: "indexedPlugin", 
-	 * 			bindableParams: { 
-	 * 				rackIndex: 0, 			// 0 = song, 1 = first rack, 2 = second etc...
-	 * 				pluginIndex: 1, 		// 1 = second plugin (zero based)
-	 * 			}
-	 * 			bindingPointId: "suspend"
-	 *     }, true);
+     * // Suspend the 2nd plugin in the song
+	 * C.bindings.invoke({ 
+	 *     bindableId: "indexedPlugin", 
+	 *     bindableParams: { 
+	 *         rackIndex: 0, 			// 0 = song, 1 = first rack, 2 = second etc...
+	 *         pluginIndex: 1, 		// 1 = second plugin (zero based)
+	 *     }
+	 *     bindingPointId: "suspend"
+	 * }, true);
      * 
 	 * 
 	 * @example
 	 * 
-	 * Sending a MIDI Controller Event
-	 * 
-	 *     C.bindings.invoke({
-	 * 			bindableId: "midiPorts", 
-	 * 			bindingPointId: "out.Main Keyboard",
-	 * 			bindingPointParams: {
-	 *         		kind: "Controller",
-	 *         		controller: 10,
-	 * 		   		channel: 0
-	 * 	   		}
-	 *      }, 65);
+	 * // Sending a MIDI Controller Event
+	 * C.bindings.invoke({
+	 *     bindableId: "midiPorts", 
+	 *     bindingPointId: "out.Main Keyboard",
+	 *     bindingPointParams: {
+	 *         kind: "Controller",
+	 *         controller: 10,
+	 *         channel: 0
+	 *     }
+	 * }, 65);
 	 *
 	 * @example
 	 * 
-	 * Sending MIDI Data directly
-	 * 
-	 *     C.bindings.invoke({
-	 * 			bindiableId: "midiPorts", 
-	 *          bindingPointId: "out.Main Keyboard"
-	 * 	   }, [ 0xb0, 23, 99 ]);
+	 * // Sending MIDI Data directly
+	 * C.bindings.invoke({
+	 *    bindiableId: "midiPorts", 
+	 *    bindingPointId: "out.Main Keyboard"
+	 * }, [ 0xb0, 23, 99 ]);
 	 * 
 	 * @example
 	 * 
-	 * Sending MIDI Sysex Data directly
-	 * 
-	 *     C.bindings.invoke({
-	 * 			bindiableId: "midiPorts", 
-	 *          bindingPointId: "out.Main Keyboard"
-	 * 	   }, [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
+	 * // Sending MIDI Sysex Data directly
+	 * C.bindings.invoke({
+	 *     bindiableId: "midiPorts", 
+	 *     bindingPointId: "out.Main Keyboard"
+	 * }, [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
 	 * 
      * @method invoke
      * @param {BindingPoint} bindingPoint The binding point to invoke
      * @param {Object} value The value to pass to the binding point
-     * @returns {Promise} A promise that resolves once the target binding point has been invoked
+     * @returns {Promise<void>} A promise that resolves once the target binding point has been invoked
      */
     invoke(bindingPoint, value)
     {
@@ -411,10 +404,10 @@ export class Bindings extends EndPoint
      *
      * @example
      * 
-     *     console.log("Current Output Gain:", await C.bindings.query({ 
-	 *         bindableId: "masterLevels", 
-	 *         bindingPointId: "outputGain"
-     *     }));
+     * console.log("Current Output Gain:", await C.bindings.query({ 
+	 *     bindableId: "masterLevels", 
+	 *     bindingPointId: "outputGain"
+     * }));
      * 
 	 * @method query
      * @param {BindingPoint} bindingPoint The binding point to query
@@ -431,56 +424,48 @@ export class Bindings extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 * Using a callback function:
-	 * 
-	 *     let C = new Cantabile();
-	 *     
-	 *     // Watch a source binding point using a callback function
-	 *     C.bindings.watch({
-	 *         bindableId: "masterLevels", 
-	 *         bindingPointId: "outputGain",
-	 *     }, (value) => console.log("Master output gain changed to:", value));
+	 * // Using a callback function:
+	 * C.bindings.watch({
+	 *     bindableId: "masterLevels", 
+	 *     bindingPointId: "outputGain",
+	 * }, (value) => console.log("Master output gain changed to:", value));
 	 *     
 	 * @example
 	 * 
-	 * Using the BindingWatcher class and events:
+	 * // Using the BindingWatcher class and events:
+	 * let watcher = C.bindings.watch({
+	 *     bindableId: "masterLevels", 
+	 *     bindingPointId: "outputGain",
+	 * });
+	 * watcher.on('invoked', function(value) {
+	 *     console.log("Master output gain changed to:", value);
+	 * });
 	 * 
-	 *     let C = new Cantabile();
-	 *     let watcher = C.bindings.watch({
-	 *         bindableId: "masterLevels", 
-	 *         bindingPointId: "outputGain",
-	 *     });
-	 *     watcher.on('invoked', function(value) {
-	 *         console.log("Master output gain changed to:", value);
-	 *     });
-	 *     
-	 *     /// later, stop listening
-	 *     watcher.unwatch();
+	 * /// later, stop listening
+	 * watcher.unwatch();
 	 * 
 	 * @example
 	 * 
-	 * Watching for a MIDI event:
-	 * 
-     *     C.bindings.watch({
-	 *         bindableId: "midiPorts", 
-	 *         bindingPointId: "in.Onscreen Keyboard", 
-	 *         bindingPointParams: {
-     *             channel: 0,
-     *             kind: "ProgramChange",
-     *             controller: -1,
-     *     }, (value) => console.log("Program Change: ", value));
+	 * // Watching for a MIDI event:
+     * C.bindings.watch({
+	 *     bindableId: "midiPorts", 
+	 *     bindingPointId: "in.Onscreen Keyboard", 
+	 *     bindingPointParams: {
+     *         channel: 0,
+     *         kind: "ProgramChange",
+     *         controller: -1,
+     * }, (value) => console.log("Program Change: ", value));
 	 * 
 	 * @example
-
-	 * Watching for a keystroke:
 	 * 
-	 *     C.bindings.watch({
-	 *         bindableId: "pckeyboard", 
-	 *         bindingPointId: "keyPress", 
-	 *         bindingPointParams:  {
-	 *             key: "Ctrl+Alt+M"
-	 * 	       },
-	 *     }, () => console.log("Key press!"));
+	 * // Watching for a keystroke:
+	 * C.bindings.watch({
+	 *     bindableId: "pckeyboard", 
+	 *     bindingPointId: "keyPress", 
+	 *     bindingPointParams:  {
+	 *         key: "Ctrl+Alt+M"
+	 *     },
+	 * }, () => console.log("Key press!"));
 	 * 
 	 *
 	 * @method watch

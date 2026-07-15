@@ -3,7 +3,7 @@ import { EndPoint } from './EndPoint.js';
 /**
  * Used to access and control Cantabile's set list functionality.
  * 
- * Access this object via the {{#crossLink "Cantabile/setList:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#setList} property.
  *
  * @class SetList
  * @extends EndPoint
@@ -34,7 +34,7 @@ export class SetList extends EndPoint
 	}
 
 	/**
-	 * An array of {{#crossLink "SetListItem"}}{{/crossLink}} items in the set list
+	 * An array of {@linkcode SetListItem} items in the set list
 	 * @property items
 	 * @type {SetListItem[]}
 	 */
@@ -56,7 +56,7 @@ export class SetList extends EndPoint
 
 	/**
 	 * The index of the currently loaded song (or -1 if the current song isn't in the set list).
-	 * See also {{#crossLink "SetList/currentSong:property"}}{{/crossLink}}.
+	 * See also {@linkcode SetList#currentSong}.
 	 * @property currentSongIndex
 	 * @type {Number}
 	 */
@@ -70,8 +70,8 @@ export class SetList extends EndPoint
 	}
 
 	/**
-	 * The currently loaded {{#crossLink "SetListItem"}}{{/crossLink}} (or null if the current song isn't in the set list).
-	 * See also {{#crossLink "SetList/currentSongIndex:property"}}{{/crossLink}}.
+	 * The currently loaded {@linkcode SetListItem} (or null if the current song isn't in the set list).
+	 * See also {@linkcode SetList#currentSongIndex}.
 	 * @property currentSong
 	 * @type {SetListItem}
 	 */

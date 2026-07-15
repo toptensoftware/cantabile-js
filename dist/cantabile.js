@@ -547,7 +547,7 @@ class EndPoint extends EventEmitter
 	 * first accessed
 	 * 
 	 * @method connect
-	 * @returns {Promise} A promise that resolves when connected
+	 * @returns {Promise<void>} A promise that resolves when connected
 	 */
 	connect()
 	{
@@ -675,11 +675,10 @@ class EndPoint extends EventEmitter
 	 * 
 	 * @example
 	 * 
-	 *     let C = new Cantabile();
-	 *     await C.application.waitForConnected();
+	 * await C.application.waitForConnected();
 	 *
 	 * @method waitForConnected
-	 * @returns {Promise}
+	 * @returns {Promise<void>}
 	 */
 	waitForConnected()
 	{
@@ -760,7 +759,7 @@ class EndPoint extends EventEmitter
 /**
  * Used to access and control Cantabile's set list functionality.
  * 
- * Access this object via the {{#crossLink "Cantabile/setList:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#setList} property.
  *
  * @class SetList
  * @extends EndPoint
@@ -791,7 +790,7 @@ class SetList extends EndPoint
 	}
 
 	/**
-	 * An array of {{#crossLink "SetListItem"}}{{/crossLink}} items in the set list
+	 * An array of {@linkcode SetListItem} items in the set list
 	 * @property items
 	 * @type {SetListItem[]}
 	 */
@@ -813,7 +812,7 @@ class SetList extends EndPoint
 
 	/**
 	 * The index of the currently loaded song (or -1 if the current song isn't in the set list).
-	 * See also {{#crossLink "SetList/currentSong:property"}}{{/crossLink}}.
+	 * See also {@linkcode SetList#currentSong}.
 	 * @property currentSongIndex
 	 * @type {Number}
 	 */
@@ -827,8 +826,8 @@ class SetList extends EndPoint
 	}
 
 	/**
-	 * The currently loaded {{#crossLink "SetListItem"}}{{/crossLink}} (or null if the current song isn't in the set list).
-	 * See also {{#crossLink "SetList/currentSongIndex:property"}}{{/crossLink}}.
+	 * The currently loaded {@linkcode SetListItem} (or null if the current song isn't in the set list).
+	 * See also {@linkcode SetList#currentSongIndex}.
 	 * @property currentSong
 	 * @type {SetListItem}
 	 */
@@ -1117,7 +1116,7 @@ class States extends EndPoint
 	}
 
 	/**
-	 * An array of {{#crossLink "State"}}{{/crossLink}} items
+	 * An array of {@linkcode State} items
 	 * @property items
 	 * @type {State[]}
 	 */
@@ -1132,7 +1131,7 @@ class States extends EndPoint
 
 	/**
 	 * The index of the currently loaded State (or -1 if no active state).
-	 * See also {{#crossLink "States/currentState:property"}}{{/crossLink}}.
+	 * See also {@linkcode States#currentState}.
 	 * @property currentStateIndex
 	 * @type {Number}
 	 */
@@ -1146,8 +1145,8 @@ class States extends EndPoint
 	}
 
 	/**
-	 * The currently loaded {{#crossLink "State"}}{{/crossLink}} (or null if no active state).
-	 * See also {{#crossLink "States/currentStateIndex:property"}}{{/crossLink}}.
+	 * The currently loaded {@linkcode State} (or null if no active state).
+	 * See also {@linkcode States#currentStateIndex}.
 	 * @property currentState
 	 * @type {State}
 	 */
@@ -1358,7 +1357,7 @@ class States extends EndPoint
 /**
  * Interface to the states of the current song
  * 
- * Access this object via the {{#crossLink "Cantabile/songStates:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#songStates} property.
  *
  * @class SongStates
  * @extends States
@@ -1375,7 +1374,7 @@ class SongStates extends States
 /**
  * Provides access to information about the currently active set of key ranges
  * 
- * Access this object via the {{#crossLink "Cantabile/keyRanges:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#keyRanges} property.
  *
  * @class KeyRanges
  * @extends EndPoint
@@ -1404,7 +1403,7 @@ class KeyRanges extends EndPoint
 	}
 
 	/**
-	 * An array of {{#crossLink "KeyRange"}}{{/crossLink}} items
+	 * An array of {@linkcode KeyRange} items
 	 * @property items
 	 * @type {KeyRange[]}
 	 */
@@ -1420,7 +1419,7 @@ class KeyRanges extends EndPoint
 /**
  * Used to access the current set of show notes
  * 
- * Access this object via the {{#crossLink "Cantabile/showNotes:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#showNotes} property.
  *
  * @class ShowNotes
  * @extends EndPoint
@@ -1457,7 +1456,7 @@ class ShowNotes extends EndPoint
 	}
 
 	/**
-	 * An array of {{#crossLink "ShowNote"}}{{/crossLink}} items
+	 * An array of {@linkcode ShowNote} items
 	 * @property items
 	 * @type {ShowNote[]}
 	 */
@@ -1471,8 +1470,8 @@ class ShowNotes extends EndPoint
 	/**
 	 * Stores the markdown notes		 for the current song
 	 * 
-	 * @param {string} markdown 
-	 * @returns {Promise} A promise that resolves when the markdown has been stored with the song
+	 * @param {string} markdown The markdown to store
+	 * @returns {Promise<void>} A promise that resolves when the markdown has been stored with the song
 	 */
 	storeMarkdown(markdown)
 	{
@@ -1570,7 +1569,7 @@ class ShowNotes extends EndPoint
 /**
  * Represents a monitored pattern string.
 
- * Returned from the {{#crossLink "Variables/watch:method"}}{{/crossLink}} method.
+ * Returned from the {@linkcode Variables#watch} method.
  *
  * @class PatternWatcher
  * @extends EventEmitter
@@ -1677,7 +1676,7 @@ class PatternWatcher extends EventEmitter
  * Provides access to Cantabile's internal variables by allowing a pattern string to be
  * expanded into a final display string.
  * 
- * Access this object via the {{#crossLink "Cantabile/variables:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#variables} property.
  *
  * @class Variables
  * @extends EndPoint
@@ -1698,13 +1697,11 @@ class Variables extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 *     let C = new Cantabile();
-	 *     console.log(await C.variables.resolve("Song: $(SongTitle)"));
+	 * console.log(await C.variables.resolve("Song: $(SongTitle)"));
 	 * 
 	 * @example
 	 * 
-	 *     let C = new Cantabile();
-	 *     C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
+	 * C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
 	 *
 	 * @method resolve
 	 * @param {string} pattern The string variable pattern to resolve
@@ -1740,27 +1737,21 @@ class Variables extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 * Using a callback function:
-	 * 
-	 *     let C = new Cantabile();
-	 *     
-	 *     // Watch a string pattern using a callback function
-	 *     C.variables.watch("Song: $(SongTitle)", function(resolved) {
-	 *         console.log(resolved);
-	 *     })
+	 * // Watch a string pattern using a callback function
+	 * C.variables.watch("Song: $(SongTitle)", function(resolved) {
+	 *     console.log(resolved);
+	 * })
 	 *     
 	 * @example
 	 * 
-	 * Using the PatternWatcher class and events:
+	 * // Using the PatternWatcher class and events:
+	 * let watcher = C.variables.watch("Song: $(SongTitle)");
+	 * watcher.on('changed', function(resolved) {
+	 *     console.log(resolved);
+	 * });
 	 * 
-	 *     let C = new Cantabile();
-	 *     let watcher = C.variables.watch("Song: $(SongTitle)");
-	 *     watcher.on('changed', function(resolved) {
-	 *         console.log(resolved);
-	 *     });
-	 *     
-	 *     /// later, stop listening
-	 *     watcher.unwatch();
+	 * /// later, stop listening
+	 * watcher.unwatch();
 	 *
 	 * @method watch
 	 * @param {String} pattern The string pattern to watch
@@ -1806,7 +1797,7 @@ class Variables extends EndPoint
 /**
  * Represents a monitored controller
 
- * Returned from the {{#crossLink "OnscreenKeyboard/watch:method"}}{{/crossLink}} method.
+ * Returned from the {@linkcode OnscreenKeyboard#watch} method.
  *
  * @class ControllerWatcher
  * @extends EventEmitter
@@ -1932,7 +1923,7 @@ class ControllerWatcher extends EventEmitter
 /**
  * Provides access to controllers managed by Cantabile's on-screen keyboard device
  * 
- * Access this object via the {{#crossLink "Cantabile/onscreenKeyboard:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#onscreenKeyboard} property.
  *
  * @class OnscreenKeyboard
  * @extends EndPoint
@@ -1953,14 +1944,12 @@ class OnscreenKeyboard extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 * 	   // Get the value of cc 64 on channel 1
-	 *     let C = new Cantabile();
-	 *     console.log(await C.onscreenKeyboard.queryController(1, "controller", 64));
+	 * // Get the value of cc 64 on channel 1
+	 * console.log(await C.onscreenKeyboard.queryController(1, "controller", 64));
 	 * 
 	 * @example
 	 * 
-	 *     let C = new Cantabile();
-	 *     C.onscreenKeyboard.queryController(1, "controller", 64).then(r => console.log(r)));
+	 * C.onscreenKeyboard.queryController(1, "controller", 64).then(r => console.log(r)));
 	 *
 	 * @method queryController
 	 * @param {Number} channel 		The MIDI channel number of the controller
@@ -2000,27 +1989,21 @@ class OnscreenKeyboard extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 * Using a callback function:
-	 * 
-	 *     let C = new Cantabile();
-	 *     
-	 *     // Watch a controller using a callback function
-	 *     C.onscreenKeyboard.watchController(1, "controller", 64, function(value) {
-	 *         console.log(value);
-	 *     })
+	 * // Watch a controller using a callback function
+	 * C.onscreenKeyboard.watchController(1, "controller", 64, function(value) {
+	 *     console.log(value);
+	 * })
 	 *     
 	 * @example
 	 * 
-	 * Using the ControllerWatcher class and events:
+	 * // Using the ControllerWatcher class and events:
+	 * let watcher = C.onscreenKeyboard.watchController(1, "controller", 64);
+	 * watcher.on('changed', function(value) {
+	 *     console.log(value);
+	 * });
 	 * 
-	 *     let C = new Cantabile();
-	 *     let watcher = C.onscreenKeyboard.watchController(1, "controller", 64);
-	 *     watcher.on('changed', function(value) {
-	 *         console.log(value);
-	 *     });
-	 *     
-	 *     /// later, stop listening
-	 *     watcher.unwatch();
+	 * /// later, stop listening
+	 * watcher.unwatch();
 	 *
 	 * @method watch
 	 * @param {Number} channel 		The MIDI channel number of the controller
@@ -2048,22 +2031,18 @@ class OnscreenKeyboard extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 * Using a callback function:
-	 * 
-	 *     // Send a note on event
-	 *     C.onscreenKeyboard.inject([0x90, 64, 64]);
+	 * // Send a note on event
+	 * C.onscreenKeyboard.inject([0x90, 64, 64]);
 	 * 
 	 * @example
 	 * 
-	 * Using the MidiControllerEvent
-	 * 
-	 *     // Send Midi CC 23 = 127
-	 *     let watcher = C.onscreenKeyboard.inject({
-	 *          channel: 0,
-	 *          kind: "controller",
-	 *          controller: 23,
-	 *          value: 127,
-	 *     });
+	 * // Send Midi CC 23 = 127
+	 * let watcher = C.onscreenKeyboard.inject({
+	 *      channel: 0,
+	 *      kind: "controller",
+	 *      controller: 23,
+	 *      value: 127,
+	 * });
 	 *
 	 */
 	 injectMidi(data)
@@ -2102,7 +2081,7 @@ class OnscreenKeyboard extends EndPoint
 /**
  * Represents an watched binding point for changes/invocations
 
- * Returned from the {{#crossLink "Bindings/watch:method"}}{{/crossLink}} method.
+ * Returned from the {@linkcode Bindings#watch} method.
  * 
  * @class BindingWatcher
  * @extends EventEmitter
@@ -2207,7 +2186,7 @@ class BindingWatcher extends EventEmitter
 /**
  * Represents a target binding point prepared for multiple invocations
 
- * Returned from the {{#crossLink "Bindings/prepare:method"}}{{/crossLink}} method.
+ * Returned from the {@linkcode Bindings#prepare} method.
  * 
  * @class PreparedBindingPoint
  */
@@ -2263,7 +2242,7 @@ class PreparedBindingPoint
 	/**
 	 * Returns a promise that will resolve once this prepared binding has connected
 	 * @method waitForConnected
-	 * @returns {Promise}}
+	 * @returns {Promise<void>}}
 	 */
 	waitForConnected()
 	{
@@ -2296,7 +2275,7 @@ class PreparedBindingPoint
 	 * Invokes this binding point
 	 * @method invoke
      * @param {Object} value The value to pass to the binding point
-     * @returns {Promise} A promise that resolves once the target binding point has been invoked
+     * @returns {Promise<void>} A promise that resolves once the target binding point has been invoked
 	 */
 	invoke(value)
 	{
@@ -2343,7 +2322,7 @@ function checkBindingPoint(bp)
 /**
  * Provides access to Cantabile's binding points.
  * 
- * Access this object via the {{#crossLink "Cantabile/bindings:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#bindings} property.
  *
  * @class Bindings
  * @extends EndPoint
@@ -2389,15 +2368,14 @@ class Bindings extends EndPoint
      * Retrieves a list of available binding points
 	 * 
 	 * If Cantabile is running on your local machine you can view this list
-	 * directly at <http://localhost:35007/api/bindings/vailableBindingPoints>
+	 * directly at <http://localhost:35007/api/bindings/availableBindingPoints>
      * 
      * @example
      * 
-     *     let C = new Cantabile();
-     *     console.log(await C.bindings.getAvailableBindingPoints());
+     * console.log(await C.bindings.getAvailableBindingPoints());
      * 
      * @method getAvailableBindingPoints
-     * @returns {Promise<BindingPointEntry[]>} A promise to return an array of {{#crossLink "BindingPointEntry"}}{{/crossLink}} objects
+     * @returns {Promise<BindingPointEntry[]>} A promise to return an array of {@linkcode BindingPointEntry} objects
      */
     async getAvailableBindingPoints()
     {
@@ -2410,13 +2388,12 @@ class Bindings extends EndPoint
 	 * 
      * @example
      * 
-     *     let C = new Cantabile();
-     *     console.log(await C.bindings.getBindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
+     * console.log(await C.bindings.getBindingPointInfo("setList", "loadSongByProgram", false, {}, {}));
      * 
      * @method getBindingPointInfo
 	 * @param {BindingPoint} bindingPoint the binding point to be queried
 	 * @param {Boolean} source whether to return information about the source or target version of the binding point
-     * @returns {Promise<BindingPointInfo>} A promise to return a {{#crossLink "BindingPointInfo"}}{{/crossLink}} object
+     * @returns {Promise<BindingPointInfo>} A promise to return a {@linkcode BindingPointInfo} object
      */
 	async getBindingPointInfo(bindingPoint, source)
 	{
@@ -2436,63 +2413,58 @@ class Bindings extends EndPoint
      * 
      * @example
      * 
-     * Set the master output level gain
-	 * 
-     *     C.bindings.invoke({ 
-	 * 			bindableId: "masterLevels", 
-	 * 			bindingPointId: "outputGain"
-	 * 	   }, 0.5);
+     * // Set the master output level gain
+     * C.bindings.invoke({ 
+	 *     bindableId: "masterLevels", 
+	 *     bindingPointId: "outputGain"
+	 * }, 0.5);
      * 
      * @example
      * 
-     * Suspend the 2nd plugin in the song
-	 * 
-     *     C.bindings.invoke({ 
-	 * 			bindableId: "indexedPlugin", 
-	 * 			bindableParams: { 
-	 * 				rackIndex: 0, 			// 0 = song, 1 = first rack, 2 = second etc...
-	 * 				pluginIndex: 1, 		// 1 = second plugin (zero based)
-	 * 			}
-	 * 			bindingPointId: "suspend"
-	 *     }, true);
+     * // Suspend the 2nd plugin in the song
+	 * C.bindings.invoke({ 
+	 *     bindableId: "indexedPlugin", 
+	 *     bindableParams: { 
+	 *         rackIndex: 0, 			// 0 = song, 1 = first rack, 2 = second etc...
+	 *         pluginIndex: 1, 		// 1 = second plugin (zero based)
+	 *     }
+	 *     bindingPointId: "suspend"
+	 * }, true);
      * 
 	 * 
 	 * @example
 	 * 
-	 * Sending a MIDI Controller Event
-	 * 
-	 *     C.bindings.invoke({
-	 * 			bindableId: "midiPorts", 
-	 * 			bindingPointId: "out.Main Keyboard",
-	 * 			bindingPointParams: {
-	 *         		kind: "Controller",
-	 *         		controller: 10,
-	 * 		   		channel: 0
-	 * 	   		}
-	 *      }, 65);
+	 * // Sending a MIDI Controller Event
+	 * C.bindings.invoke({
+	 *     bindableId: "midiPorts", 
+	 *     bindingPointId: "out.Main Keyboard",
+	 *     bindingPointParams: {
+	 *         kind: "Controller",
+	 *         controller: 10,
+	 *         channel: 0
+	 *     }
+	 * }, 65);
 	 *
 	 * @example
 	 * 
-	 * Sending MIDI Data directly
-	 * 
-	 *     C.bindings.invoke({
-	 * 			bindiableId: "midiPorts", 
-	 *          bindingPointId: "out.Main Keyboard"
-	 * 	   }, [ 0xb0, 23, 99 ]);
+	 * // Sending MIDI Data directly
+	 * C.bindings.invoke({
+	 *    bindiableId: "midiPorts", 
+	 *    bindingPointId: "out.Main Keyboard"
+	 * }, [ 0xb0, 23, 99 ]);
 	 * 
 	 * @example
 	 * 
-	 * Sending MIDI Sysex Data directly
-	 * 
-	 *     C.bindings.invoke({
-	 * 			bindiableId: "midiPorts", 
-	 *          bindingPointId: "out.Main Keyboard"
-	 * 	   }, [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
+	 * // Sending MIDI Sysex Data directly
+	 * C.bindings.invoke({
+	 *     bindiableId: "midiPorts", 
+	 *     bindingPointId: "out.Main Keyboard"
+	 * }, [ 0xF7, 0x00, 0x00, 0x00, 0xF0 ]);
 	 * 
      * @method invoke
      * @param {BindingPoint} bindingPoint The binding point to invoke
      * @param {Object} value The value to pass to the binding point
-     * @returns {Promise} A promise that resolves once the target binding point has been invoked
+     * @returns {Promise<void>} A promise that resolves once the target binding point has been invoked
      */
     invoke(bindingPoint, value)
     {
@@ -2508,10 +2480,10 @@ class Bindings extends EndPoint
      *
      * @example
      * 
-     *     console.log("Current Output Gain:", await C.bindings.query({ 
-	 *         bindableId: "masterLevels", 
-	 *         bindingPointId: "outputGain"
-     *     }));
+     * console.log("Current Output Gain:", await C.bindings.query({ 
+	 *     bindableId: "masterLevels", 
+	 *     bindingPointId: "outputGain"
+     * }));
      * 
 	 * @method query
      * @param {BindingPoint} bindingPoint The binding point to query
@@ -2528,56 +2500,48 @@ class Bindings extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 * Using a callback function:
-	 * 
-	 *     let C = new Cantabile();
-	 *     
-	 *     // Watch a source binding point using a callback function
-	 *     C.bindings.watch({
-	 *         bindableId: "masterLevels", 
-	 *         bindingPointId: "outputGain",
-	 *     }, (value) => console.log("Master output gain changed to:", value));
+	 * // Using a callback function:
+	 * C.bindings.watch({
+	 *     bindableId: "masterLevels", 
+	 *     bindingPointId: "outputGain",
+	 * }, (value) => console.log("Master output gain changed to:", value));
 	 *     
 	 * @example
 	 * 
-	 * Using the BindingWatcher class and events:
+	 * // Using the BindingWatcher class and events:
+	 * let watcher = C.bindings.watch({
+	 *     bindableId: "masterLevels", 
+	 *     bindingPointId: "outputGain",
+	 * });
+	 * watcher.on('invoked', function(value) {
+	 *     console.log("Master output gain changed to:", value);
+	 * });
 	 * 
-	 *     let C = new Cantabile();
-	 *     let watcher = C.bindings.watch({
-	 *         bindableId: "masterLevels", 
-	 *         bindingPointId: "outputGain",
-	 *     });
-	 *     watcher.on('invoked', function(value) {
-	 *         console.log("Master output gain changed to:", value);
-	 *     });
-	 *     
-	 *     /// later, stop listening
-	 *     watcher.unwatch();
+	 * /// later, stop listening
+	 * watcher.unwatch();
 	 * 
 	 * @example
 	 * 
-	 * Watching for a MIDI event:
-	 * 
-     *     C.bindings.watch({
-	 *         bindableId: "midiPorts", 
-	 *         bindingPointId: "in.Onscreen Keyboard", 
-	 *         bindingPointParams: {
-     *             channel: 0,
-     *             kind: "ProgramChange",
-     *             controller: -1,
-     *     }, (value) => console.log("Program Change: ", value));
+	 * // Watching for a MIDI event:
+     * C.bindings.watch({
+	 *     bindableId: "midiPorts", 
+	 *     bindingPointId: "in.Onscreen Keyboard", 
+	 *     bindingPointParams: {
+     *         channel: 0,
+     *         kind: "ProgramChange",
+     *         controller: -1,
+     * }, (value) => console.log("Program Change: ", value));
 	 * 
 	 * @example
-
-	 * Watching for a keystroke:
 	 * 
-	 *     C.bindings.watch({
-	 *         bindableId: "pckeyboard", 
-	 *         bindingPointId: "keyPress", 
-	 *         bindingPointParams:  {
-	 *             key: "Ctrl+Alt+M"
-	 * 	       },
-	 *     }, () => console.log("Key press!"));
+	 * // Watching for a keystroke:
+	 * C.bindings.watch({
+	 *     bindableId: "pckeyboard", 
+	 *     bindingPointId: "keyPress", 
+	 *     bindingPointParams:  {
+	 *         key: "Ctrl+Alt+M"
+	 *     },
+	 * }, () => console.log("Key press!"));
 	 * 
 	 *
 	 * @method watch
@@ -2653,7 +2617,7 @@ class Bindings extends EndPoint
 /**
  * Provides access to Cantabile's UI commands
  * 
- * Access this object via the {{#crossLink "Cantabile/commands:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#commands} property.
  *
  * @class Commands
  * @extends EndPoint
@@ -2683,11 +2647,10 @@ class Commands extends EndPoint
      * 
      * @example
      * 
-     *     let C = new Cantabile();
-     *     console.log(await C.commands.availableCommands());
+     * console.log(await C.commands.availableCommands());
      * 
      * @method availableCommands
-     * @returns {Promise<CommandInfo[]>} A promise to return an array of {{#crossLink "CommandInfo"}}{{/crossLink}} objects
+     * @returns {Promise<CommandInfo[]>} A promise to return an array of {@linkcode CommandInfo} objects
      */
     async availableCommands()
     {
@@ -2700,13 +2663,12 @@ class Commands extends EndPoint
      * 
      * @example
      * 
-     * Show the file open dialog
-	 * 
-     *     C.commands.invoke("file.open");
+     * // Show the file open dialog
+     * C.commands.invoke("file.open");
      * 
      * @param {String} id The id of the command to invoke
      * @method invoke
-     * @returns {Promise} A promise that resolves once the target command has been invoked
+     * @returns {Promise<void>} A promise that resolves once the target command has been invoked
      */
     async invoke(id)
     {
@@ -2719,7 +2681,7 @@ class Commands extends EndPoint
 /**
  * Interface to the current song
  * 
- * Access this object via the {{#crossLink "Cantabile/song:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#song} property.
  *
  * @class Song
  * @extends EndPoint
@@ -2837,7 +2799,7 @@ class Song extends EndPoint
 /**
  * Interface to the master transport
  * 
- * Access this object via the {{#crossLink "Cantabile/transport:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#transport} property.
  *
  * @class Transport
  * @extends EndPoint
@@ -3100,7 +3062,7 @@ class Transport extends EndPoint
 /**
  * Interface to the application object
  * 
- * Access this object via the {{#crossLink "Cantabile/application:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#application} property.
  *
  * @class Application
  * @extends EndPoint
@@ -3181,7 +3143,7 @@ class Application extends EndPoint
 	get build() { return this.data ? this.data.build : null; }
 
 	/**
-	 * An array of {{#crossLink "ColorEntry"}}{{/crossLink}} items for the color index table
+	 * An array of {@linkcode ColorEntry} items for the color index table
 	 * @property colors
 	 * @type {ColorEntry[]}
 	 */
@@ -3892,7 +3854,7 @@ requireFetchNpmBrowserify();
 /**
  * Provides access to Cantabile's engine object for start/stop control
  *
- * Access this object via the {{#crossLink "Cantabile/engine:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#engine} property.
  *
  * @class Engine
  */
@@ -3926,7 +3888,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method start
-	 * @returns {Promise}
+	 * @returns {Promise<void>}
 	 */
 	async start()
 	{
@@ -3939,7 +3901,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method stop
-	 * @returns {Promise}
+	 * @returns {Promise<void>}
 	 */
 	async stop()
 	{
@@ -3952,7 +3914,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method restart
-	 * @returns {Promise}
+	 * @returns {Promise<void>}
 	 */
 	 async restart()
 	 {
@@ -3965,7 +3927,7 @@ class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method startStop
-	 * @returns {Promise}
+	 * @returns {Promise<void>}
 	 */
 	  async startStop()
 	  {
@@ -4131,7 +4093,7 @@ class Cantabile extends EventEmitter
 	/**
 	 * Initiate connection and retry if fails until success
 	 * @method connect
-	 * @returns {Promise} a promise that resolves when connected
+	 * @returns {Promise<void>} a promise that resolves when connected
 	 */
 	connect()
 	{
@@ -4193,11 +4155,11 @@ class Cantabile extends EventEmitter
 	 * 
 	 * @example
 	 * 
-	 *     let C = new Cantabile();
-	 *     await C.waitForConnected();
+	 * let C = new Cantabile();
+	 * await C.waitForConnected();
 	 *
 	 * @method waitForConnected
-	 * @returns {Promise}
+	 * @returns {Promise<void>}
 	 */
 	waitForConnected()
 	{
@@ -4413,7 +4375,7 @@ class Cantabile extends EventEmitter
 	}
 
 	/**
-	 * Gets the {{#crossLink "Song"}}{{/crossLink}} object
+	 * Gets the {@linkcode Song} object
 	 *
 	 * @property song
 	 * @type {Song}
@@ -4421,7 +4383,7 @@ class Cantabile extends EventEmitter
 	get song() { return this.#getEndPoint(Song) };
 
 	/**
-	 * Gets the {{#crossLink "SetList"}}{{/crossLink}} object
+	 * Gets the {@linkcode SetList} object
 	 *
 	 * @property setList
 	 * @type {SetList}
@@ -4429,7 +4391,7 @@ class Cantabile extends EventEmitter
 	get setList() { return this.#getEndPoint(SetList) };
 
 	/**
-	 * Gets the {{#crossLink "SongStates"}}{{/crossLink}} object
+	 * Gets the {@linkcode SongStates} object
 	 *
 	 * @property songStates
 	 * @type {SongStates}
@@ -4437,7 +4399,7 @@ class Cantabile extends EventEmitter
 	get songStates() { return this.#getEndPoint(SongStates) };
 
 	/**
-	 * Gets the {{#crossLink "KeyRanges"}}{{/crossLink}} object
+	 * Gets the {@linkcode KeyRanges} object
 	 *
 	 * @property keyRanges
 	 * @type {KeyRanges}
@@ -4445,7 +4407,7 @@ class Cantabile extends EventEmitter
 	get keyRanges() { return this.#getEndPoint(KeyRanges) };
 
 	/**
-	 * Gets the {{#crossLink "ShowNotes"}}{{/crossLink}} object
+	 * Gets the {@linkcode ShowNotes} object
 	 *
 	 * @property showNotes
 	 * @type {ShowNotes}
@@ -4453,7 +4415,7 @@ class Cantabile extends EventEmitter
 	get showNotes() { return this.#getEndPoint(ShowNotes) };
 
 	/**
-	 * Gets the {{#crossLink "Variables"}}{{/crossLink}} object
+	 * Gets the {@linkcode Variables} object
 	 *
 	 * @property variables
 	 * @type {Variables}
@@ -4461,7 +4423,7 @@ class Cantabile extends EventEmitter
 	get variables() { return this.#getEndPoint(Variables) };
 
 	/**
-	 * Gets the {{#crossLink "OnscreenKeyboard"}}{{/crossLink}} object
+	 * Gets the {@linkcode OnscreenKeyboard} object
 	 *
 	 * @property onscreenKeyboard
 	 * @type {OnscreenKeyboard}
@@ -4469,7 +4431,7 @@ class Cantabile extends EventEmitter
 	get onscreenKeyboard() { return this.#getEndPoint(OnscreenKeyboard) };
 
 	/**
-	 * Gets the {{#crossLink "Commands"}}{{/crossLink}} object
+	 * Gets the {@linkcode Commands} object
 	 *
 	 * @property commands
 	 * @type {Commands}
@@ -4477,7 +4439,7 @@ class Cantabile extends EventEmitter
 	get commands() { return this.#getEndPoint(Commands) };
 
 	/**
-	 * Gets the {{#crossLink "Transport"}}{{/crossLink}} object
+	 * Gets the {@linkcode Transport} object
 	 *
 	 * @property transport
 	 * @type {Transport}
@@ -4485,7 +4447,7 @@ class Cantabile extends EventEmitter
 	get transport() { return this.#getEndPoint(Transport) };
 
 	/**
-	 * Gets the {{#crossLink "Application"}}{{/crossLink}} object
+	 * Gets the {@linkcode Application} object
 	 *
 	 * @property application
 	 * @type {Application}
@@ -4493,7 +4455,7 @@ class Cantabile extends EventEmitter
 	get application() { return this.#getEndPoint(Application) };
 
 	/**
-	 * Gets the {{#crossLink "Engine"}}{{/crossLink}} object
+	 * Gets the {@linkcode Engine} object
 	 *
 	 * @property engine
 	 * @type {Engine}
@@ -4501,7 +4463,7 @@ class Cantabile extends EventEmitter
 	get engine() { return this.#getEndPoint(Engine) };
 
 	/**
-	 * Gets the {{#crossLink "Bindings"}}{{/crossLink}} object
+	 * Gets the {@linkcode Bindings} object
 	 *
 	 * @property bindings
 	 * @type {Bindings}

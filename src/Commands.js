@@ -4,7 +4,7 @@ import { EndPoint } from './EndPoint.js';
 /**
  * Provides access to Cantabile's UI commands
  * 
- * Access this object via the {{#crossLink "Cantabile/commands:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#commands} property.
  *
  * @class Commands
  * @extends EndPoint
@@ -34,11 +34,10 @@ export class Commands extends EndPoint
      * 
      * @example
      * 
-     *     let C = new Cantabile();
-     *     console.log(await C.commands.availableCommands());
+     * console.log(await C.commands.availableCommands());
      * 
      * @method availableCommands
-     * @returns {Promise<CommandInfo[]>} A promise to return an array of {{#crossLink "CommandInfo"}}{{/crossLink}} objects
+     * @returns {Promise<CommandInfo[]>} A promise to return an array of {@linkcode CommandInfo} objects
      */
     async availableCommands()
     {
@@ -51,13 +50,12 @@ export class Commands extends EndPoint
      * 
      * @example
      * 
-     * Show the file open dialog
-	 * 
-     *     C.commands.invoke("file.open");
+     * // Show the file open dialog
+     * C.commands.invoke("file.open");
      * 
      * @param {String} id The id of the command to invoke
      * @method invoke
-     * @returns {Promise} A promise that resolves once the target command has been invoked
+     * @returns {Promise<void>} A promise that resolves once the target command has been invoked
      */
     async invoke(id)
     {

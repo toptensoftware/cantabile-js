@@ -3,7 +3,7 @@ import { EndPoint } from './EndPoint.js';
 /**
  * Interface to the master transport
  * 
- * Access this object via the {{#crossLink "Cantabile/transport:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#transport} property.
  *
  * @class Transport
  * @extends EndPoint

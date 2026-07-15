@@ -5,7 +5,7 @@ import EventEmitter from 'events';
 /**
  * Represents a monitored controller
 
- * Returned from the {{#crossLink "OnscreenKeyboard/watch:method"}}{{/crossLink}} method.
+ * Returned from the {@linkcode OnscreenKeyboard#watch} method.
  *
  * @class ControllerWatcher
  * @extends EventEmitter
@@ -131,7 +131,7 @@ export class ControllerWatcher extends EventEmitter
 /**
  * Provides access to controllers managed by Cantabile's on-screen keyboard device
  * 
- * Access this object via the {{#crossLink "Cantabile/onscreenKeyboard:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#onscreenKeyboard} property.
  *
  * @class OnscreenKeyboard
  * @extends EndPoint
@@ -152,14 +152,12 @@ export class OnscreenKeyboard extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 * 	   // Get the value of cc 64 on channel 1
-	 *     let C = new Cantabile();
-	 *     console.log(await C.onscreenKeyboard.queryController(1, "controller", 64));
+	 * // Get the value of cc 64 on channel 1
+	 * console.log(await C.onscreenKeyboard.queryController(1, "controller", 64));
 	 * 
 	 * @example
 	 * 
-	 *     let C = new Cantabile();
-	 *     C.onscreenKeyboard.queryController(1, "controller", 64).then(r => console.log(r)));
+	 * C.onscreenKeyboard.queryController(1, "controller", 64).then(r => console.log(r)));
 	 *
 	 * @method queryController
 	 * @param {Number} channel 		The MIDI channel number of the controller
@@ -199,27 +197,21 @@ export class OnscreenKeyboard extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 * Using a callback function:
-	 * 
-	 *     let C = new Cantabile();
-	 *     
-	 *     // Watch a controller using a callback function
-	 *     C.onscreenKeyboard.watchController(1, "controller", 64, function(value) {
-	 *         console.log(value);
-	 *     })
+	 * // Watch a controller using a callback function
+	 * C.onscreenKeyboard.watchController(1, "controller", 64, function(value) {
+	 *     console.log(value);
+	 * })
 	 *     
 	 * @example
 	 * 
-	 * Using the ControllerWatcher class and events:
+	 * // Using the ControllerWatcher class and events:
+	 * let watcher = C.onscreenKeyboard.watchController(1, "controller", 64);
+	 * watcher.on('changed', function(value) {
+	 *     console.log(value);
+	 * });
 	 * 
-	 *     let C = new Cantabile();
-	 *     let watcher = C.onscreenKeyboard.watchController(1, "controller", 64);
-	 *     watcher.on('changed', function(value) {
-	 *         console.log(value);
-	 *     });
-	 *     
-	 *     /// later, stop listening
-	 *     watcher.unwatch();
+	 * /// later, stop listening
+	 * watcher.unwatch();
 	 *
 	 * @method watch
 	 * @param {Number} channel 		The MIDI channel number of the controller
@@ -247,22 +239,18 @@ export class OnscreenKeyboard extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 * Using a callback function:
-	 * 
-	 *     // Send a note on event
-	 *     C.onscreenKeyboard.inject([0x90, 64, 64]);
+	 * // Send a note on event
+	 * C.onscreenKeyboard.inject([0x90, 64, 64]);
 	 * 
 	 * @example
 	 * 
-	 * Using the MidiControllerEvent
-	 * 
-	 *     // Send Midi CC 23 = 127
-	 *     let watcher = C.onscreenKeyboard.inject({
-	 *          channel: 0,
-	 *          kind: "controller",
-	 *          controller: 23,
-	 *          value: 127,
-	 *     });
+	 * // Send Midi CC 23 = 127
+	 * let watcher = C.onscreenKeyboard.inject({
+	 *      channel: 0,
+	 *      kind: "controller",
+	 *      controller: 23,
+	 *      value: 127,
+	 * });
 	 *
 	 */
 	 injectMidi(data)

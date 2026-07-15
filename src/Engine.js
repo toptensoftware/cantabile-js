@@ -4,7 +4,7 @@ import 'isomorphic-fetch';
 /**
  * Provides access to Cantabile's engine object for start/stop control
  *
- * Access this object via the {{#crossLink "Cantabile/engine:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#engine} property.
  *
  * @class Engine
  */
@@ -38,7 +38,7 @@ export class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method start
-	 * @returns {Promise}
+	 * @returns {Promise<void>}
 	 */
 	async start()
 	{
@@ -51,7 +51,7 @@ export class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method stop
-	 * @returns {Promise}
+	 * @returns {Promise<void>}
 	 */
 	async stop()
 	{
@@ -64,7 +64,7 @@ export class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method restart
-	 * @returns {Promise}
+	 * @returns {Promise<void>}
 	 */
 	 async restart()
 	 {
@@ -77,7 +77,7 @@ export class Engine
 	 * This API is only available via  AJAX, and not WebSocket
 	 *
 	 * @method startStop
-	 * @returns {Promise}
+	 * @returns {Promise<void>}
 	 */
 	  async startStop()
 	  {

@@ -4,7 +4,7 @@ import EventEmitter from 'events';
 /**
  * Represents a monitored pattern string.
 
- * Returned from the {{#crossLink "Variables/watch:method"}}{{/crossLink}} method.
+ * Returned from the {@linkcode Variables#watch} method.
  *
  * @class PatternWatcher
  * @extends EventEmitter
@@ -111,7 +111,7 @@ export class PatternWatcher extends EventEmitter
  * Provides access to Cantabile's internal variables by allowing a pattern string to be
  * expanded into a final display string.
  * 
- * Access this object via the {{#crossLink "Cantabile/variables:property"}}{{/crossLink}} property.
+ * Access this object via the {@linkcode Cantabile#variables} property.
  *
  * @class Variables
  * @extends EndPoint
@@ -132,13 +132,11 @@ export class Variables extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 *     let C = new Cantabile();
-	 *     console.log(await C.variables.resolve("Song: $(SongTitle)"));
+	 * console.log(await C.variables.resolve("Song: $(SongTitle)"));
 	 * 
 	 * @example
 	 * 
-	 *     let C = new Cantabile();
-	 *     C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
+	 * C.variables.resolve("Song: $(SongTitle)").then(r => console.log(r)));
 	 *
 	 * @method resolve
 	 * @param {string} pattern The string variable pattern to resolve
@@ -174,27 +172,21 @@ export class Variables extends EndPoint
 	 * 
 	 * @example
 	 * 
-	 * Using a callback function:
-	 * 
-	 *     let C = new Cantabile();
-	 *     
-	 *     // Watch a string pattern using a callback function
-	 *     C.variables.watch("Song: $(SongTitle)", function(resolved) {
-	 *         console.log(resolved);
-	 *     })
+	 * // Watch a string pattern using a callback function
+	 * C.variables.watch("Song: $(SongTitle)", function(resolved) {
+	 *     console.log(resolved);
+	 * })
 	 *     
 	 * @example
 	 * 
-	 * Using the PatternWatcher class and events:
+	 * // Using the PatternWatcher class and events:
+	 * let watcher = C.variables.watch("Song: $(SongTitle)");
+	 * watcher.on('changed', function(resolved) {
+	 *     console.log(resolved);
+	 * });
 	 * 
-	 *     let C = new Cantabile();
-	 *     let watcher = C.variables.watch("Song: $(SongTitle)");
-	 *     watcher.on('changed', function(resolved) {
-	 *         console.log(resolved);
-	 *     });
-	 *     
-	 *     /// later, stop listening
-	 *     watcher.unwatch();
+	 * /// later, stop listening
+	 * watcher.unwatch();
 	 *
 	 * @method watch
 	 * @param {String} pattern The string pattern to watch

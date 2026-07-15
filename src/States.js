@@ -31,7 +31,7 @@ export class States extends EndPoint
 	}
 
 	/**
-	 * An array of {{#crossLink "State"}}{{/crossLink}} items
+	 * An array of {@linkcode State} items
 	 * @property items
 	 * @type {State[]}
 	 */
@@ -46,7 +46,7 @@ export class States extends EndPoint
 
 	/**
 	 * The index of the currently loaded State (or -1 if no active state).
-	 * See also {{#crossLink "States/currentState:property"}}{{/crossLink}}.
+	 * See also {@linkcode States#currentState}.
 	 * @property currentStateIndex
 	 * @type {Number}
 	 */
@@ -60,8 +60,8 @@ export class States extends EndPoint
 	}
 
 	/**
-	 * The currently loaded {{#crossLink "State"}}{{/crossLink}} (or null if no active state).
-	 * See also {{#crossLink "States/currentStateIndex:property"}}{{/crossLink}}.
+	 * The currently loaded {@linkcode State} (or null if no active state).
+	 * See also {@linkcode States#currentStateIndex}.
 	 * @property currentState
 	 * @type {State}
 	 */
