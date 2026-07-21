@@ -50,3 +50,6 @@ let C = new Cantabile();
 ```
 
 
+## Examples
+
+Examples can be found in the [examples](https://github.com/toptensoftware/cantabile-js/tree/main/examples) folder.
