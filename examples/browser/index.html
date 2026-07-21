@@ -1,0 +1,43 @@
+<html>
+<head>
+</head>
+<body>
+
+    <h1>Cantabile-JS Example</h1>
+
+    <p>Current Song: <span id="song"></span></p>
+    <p>Current State: <span id="state"></span></p>
+    <p><button id="prevState">&lt;&lt; Prev State</button> <button id="nextState">Next State &gt;&gt;</button></p>
+
+<!-- 
+    This get's the latest cantabile-js from github.  You should capture a copy of this file and keep it
+    with your project to be sure you're getting the version you think you are
+-->
+<script src="https://github.com/toptensoftware/cantabile-js/releases/download/v0.3.4/cantabile.js"></script>
+
+<script>
+
+    // Create an instance of the Cantabile session object
+    let C = new Cantabile("http://localhost:35007");
+
+    // When the song name changes, show it
+    C.song.on('nameChanged', () => {
+        document.getElementById("song").innerText = C.song.name;
+    });
+
+    // When the current state changes, show it
+    C.songStates.on('currentStateChanged', () => {
+        document.getElementById("state").innerText = C.songStates.currentState?.name;
+    })
+
+    // List for the next/previous buttons being clicked and tell Cantabile to switch states
+    document.getElementById("prevState").addEventListener("click", () => {
+        C.songStates.loadNextState(-1);
+    });
+    document.getElementById("nextState").addEventListener("click", () => {
+        C.songStates.loadNextState(1);
+    });
+    
+</script>
+</body>
+</html>
