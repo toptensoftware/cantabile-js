@@ -1,0 +1,1 @@
+export { Cantabile as default } from './Cantabile.js';

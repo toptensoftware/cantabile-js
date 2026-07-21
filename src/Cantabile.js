@@ -577,3 +577,6 @@ const eventConnecting = "connecting";
  */
 const eventDiconnected = "disconnected";
 
+
+
+export default Cantabile;

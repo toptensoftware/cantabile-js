@@ -6,17 +6,21 @@ import terser from '@rollup/plugin-terser';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 export default {
-  input: 'src/Cantabile.js',
+  input: 'src/browser.js',
   output: [
     {
       file: 'dist/cantabile.js',
-      format: 'esm',
+      format: 'iife',
       sourcemap: true,
+      name: 'Cantabile',
+      exports: 'default'
     },
     {
       file: 'dist/cantabile.min.js',
-      format: 'esm',
+      format: 'iife',
       sourcemap: true,
+      name: 'Cantabile',
+      exports: 'default',
       plugins: [terser()],
     },
   ],
@@ -33,7 +37,5 @@ export default {
     // Resolve node_modules using their browser entry points where available
     resolve({ browser: true, preferBuiltins: false }),
 
-    // Convert any CommonJS dependencies to ESM
-    commonjs(),
   ],
 };
