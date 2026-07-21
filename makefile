@@ -7,8 +7,6 @@ PATH  := $(PATH);./node_modules/.bin
 docs:
 	yuidoc -c yuidoc.json .
 	cp logo.png ./doc/
-	rm -rf ../cantabilesoftware.com/content/jsapi
-	cp -r ./doc ../cantabilesoftware.com/content/jsapi
 
 clean:
 	rm -rf www
