@@ -27,7 +27,13 @@ To install the NPM package:
 npm install toptensoftware/cantabile-js
 ```
 
-Browser packages are available here.
+Browser packages are [available here](https://github.com/toptensoftware/cantabile-js/releases).
+
+Note: while browser packages are provided, the recommeded approach for browser development
+is to use the NPM packages and bundler (eg: rollup).
+
+
+## Usage
 
 To import
 
