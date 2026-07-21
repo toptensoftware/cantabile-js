@@ -579,4 +579,3 @@ const eventDiconnected = "disconnected";
 
 
 
-export default Cantabile;
