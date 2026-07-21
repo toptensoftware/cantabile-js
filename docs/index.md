@@ -5,18 +5,29 @@ site:
     logo: CantabileIcon.svg
 ---
 
-# Cantabile-JS
+# Cantabile-js
 
-Welcome to Cantabile-js the Javascript API for connecting to Cantabile's built-in network server providing
+Welcome to cantabile-js.
+
+This library supports connecting to Cantabile's built-in network server providing
 control and monitoring of Cantabile from NodeJS or a browser.
+
+This is v0.3 of this library and is not backwards compatibile with previous versions.
+Documentation for the old version is [available here](https://www.cantabilesoftware.com/jsapi-0.1).
+
+For details on the underlying network api and protocol used by this library, 
+[see here](https://www.cantabilesoftware.com/netapi).
+
 
 ## Installation
 
-To install:
+To install the NPM package:
 
 ```bash
 npm install toptensoftware/cantabile-js
 ```
+
+Browser packages are available here.
 
 To import
 
