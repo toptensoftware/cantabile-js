@@ -36,6 +36,7 @@ export default {
 
     // Resolve node_modules using their browser entry points where available
     resolve({ browser: true, preferBuiltins: false }),
-
+    
+    commonjs()
   ],
 };
