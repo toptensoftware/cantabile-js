@@ -30,7 +30,7 @@
         document.getElementById("state").innerText = C.songStates.currentState?.name;
     })
 
-    // List for the next/previous buttons being clicked and tell Cantabile to switch states
+    // Listed for the next/previous buttons being clicked and tell Cantabile to switch states
     document.getElementById("prevState").addEventListener("click", () => {
         C.songStates.loadNextState(-1);
     });
