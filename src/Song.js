@@ -1,12 +1,31 @@
 import { EndPoint } from './EndPoint.js';
 
 /**
+ * Fired when anything about the current song changes
+ *
+ * @event Song#changed
+ */
+
+/**
+ * Fired when the name of the current song changes
+ *
+ * @event Song#nameChanged
+ */
+
+/**
+ * Fired when the current song state changes
+ *
+ * @event Song#currentStateChanged
+ */
+
+/**
  * Interface to the current song
  * 
  * Access this object via the {@linkcode Cantabile#song} property.
  *
- * @class Song
- * @extends EndPoint
+ * @fires Song#changed
+ * @fires Song#nameChanged
+ * @fires Song#currentStateChanged
  */
 export class Song extends EndPoint
 {
@@ -18,25 +37,10 @@ export class Song extends EndPoint
 
 	_onConnected()
 	{
-		/**
-		 * Fired when anything about the current song changes
-		 *
-		 * @event changed
-		 */
 		this.emit('changed');
 
-		/**
-		 * Fired when the name of the current song changes
-		 *
-		 * @event nameChanged
-		 */
 		this.emit('nameChanged');
 
-		/**
-		 * Fired when the current song state changes
-		 *
-		 * @event currentStateChanged
-		 */
 		this.emit('currentStateChanged');
 	}
 

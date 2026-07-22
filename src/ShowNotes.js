@@ -1,12 +1,65 @@
 import { EndPoint } from './EndPoint.js';
 
 /**
- * Used to access the current set of show notes
+ * Fired after a new show note has been added
+ *
+ * @event ShowNotes#itemAdded
+ * @property {Number} index The zero based index of the newly added item 
+ */
+
+/**
+ * Fired when anything about the current set of show notes changes
+ *
+ * @event ShowNotes#changed
+ */
+
+/**
+ * Fired after a show note has been removed
+ *
+ * @event ShowNotes#itemRemoved
+ * @property {Number} index The zero based index of the removed item 
+ */
+
+/**
+ * Fired when an show note has been moved
+ *
+ * @event ShowNotes#itemMoved
+ * @property {Number} from The zero based index of the item before being moved
+ * @property {Number} to The zero based index of the item's new position
+ */
+
+/**
+ * Fired when something about an show note has changed
+ *
+ * @event ShowNotes#itemChanged
+ * @property {Number} index The zero based index of the item that changed
+ */
+
+/**
+ * Fired when the entire set of show notes has changed (eg: after  loading a new song)
+ * 
+ * @event ShowNotes#reload
+ */
+
+
+/**
+ * Fired when the markdown notes have changed
+ *
+ * @event ShowNotes#markdownChanged
+ */
+
+
+/** Used to access the current set of show notes
  * 
  * Access this object via the {@linkcode Cantabile#showNotes} property.
+ * @fires ShowNotes#itemAdded
+ * @fires ShowNotes#changed
+ * @fires ShowNotes#itemRemoved
+ * @fires ShowNotes#itemMoved
+ * @fires ShowNotes#itemChanged
+ * @fires ShowNotes#reload
+ * @fires ShowNotes#markdownChanged
  *
- * @class ShowNotes
- * @extends EndPoint
  */
 export class ShowNotes extends EndPoint
 {
@@ -68,18 +121,6 @@ export class ShowNotes extends EndPoint
 		this.emit('itemAdded', data.index);
 		this.emit('changed');
 
-		/**
-		 * Fired after a new show note has been added
-		 *
-		 * @event itemAdded
-		 * @param {Number} index The zero based index of the newly added item 
-		 */
-
-		/**
-		 * Fired when anything about the current set of show notes changes
-		 *
-		 * @event changed
-		 */
 
 	}
 	_onEvent_itemRemoved(data)
@@ -88,12 +129,6 @@ export class ShowNotes extends EndPoint
 		this.emit('itemRemoved', data.index);
 		this.emit('changed');
 
-		/**
-		 * Fired after a show note has been removed
-		 *
-		 * @event itemRemoved
-		 * @param {Number} index The zero based index of the removed item 
-		 */
 
 	}
 	_onEvent_itemMoved(data)
@@ -104,13 +139,6 @@ export class ShowNotes extends EndPoint
 		this.emit('itemMoved', data.from, data.to);
 		this.emit('changed');
 
-		/**
-		 * Fired when an show note has been moved
-		 *
-		 * @event itemMoved
-		 * @param {Number} from The zero based index of the item before being moved
-		 * @param {Number} to The zero based index of the item's new position
-		 */
 	}
 
 	_onEvent_itemChanged(data)
@@ -119,13 +147,6 @@ export class ShowNotes extends EndPoint
 
 		this.emit('itemChanged', data.index);
 		this.emit('changed');
-
-		/**
-		 * Fired when something about an show note has changed
-		 *
-		 * @event itemChanged
-		 * @param {Number} index The zero based index of the item that changed
-		 */
 
 	}
 	_onEvent_itemsReload(data)
@@ -136,11 +157,6 @@ export class ShowNotes extends EndPoint
 		this.emit('changed');
 		this.emit('markdownChanged');
 
-		/**
-		 * Fired when the entire set of show notes has changed (eg: after  loading a new song)
-		 * 
-		 * @event reload
-		 */
 	}
 	_onEvent_markdownChanged(data)
 	{

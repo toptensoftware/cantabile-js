@@ -2,13 +2,21 @@ import { EndPoint } from './EndPoint.js';
 import EventEmitter from 'events';
 
 
+
+/**
+ * Fired when the source binding point is triggered
+ *
+ * @event BindingWatcher#invoked
+ * @property {Object} value The value supplied from the source binding
+ * @property {BindingWatcher} source This object
+ */
+
 /**
  * Represents an watched binding point for changes/invocations
 
  * Returned from the {@linkcode Bindings#watch} method.
  * 
- * @class BindingWatcher
- * @extends EventEmitter
+ * @fires BindingWatcher#invoked
  */
 export class BindingWatcher extends EventEmitter
 {
@@ -95,13 +103,6 @@ export class BindingWatcher extends EventEmitter
 		if (this.#callback)
 			this.#callback(this.#value, this);
 
-		/**
-		 * Fired when the source binding point is triggered
-		 *
-		 * @event invoked
-		 * @param {Object} value The value supplied from the source binding
-		 * @param {BindingWatcher} source This object
-		 */
 		this.emit('invoked', this.value, this);
 	}
 }
@@ -112,7 +113,6 @@ export class BindingWatcher extends EventEmitter
 
  * Returned from the {@linkcode Bindings#prepare} method.
  * 
- * @class PreparedBindingPoint
  */
 export class PreparedBindingPoint
 {
@@ -248,8 +248,6 @@ function checkBindingPoint(bp)
  * 
  * Access this object via the {@linkcode Cantabile#bindings} property.
  *
- * @class Bindings
- * @extends EndPoint
  */
 export class Bindings extends EndPoint
 {

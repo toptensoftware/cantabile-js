@@ -1,12 +1,85 @@
 import { EndPoint } from './EndPoint.js';
 
 /**
+ * Fired after a new item has been added to the set list
+ *
+ * @event SetList#itemAdded
+ * @property {Number} index The zero based index of the newly added item 
+ */
+
+/**
+ * Fired when anything about the contents of the set list changes
+ *
+ * @event SetList#changed
+ */
+
+/**
+ * Fired after an item has been removed from the set list
+ *
+ * @event SetList#itemRemoved
+ * @property {Number} index The zero based index of the removed item 
+ */
+
+/**
+ * Fired when an item in the set list has been moved
+ *
+ * @event SetList#itemMoved
+ * @property {Number} from The zero based index of the item before being moved
+ * @property {Number} to The zero based index of the item's new position
+ */
+
+/**
+ * Fired when something about an item has changed
+ *
+ * @event SetList#itemChanged
+ * @property {Number} index The zero based index of the item that changed
+ */
+
+/**
+ * Fired when the entire set list has changed (eg: after a sort operation, or loading a new set list)
+ * 
+ * @event SetList#reload
+ */
+/**
+ * Fired when the pre-loaded state of the list has changed
+ * 
+ * @event SetList#preLoadedChanged
+ */
+/**
+ * Fired when the currently loaded song changes
+ * 
+ * @event SetList#currentSongChanged
+ */
+
+/**
+ * Fired when the part of the currently loaded song changes
+ * 
+ * @event SetList#currentSongPartChanged
+ * @property {Number} part The zero-based current song part index (can be -1)
+ * @property {Number} partCount The number of parts in the current song
+ */
+
+/**
+ * Fired when the name of the currently loaded set list changes
+ * 
+ * @event SetList#nameChanged
+ */
+
+/**
  * Used to access and control Cantabile's set list functionality.
  * 
  * Access this object via the {@linkcode Cantabile#setList} property.
  *
- * @class SetList
- * @extends EndPoint
+ * @fires SetList#itemAdded
+ * @fires SetList#changed
+ * @fires SetList#itemRemoved
+ * @fires SetList#itemMoved
+ * @fires SetList#itemChanged
+ * @fires SetList#reload
+ * @fires SetList#preLoadedChanged
+ * @fires SetList#currentSongChanged
+ * @fires SetList#currentSongPartChanged
+ * @fires SetList#nameChanged
  */
 export class SetList extends EndPoint
 {
@@ -198,33 +271,12 @@ export class SetList extends EndPoint
 		this.emit('itemAdded', data.index);
 		this.emit('changed');
 
-		/**
-		 * Fired after a new item has been added to the set list
-		 *
-		 * @event itemAdded
-		 * @param {Number} index The zero based index of the newly added item 
-		 */
-
-		/**
-		 * Fired when anything about the contents of the set list changes
-		 *
-		 * @event changed
-		 */
-
 	}
 	_onEvent_itemRemoved(data)
 	{
 		this.data.items.splice(data.index, 1);		
 		this.emit('itemRemoved', data.index);
 		this.emit('changed');
-
-		/**
-		 * Fired after an item has been removed from the set list
-		 *
-		 * @event itemRemoved
-		 * @param {Number} index The zero based index of the removed item 
-		 */
-
 	}
 	_onEvent_itemMoved(data)
 	{
@@ -233,14 +285,6 @@ export class SetList extends EndPoint
 		this.data.items.splice(data.to, 0, item);
 		this.emit('itemMoved', data.from, data.to);
 		this.emit('changed');
-
-		/**
-		 * Fired when an item in the set list has been moved
-		 *
-		 * @event itemMoved
-		 * @param {Number} from The zero based index of the item before being moved
-		 * @param {Number} to The zero based index of the item's new position
-		 */
 	}
 
 	_onEvent_itemChanged(data)
@@ -252,14 +296,6 @@ export class SetList extends EndPoint
 
 		this.emit('itemChanged', data.index);
 		this.emit('changed');
-
-		/**
-		 * Fired when something about an item has changed
-		 *
-		 * @event itemChanged
-		 * @param {Number} index The zero based index of the item that changed
-		 */
-
 	}
 	_onEvent_itemsReload(data)
 	{
@@ -269,11 +305,6 @@ export class SetList extends EndPoint
 		this.emit('reload');
 		this.emit('changed');
 
-		/**
-		 * Fired when the entire set list has changed (eg: after a sort operation, or loading a new set list)
-		 * 
-		 * @event reload
-		 */
 	}
 
 	_onEvent_preLoadedChanged(data)
@@ -281,11 +312,6 @@ export class SetList extends EndPoint
 		this.data.preLoaded = data.preLoaded;
 		this.emit('preLoadedChanged');
 
-		/**
-		 * Fired when the pre-loaded state of the list has changed
-		 * 
-		 * @event preLoadedChanged
-		 */
 	}
 
 	_onEvent_currentSongChanged(data)
@@ -294,24 +320,11 @@ export class SetList extends EndPoint
 		this._resolveCurrentSong();
 		this.emit('currentSongChanged');
 
-		/**
-		 * Fired when the currently loaded song changes
-		 * 
-		 * @event currentSongChanged
-		 */
 	}
 
 	_onEvent_currentSongPartChanged(data)
 	{
 		this.emit('currentSongPartChanged', data.part, data.partCount);
-
-		/**
-		 * Fired when the part of the currently loaded song changes
-		 * 
-		 * @event currentSongPartChanged
-		 * @param {Number} part The zero-based current song part index (can be -1)
-		 * @param {Number} partCount The number of parts in the current song
-		 */
 	}
 
 	_onEvent_nameChanged(data)
@@ -320,12 +333,6 @@ export class SetList extends EndPoint
 			this.data.name = data ? data.name : null;
 		this.emit('nameChanged');
 		this.emit('changed');
-
-		/**
-		 * Fired when the name of the currently loaded set list changes
-		 * 
-		 * @event nameChanged
-		 */
 	}
 }
 

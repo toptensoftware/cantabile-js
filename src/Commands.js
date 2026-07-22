@@ -6,8 +6,6 @@ import { EndPoint } from './EndPoint.js';
  * 
  * Access this object via the {@linkcode Cantabile#commands} property.
  *
- * @class Commands
- * @extends EndPoint
  */
 export class Commands extends EndPoint
 {

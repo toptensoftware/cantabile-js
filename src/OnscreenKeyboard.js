@@ -1,14 +1,19 @@
 import { EndPoint } from './EndPoint.js';
 import EventEmitter from 'events';
 
+/**
+ * Fired when the controller value changes
+ *
+ * @event ControllerWatcher#changed
+ * @property {Number} value The new value of the controller
+ * @property {ControllerWatcher} source This object
+ */
 
 /**
  * Represents a monitored controller
 
  * Returned from the {@linkcode OnscreenKeyboard#watch} method.
- *
- * @class ControllerWatcher
- * @extends EventEmitter
+ * @fires ControllerWatcher#changed
  */
 export class ControllerWatcher extends EventEmitter
 {
@@ -115,14 +120,7 @@ export class ControllerWatcher extends EventEmitter
 		if (this.#listener)
 			this.#listener(this.#value, this);
 
-		/**
-		 * Fired when the controller value has changed
-		 *
-		 * @event controllerChanged
-		 * @param {Number} value The new value of the controller
-		 * @param {ControllerWatcher} source This object
-		 */
-		this.emit('controllerChanged', this.#value, this);
+		this.emit('changed', this.#value, this);
 	}
 }
 
@@ -133,8 +131,6 @@ export class ControllerWatcher extends EventEmitter
  * 
  * Access this object via the {@linkcode Cantabile#onscreenKeyboard} property.
  *
- * @class OnscreenKeyboard
- * @extends EndPoint
  */
 export class OnscreenKeyboard extends EndPoint
 {

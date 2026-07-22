@@ -13,15 +13,35 @@ import { Transport } from './Transport.js';
 import { Application } from './Application.js';
 import { Engine } from './Engine.js';
 
+
+/**
+ * Fired when the connection state of the session changes
+ * @event Cantabile#stateChanged
+ * @property {ConnectionState} newState The new connection state of the session
+ */
+
+/**
+ * Fired when entering the connected state
+ * @event Cantabile#connected
+ */
+
+/**
+ * Fired when entering the connecting state
+ * @event Cantabile#connecting
+ */
+
+/**
+ * Fired when entering the disconnected state
+* @event Cantabile#disconnected
+ */
+
 /**
 * Represents a connection to Cantabile.
 * 
-* @class Cantabile
-* @extends EventEmitter
-* @constructor
-* @param {String} [host] The host to connect to. This can be either <baseaddress> or http://<baseaddress> or ws://<baseaddress>
-* When running in a browser, the defaults to `${window.location.host}`.  In other environments it defaults to 
-`localhost:35007`.  
+* @fires Cantabile#stateChanged
+* @fires Cantabile#connected
+* @fires Cantabile#connecting
+* @fires Cantabile#disconnected
 */
 export class Cantabile extends EventEmitter
 {
@@ -547,35 +567,4 @@ export class Cantabile extends EventEmitter
 	 */
 	get bindings() { return this.#getEndPoint(Bindings) };
 }
-
-/**
- * Fired when the {@linkcode Cantabile#state} property value changes
- *
- * @event stateChanged
- * @param {String} state The new connection state ("connecting", "connected" or "disconnected")
- */
-const eventStateChanged = "stateChanged";
-
-/**
- * Fired when entering the connected state
- *
- * @event connected
- */
-const eventConnected = "connected";
-
-/**
- * Fired when entering the connecting state
- *
- * @event connecting
- */
-const eventConnecting = "connecting";
-
-/**
- * Fired when entering the disconnected state
- *
- * @event disconnected
- */
-const eventDiconnected = "disconnected";
-
-
 

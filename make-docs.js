@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { parseNamePath } from "@toptensoftware/jsdoc";
+import { formatNamePath, parseNamePath } from "@toptensoftware/jsdoc";
 
 let groups = new Map();
 
@@ -14,19 +14,48 @@ function encodeHtmlEntities(str) {
   }[char]));
 }
 
-// Given a name, work out which group it belongs to
-function groupForName(name)
+let moduleThis = "@toptensoftware/cantabile-js"
+
+function urlForNamePath(np)
 {
-    let g = groups.get(name);
+    let npp = parseNamePath(np);
+
+    if (npp[0].prefix == "module:")
+    {
+        if (npp[0].name == moduleThis)
+            npp.shift();
+        else
+            throw new Error(`Cant generate url for external module ${npp[0].name}`);
+    }
+
+
+    let path = npp.shift().name;
+    if (npp.length)
+    {
+        npp[0].delim = "";
+    }
+    let id = formatNamePath(npp);
+
+    return { path, id }
+}
+    
+
+// Given a name, work out which group it belongs to
+function groupForNamePath(namepath)
+{
+    let url = urlForNamePath(namepath);
+
+    let g = groups.get(url.path);
     if (!g)
     {
         g = {
-            filename: `${name}`,
-            title: `${name}`,
+            filename: `${url.path}`,
+            title: `${url.path}`,
             output: "",
             writer: { write: x => g.output += x },
         }
-        groups.set(name, g);
+        g.url = url;
+        groups.set(url.path, g);
 
         g.writer.write(`---\n`);
         g.writer.write(`title: ${g.title}\n`);
@@ -37,6 +66,29 @@ function groupForName(name)
     return g;
 }
 
+function formatUrl(url)
+{
+    let href = url.path;
+    if (url.id)
+        href += "#" + url.id;
+    return href;
+}
+
+let declaredUrls = new Set();
+let referencedUrls = new Set();
+function registerUrlDeclaration(url)
+{
+    let href = formatUrl(url);
+    if (declaredUrls.has(href))
+        throw new Error(`Multiple declarations of ${href}`);
+    declaredUrls.add(href);
+}
+
+function registerUrlReference(url)
+{
+    referencedUrls.add(formatUrl(url));
+}
+
 
 // Load index.d.json
 let defs = JSON.parse(fs.readFileSync("types.d.json", "utf8"));
@@ -45,10 +97,12 @@ let defs = JSON.parse(fs.readFileSync("types.d.json", "utf8"));
 defs.members[0].members.sort((a,b) => a.name.localeCompare(b.name));
 
 // Render all members to appropriate group
+let currentGroup;
 for (let n of defs.members[0].members)
 {
-    let g = groupForName(n.name);
-    render(g.writer, 1, n);
+    currentGroup = groupForNamePath(n.name);
+    registerUrlDeclaration(currentGroup.url);
+    render(currentGroup.writer, 1, n);
 }
 
 // Make sure output directory exists
@@ -67,6 +121,14 @@ folder:
 ---
 `, "utf8");
 
+
+for (let href of referencedUrls) {
+    if (!declaredUrls.has(href))
+    {
+        console.log(`warning: link ${href} not declared`)
+    }
+}
+
 // Done!
 console.log("OK");
 
@@ -76,15 +138,6 @@ function stripModuleFromNamepath(np)
 {
     if (np.startsWith("module:@toptensoftware/cantabile-js."))
         np = np.substring("module:@toptensoftware/cantabile-js.".length);
-    if (np.startsWith("module:\"@toptensoftware/cantabile-js\"."))
-        np = np.substring("module:\"@toptensoftware/cantabile-doc\".".length);
-    return np;
-}
-
-// Given a name path, work out it's id
-function namePathToId(namepath)
-{
-    let np = stripModuleFromNamepath(namepath);
     return np;
 }
 
@@ -95,6 +148,7 @@ function expandInline(links, text)
         return text;
 
     return text.replace(/\{@link (\d+)\}/g, (text, id) => {
+
         let link = links[parseInt(id)];
         if (!link)
             return text;
@@ -105,43 +159,40 @@ function expandInline(links, text)
             title = link.url;
 
         // Work out url
-        let url = link.url;
-        if (!url)
+        let href = link.url;
+        if (!href)
         {
-            // Parse the name path
-            let np = parseNamePath(link.namepath);
-
-            // If it's to our module
-            let file = "";
-            if (np && np[0].prefix == "module:" && np[0].name == "@toptensoftware/cantabile-js")
+            // Get the url for this name path
+            let url = urlForNamePath(link.namepath);
+            registerUrlReference(url);
+            if (url.path == currentGroup.filename)
             {
-                // Get the group and filename that it lives in
-                let group = groupForName(np[1].name);
-                if (group)
-                    file = group.filename;
+                href = ""
+            }
+            else
+            {
+                href = url.path
             }
 
-            // Convert namepath to id
-            let id = namePathToId(link.namepath);
-
-            // Create URL
-            url = `${file}#${id}`;
+            if (url.id)
+            {
+                href += "#" + url.id;
+            }
 
             // Work out title
             if (!title)
             {
-                if (np)
-                    title = np[np.length-1].name;
-                else
-                    title = link.namepath;
             }
         }
 
+        if (!title)
+            title = href;
+
         // Plain or code?
         if (link.kind == "linkcode")
-            return `[\`${title}\`](${url})`;
+            return `[\`${title}\`](${href})`;
         else
-            return `[${title}](${url})`;
+            return `[${title}](${href})`;
     });
 }
 
@@ -174,6 +225,7 @@ function render(w, depth, el)
             case "function": title += "()"; break;
             case "method": title += "()"; break;
             case "type-alias": title += " Type"; break;
+            case "event": title = `'${title}' Event`; break;
         }
 
         if (el.static)
@@ -182,7 +234,12 @@ function render(w, depth, el)
         let id = "";
         if (el.namepath)
         {
-            id = ` \{#${namePathToId(el.namepath)}\}`
+            let url = urlForNamePath(el.namepath);
+            if (url.id)
+            {
+                registerUrlDeclaration(url);
+                id = ` \{#${url.id}\}`
+            }
         }
         w.write(`${"######".substring(0, depth)} ${title}${id}\n\n`);
     }
@@ -212,14 +269,42 @@ function render(w, depth, el)
         {
             w.write(`* **\`${p.specifier}\`** ${expandInline(el.links, p.text.replace(/^\s*-\s*/, ""))}\n`);
         }
+
+        if (el.kind == "event")
+        {
+            for (let p of el.jsdoc.filter(x => x.block == "property"))
+            {
+                w.write(`* **\`${p.specifier}\`** ${expandInline(el.links, p.text.replace(/^\s*-\s*/, ""))}\n`);
+            }
+        }
     }
 
     if (el.members)
     {
         el.members.sort((a,b) => a.name.localeCompare(b.name));
-        for (let m of el.members)
+        if (el.kind == "class")
         {
-            render(w, depth+1, m);
+            renderMemberKind("constructor", "Constructors");
+            renderMemberKind("property", "Properties");
+            renderMemberKind("method", "Methods");
+            renderMemberKind("event", "Events");
+
+            function renderMemberKind(kind, title)
+            {
+                let membersOfKind = el.members.filter(x => x.kind == kind);
+                if (membersOfKind.length == 0)
+                    return;
+
+                w.write(`${"######".substring(0, depth + 1)} ${title}\n\n`);
+                membersOfKind.forEach(x => render(w, depth+2, x));
+            }
+        }
+        else
+        {
+            for (let m of el.members)
+            {
+                render(w, depth+1, m);
+            }
         }
     }
 

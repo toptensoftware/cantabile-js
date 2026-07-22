@@ -1,4 +1,11 @@
 declare module "@toptensoftware/cantabile-js" {
+/** 
+ * Describes the connection state of the Cantabile connection 
+ */
+export type ConnectionState = 
+    'connecting' | 
+    'connected' | 
+    'disconnected';
 /**
  * Identifies the kind of set list item
  */
@@ -324,12 +331,18 @@ export type PatternWatcherCallback = (value: string, source: PatternWatcher) => 
 /** Callback from a controller watcher */
 export type ControllerWatcherCallback = (value: number, source: ControllerWatcher) => void;
 /**
+ * Fired when the resolved display string has changed
+ *
+ * @event PatternWatcher#changed
+ * @property {String} resolved The new resolved display string
+ * @property {PatternWatcher} source This object
+ */
+/**
  * Represents a monitored pattern string.
 
  * Returned from the {@linkcode Variables#watch} method.
  *
- * @class PatternWatcher
- * @extends EventEmitter
+ * @fires PatternWatcher#changed
  */
 export class PatternWatcher extends EventEmitter<any> {
     /**
@@ -359,8 +372,6 @@ export class PatternWatcher extends EventEmitter<any> {
  *
  * Access this object via the {@linkcode Cantabile#variables} property.
  *
- * @class Variables
- * @extends EndPoint
  */
 export class Variables extends EndPoint {
     /**
@@ -408,12 +419,34 @@ export class Variables extends EndPoint {
     watch(pattern: string, callback?: PatternWatcherCallback): PatternWatcher;
 }
 /**
+ * Fired when the current transport state has changed
+ *
+ * @event Transport#stateChanged
+ */
+/**
+ * Fired when the current time signature has changed
+ *
+ * @event Transport#timeSignatureChanged
+ */
+/**
+ * Fired when the current tempo has changed
+ *
+ * @event Transport#tempoChanged
+ */
+/**
+ * Fired when the current loop mode, loop iteration or loop count has changed
+ *
+ * @event Transport#loopStateChanged
+ */
+/**
  * Interface to the master transport
  *
  * Access this object via the {@linkcode Cantabile#transport} property.
  *
- * @class Transport
- * @extends EndPoint
+ * @fires Transport#stateChanged
+ * @fires Transport#timeSignatureChanged
+ * @fires Transport#tempoChanged
+ * @fires Transport#loopStateChanged
  */
 export class Transport extends EndPoint {
     set state(value: TransportState);
@@ -508,10 +541,61 @@ export class Transport extends EndPoint {
     cycleLoopMode(): void;
 }
 /**
+ * Fired after a new state has been added
+ *
+ * @event States#itemAdded
+ * @property {Number} index The zero based index of the newly added item
+ */
+/**
+ * Fired when anything about the contents of state list changes
+ *
+ * @event States#changed
+ */
+/**
+ * Fired after a state has been removed
+ *
+ * @event States#itemRemoved
+ * @property {Number} index The zero based index of the removed item
+ */
+/**
+ * Fired when an item has been moved
+ *
+ * @event States#itemMoved
+ * @property {Number} from The zero based index of the item before being moved
+ * @property {Number} to The zero based index of the item's new position
+ */
+/**
+ * Fired when something about an state has changed
+ *
+ * @event States#itemChanged
+ * @property {Number} index The zero based index of the item that changed
+ */
+/**
+ * Fired when the entire set of states has changed (eg: after a sort operation, or loading a new song/rack)
+ *
+ * @event States#reload
+ */
+/**
+ * Fired when the current state changes
+ *
+ * @event States#currentStateChanged
+ */
+/**
+ * Fired when the name of the containing song or rack changes
+ *
+ * @event States#nameChanged
+ */
+/**
  * Base states functionality for State and racks
  *
- * @class States
- * @extends EndPoint
+*  @fires States#itemAdded
+ * @fires States#changed
+ * @fires States#itemRemoved
+ * @fires States#itemMoved
+ * @fires States#itemChanged
+ * @fires States#reload
+ * @fires States#currentStateChanged
+ * @fires States#nameChanged
  */
 export class States extends EndPoint {
     /**
@@ -580,18 +664,32 @@ export class States extends EndPoint {
  *
  * Access this object via the {@linkcode Cantabile#songStates} property.
  *
- * @class SongStates
- * @extends States
  */
 export class SongStates extends States {
 }
+/**
+ * Fired when anything about the current song changes
+ *
+ * @event Song#changed
+ */
+/**
+ * Fired when the name of the current song changes
+ *
+ * @event Song#nameChanged
+ */
+/**
+ * Fired when the current song state changes
+ *
+ * @event Song#currentStateChanged
+ */
 /**
  * Interface to the current song
  *
  * Access this object via the {@linkcode Cantabile#song} property.
  *
- * @class Song
- * @extends EndPoint
+ * @fires Song#changed
+ * @fires Song#nameChanged
+ * @fires Song#currentStateChanged
  */
 export class Song extends EndPoint {
     /**
@@ -627,12 +725,56 @@ export class Song extends EndPoint {
     loadSong(name: string, state: string): void;
 }
 /**
- * Used to access the current set of show notes
+ * Fired after a new show note has been added
+ *
+ * @event ShowNotes#itemAdded
+ * @property {Number} index The zero based index of the newly added item
+ */
+/**
+ * Fired when anything about the current set of show notes changes
+ *
+ * @event ShowNotes#changed
+ */
+/**
+ * Fired after a show note has been removed
+ *
+ * @event ShowNotes#itemRemoved
+ * @property {Number} index The zero based index of the removed item
+ */
+/**
+ * Fired when an show note has been moved
+ *
+ * @event ShowNotes#itemMoved
+ * @property {Number} from The zero based index of the item before being moved
+ * @property {Number} to The zero based index of the item's new position
+ */
+/**
+ * Fired when something about an show note has changed
+ *
+ * @event ShowNotes#itemChanged
+ * @property {Number} index The zero based index of the item that changed
+ */
+/**
+ * Fired when the entire set of show notes has changed (eg: after  loading a new song)
+ *
+ * @event ShowNotes#reload
+ */
+/**
+ * Fired when the markdown notes have changed
+ *
+ * @event ShowNotes#markdownChanged
+ */
+/** Used to access the current set of show notes
  *
  * Access this object via the {@linkcode Cantabile#showNotes} property.
+ * @fires ShowNotes#itemAdded
+ * @fires ShowNotes#changed
+ * @fires ShowNotes#itemRemoved
+ * @fires ShowNotes#itemMoved
+ * @fires ShowNotes#itemChanged
+ * @fires ShowNotes#reload
+ * @fires ShowNotes#markdownChanged
  *
- * @class ShowNotes
- * @extends EndPoint
  */
 export class ShowNotes extends EndPoint {
     /**
@@ -659,12 +801,77 @@ export class ShowNotes extends EndPoint {
     storeMarkdown(markdown: string): Promise<void>;
 }
 /**
+ * Fired after a new item has been added to the set list
+ *
+ * @event SetList#itemAdded
+ * @property {Number} index The zero based index of the newly added item
+ */
+/**
+ * Fired when anything about the contents of the set list changes
+ *
+ * @event SetList#changed
+ */
+/**
+ * Fired after an item has been removed from the set list
+ *
+ * @event SetList#itemRemoved
+ * @property {Number} index The zero based index of the removed item
+ */
+/**
+ * Fired when an item in the set list has been moved
+ *
+ * @event SetList#itemMoved
+ * @property {Number} from The zero based index of the item before being moved
+ * @property {Number} to The zero based index of the item's new position
+ */
+/**
+ * Fired when something about an item has changed
+ *
+ * @event SetList#itemChanged
+ * @property {Number} index The zero based index of the item that changed
+ */
+/**
+ * Fired when the entire set list has changed (eg: after a sort operation, or loading a new set list)
+ *
+ * @event SetList#reload
+ */
+/**
+ * Fired when the pre-loaded state of the list has changed
+ *
+ * @event SetList#preLoadedChanged
+ */
+/**
+ * Fired when the currently loaded song changes
+ *
+ * @event SetList#currentSongChanged
+ */
+/**
+ * Fired when the part of the currently loaded song changes
+ *
+ * @event SetList#currentSongPartChanged
+ * @property {Number} part The zero-based current song part index (can be -1)
+ * @property {Number} partCount The number of parts in the current song
+ */
+/**
+ * Fired when the name of the currently loaded set list changes
+ *
+ * @event SetList#nameChanged
+ */
+/**
  * Used to access and control Cantabile's set list functionality.
  *
  * Access this object via the {@linkcode Cantabile#setList} property.
  *
- * @class SetList
- * @extends EndPoint
+ * @fires SetList#itemAdded
+ * @fires SetList#changed
+ * @fires SetList#itemRemoved
+ * @fires SetList#itemMoved
+ * @fires SetList#itemChanged
+ * @fires SetList#reload
+ * @fires SetList#preLoadedChanged
+ * @fires SetList#currentSongChanged
+ * @fires SetList#currentSongPartChanged
+ * @fires SetList#nameChanged
  */
 export class SetList extends EndPoint {
     /**
@@ -748,12 +955,17 @@ export class SetList extends EndPoint {
     loadSetList(name: string, loadFirst?: boolean): void;
 }
 /**
+ * Fired when the controller value changes
+ *
+ * @event ControllerWatcher#changed
+ * @property {Number} value The new value of the controller
+ * @property {ControllerWatcher} source This object
+ */
+/**
  * Represents a monitored controller
 
  * Returned from the {@linkcode OnscreenKeyboard#watch} method.
- *
- * @class ControllerWatcher
- * @extends EventEmitter
+ * @fires ControllerWatcher#changed
  */
 export class ControllerWatcher extends EventEmitter<any> {
     /**
@@ -796,8 +1008,6 @@ export class ControllerWatcher extends EventEmitter<any> {
  *
  * Access this object via the {@linkcode Cantabile#onscreenKeyboard} property.
  *
- * @class OnscreenKeyboard
- * @extends EndPoint
  */
 export class OnscreenKeyboard extends EndPoint {
     /**
@@ -873,12 +1083,15 @@ export class OnscreenKeyboard extends EndPoint {
     injectMidi(data: object): void;
 }
 /**
+ * Fired when the active set of key ranges has changed
+ *
+ * @event KeyRanges#changed
+ */
+/**
  * Provides access to information about the currently active set of key ranges
  *
  * Access this object via the {@linkcode Cantabile#keyRanges} property.
- *
- * @class KeyRanges
- * @extends EndPoint
+ * @fires KeyRanges#changed
  */
 export class KeyRanges extends EndPoint {
     /**
@@ -893,7 +1106,6 @@ export class KeyRanges extends EndPoint {
  *
  * Access this object via the {@linkcode Cantabile#engine} property.
  *
- * @class Engine
  */
 export class Engine {
     /**
@@ -945,8 +1157,6 @@ export class Engine {
 /**
  * Common functionality for all end point handlers
  *
- * @class EndPoint
- * @extends EventEmitter
  */
 export class EndPoint extends EventEmitter<any> {
     /**
@@ -1015,8 +1225,6 @@ export class EndPoint extends EventEmitter<any> {
  *
  * Access this object via the {@linkcode Cantabile#commands} property.
  *
- * @class Commands
- * @extends EndPoint
  */
 export class Commands extends EndPoint {
     /**
@@ -1048,14 +1256,29 @@ export class Commands extends EndPoint {
     invoke(id: string): Promise<void>;
 }
 /**
+ * Fired when the connection state of the session changes
+ * @event Cantabile#stateChanged
+ * @property {ConnectionState} newState The new connection state of the session
+ */
+/**
+ * Fired when entering the connected state
+ * @event Cantabile#connected
+ */
+/**
+ * Fired when entering the connecting state
+ * @event Cantabile#connecting
+ */
+/**
+ * Fired when entering the disconnected state
+* @event Cantabile#disconnected
+ */
+/**
 * Represents a connection to Cantabile.
 *
-* @class Cantabile
-* @extends EventEmitter
-* @constructor
-* @param {String} [host] The host to connect to. This can be either <baseaddress> or http://<baseaddress> or ws://<baseaddress>
-* When running in a browser, the defaults to `${window.location.host}`.  In other environments it defaults to
-`localhost:35007`.
+* @fires Cantabile#stateChanged
+* @fires Cantabile#connected
+* @fires Cantabile#connecting
+* @fires Cantabile#disconnected
 */
 export class Cantabile extends EventEmitter<any> {
     /**
@@ -1229,12 +1452,18 @@ export class Cantabile extends EventEmitter<any> {
     get bindings(): Bindings;
 }
 /**
+ * Fired when the source binding point is triggered
+ *
+ * @event BindingWatcher#invoked
+ * @property {Object} value The value supplied from the source binding
+ * @property {BindingWatcher} source This object
+ */
+/**
  * Represents an watched binding point for changes/invocations
 
  * Returned from the {@linkcode Bindings#watch} method.
  *
- * @class BindingWatcher
- * @extends EventEmitter
+ * @fires BindingWatcher#invoked
  */
 export class BindingWatcher extends EventEmitter<any> {
     /**
@@ -1263,7 +1492,6 @@ export class BindingWatcher extends EventEmitter<any> {
 
  * Returned from the {@linkcode Bindings#prepare} method.
  *
- * @class PreparedBindingPoint
  */
 export class PreparedBindingPoint {
     /**
@@ -1306,8 +1534,6 @@ export class PreparedBindingPoint {
  *
  * Access this object via the {@linkcode Cantabile#bindings} property.
  *
- * @class Bindings
- * @extends EndPoint
  */
 export class Bindings extends EndPoint {
     /**
@@ -1479,12 +1705,29 @@ export class Bindings extends EndPoint {
     prepare(bindingPoint: BindingPoint): PreparedBindingPoint;
 }
 /**
+ * Fired when any of the application properties change
+ *
+ * @event Application#changed
+ */
+/**
+ * Fired when the application object has initially connected
+ *
+ * @event Application#connected
+ */
+/**
+ * Fired when the application's busy state changes
+ *
+ * @event Application#busyChanged
+ * @property {boolean} busy True if the app is currently busy
+ */
+/**
  * Interface to the application object
  *
  * Access this object via the {@linkcode Cantabile#application} property.
  *
- * @class Application
- * @extends EndPoint
+ * @fires Application#changed
+ * @fires Application#connected
+ * @fires Application#busyChanged
  */
 export class Application extends EndPoint {
     /**

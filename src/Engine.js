@@ -6,7 +6,6 @@ import 'isomorphic-fetch';
  *
  * Access this object via the {@linkcode Cantabile#engine} property.
  *
- * @class Engine
  */
 export class Engine
 {

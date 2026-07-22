@@ -1,12 +1,16 @@
 import { EndPoint } from './EndPoint.js';
 
 /**
+ * Fired when the active set of key ranges has changed
+ *
+ * @event KeyRanges#changed
+ */
+
+/**
  * Provides access to information about the currently active set of key ranges
  * 
  * Access this object via the {@linkcode Cantabile#keyRanges} property.
- *
- * @class KeyRanges
- * @extends EndPoint
+ * @fires KeyRanges#changed
  */
 export class KeyRanges extends EndPoint
 {
@@ -18,11 +22,6 @@ export class KeyRanges extends EndPoint
 
 	_onConnected()
 	{
-		/**
-		 * Fired when the active set of key ranges has changed
-		 *
-		 * @event changed
-		 */
 		this.emit('changed');
 	}
 

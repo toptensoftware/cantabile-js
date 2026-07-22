@@ -1,12 +1,33 @@
 import { EndPoint } from './EndPoint.js';
 
 /**
+ * Fired when any of the application properties change
+ * 
+ * @event Application#changed
+ */
+
+/**
+ * Fired when the application object has initially connected
+ * 
+ * @event Application#connected
+ */
+
+/**
+ * Fired when the application's busy state changes
+ * 
+ * @event Application#busyChanged
+ * @property {boolean} busy True if the app is currently busy
+ */
+
+
+/**
  * Interface to the application object
  * 
  * Access this object via the {@linkcode Cantabile#application} property.
- *
- * @class Application
- * @extends EndPoint
+ * 
+ * @fires Application#changed
+ * @fires Application#connected
+ * @fires Application#busyChanged
  */
 export class Application extends EndPoint
 {
@@ -18,18 +39,6 @@ export class Application extends EndPoint
 
 	_onConnected()
 	{
-		/**
-		 * Fired when any of the application properties change
-		 * 
-		 * @event changed
-		 */
-
-		/**
-		 * Fired when the application object has initially connected
-		 * 
-		 * @event connected
-		 */
-
 		this.emit('connected');
 		this.emit('busyChanged', this.busy);
 		this.emit('changed');
@@ -114,13 +123,6 @@ export class Application extends EndPoint
 
 	 _onEvent_busyChanged(data)
 	{
-		/**
-		 * Fired when the application busy state changes
-		 * 
-		 * @event busyChanged
-		 * @param {Boolean} busy True if the app is currently busy
-		 */
-
 		this.data.busy = data.busy;
 		this.emit('busyChanged', this.busy);
 	}

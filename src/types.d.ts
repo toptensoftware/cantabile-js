@@ -3,6 +3,15 @@ import { BindingWatcher } from './Bindings.js';
 import { PatternWatcher } from './Variables.js';
 import { ControllerWatcher } from "./OnscreenKeyboard.js";
 
+/** 
+ * Describes the connection state of the Cantabile connection 
+ */
+export type ConnectionState = 
+    'connecting' | 
+    'connected' | 
+    'disconnected';
+
+
 /**
  * Identifies the kind of set list item
  */
@@ -351,7 +360,6 @@ export type MidiControllerKind =
     'RpnFine' |
     'NRpnCoarse' |
     'NRpnFine';
-
 
 
 /** Callback from a bindings watcher */

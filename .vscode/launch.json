@@ -8,11 +8,8 @@
             "type": "node",
             "request": "launch",
             "name": "Make Docs",
-            "program": "${workspaceFolder}/node_modules/@codeonlyjs/doconly/cli.js",
+            "program": "make-docs.js",
             "args": [
-                "--build",
-                "--out:dist/doc",
-                "./doc",
             ]
         },
     ]
