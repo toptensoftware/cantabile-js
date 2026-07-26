@@ -363,4 +363,6 @@ export type PatternWatcherCallback = (value: string, source: PatternWatcher) => 
 /** Callback from a controller watcher */
 export type ControllerWatcherCallback = (value: number, source: ControllerWatcher) => void;
 
+/** Callback from a document watcher */
+export type DocumentWatcherCallback = (content: string, source: DocumentWatcher) => void;
 

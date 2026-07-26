@@ -12,6 +12,7 @@ import { Song } from './Song.js';
 import { Transport } from './Transport.js';
 import { Application } from './Application.js';
 import { Engine } from './Engine.js';
+import { Documents } from './Documents.js';
 
 /**
 * Represents a connection to Cantabile.
@@ -546,6 +547,15 @@ export class Cantabile extends EventEmitter
 	 * @type {Bindings}
 	 */
 	get bindings() { return this.#getEndPoint(Bindings) };
+
+	/**
+	 * Gets the {@linkcode Documents} object
+	 *
+	 * @property documents
+	 * @type {Documents}
+	 */
+	get documents() { return this.#getEndPoint(Documents) };
+
 }
 
 /**

@@ -48,7 +48,7 @@ export class EndPoint extends EventEmitter
 	/**
 	 * Gets the last received raw data for this end point
 	 * @property endPoint
-	 * @type {string}
+	 * @type {object}
 	 */
 	get data() { return this.#data; }
 
@@ -151,6 +151,16 @@ export class EndPoint extends EventEmitter
 	{
 		if (this.#epid)
 		{
+			// Split off query string and store in data
+			let qPos = endPoint.indexOf('?');
+			if (qPos >= 0)
+			{
+				const params = new URLSearchParams(endPoint.substring(qPos+1));
+				const obj = Object.fromEntries(params);
+				data = Object.assign(obj, data);
+				endPoint = endPoint.substring(0, qPos);
+			}
+
 			// If connected, pass the epid and just the sub-url path
 			return this.owner.request({
 				ep: endPoint,

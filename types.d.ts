@@ -323,6 +323,8 @@ export type BindingWatcherCallback = (value: any, source: BindingWatcher) => voi
 export type PatternWatcherCallback = (value: string, source: PatternWatcher) => void;
 /** Callback from a controller watcher */
 export type ControllerWatcherCallback = (value: number, source: ControllerWatcher) => void;
+/** Callback from a document watcher */
+export type DocumentWatcherCallback = (content: string, source: DocumentWatcher) => void;
 /**
  * Represents a monitored pattern string.
 
@@ -964,9 +966,9 @@ export class EndPoint extends EventEmitter<any> {
     /**
      * Gets the last received raw data for this end point
      * @property endPoint
-     * @type {string}
+     * @type {object}
      */
-    get data(): string;
+    get data(): object;
     /**
      * Connects this end point and starts listening for events.
      *
@@ -1009,6 +1011,98 @@ export class EndPoint extends EventEmitter<any> {
      * @returns {Promise<void>}
      */
     waitForConnected(): Promise<void>;
+}
+/**
+ * Represents a watched document
+
+ * Returned from the {@linkcode Documents#watch} method.
+ *
+ * @class DocumentWatcher
+ * @extends EventEmitter
+ */
+export class DocumentWatcher extends EventEmitter<any> {
+    /**
+     * Returns the name of the document being watched
+     *
+     * @property name
+     * @type {String}
+     */
+    get name(): string;
+    /**
+     * Returns the document content being watched
+     *
+     * @property content
+     * @type {String}
+     */
+    get content(): string;
+    /**
+     * Sets the content of the watched document
+     * @param {String} content the new document content
+     * @retursn {Promise<void>} A promise that resolves when the content has been saved
+     */
+    setContent(content: string): Promise<any>;
+    /**
+     * Stops monitoring this document for changes
+     *
+     * @method unwatch
+     */
+    unwatch(): void;
+}
+/**
+ * Provides access to song's set of documents
+ *
+ * Access this object via the {@linkcode Cantabile#documents} property.
+ *
+ * @class Documents
+ * @extends EndPoint
+ */
+export class Documents extends EndPoint {
+    /**
+     * Gets the available documents on this song
+     * @type {string[]}
+     */
+    get documentList(): string[];
+    /**
+     * Gets the content of a document
+     * @param {string} name The document to query
+     * @returns {Promise<string>} A promise that resolves with the document content
+     */
+    getDocumentContent(name: string): Promise<string>;
+    /**
+     * Sets the content of a document.
+     * Pass `null` to delete the document
+     * @param {string} name The document to update
+     * @param {string} content The new document content
+     * @returns {Promise<void>} A promise that resolved when the document has been updated
+     */
+    setDocumentContent(name: string, content: string): Promise<void>;
+    /**
+     * Starts watching a document for changes
+     *
+     * @example
+     *
+     * // Watch a document using a callback function
+     * C.documents.watch("MainDocument", function(content) {
+     *     console.log(content);
+     * })
+     *
+     * @example
+     *
+     * // Using the DocumentWatcher class and events:
+     * let watcher = C.documents.watch("MainDocument");
+     * watcher.on('changed', function(content) {
+     *     console.log(content);
+     * });
+     *
+     * /// later, stop listening
+     * watcher.unwatch();
+     *
+     * @method watch
+     * @param {String} name The name of the document to watch
+     * @param {DocumentWatcherCallback} [callback] Optional callback function to be called when the content display string changes.
+     * @returns {DocumentWatcher}
+     */
+    watch(name: string, callback?: DocumentWatcherCallback): DocumentWatcher;
 }
 /**
  * Provides access to Cantabile's UI commands
@@ -1227,6 +1321,13 @@ export class Cantabile extends EventEmitter<any> {
      * @type {Bindings}
      */
     get bindings(): Bindings;
+    /**
+     * Gets the {@linkcode Documents} object
+     *
+     * @property documents
+     * @type {Documents}
+     */
+    get documents(): Documents;
 }
 /**
  * Represents an watched binding point for changes/invocations
