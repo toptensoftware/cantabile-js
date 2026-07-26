@@ -42,12 +42,6 @@ import { EndPoint } from './EndPoint.js';
  */
 
 
-/**
- * Fired when the markdown notes have changed
- *
- * @event ShowNotes#markdownChanged
- */
-
 
 /** Used to access the current set of show notes
  * 
@@ -58,7 +52,6 @@ import { EndPoint } from './EndPoint.js';
  * @fires ShowNotes#itemMoved
  * @fires ShowNotes#itemChanged
  * @fires ShowNotes#reload
- * @fires ShowNotes#markdownChanged
  *
  */
 export class ShowNotes extends EndPoint
@@ -73,14 +66,12 @@ export class ShowNotes extends EndPoint
 	{
 		this.emit('reload');
 		this.emit('changed');
-		this.emit('markdownChanged');
 	}
 
 	_onDisconnected()
 	{
 		this.emit('reload');
 		this.emit('changed');
-		this.emit('markdownChanged');
 	}
 
 	/**
@@ -98,22 +89,6 @@ export class ShowNotes extends EndPoint
 	 * @type {ShowNote[]}
 	 */
 	get items() { return this.data ? this.data.items : null; }
-
-	/**
-	 * The markdown show notes
-	 */
-	get markdown() { return this.data?.markdown}
-
-	/**
-	 * Stores the markdown notes		 for the current song
-	 * 
-	 * @param {string} markdown The markdown to store
-	 * @returns {Promise<void>} A promise that resolves when the markdown has been stored with the song
-	 */
-	storeMarkdown(markdown)
-	{
-		return this.post("/markdown", { markdown });
-	}
 
 	_onEvent_itemAdded(data)
 	{
@@ -152,16 +127,8 @@ export class ShowNotes extends EndPoint
 	_onEvent_itemsReload(data)
 	{
 		this.data.items = data.items;
-		this.data.markdown = data.markdown;
 		this.emit('reload');
 		this.emit('changed');
-		this.emit('markdownChanged');
 
-	}
-	_onEvent_markdownChanged(data)
-	{
-		this.data.markdown = data.markdown;
-		this.emit('changed');
-		this.emit('markdownChanged');
 	}
 }
