@@ -8,6 +8,7 @@
   "main": "./src/Cantabile.js",
   "type": "module",
   "types": "types.d.ts",
+  "repository": "github:toptensoftware/cantabile-js",
   "scripts": {
     "build": "rollup -c",
     "types": "(tsc --project tsconfig.emit.json) && (dts flatten @toptensoftware/cantabile-js ./src/types.d.ts ./types/*.d.ts --out:types.d.ts) && (dts extract types.d.ts --out:types.d.json)",
