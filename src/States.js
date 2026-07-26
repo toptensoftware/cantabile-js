@@ -1,10 +1,64 @@
 import { EndPoint } from './EndPoint.js';
 
 /**
+ * Fired after a new state has been added
+ *
+ * @event States#itemAdded
+ * @property {Number} index The zero based index of the newly added item 
+ */
+
+/**
+ * Fired when anything about the contents of state list changes
+ *
+ * @event States#changed
+ */
+
+/**
+ * Fired after a state has been removed
+ *
+ * @event States#itemRemoved
+ * @property {Number} index The zero based index of the removed item 
+ */
+/**
+ * Fired when an item has been moved
+ *
+ * @event States#itemMoved
+ * @property {Number} from The zero based index of the item before being moved
+ * @property {Number} to The zero based index of the item's new position
+ */
+/**
+ * Fired when something about an state has changed
+ *
+ * @event States#itemChanged
+ * @property {Number} index The zero based index of the item that changed
+ */
+/**
+ * Fired when the entire set of states has changed (eg: after a sort operation, or loading a new song/rack)
+ * 
+ * @event States#reload
+ */
+/**
+ * Fired when the current state changes
+ * 
+ * @event States#currentStateChanged
+ */
+/**
+ * Fired when the name of the containing song or rack changes
+ * 
+ * @event States#nameChanged
+ */
+
+/**
  * Base states functionality for State and racks
  * 
- * @class States
- * @extends EndPoint
+*  @fires States#itemAdded
+ * @fires States#changed
+ * @fires States#itemRemoved
+ * @fires States#itemMoved
+ * @fires States#itemChanged
+ * @fires States#reload
+ * @fires States#currentStateChanged
+ * @fires States#nameChanged
  */
 export class States extends EndPoint
 {
@@ -162,35 +216,15 @@ export class States extends EndPoint
 		this.data.items.splice(data.index, 0, data.item);
 		this.emit('itemAdded', data.index);
 		this.emit('changed');
-
-		/**
-		 * Fired after a new state has been added
-		 *
-		 * @event itemAdded
-		 * @param {Number} index The zero based index of the newly added item 
-		 */
-
-		/**
-		 * Fired when anything about the contents of state list changes
-		 *
-		 * @event changed
-		 */
-
 	}
+
 	_onEvent_itemRemoved(data)
 	{
 		this.data.items.splice(data.index, 1);		
 		this.emit('itemRemoved', data.index);
 		this.emit('changed');
-
-		/**
-		 * Fired after a state has been removed
-		 *
-		 * @event itemRemoved
-		 * @param {Number} index The zero based index of the removed item 
-		 */
-
 	}
+
 	_onEvent_itemMoved(data)
 	{
 		var item = this.data.items[data.from];
@@ -198,14 +232,6 @@ export class States extends EndPoint
 		this.data.items.splice(data.to, 0, item);
 		this.emit('itemMoved', data.from, data.to);
 		this.emit('changed');
-
-		/**
-		 * Fired when an item has been moved
-		 *
-		 * @event itemMoved
-		 * @param {Number} from The zero based index of the item before being moved
-		 * @param {Number} to The zero based index of the item's new position
-		 */
 	}
 
 	_onEvent_itemChanged(data)
@@ -217,15 +243,8 @@ export class States extends EndPoint
 
 		this.emit('itemChanged', data.index);
 		this.emit('changed');
-
-		/**
-		 * Fired when something about an state has changed
-		 *
-		 * @event itemChanged
-		 * @param {Number} index The zero based index of the item that changed
-		 */
-
 	}
+
 	_onEvent_itemsReload(data)
 	{
 		this.data.items = data.items;
@@ -233,12 +252,6 @@ export class States extends EndPoint
 		this.#resolveCurrentState();
 		this.emit('reload');
 		this.emit('changed');
-
-		/**
-		 * Fired when the entire set of states has changed (eg: after a sort operation, or loading a new song/rack)
-		 * 
-		 * @event reload
-		 */
 	}
 
 	_onEvent_currentStateChanged(data)
@@ -246,12 +259,6 @@ export class States extends EndPoint
 		this.data.current = data.current;
 		this.#resolveCurrentState();
 		this.emit('currentStateChanged');
-
-		/**
-		 * Fired when the current state changes
-		 * 
-		 * @event currentStateChanged
-		 */
 	}
 
 	_onEvent_nameChanged(data)
@@ -260,11 +267,5 @@ export class States extends EndPoint
 			this.data.name = data ? data.name : null;
 		this.emit('nameChanged');
 		this.emit('changed');
-
-		/**
-		 * Fired when the name of the containing song or rack changes
-		 * 
-		 * @event nameChanged
-		 */
 	}
 }

@@ -3,8 +3,6 @@ import EventEmitter from 'events';
 /**
  * Common functionality for all end point handlers
  *
- * @class EndPoint
- * @extends EventEmitter
  */
 export class EndPoint extends EventEmitter
 {

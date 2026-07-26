@@ -1,12 +1,35 @@
 import { EndPoint } from './EndPoint.js';
 
 /**
+ * Fired when the current transport state has changed
+ *
+ * @event Transport#stateChanged
+ */
+/**
+ * Fired when the current time signature has changed
+ *
+ * @event Transport#timeSignatureChanged
+ */
+/**
+ * Fired when the current tempo has changed
+ *
+ * @event Transport#tempoChanged
+ */
+/**
+ * Fired when the current loop mode, loop iteration or loop count has changed
+ *
+ * @event Transport#loopStateChanged
+ */
+
+/**
  * Interface to the master transport
  * 
  * Access this object via the {@linkcode Cantabile#transport} property.
  *
- * @class Transport
- * @extends EndPoint
+ * @fires Transport#stateChanged
+ * @fires Transport#timeSignatureChanged
+ * @fires Transport#tempoChanged
+ * @fires Transport#loopStateChanged
  */
 export class Transport extends EndPoint
 {
@@ -109,24 +132,12 @@ export class Transport extends EndPoint
 
     _onEvent_stateChanged(data)
 	{
-		/**
-		 * Fired when the current transport state has changed
-		 *
-		 * @event stateChanged
-		 */
-
         this.data.state = data.state;
 		this.emit('stateChanged');
     }
 
     _onEvent_timeSigChanged(data)
     {
-		/**
-		 * Fired when the current time signature has changed
-		 *
-		 * @event timeSignatureChanged
-		 */
-
         this.data.timeSigNum = data.timeSigNum;
         this.data.timeSigDen = data.timeSigDen;
         this.emit('timeSignatureChanged');
@@ -134,24 +145,12 @@ export class Transport extends EndPoint
     
     _onEvent_tempoChanged(data)
     {
-        /**
-		 * Fired when the current tempo has changed
-		 *
-		 * @event tempoChanged
-		 */
-
         this.data.tempo  = data.tempo;
         this.emit('tempoChanged');
     }
     
     _onEvent_loopStateChanged(data)
 	{
-		/**
-		 * Fired when the current loop mode, loop iteration or loop count has changed
-		 *
-		 * @event loopStateChanged
-		 */
-
         Object.assign(this.data, data);
 		this.emit('loopStateChanged');
     }

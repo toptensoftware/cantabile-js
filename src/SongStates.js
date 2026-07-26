@@ -5,8 +5,6 @@ import { States } from './States.js';
  * 
  * Access this object via the {@linkcode Cantabile#songStates} property.
  *
- * @class SongStates
- * @extends States
  */
 export class SongStates extends States
 {

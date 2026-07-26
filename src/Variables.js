@@ -2,12 +2,19 @@ import { EndPoint } from './EndPoint.js';
 import EventEmitter from 'events';
 
 /**
+ * Fired when the resolved display string has changed
+ *
+ * @event PatternWatcher#changed
+ * @property {String} resolved The new resolved display string
+ * @property {PatternWatcher} source This object
+ */
+
+/**
  * Represents a monitored pattern string.
 
  * Returned from the {@linkcode Variables#watch} method.
  *
- * @class PatternWatcher
- * @extends EventEmitter
+ * @fires PatternWatcher#changed
  */
 export class PatternWatcher extends EventEmitter
 {
@@ -94,13 +101,6 @@ export class PatternWatcher extends EventEmitter
 		if (this.#callback)
 			this.#callback(this.resolved, this);
 
-		/**
-		 * Fired when the resolved display string has changed
-		 *
-		 * @event changed
-		 * @param {String} resolved The new resolved display string
-		 * @param {PatternWatcher} source This object
-		 */
 		this.emit('changed', this.resolved, this);
 	}
 }
@@ -113,8 +113,6 @@ export class PatternWatcher extends EventEmitter
  * 
  * Access this object via the {@linkcode Cantabile#variables} property.
  *
- * @class Variables
- * @extends EndPoint
  */
 export class Variables extends EndPoint
 {
